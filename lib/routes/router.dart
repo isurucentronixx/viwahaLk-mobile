@@ -1,15 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:viwaha_lk/screens/home_view.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
-    AutoRoute(page: HomePage, initial: true),
-  ],
-)
-class $AppRouter {}
-
-class MaterialAutoRouter {
-  const MaterialAutoRouter(
-      {required String replaceInRouteName, required List<AutoRoute> routes});
+@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
+class AppRouter extends $AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(page: HomePage.page, path: '/homePage'),
+        AutoRoute(page: AboutUsPage.page, path: '/aboutPage', initial: true),
+      ];
 }
