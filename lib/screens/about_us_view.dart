@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({super.key});
+  const AboutUsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About Us'),
+        title: const Text('About Us'),
       ),
       body: const Center(
-        child: Text('About Us Page'),
+        child: Text('This is the About Us page'),
       ),
     );
   }

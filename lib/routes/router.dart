@@ -5,7 +5,10 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: HomePage.page, path: '/homePage'),
-        AutoRoute(page: AboutUsPage.page, path: '/aboutPage', initial: true),
+        AutoRoute(page: HomePage.page, path: '/homePage', initial: true),
+        AutoRoute(
+          page: AboutUsPage.page,
+          path: '/aboutPage',
+        ),
       ];
 }
