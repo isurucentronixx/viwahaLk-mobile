@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:viwaha_lk/providers/routerProvider.dart';
+import 'package:sizer/sizer.dart';
+import 'package:viwaha_lk/gen/assets.gen.dart';
+import 'package:viwaha_lk/models/build_card.dart';
+import 'package:viwaha_lk/models/menu_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/theme.dart';
 
@@ -22,57 +25,24 @@ class HomePage extends StatelessWidget {
     final Ref ref;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My App'),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const UserAccountsDrawerHeader(
-              accountName: Text('John Doe'),
-              accountEmail: Text('john.doe@example.com'),
-              currentAccountPicture: CircleAvatar(
-                child: Icon(Icons.person),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 100,
+                  child: Assets.lib.assets.images.logo.image(),
+                ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('About Us'),
-              onTap: () async {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                // get the scoped router by calling
-                AutoRouter.of(context).push(const AboutUsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                // Navigator.pop(context,);
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Logout'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
+        title: const Text("Home"),
       ),
-      body: const Center(
-        child: Text('Welcome to the Home Page'),
-      ),
+      drawer: const DrawerMenu(),
+      body: const BuildCard(),
     );
   }
 }
