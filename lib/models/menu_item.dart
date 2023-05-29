@@ -13,46 +13,80 @@ class _DrawerMenuState extends State<DrawerMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
-          const Center(
-            child: UserAccountsDrawerHeader(
-              accountName: Text('John Doe'),
-              accountEmail: Text('john.doe@example.com'),
-              currentAccountPicture: CircleAvatar(
-                child: Icon(Icons.person),
-              ),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                Center(
+                  child: UserAccountsDrawerHeader(
+                    accountName: const Text('John Doe'),
+                    accountEmail: const Text('johndoe@example.com'),
+                    currentAccountPicture: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const CircleAvatar(
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () async {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('About Us'),
+                  onTap: () async {
+                    AutoRouter.of(context).push(const AboutUsPage());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.contact_phone),
+                  title: const Text('Contact Us'),
+                  onTap: () {},
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.login),
+                  title: const Text('Login'),
+                  onTap: () {
+                    AutoRouter.of(context).push(const Login());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Logout'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('About Us'),
-            onTap: () async {
-              AutoRouter.of(context).push(const AboutUsPage());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Login'),
+            title: const Center(
+              child: Text(
+                'Version 1.0.0 powered by Viwaha.lk',
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
             onTap: () {
-              AutoRouter.of(context).push(const Login());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Logout'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              // Handle 'Powered by Thushan' action
             },
           ),
         ],

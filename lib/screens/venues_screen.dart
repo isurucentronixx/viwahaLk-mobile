@@ -1,16 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sizer/sizer.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/home/home_content.dart';
-import 'package:viwaha_lk/models/menu_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/theme.dart';
+import '../models/menu_item.dart';
+import '../models/venues/venues_list.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class VenuesScreen extends StatelessWidget {
+  const VenuesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +27,10 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ],
-        title: const Text("Home"),
+        title: const Text("Venues"),
       ),
       drawer: const DrawerMenu(),
-      body: const HomeContent(),
+      body: const VenusesViewList(),
     );
   }
 }

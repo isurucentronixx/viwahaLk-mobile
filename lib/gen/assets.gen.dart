@@ -70,6 +70,10 @@ class $LibAssetsImagesGen {
   AssetGenImage get weddingVenues =>
       const AssetGenImage('lib/assets/images/WeddingVenues.png');
 
+  /// File path: lib/assets/images/bg-card.jpg
+  AssetGenImage get bgCard =>
+      const AssetGenImage('lib/assets/images/bg-card.jpg');
+
   /// File path: lib/assets/images/color-logo.png
   AssetGenImage get colorLogo =>
       const AssetGenImage('lib/assets/images/color-logo.png');
@@ -85,6 +89,22 @@ class $LibAssetsImagesGen {
   /// File path: lib/assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('lib/assets/images/logo.png');
 
+  /// File path: lib/assets/images/slider1.jpeg
+  AssetGenImage get slider1 =>
+      const AssetGenImage('lib/assets/images/slider1.jpeg');
+
+  /// File path: lib/assets/images/slider2.jpeg
+  AssetGenImage get slider2 =>
+      const AssetGenImage('lib/assets/images/slider2.jpeg');
+
+  /// File path: lib/assets/images/slider3.jpeg
+  AssetGenImage get slider3 =>
+      const AssetGenImage('lib/assets/images/slider3.jpeg');
+
+  /// File path: lib/assets/images/slider4.jpeg
+  AssetGenImage get slider4 =>
+      const AssetGenImage('lib/assets/images/slider4.jpeg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         decorations,
@@ -99,10 +119,15 @@ class $LibAssetsImagesGen {
         photography,
         weddingCars,
         weddingVenues,
+        bgCard,
         colorLogo,
         facebook,
         googleLogo,
-        logo
+        logo,
+        slider1,
+        slider2,
+        slider3,
+        slider4
       ];
 }
 
