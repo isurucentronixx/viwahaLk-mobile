@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/models/releted_items/releted.dart';
@@ -443,6 +444,25 @@ class _SingleItemMapState extends State<SingleItemMap> {
             ),
           ),
           const SizedBox(height: 8),
+          Container(
+            height: 500,
+            width: 500,
+            child: GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(37.7749,
+                    -122.4194), // Set the initial map center coordinates
+                zoom: 13.0, // Set the initial zoom level
+              ),
+              markers: {
+                const Marker(
+                  markerId: MarkerId('marker_1'),
+                  position:
+                      LatLng(37.7749, -122.4194), // Set the marker coordinates
+                ),
+                // Add more Marker widgets as needed
+              },
+            ),
+          ),
         ],
       ),
     );
