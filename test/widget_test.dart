@@ -5,12 +5,6 @@ import 'package:viwaha_lk/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-<<<<<<< HEAD
-=======
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(App());
-
->>>>>>> parent of ca49b58 (Revert "Revert "new"")
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);

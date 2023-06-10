@@ -14,12 +14,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
-    // return MaterialApp.router(
-    //   routerConfig: _appRouter.config(),
-    // );
->>>>>>> parent of ca49b58 (Revert "Revert "new"")
     return MaterialApp.router(
       title: 'My App',
       theme: MyTheme.lightTheme,
