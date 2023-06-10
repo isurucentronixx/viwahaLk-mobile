@@ -23,6 +23,7 @@ dependencies:
   flutter_social_button: ^1.1.4+1
   url_launcher: ^6.1.11
   flutter_map: ^4.0.0
+  google_maps_flutter: ^2.2.8
 
  
 
