@@ -47,5 +47,21 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <string>fb789086282822664</string>
+  </array>
+  </dict>
+</array>
+<key>FacebookAppID</key>
+<string>789086282822664</string>
+<key>FacebookClientToken</key>
+<string>fd0adb000b32d6d5f9ffb17eb2249863</string>
+<key>FacebookDisplayName</key>
+<string>Viwaha</string>
 </dict>
 </plist>

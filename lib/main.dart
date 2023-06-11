@@ -1,10 +1,21 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/theme.dart';
 
-void main() {
+Future<void> main() async {
+  if (kIsWeb || defaultTargetPlatform == TargetPlatform.macOS) {
+    // initialiaze the facebook javascript SDK
+    await FacebookAuth.instance.webAndDesktopInitialize(
+      appId: "789086282822664",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
+    );
+  }
   runApp(App());
 }
 
