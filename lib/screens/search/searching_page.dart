@@ -49,8 +49,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
       
   }
 
-  bool _premiumVendors = false;
-  bool _topListing = false;
+  final bool _premiumVendors = false;
+  final bool _topListing = false;
   @override
   Widget build(BuildContext context) {
     final data = ref.watch(categoriesProvider);

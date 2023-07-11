@@ -40,7 +40,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
 
     if (widget.premiumVendors == true) {
       premiumVendorsList = ref.read(vendorsProvider);
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -54,14 +54,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
     } else {
       premiumVendorsList = [];
     }
 
     if (widget.topListing == true) {
       topListingList = ref.read(topListingProvider);
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -75,7 +75,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     } else {
       topListingList = [];
     }
@@ -87,7 +87,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
           .where(
               (e) => e.main_category == ref.watch(selectedMainCategoryProvider))
           .toList();
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -101,14 +101,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
 
       topListingList = ref
           .read(topListingProvider)
           .where(
               (e) => e.main_category == ref.watch(selectedMainCategoryProvider))
           .toList();
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -122,7 +122,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     }
 
     if (ref.watch(selectedSubCategoryProvider).id != null) {
@@ -131,7 +131,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
           .where((e) =>
               e.category == ref.watch(selectedSubCategoryProvider).sub_category)
           .toList();
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -145,14 +145,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
 
       topListingList = ref
           .read(topListingProvider)
           .where((e) =>
               e.category == ref.watch(selectedSubCategoryProvider).sub_category)
           .toList();
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -166,7 +166,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     }
 
     /////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
           .where(
               (e) => e.main_location == ref.watch(selectedMainLocationProvider))
           .toList();
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -191,14 +191,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
 
       topListingList = ref
           .read(topListingProvider)
           .where(
               (e) => e.main_location == ref.watch(selectedMainLocationProvider))
           .toList();
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -212,7 +212,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     }
 
     if (ref.watch(selectedSubLocationProvider).id != null) {
@@ -222,7 +222,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
               e.location ==
               ref.watch(selectedSubLocationProvider).sub_location_en)
           .toList();
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -236,7 +236,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
 
       topListingList = ref
           .read(topListingProvider)
@@ -244,7 +244,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
               e.location ==
               ref.watch(selectedSubLocationProvider).sub_location_en)
           .toList();
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -258,12 +258,12 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     }
     /////////////////////////////////////////////////////////////
 
     //Remove same object in cardList
-    cardList.forEach((e) {
+    for (var e in cardList) {
       CardModel cardModel = CardModel(
           imagePath: e.imagePath,
           title: e.title,
@@ -273,7 +273,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
           mainLocation: e.mainLocation,
           date: e.date);
       cardListUpdated.add(cardModel);
-    });
+    }
 
     List<CardModel> finalCardList = [...cardListUpdated.toSet()].toList();
     List<CardModel> filteredCardList = [];
@@ -285,7 +285,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
       super.initState();
     }
 
-    final TextEditingController _searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
     void _runFilter(String enteredKeyword) {
       List<CardModel> results = [];
       if (enteredKeyword.isEmpty) {

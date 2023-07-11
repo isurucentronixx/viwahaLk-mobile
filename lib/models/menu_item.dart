@@ -56,6 +56,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   title: const Text('Contact Us'),
                   onTap: () {},
                 ),
+                ListTile(
+                  leading: const Icon(Icons.dashboard),
+                  title: const Text('Couple Dashboard'),
+                  onTap: () async {
+                    AutoRouter.of(context).push(const CoupleDashboardRoute());
+                  },
+                ),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.login),

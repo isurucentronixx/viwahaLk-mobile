@@ -1,11 +1,7 @@
-import 'dart:math';
 
-import 'package:dio/dio.dart';
 import 'package:viwaha_lk/core/network/constant/endpoints.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 
 class HomeService {
   final DioClient _dioClient;

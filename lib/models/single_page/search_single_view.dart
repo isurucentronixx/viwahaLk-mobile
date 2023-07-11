@@ -2,12 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/latest_items/latest.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/single_page/single_page_content/single_page_content.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import '../menu_item.dart';
-import '../releted_items/releted.dart';
 
 @RoutePage()
 class SearchSingleView extends StatefulWidget {

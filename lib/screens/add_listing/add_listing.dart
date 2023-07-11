@@ -107,7 +107,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
       super.initState();
     }
 
-    final TextEditingController _searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
@@ -2296,7 +2296,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     ],
                   ),
                 ]),
-            SizedBox(
+            const SizedBox(
               height: 50,
             )
           ],

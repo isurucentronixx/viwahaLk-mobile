@@ -105,6 +105,18 @@ class $LibAssetsImagesGen {
   AssetGenImage get slider4 =>
       const AssetGenImage('lib/assets/images/slider4.jpeg');
 
+  /// File path: lib/assets/images/8-bride.jpg
+  AssetGenImage get brideDp =>
+      const AssetGenImage('lib/assets/images/8-bride.webp');
+
+  /// File path: lib/assets/images/8-groom.jpg
+  AssetGenImage get groomDp =>
+      const AssetGenImage('lib/assets/images/8-groom.jfif');
+
+  /// File path: lib/assets/images/8-bride.jpg
+  AssetGenImage get cover =>
+      const AssetGenImage('lib/assets/images/8-cover.jpg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         decorations,
@@ -127,7 +139,10 @@ class $LibAssetsImagesGen {
         slider1,
         slider2,
         slider3,
-        slider4
+        slider4,
+        brideDp,
+        groomDp,
+        cover
       ];
 }
 

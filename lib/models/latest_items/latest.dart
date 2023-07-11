@@ -11,7 +11,6 @@ import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:intl/intl.dart';
 
 import '../../appColor.dart';
-import '../../gen/assets.gen.dart';
 import '../../routes/router.gr.dart';
 import '../favorite.dart';
 
@@ -28,7 +27,7 @@ class SingleItemLatest extends ConsumerWidget {
     // final data = ref.watch(topListingProvider);
     if (type == "vendor") {
       premiumVendorsList = ref.read(vendorsProvider);
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -41,10 +40,10 @@ class SingleItemLatest extends ConsumerWidget {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
     } else if (type == "topListing") {
       topListingList = ref.read(topListingProvider);
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -57,10 +56,10 @@ class SingleItemLatest extends ConsumerWidget {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     } else {
       premiumVendorsList = ref.read(vendorsProvider);
-      premiumVendorsList.forEach((e) {
+      for (var e in premiumVendorsList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -73,9 +72,9 @@ class SingleItemLatest extends ConsumerWidget {
             date: e.datetime,
             type: 'vendor');
         cardList.add(cardModel);
-      });
+      }
       topListingList = ref.read(topListingProvider);
-      topListingList.forEach((e) {
+      for (var e in topListingList) {
         CardModel cardModel = CardModel(
             imagePath: ref
                 .read(homeControllerProvider)
@@ -88,7 +87,7 @@ class SingleItemLatest extends ConsumerWidget {
             date: e.datetime,
             type: 'topListing');
         cardList.add(cardModel);
-      });
+      }
     }
 
     //Remove same object in cardList
@@ -210,7 +209,7 @@ class CardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200,
                 height: 500,
                 child: Stack(
@@ -262,7 +261,7 @@ class CardItem extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
                             child: Text(
-                              '${Jiffy.parse(date).format(pattern: 'do MMMM  yyyy')}',
+                              Jiffy.parse(date).format(pattern: 'do MMMM  yyyy'),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),

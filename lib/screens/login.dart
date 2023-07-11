@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 @RoutePage()
 class Login extends StatefulWidget {

@@ -18,7 +18,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String date;
   final String type;
 
-  const SearchingCardItem({
+  const SearchingCardItem({super.key, 
     required this.imagePath,
     required this.title,
     required this.description,
@@ -108,7 +108,7 @@ class SearchingCardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200,
                 height: 500,
                 child: Stack(
@@ -160,7 +160,7 @@ class SearchingCardItem extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
                             child: Text(
-                              '${Jiffy.parse(date).format(pattern: 'do MMMM  yyyy')}',
+                              Jiffy.parse(date).format(pattern: 'do MMMM  yyyy'),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),

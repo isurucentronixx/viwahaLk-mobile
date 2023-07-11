@@ -137,7 +137,7 @@ class _SingleItemOverviewState extends State<SingleItemOverview> {
               const Icon(
                 Icons.remove_red_eye,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Text(
                 'Views: ${widget.views}',
                 style: const TextStyle(
@@ -348,7 +348,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
     final url = 'https://maps.googleapis.com/maps/api/staticmap?'
         'size=600x400'
         '&zoom=17'
-        '&maptype=roadmap\&'
+        '&maptype=roadmap&'
         'markers=size:mid|color:red|$encodedAddress'
         '&key=$apiKey';
 
