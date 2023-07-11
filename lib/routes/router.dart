@@ -17,6 +17,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: VenuesRoute.page, path: "/venuesPage"),
         AutoRoute(page: DressingRoute.page, path: "/dressingPage"),
         AutoRoute(page: VenusesSingleView.page, path: "/singleVenuesPage"),
-        AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
+        AutoRoute(page: SingleView.page, path: "/singlePage"),
+        AutoRoute(page: SearchSingleView.page, path: "/searchSinglePage"),
+        AutoRoute(page: SearchingPage.page, path: "/searchingPage"),
+        AutoRoute(page: SearchingResultsPage.page, path: "/searchingResultsPage"),
+        // AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
       ];
 }

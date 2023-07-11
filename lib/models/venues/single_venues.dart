@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/venues/single_page_content/single_page_content.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
-
 import '../menu_item.dart';
 import '../releted_items/releted.dart';
 
@@ -28,11 +26,11 @@ class _VenusesSingleViewState extends State<VenusesSingleView> {
     filteredItems.addAll(items);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
@@ -53,7 +51,7 @@ class _VenusesSingleViewState extends State<VenusesSingleView> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   width: 100,
                   child: Assets.lib.assets.images.logo.image(),
                 ),

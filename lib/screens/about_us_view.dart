@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../gen/assets.gen.dart';
 
@@ -18,7 +17,7 @@ class AboutUsPage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   width: 100,
                   child: Assets.lib.assets.images.logo.image(),
                 ),

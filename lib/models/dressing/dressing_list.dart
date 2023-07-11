@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -24,11 +26,11 @@ class _DressingViewListState extends State<DressingViewList> {
     filteredItems.addAll(items);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
@@ -42,7 +44,7 @@ class _DressingViewListState extends State<DressingViewList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0), 
       child: Column(
         children: [
           Container(

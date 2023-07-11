@@ -1,18 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/gen/assets.gen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/models/build_card/card_view.dart';
-import 'package:viwaha_lk/models/permium_vender/premium_vendors.dart';
+import 'package:viwaha_lk/models/premium_vender/premium_vendors.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing.dart';
 
-class HomeContent extends StatefulWidget {
+import 'package:viwaha_lk/routes/router.gr.dart';
+
+class HomeContent extends ConsumerStatefulWidget {
   const HomeContent({super.key});
 
   @override
-  State<HomeContent> createState() => _HomeContentState();
+  _HomeContentState createState() => _HomeContentState();
 }
 
-class _HomeContentState extends State<HomeContent> {
+class _HomeContentState extends ConsumerState<HomeContent> {
   List<String> items = ['Car', 'Photography'];
   List<String> filteredItems = [];
 
@@ -25,11 +27,11 @@ class _HomeContentState extends State<HomeContent> {
     filteredItems.addAll(items);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
@@ -49,30 +51,35 @@ class _HomeContentState extends State<HomeContent> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: _searchController,
-                        decoration: const InputDecoration(
-                          labelText: 'Search',
-                          prefixIcon: Icon(Icons.search),
-                          border: InputBorder.none,
-                        ),
+                GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const SearchingPage());
+                  },
+                  child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(color: Colors.grey),
                       ),
-                    ],
-                  ),
+                      child: const Row(
+                        children: [
+                          SizedBox(width: 10),
+                          Icon(Icons.search, color: Colors.grey),
+                          SizedBox(width: 5),
+                          Text(
+                            'Search',
+                            style: TextStyle(fontSize: 20, color: Colors.grey),
+                          ),
+                        ],
+                      )),
                 ),
               ],
             ),
           ),
           const CardView(),
-          PremiumVendors(),
-          TopListing(),
+          const PremiumVendors(),
+          const TopListing(),
+          
           const SizedBox(height: 20),
         ],
       ),

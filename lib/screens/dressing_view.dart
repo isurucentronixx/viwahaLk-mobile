@@ -2,9 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/dressing/dressing_list.dart';
-import 'package:viwaha_lk/routes/router.gr.dart';
 import '../models/menu_item.dart';
-import '../models/venues/venues_list.dart';
 
 @RoutePage()
 class DressingScreen extends StatelessWidget {

@@ -1,14 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/models/releted_items/releted.dart';
 import '../../../gen/assets.gen.dart';
-import '../../../routes/router.gr.dart';
-import '../../favorite.dart';
 
 class SliderView extends StatefulWidget {
   const SliderView({super.key});

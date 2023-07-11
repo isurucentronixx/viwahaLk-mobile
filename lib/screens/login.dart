@@ -1,13 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api, unused_field, avoid_print
+
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sizer/sizer.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:http/http.dart' as http;
-import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:http/http.dart';
 
 @RoutePage()
 class Login extends StatefulWidget {

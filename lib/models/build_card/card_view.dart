@@ -152,7 +152,7 @@ class CardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 80,
+                width: 60,
                 child: imagePath,
               ),
               const SizedBox(height: 10.0),

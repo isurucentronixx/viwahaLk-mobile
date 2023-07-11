@@ -1,5 +1,8 @@
+// ignore_for_file: use_key_in_widget_constructors, unnecessary_string_interpolations
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -26,11 +29,11 @@ class _VenusesViewListState extends State<VenusesViewList> {
     filteredItems.addAll(items);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
@@ -79,7 +82,7 @@ class _VenusesViewListState extends State<VenusesViewList> {
                   title: 'Card $index',
                   description: 'Description for Card $index',
                   starRating:
-                      4.5, // Replace with the appropriate star rating value
+                      4.5, location: '', date: '', // Replace with the appropriate star rating value
                 ),
               ),
             ),
@@ -95,12 +98,16 @@ class CardItem extends StatelessWidget {
   final String title;
   final String description;
   final double starRating;
+  final String location;
+  final String date;
 
   const CardItem({
     required this.imagePath,
     required this.title,
     required this.description,
-    required this.starRating,
+    required this.starRating, 
+    required this.location,
+    required this.date,
   });
 
   @override
@@ -144,12 +151,12 @@ class CardItem extends StatelessWidget {
                             color: Colors.white.withOpacity(0.4),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
                             child: Text(
-                              "09th May 2023",
-                              style: TextStyle(
+                              '${Jiffy.parse(date).format(pattern: 'do MMMM  yyyy')}',
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -174,19 +181,19 @@ class CardItem extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                   Padding(
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.location_pin,
                           color: ViwahaColor.primary,
                           size: 16,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          'Location Name',
-                          style: TextStyle(
+                          location,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
