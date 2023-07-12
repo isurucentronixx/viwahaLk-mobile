@@ -24,7 +24,7 @@ dependencies:
   url_launcher: ^6.1.11
   flutter_map: ^4.0.0
   http: ^0.13.6
-  flutter_facebook_auth: 
+   
   cached_network_image: ^3.2.3
   freezed_annotation: ^2.0.1
   json_annotation: ^4.8.1
@@ -35,6 +35,7 @@ dependencies:
   image_picker: ^1.0.0
   google_fonts: ^4.0.4
   awesome_select: ^6.0.0
+  flutter_facebook_auth: ^5.0.11
 
 
 dev_dependencies:

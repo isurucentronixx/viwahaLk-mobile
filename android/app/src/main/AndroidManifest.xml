@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.viwaha_lk">
+    package="com.viwahalk.app">
      <uses-permission android:name="android.permission.INTERNET" />
      
    <application

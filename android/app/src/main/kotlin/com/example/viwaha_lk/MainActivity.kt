@@ -1,4 +1,4 @@
-package com.example.viwaha_lk
+package com.viwahalk.app
 
 import io.flutter.embedding.android.FlutterActivity
 
