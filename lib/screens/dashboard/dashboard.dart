@@ -8,16 +8,6 @@ class CoupleInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.grey.withOpacity(0.5),
-      //       spreadRadius: 2,
-      //       blurRadius: 5,
-      //       offset: const Offset(0, 3),
-      //     ),
-      //   ],
-      // ),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -31,11 +21,6 @@ class CoupleInfoSection extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          // child: Assets.lib.assets.images.cover.image(
-                          //   height: 200,
-                          //   width: double.infinity,
-                          //   fit: BoxFit.cover,
-                          // ),
                           child: Container(
                             height: 210,
                             child: Stack(
@@ -375,6 +360,7 @@ class VendorTeamSection extends StatelessWidget {
                             ),
                             child: Container(
                               height: 100,
+                              padding: const EdgeInsets.only(top: 30.0),
                               color: const Color.fromRGBO(0, 0, 0, 0.5),
                               child: const Column(
                                 children: [
@@ -414,6 +400,8 @@ class VendorTeamSection extends StatelessWidget {
                               ),
                             ),
                             child: Container(
+                              height: 100,
+                              padding: const EdgeInsets.only(top: 30.0),
                               color: const Color.fromRGBO(0, 0, 0, 0.5),
                               child: const Column(
                                 children: [
@@ -460,6 +448,8 @@ class VendorTeamSection extends StatelessWidget {
                               ),
                             ),
                             child: Container(
+                              height: 100,
+                              padding: const EdgeInsets.only(top: 30.0),
                               color: const Color.fromRGBO(0, 0, 0, 0.5),
                               child: const Column(
                                 children: [
@@ -499,6 +489,8 @@ class VendorTeamSection extends StatelessWidget {
                               ),
                             ),
                             child: Container(
+                              height: 100,
+                              padding: const EdgeInsets.only(top: 30.0),
                               color: const Color.fromRGBO(0, 0, 0, 0.5),
                               child: const Column(
                                 children: [
@@ -545,6 +537,8 @@ class VendorTeamSection extends StatelessWidget {
                               ),
                             ),
                             child: Container(
+                              height: 100,
+                              padding: const EdgeInsets.only(top: 30.0),
                               color: const Color.fromRGBO(0, 0, 0, 0.5),
                               child: const Column(
                                 children: [
@@ -584,6 +578,8 @@ class VendorTeamSection extends StatelessWidget {
                                 ),
                               ),
                               child: Container(
+                                height: 100,
+                                padding: const EdgeInsets.only(top: 30.0),
                                 color: const Color.fromRGBO(0, 0, 0, 0.5),
                                 child: const Column(
                                   children: [
@@ -637,7 +633,7 @@ class GuestListSection extends StatelessWidget {
                   },
                   child: const Row(
                     children: [
-                      Text('View all tasks'),
+                      Text('View all guests'),
                       Icon(Icons.arrow_right),
                     ],
                   ),
@@ -743,6 +739,186 @@ class BudgetSection extends StatelessWidget {
                   // Handle manage expenses action
                 },
                 child: const Text('Manage expenses'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WeddingDetailSection extends StatelessWidget {
+  const WeddingDetailSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Wedding Details',
+                  style: TextStyle(
+                      fontSize: 18, color: Color.fromARGB(255, 50, 50, 50)),
+                ),
+                // TextButton(
+                //   onPressed: () {
+                //     // Handle View All Vendors button pressed
+                //   },
+                //   child: const Row(
+                //     children: [
+                //       Text('View all guests'),
+                //       Icon(Icons.arrow_right),
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
+            const Divider(),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: const Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(
+                                      Icons.nightlight_round,
+                                      size: 50,
+                                      color: Color.fromARGB(255, 126, 0, 107),
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Purple',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    '9,489 couples',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(
+                                      Icons.sunny,
+                                      size: 50,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Season',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    '...',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(
+                                      Icons.beach_access,
+                                      size: 50,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Style',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    '...',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: const Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(
+                                      Icons.accessibility,
+                                      size: 50,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Dress',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    '...',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Icon(
+                                      Icons.local_airport_sharp,
+                                      size: 50,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Honeymoon',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    '...',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

@@ -10,7 +10,7 @@ class CoupleDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter View'),
+        title: const Text('Couple Dashboard'),
       ),
       body: const SingleChildScrollView(
         child: Column(
@@ -23,6 +23,7 @@ class CoupleDashboard extends StatelessWidget {
             CheckListSection(),
             GuestListSection(),
             BudgetSection(),
+            WeddingDetailSection(),
           ],
         ),
       ),
