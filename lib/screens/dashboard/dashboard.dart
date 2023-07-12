@@ -41,6 +41,20 @@ class CoupleInfoSection extends StatelessWidget {
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        // Handle Edit button pressed
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                      label: const Text('Edit'),
+                                    ),
+                                  ],
+                                ),
                                 Image.asset(
                                   Assets.lib.assets.images.cover.path,
                                   fit: BoxFit.cover,
@@ -49,7 +63,7 @@ class CoupleInfoSection extends StatelessWidget {
                                   bottom: 0,
                                   left: 0,
                                   right: 0,
-                                  height: 30,
+                                  height: 40,
                                   child: Container(
                                     color: const Color(0xFF00AEAF),
                                     child: const Row(
@@ -115,86 +129,11 @@ class CoupleInfoSection extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                        // const SizedBox(height: 10),
-                        // Container(
-                        //   color: const Color(0xFF00AEAF),
-                        //   child: const Padding(
-                        //     padding: EdgeInsets.zero,
-                        //     child: ClipRRect(
-                        //       borderRadius: BorderRadius.only(
-                        //         bottomLeft: Radius.circular(5),
-                        //         bottomRight: Radius.circular(5),
-                        //       ),
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           Text(
-                        //             '00',
-                        //             style: TextStyle(
-                        //                 fontSize: 24, color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 5),
-                        //           Text(
-                        //             'Days',
-                        //             style: TextStyle(color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 20),
-                        //           Text(
-                        //             '00',
-                        //             style: TextStyle(
-                        //                 fontSize: 24, color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 5),
-                        //           Text(
-                        //             'Hours',
-                        //             style: TextStyle(color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 20),
-                        //           Text(
-                        //             '00',
-                        //             style: TextStyle(
-                        //                 fontSize: 24, color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 5),
-                        //           Text(
-                        //             'Minutes',
-                        //             style: TextStyle(color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 20),
-                        //           Text(
-                        //             '00',
-                        //             style: TextStyle(
-                        //                 fontSize: 24, color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //           SizedBox(width: 5),
-                        //           Text(
-                        //             'Seconds',
-                        //             style: TextStyle(color: Color(0xFFFFFFFF)),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
                 ],
               ),
-              // const SizedBox(height: 10),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     ElevatedButton.icon(
-              //       onPressed: () {
-              //         // Handle Edit button pressed
-              //       },
-              //       icon: const Icon(Icons.edit),
-              //       label: const Text('Edit'),
-              //     ),
-              //   ],
-              // ),
               const SizedBox(height: 10),
               Center(
                 child: Column(
@@ -374,7 +313,7 @@ class VendorTeamSection extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 50),
+            // const SizedBox(height: 50),
             Container(
               color: Colors.grey[200],
               padding: const EdgeInsets.all(10),
@@ -415,7 +354,7 @@ class VendorTeamSection extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 50),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -434,17 +373,21 @@ class VendorTeamSection extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.location_on,
-                                    size: 18, color: Color(0xFFFFFFFF)),
-                                Text(
-                                  'Wedding Venue',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xFFFFFFFF), fontSize: 12),
-                                ),
-                              ],
+                            child: Container(
+                              height: 100,
+                              color: const Color.fromRGBO(0, 0, 0, 0.5),
+                              child: const Column(
+                                children: [
+                                  Icon(Icons.location_on,
+                                      size: 18, color: Color(0xFFFFFFFF)),
+                                  Text(
+                                    'Wedding Venue',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF), fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -470,17 +413,20 @@ class VendorTeamSection extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.camera_alt,
-                                    size: 18, color: Color(0xFFFFFFFF)),
-                                Text(
-                                  'Photographer',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xFFFFFFFF), fontSize: 12),
-                                ),
-                              ],
+                            child: Container(
+                              color: const Color.fromRGBO(0, 0, 0, 0.5),
+                              child: const Column(
+                                children: [
+                                  Icon(Icons.camera_alt,
+                                      size: 18, color: Color(0xFFFFFFFF)),
+                                  Text(
+                                    'Photographer',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF), fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -513,17 +459,20 @@ class VendorTeamSection extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.local_florist,
-                                    size: 18, color: Color(0xFFFFFFFF)),
-                                Text(
-                                  'Florist',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xFFFFFFFF), fontSize: 12),
-                                ),
-                              ],
+                            child: Container(
+                              color: const Color.fromRGBO(0, 0, 0, 0.5),
+                              child: const Column(
+                                children: [
+                                  Icon(Icons.local_florist,
+                                      size: 18, color: Color(0xFFFFFFFF)),
+                                  Text(
+                                    'Florist',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF), fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -549,17 +498,20 @@ class VendorTeamSection extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.favorite,
-                                    size: 18, color: Color(0xFFFFFFFF)),
-                                Text(
-                                  'Wedding Ring',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xFFFFFFFF), fontSize: 12),
-                                ),
-                              ],
+                            child: Container(
+                              color: const Color.fromRGBO(0, 0, 0, 0.5),
+                              child: const Column(
+                                children: [
+                                  Icon(Icons.favorite,
+                                      size: 18, color: Color(0xFFFFFFFF)),
+                                  Text(
+                                    'Wedding Ring',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF), fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -592,17 +544,20 @@ class VendorTeamSection extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.card_giftcard,
-                                    size: 18, color: Color(0xFFFFFFFF)),
-                                Text(
-                                  'Gifts',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xFFFFFFFF), fontSize: 12),
-                                ),
-                              ],
+                            child: Container(
+                              color: const Color.fromRGBO(0, 0, 0, 0.5),
+                              child: const Column(
+                                children: [
+                                  Icon(Icons.card_giftcard,
+                                      size: 18, color: Color(0xFFFFFFFF)),
+                                  Text(
+                                    'Gifts',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xFFFFFFFF), fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -628,23 +583,166 @@ class VendorTeamSection extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              child: const Column(
-                                children: [
-                                  Icon(Icons.cake,
-                                      size: 18, color: Color(0xFFFFFFFF)),
-                                  Text(
-                                    'Wedding Cake',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Color(0xFFFFFFFF), fontSize: 12),
-                                  ),
-                                ],
+                              child: Container(
+                                color: const Color.fromRGBO(0, 0, 0, 0.5),
+                                child: const Column(
+                                  children: [
+                                    Icon(Icons.cake,
+                                        size: 18, color: Color(0xFFFFFFFF)),
+                                    Text(
+                                      'Wedding Cake',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Color(0xFFFFFFFF),
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )),
                       ),
                     ),
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GuestListSection extends StatelessWidget {
+  const GuestListSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '0 of 0 accepted',
+                  style: TextStyle(
+                      fontSize: 18, color: Color.fromARGB(255, 50, 50, 50)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Handle View All Vendors button pressed
+                  },
+                  child: const Row(
+                    children: [
+                      Text('View all tasks'),
+                      Icon(Icons.arrow_right),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            ListTile(
+              leading: Checkbox(
+                value: false,
+                onChanged: (value) {
+                  // Handle checkbox state change
+                },
+              ),
+              title: const Text('John Doe'),
+              subtitle: const Text('Pending'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BudgetSection extends StatelessWidget {
+  const BudgetSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Budget',
+                  style: TextStyle(
+                      fontSize: 18, color: Color.fromARGB(255, 50, 50, 50)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Handle View All Vendors button pressed
+                  },
+                  child: const Row(
+                    children: [
+                      Text('View budget'),
+                      Icon(Icons.arrow_right),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue,
+                        ),
+                        child: const Icon(
+                          Icons.attach_money,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text('\$18,000'),
+                      const Text('Estimated cost'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green,
+                        ),
+                        child: const Icon(
+                          Icons.money,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text('\$0'),
+                      const Text('Final cost'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle manage expenses action
+                },
+                child: const Text('Manage expenses'),
               ),
             ),
           ],

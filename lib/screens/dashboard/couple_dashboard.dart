@@ -21,6 +21,8 @@ class CoupleDashboard extends StatelessWidget {
             VendorTeamSection(),
             SizedBox(height: 20),
             CheckListSection(),
+            GuestListSection(),
+            BudgetSection(),
           ],
         ),
       ),
