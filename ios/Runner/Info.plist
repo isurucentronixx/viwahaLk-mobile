@@ -60,5 +60,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Enable the camera to take pictures and videos to capture the images and profile picture from within the Viwaha app</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Enable Location to allow Viwaha app to access for pick hotels and wedding locations</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Enable Location to allow Viwaha app to access for locate locations</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Enable Microphone Access to record audio or phone calls within the Viwaha App</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enable Library Access to select photos or profile photos &amp; video from Camera Roll</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
