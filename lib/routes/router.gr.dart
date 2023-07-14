@@ -28,6 +28,7 @@ import 'package:viwaha_lk/screens/search/searching_result.dart' as _i11;
 import 'package:viwaha_lk/screens/venues_screen.dart' as _i12;
 import 'package:viwaha_lk/screens/dashboard/couple_dashboard.dart' as _i14;
 import 'package:viwaha_lk/screens/dashboard/checklist.dart' as _i15;
+import 'package:viwaha_lk/screens/dashboard/guest_list.dart' as _i16;
 
 abstract class $AppRouter extends _i13.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -130,6 +131,12 @@ abstract class $AppRouter extends _i13.RootStackRouter {
       return _i13.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i15.CoupleDashboardToDoList(),
+      );
+    },
+    CoupleDashboardGuestListRoute.name: (routeData) {
+      return _i13.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i16.CoupleDashboardGuestList(),
       );
     },
   };
@@ -410,6 +417,20 @@ class CoupleDashboardToDoRoute extends _i13.PageRouteInfo<void> {
         );
 
   static const String name = 'CoupleDashboardToDoRoute';
+
+  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i15.CoupleDashboardGuestList]
+class CoupleDashboardGuestListRoute extends _i13.PageRouteInfo<void> {
+  const CoupleDashboardGuestListRoute({List<_i13.PageRouteInfo>? children})
+      : super(
+          CoupleDashboardGuestListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CoupleDashboardGuestListRoute';
 
   static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
 }

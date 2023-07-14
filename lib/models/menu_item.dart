@@ -71,6 +71,14 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         .push(const CoupleDashboardToDoRoute());
                   },
                 ),
+                ListTile(
+                  leading: const Icon(Icons.dashboard),
+                  title: const Text('Guest List'),
+                  onTap: () async {
+                    AutoRouter.of(context)
+                        .push(const CoupleDashboardGuestListRoute());
+                  },
+                ),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.login),

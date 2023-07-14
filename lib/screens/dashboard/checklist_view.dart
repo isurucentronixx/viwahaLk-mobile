@@ -14,32 +14,6 @@ class ToDoList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       const Text(
-              //         'My To Do List',
-              //         style: TextStyle(
-              //           fontSize: 24.0,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //       ElevatedButton(
-              //         onPressed: () {
-              //           // Add New To Do action
-              //         },
-              //         child: const Row(
-              //           children: [
-              //             Icon(Icons.add),
-              //             SizedBox(width: 5.0),
-              //             Text('Add New'),
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
@@ -48,6 +22,86 @@ class ToDoList extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Add New To Do action
+
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Create Task',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  Form(
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          decoration: const InputDecoration(
+                                            labelText: 'Task',
+                                            hintText: 'Write task here',
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16.0),
+                                        DropdownButtonFormField<String>(
+                                          decoration: const InputDecoration(
+                                            labelText: 'Category',
+                                          ),
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: 'Engagement',
+                                              child: Text('Engagement'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'Wedding',
+                                              child: Text('Wedding'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'After party',
+                                              child: Text('After party'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'Homecoming',
+                                              child: Text('Homecoming'),
+                                            ),
+                                          ],
+                                          onChanged: (String? value) {},
+                                        ),
+                                        const SizedBox(height: 16.0),
+                                        TextFormField(
+                                          decoration: const InputDecoration(
+                                            labelText: 'Task Date',
+                                            hintText: 'Task Date',
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16.0),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Add to-do task action
+                                          },
+                                          child: const Text('Add Guest'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                       child: const Row(
                         children: [
