@@ -1,11 +1,7 @@
-import 'dart:math';
 
-import 'package:dio/dio.dart';
 import 'package:viwaha_lk/core/network/constant/endpoints.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 
 class HomeService {
   final DioClient _dioClient;
@@ -14,11 +10,8 @@ class HomeService {
 
   Future fetchVendorListApiRequest() async {
     try {
-      // final res =
-      //     await http.get(Uri.parse(Endpoints.baseUrl + Endpoints.getVendorListUrl));
       final res =
           await _dioClient.get(Endpoints.baseUrl + Endpoints.getVendorListUrl);
-      // log(response.data);
       return res.data;
     } catch (e) {
       rethrow;
@@ -73,6 +66,27 @@ class HomeService {
     try {
       final res =
           await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing);
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future fetchFavListingApiRequest() async {
+    try {
+      final res =
+          await _dioClient.get(Endpoints.baseUrl + Endpoints.getFavListing);
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future fetchCategoryListingApiRequest(String category) async {
+    print(category);
+    try {
+      final res = await _dioClient.get(
+          '${Endpoints.baseUrl + Endpoints.getAllListing}?location=&category=$category&keyword=');
       return res.data;
     } catch (e) {
       rethrow;

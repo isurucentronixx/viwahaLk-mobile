@@ -35,12 +35,13 @@ dependencies:
   image_picker: ^1.0.0
   google_fonts: ^4.0.4
   awesome_select: ^6.0.0
-
+  expand_widget: ^3.1.1
+  build_runner: ^2.4.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.5
+  flutter_gen_runner: null
   flutter_lints: ^2.0.0
   auto_route_generator: ^7.0.0
   json_serializable: ^6.2.0
@@ -49,7 +50,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   assets:
     - lib/assets/images/
     - lib/assets/images/form/

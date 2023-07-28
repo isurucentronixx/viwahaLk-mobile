@@ -19,9 +19,7 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
 class SearchingResultsPage extends ConsumerStatefulWidget {
-  final bool? premiumVendors;
-  final bool? topListing;
-  const SearchingResultsPage(this.premiumVendors, this.topListing, {super.key});
+  const SearchingResultsPage({super.key});
   @override
   _SearchingResultsPageState createState() => _SearchingResultsPageState();
 }
@@ -30,280 +28,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
   @override
   Widget build(BuildContext context) {
     final searchingResult = ref.watch(searchResultProvider);
-
-    List<Vendor> premiumVendorsList = [];
-    List<TopListing> topListingList = [];
-    List<Location> locationList = [];
-    List<SubLocation> subLocationList = [];
-    List<CardModel> cardList = [];
-    List<CardModel> cardListUpdated = [];
-
-    if (widget.premiumVendors == true) {
-      premiumVendorsList = ref.read(vendorsProvider);
-      premiumVendorsList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'vendor');
-        cardList.add(cardModel);
-      });
-    } else {
-      premiumVendorsList = [];
-    }
-
-    if (widget.topListing == true) {
-      topListingList = ref.read(topListingProvider);
-      topListingList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'topListing');
-        cardList.add(cardModel);
-      });
-    } else {
-      topListingList = [];
-    }
-
-    if (ref.read(selectedMainCategoryProvider) != "" &&
-        ref.watch(selectedSubCategoryProvider).id == null) {
-      premiumVendorsList = ref
-          .read(vendorsProvider)
-          .where(
-              (e) => e.main_category == ref.watch(selectedMainCategoryProvider))
-          .toList();
-      premiumVendorsList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'vendor');
-        cardList.add(cardModel);
-      });
-
-      topListingList = ref
-          .read(topListingProvider)
-          .where(
-              (e) => e.main_category == ref.watch(selectedMainCategoryProvider))
-          .toList();
-      topListingList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'topListing');
-        cardList.add(cardModel);
-      });
-    }
-
-    if (ref.watch(selectedSubCategoryProvider).id != null) {
-      premiumVendorsList = ref
-          .read(vendorsProvider)
-          .where((e) =>
-              e.category == ref.watch(selectedSubCategoryProvider).sub_category)
-          .toList();
-      premiumVendorsList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'vendor');
-        cardList.add(cardModel);
-      });
-
-      topListingList = ref
-          .read(topListingProvider)
-          .where((e) =>
-              e.category == ref.watch(selectedSubCategoryProvider).sub_category)
-          .toList();
-      topListingList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'topListing');
-        cardList.add(cardModel);
-      });
-    }
-
-    /////////////////////////////////////////////////////////////
-    if (ref.read(selectedMainLocationProvider) != "" &&
-        ref.watch(selectedSubLocationProvider).id == null) {
-      premiumVendorsList = ref
-          .read(vendorsProvider)
-          .where(
-              (e) => e.main_location == ref.watch(selectedMainLocationProvider))
-          .toList();
-      premiumVendorsList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'vendor');
-        cardList.add(cardModel);
-      });
-
-      topListingList = ref
-          .read(topListingProvider)
-          .where(
-              (e) => e.main_location == ref.watch(selectedMainLocationProvider))
-          .toList();
-      topListingList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'topListing');
-        cardList.add(cardModel);
-      });
-    }
-
-    if (ref.watch(selectedSubLocationProvider).id != null) {
-      premiumVendorsList = ref
-          .read(vendorsProvider)
-          .where((e) =>
-              e.location ==
-              ref.watch(selectedSubLocationProvider).sub_location_en)
-          .toList();
-      premiumVendorsList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'vendor');
-        cardList.add(cardModel);
-      });
-
-      topListingList = ref
-          .read(topListingProvider)
-          .where((e) =>
-              e.location ==
-              ref.watch(selectedSubLocationProvider).sub_location_en)
-          .toList();
-      topListingList.forEach((e) {
-        CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
-            title: e.title,
-            description: e.description,
-            starRating: "4.5",
-            location: e.location,
-            mainLocation: e.main_location,
-            date: e.datetime,
-            type: 'topListing');
-        cardList.add(cardModel);
-      });
-    }
-    /////////////////////////////////////////////////////////////
-
-    //Remove same object in cardList
-    cardList.forEach((e) {
-      CardModel cardModel = CardModel(
-          imagePath: e.imagePath,
-          title: e.title,
-          description: e.description,
-          starRating: "4.5",
-          location: e.location,
-          mainLocation: e.mainLocation,
-          date: e.date);
-      cardListUpdated.add(cardModel);
-    });
-
-    List<CardModel> finalCardList = [...cardListUpdated.toSet()].toList();
-    List<CardModel> filteredCardList = [];
-    @override
-    initState() {
-      // at the beginning, all users are shown
-      filteredCardList = finalCardList;
-
-      super.initState();
-    }
-
     final TextEditingController _searchController = TextEditingController();
-    void _runFilter(String enteredKeyword) {
-      List<CardModel> results = [];
-      if (enteredKeyword.isEmpty) {
-        // if the search field is empty or only contains white-space, we'll display all users
-        results = finalCardList;
-      } else {
-        results = finalCardList
-            .where((card) => card.title!.toLowerCase() == enteredKeyword)
-            .toList();
-        // we use the toLowerCase() method to make it case-insensitive
-      }
-
-      // Refresh the UI
-      setState(() {
-        filteredCardList = results;
-      });
-    }
-
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -348,29 +73,33 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             // ),
             const SizedBox(height: 15),
             Expanded(
-              child: searchingResult.isNotEmpty
-                  ? GridView.count(
-                      crossAxisCount: 2, // Number of columns
-                      children: List.generate(
-                        searchingResult.length, // Total number of cards
-                        (index) => SearchingCardItem(
-                          imagePath: ref
-                              .read(homeControllerProvider)
-                              .getTumbImage(searchingResult[index].thumb_images)
-                              .first, // Replace with your image paths
-                          title: searchingResult[index].title.toString(),
-                          description:
-                              searchingResult[index].description.toString(),
-                          starRating: 4.5,
-                          location: searchingResult[index].location.toString(),
-                          date: searchingResult[index].datetime.toString(),
-                          type: '',
-                          // Replace with the appropriate star rating value
+                child: searchingResult.isNotEmpty
+                    ? GridView.count(
+                        crossAxisCount: 2, // Number of columns
+                        children: List.generate(
+                          searchingResult.length, // Total number of cards
+                          (index) => SearchingCardItem(
+                            imagePath: ref
+                                .read(homeControllerProvider)
+                                .getTumbImage(
+                                    searchingResult[index].thumb_images)
+                                .first, // Replace with your image paths
+                            title: searchingResult[index].title.toString(),
+                            description:
+                                searchingResult[index].description.toString(),
+                            starRating: 4.5,
+                            location:
+                                searchingResult[index].location.toString(),
+                            date: searchingResult[index].datetime.toString(),
+                            type: '',
+                            // Replace with the appropriate star rating value
+                          ),
                         ),
-                      ),
-                    )
-                  : const Center(child: Text("No Data Found")),
-            ),
+                      )
+                    : const Center(
+                        child: Center(
+                        child: CircularProgressIndicator(),
+                      ))),
           ],
         ));
   }

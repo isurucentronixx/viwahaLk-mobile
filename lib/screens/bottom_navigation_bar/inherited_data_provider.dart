@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class InheritedDataProvider extends InheritedWidget {
   final ScrollController scrollController;
-  const InheritedDataProvider({
+  const InheritedDataProvider({super.key, 
     required Widget child,
     required this.scrollController,
   }) : super(child: child);

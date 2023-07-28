@@ -9,39 +9,71 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:viwaha_lk/models/categories/sub_categories.dart';
+import 'package:viwaha_lk/models/locations/sub_location.dart';
+import 'package:viwaha_lk/models/popular_cities/popular_cities/popular_city_model.dart';
 import 'package:viwaha_lk/models/premium_vender/feedback.dart';
-import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/services/home_service.dart';
+import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
+import 'package:viwaha_lk/screens/search/searching_page.dart';
 
-class PremiumVendors extends ConsumerStatefulWidget {
-  const PremiumVendors({super.key});
+import 'package:viwaha_lk/routes/router.gr.dart';
+
+class PopularCities extends ConsumerStatefulWidget {
+  const PopularCities({super.key});
 
   @override
-  _PremiumVendorsState createState() => _PremiumVendorsState();
+  _PopularCitiesState createState() => _PopularCitiesState();
 }
 
-class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
+class _PopularCitiesState extends ConsumerState<PopularCities> {
   @override
   Widget build(BuildContext context) {
     var inputDateFormat = DateFormat('dd MMMM, yyyy');
-    final data = ref.watch(vendorsProvider);
-
-    final isLoading = ref.watch(isLoadingHomeProvider);
-
-    final homeServiceProvider = Provider<HomeService>((ref) {
-      return HomeService(ref.read(dioClientProvider));
-    });
-
-    final homeControllerProvider = Provider<HomeController>((ref) {
-      return HomeController(ref.read(homeServiceProvider));
-    });
+    List<City> popularCities = [
+      const City(
+          id: "1",
+          name: "Colombo",
+          image: "https://viwaha.lk/assets/img/city/Colombo.png",
+          ratings: "5"),
+      const City(
+          id: "2",
+          name: "Kandy",
+          image: "https://viwaha.lk/assets/img/city/Kandy.png",
+          ratings: "5"),
+      const City(
+          id: "3",
+          name: "Galle",
+          image: "https://viwaha.lk/assets/img/city/Galle.png",
+          ratings: "5"),
+      const City(
+          id: "4",
+          name: "Jaffna",
+          image: "https://viwaha.lk/assets/img/city/Jaffna.png",
+          ratings: "5"),
+      const City(
+          id: "5",
+          name: "Kurunegala",
+          image: "https://viwaha.lk/assets/img/city/Kurunegala.jpg",
+          ratings: "5"),
+      const City(
+          id: "6",
+          name: "Anuradhapura",
+          image: "https://viwaha.lk/assets/img/city/Anuradhapura.png",
+          ratings: "5"),
+      const City(
+          id: "7",
+          name: "Badulla",
+          image: "https://viwaha.lk/assets/img/city/Badulla.png",
+          ratings: "5")
+    ];
+    final data = popularCities;
 
     return Column(
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Premium Vendors',
+            'Popular Cities',
             style: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
@@ -52,7 +84,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
           text: const TextSpan(
             children: [
               TextSpan(
-                text: 'Discover top-rated Premium Vendors ',
+                text: 'Browse listings in popular places ',
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 14.0,
@@ -67,6 +99,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
         ),
         CarouselSlider(
           options: CarouselOptions(
+            reverse: true,
             height: 280, // Set the desired height of the slider
             autoPlay: true, // Enable auto-playing of images
             // enlargeCenterPage: true, // Increase the size of the center image
@@ -75,15 +108,22 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
             aspectRatio: 16 / 9, // Aspect ratio of the images
           ),
           items: data.map((data) {
-            final vendor = data;
-            String thumbImg = ref
-                .read(homeControllerProvider)
-                .getTumbImage(vendor.thumb_images)
-                .first;
+            final city = data;
+
             return GestureDetector(
               onTap: () {
-                AutoRouter.of(context)
-                    .push(SingleView(vendor: vendor, topListing: null));
+                ref.read(selectedSubLocationProvider.notifier).state =
+                    const SubLocation();
+                ref.read(selectedMainLocationProvider.notifier).state = "";
+                ref.read(selectedSubCategoryProvider.notifier).state =
+                    const SubCategories();
+                ref.read(selectedMainCategoryProvider.notifier).state = "";
+
+                ref.read(selectedMainLocationProvider.notifier).state =
+                    data.name!;
+                ref.read(allListingProvider);
+
+                AutoRouter.of(context).push(const SearchingResultsPage());
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -98,7 +138,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                       child: Stack(
                         children: [
                           Image.network(
-                            'https://viwaha.lk/$thumbImg',
+                            city.image.toString(),
                             fit: BoxFit.cover,
                             loadingBuilder: (context, child, progress) {
                               if (progress == null) {
@@ -124,52 +164,12 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               );
                             },
                           ),
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: FavoriteIcon(),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.4),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 4.0),
-                                  child: Text(
-                                    inputDateFormat
-                                        .format(DateFormat("yyyy-MM-dd")
-                                            .parse(vendor.datetime!))
-                                        .toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  vendor.title!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
                                 const SizedBox(height: 4),
                                 Align(
                                   alignment: Alignment.bottomLeft,
@@ -182,7 +182,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 4.0),
                                       child: Text(
-                                        vendor.category!,
+                                        city.name.toString(),
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
@@ -205,7 +205,8 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                       children: [
                         const Text("Rating: "),
                         RatingBarIndicator(
-                          rating: 3.ceilToDouble(),
+                          rating:
+                              int.parse(city.ratings.toString()).ceilToDouble(),
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
                             color: Colors.amber,

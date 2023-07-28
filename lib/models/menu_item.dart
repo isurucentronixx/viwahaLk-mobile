@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -19,21 +21,24 @@ class _DrawerMenuState extends State<DrawerMenu> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                Center(
-                  child: UserAccountsDrawerHeader(
-                    accountName: const Text('John Doe'),
-                    accountEmail: const Text('johndoe@example.com'),
-                    currentAccountPicture: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2.0,
-                        ),
+                UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                      color: ViwahaColor.primary,
+                      image: DecorationImage(
+                          image: Assets.lib.assets.images.logoNav.image().image,
+                          fit: BoxFit.fill)),
+                  accountName: const Text('John Doe'),
+                  accountEmail: const Text('johndoe@example.com'),
+                  currentAccountPicture: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2.0,
                       ),
-                      child: const CircleAvatar(
-                        child: Icon(Icons.person),
-                      ),
+                    ),
+                    child: const CircleAvatar(
+                      child: Icon(Icons.person),
                     ),
                   ),
                 ),
@@ -54,7 +59,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ListTile(
                   leading: const Icon(Icons.contact_phone),
                   title: const Text('Contact Us'),
-                  onTap: () {},
+                  onTap: () {
+                    AutoRouter.of(context).push(const ContactUsPage());
+                  },
                 ),
                 const Divider(),
                 ListTile(
