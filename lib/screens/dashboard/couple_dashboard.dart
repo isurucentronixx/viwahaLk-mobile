@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/screens/dashboard/dashboard.dart';
 
 // Previously created views
 
+@RoutePage()
 class CoupleDashboard extends StatelessWidget {
   const CoupleDashboard({super.key});
 

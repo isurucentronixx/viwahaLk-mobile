@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/models/dashboard/guest_list/counter_item.dart';
 
 import '../../models/dashboard/guest_list/guest_list_widgets.dart';
 
+@RoutePage()
 class GuestListView extends StatelessWidget {
   const GuestListView({super.key});
 

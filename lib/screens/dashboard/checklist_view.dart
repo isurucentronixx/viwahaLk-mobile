@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/dashboard/todo/todowidgets.dart';
 
+@RoutePage()
 class ToDoList extends StatelessWidget {
   const ToDoList({super.key});
 

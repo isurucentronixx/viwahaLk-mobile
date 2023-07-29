@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/screens/dashboard/guest_list_view.dart';
 
 // Previously created views
 
+@RoutePage()
 class CoupleDashboardGuestList extends StatelessWidget {
   const CoupleDashboardGuestList({super.key});
 

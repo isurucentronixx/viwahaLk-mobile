@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/screens/dashboard/checklist_view.dart';
 
 // Previously created views
-
+@RoutePage()
 class CoupleDashboardToDoList extends StatelessWidget {
   const CoupleDashboardToDoList({super.key});
 

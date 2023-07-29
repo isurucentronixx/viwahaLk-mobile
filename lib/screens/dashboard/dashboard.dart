@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
-import '../../gen/assets.gen.dart';
-
+@RoutePage()
 class CoupleInfoSection extends StatelessWidget {
   const CoupleInfoSection({super.key});
 
