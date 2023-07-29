@@ -21,12 +21,14 @@ class DrawerMenu extends ConsumerWidget {
               children: [
                 UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
-                      color: ViwahaColor.primary,
-                      image: DecorationImage(
-                          image: ref.watch(isloginProvider)
-                              ? Assets.lib.assets.images.logoNav.image().image
-                              : Assets.lib.assets.images.logo.image().image,
-                          fit: BoxFit.fill)),
+                    color: ViwahaColor.primary,
+                    image: DecorationImage(
+                        image: ref.watch(isloginProvider)
+                            ? Assets.lib.assets.images.logoNav.image().image
+                            : Assets.lib.assets.images.logo.image().image,
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center),
+                  ),
                   accountName: Text(ref.watch(isloginProvider)
                       ? '${user!.firstname.toString()} ${user.lastname.toString()}'
                       : ''),
