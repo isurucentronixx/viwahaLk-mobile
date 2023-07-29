@@ -30,7 +30,7 @@ final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 
 @RoutePage()
 class AddListingPage extends ConsumerStatefulWidget {
-  const AddListingPage({super.key});
+  const AddListingPage({super.key}); 
   @override
   _AddListingPageState createState() => _AddListingPageState();
 }

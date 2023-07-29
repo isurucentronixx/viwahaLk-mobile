@@ -4,11 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/routes/router.gr.dart';
 
 final usernameProvider = StateProvider<String>((ref) => "");
 final passwordProvider = StateProvider<String>((ref) => "");
@@ -93,9 +91,11 @@ class _LoginState extends ConsumerState<Login> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: ref.watch(isloginProvider)
+          ? AppBar(
+              title: const Text('Login'),
+            )
+          : null,
       body: Form(
         key: _formKey,
         child: Container(
