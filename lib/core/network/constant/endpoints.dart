@@ -5,9 +5,6 @@ class Endpoints {
   
    static const String getVendorListUrl =
       "vendors/get_top_wedding_vendors";
-    
-    static const String loginUrl =
-      "auth/login";
 
    static const String getTopListUrl =
       "listings/get_top_wedding_listings";
@@ -20,9 +17,6 @@ class Endpoints {
     
     static const String getAllListing =
       "search/get_listings_list";
-
-    static const String getFavListing =
-      "listings/get_fav_listings";
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

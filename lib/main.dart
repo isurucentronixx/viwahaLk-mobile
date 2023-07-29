@@ -1,11 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/theme.dart';
 
@@ -23,23 +21,16 @@ Future<void> main() async {
 }
 
 // assuing this is the root widget of your App
-class App extends ConsumerWidget {
-    final _appRouter = AppRouter();
+class App extends StatelessWidget {
+  final _appRouter = AppRouter();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.read(appRouterProvider);
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'My App',
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
-      // routerConfig: _appRouter.config(),
-      routerDelegate: AutoRouterDelegate(
-            router,
-            navigatorObservers: () => [RouteObserver()],
-          ),
-          routeInformationParser: router.defaultRouteParser(),
-      
+      routerConfig: _appRouter.config(),
     );
   }
 }

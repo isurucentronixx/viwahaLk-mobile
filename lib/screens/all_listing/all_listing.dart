@@ -38,28 +38,28 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
     return Scaffold(
         body: Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: Colors.grey),
-            ),
-            child: Column(
-              children: [
-                TextField(
-                  // controller: _searchController,
-                  decoration: const InputDecoration(
-                    labelText: 'Search',
-                    prefixIcon: Icon(Icons.search),
-                    border: InputBorder.none,
-                  ),
-                  // onChanged: (value) => _runFilter(value),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(10.0),
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(10.0),
+        //       border: Border.all(color: Colors.grey),
+        //     ),
+        //     child: Column(
+        //       children: [
+        //         TextField(
+        //           controller: _searchController,
+        //           decoration: const InputDecoration(
+        //             labelText: 'Search',
+        //             prefixIcon: Icon(Icons.search),
+        //             border: InputBorder.none,
+        //           ),
+        //           onChanged: (value) => _runFilter(value),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         const SizedBox(height: 15),
         Expanded(
           child: allListing.isNotEmpty
@@ -82,10 +82,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                     ),
                   ),
                 )
-              : const Center(
-                  child: Center(
-                  child: CircularProgressIndicator(),
-                )),
+              : const Center(child: Text("No Data Found")),
         ),
       ],
     ));

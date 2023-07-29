@@ -8,8 +8,7 @@ import 'package:viwaha_lk/models/menu_item.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/profile/profile.dart';
+import 'package:viwaha_lk/screens/coming_soon.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -97,9 +96,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: const [
               HomeContent(),
               AllListingPage(),
-              AddListingPage(),              
-              ProfilePage(),
-              FavListingPage(),
+              AddListingPage(),
+              ComingSoonPage(),
+              ComingSoonPage(),
             ]),
       ),
 

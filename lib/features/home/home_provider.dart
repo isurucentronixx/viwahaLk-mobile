@@ -1,3 +1,4 @@
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
@@ -39,26 +40,11 @@ final locationsProvider =
 
 final searchResultProvider =
     StateNotifierProvider<SearchResultNotifier, List<SearchResultItem>>((ref) {
-  return SearchResultNotifier(
-    ref: ref,
-  );
+  return SearchResultNotifier(ref: ref);
 });
 
 final allListingProvider =
-    StateNotifierProvider<AllListingProviderNotifier, List<SearchResultItem>>(
-        (ref) {
+    StateNotifierProvider<AllListingProviderNotifier, List<SearchResultItem>>((ref) {
   return AllListingProviderNotifier(ref: ref);
 });
 
-final favListingProvider =
-    StateNotifierProvider<FavListingProviderNotifier, List<SearchResultItem>>(
-        (ref) {
-  return FavListingProviderNotifier(ref: ref);
-});
-
-final categoryListingProvider =
-    StateNotifierProvider<CategoryListingProviderNotifier, List<SearchResultItem>>(
-        (ref) {
-  return CategoryListingProviderNotifier(ref: ref);
-});
- 

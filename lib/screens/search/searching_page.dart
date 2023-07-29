@@ -38,14 +38,15 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
   @override
   void initState() {
     super.initState();
-    ref.refresh(isActivatedProvider);
-    ref.refresh(isLocationActivatedProvider);
-    ref.refresh(subCategoriesProvider);
-    ref.refresh(subLocationsProvider);
-    ref.refresh(selectedMainCategoryProvider);
-    ref.refresh(selectedMainLocationProvider);
-    ref.refresh(selectedSubCategoryProvider);
-    ref.refresh(selectedSubLocationProvider);
+      ref.refresh(isActivatedProvider);
+      ref.refresh(isLocationActivatedProvider);
+      ref.refresh(subCategoriesProvider);
+      ref.refresh(subLocationsProvider);
+      ref.refresh(selectedMainCategoryProvider);
+      ref.refresh(selectedMainLocationProvider);
+      ref.refresh(selectedSubCategoryProvider);
+      ref.refresh(selectedSubLocationProvider);
+      
   }
 
   final bool _premiumVendors = false;
@@ -179,13 +180,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownSearch<String>(
-                            popupProps: PopupProps.menu(
-                              emptyBuilder: (context, searchEntry) =>
-                                  const Center(
-                                      child: Center(
-                                child: CircularProgressIndicator(),
-                              )),
-
+                            
+                            popupProps: const PopupProps.menu(
                               showSearchBox: true,
                               showSelectedItems: true,
                               // disabledItemFn: (String s) => s.startsWith('I'),
@@ -194,7 +190,9 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                               return location.location_en.toString();
                             }).toList(),
                             dropdownDecoratorProps: DropDownDecoratorProps(
+                              
                               dropdownSearchDecoration: InputDecoration(
+                                
                                 labelText: "Locations",
                                 hintText: "Select a Location",
                                 hintStyle: TextStyle(
@@ -227,15 +225,14 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 ),
                               ),
                             ),
+                            
                             onChanged: (value) {
                               setState(() {
-                                _locationDropdownSearchKey.currentState
-                                    ?.clear();
-                                ref.refresh(selectedSubLocationProvider);
+                                 _locationDropdownSearchKey.currentState?.clear();
+                                 ref.refresh(selectedSubLocationProvider);
                                 if (value != null) {
-                                  final selectedLocation =
-                                      locationsData.firstWhere((location) =>
-                                          location.location_en == value);
+                                  final selectedLocation = locationsData.firstWhere(
+                                      (location) => location.location_en == value);
                                   ref
                                           .read(subLocationsProvider.notifier)
                                           .state =
@@ -244,18 +241,14 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                       .read(
                                           selectedMainLocationProvider.notifier)
                                       .state = selectedLocation.location_en!;
-                                  ref
-                                      .read(
-                                          isLocationActivatedProvider.notifier)
-                                      .state = true;
+                                  ref.read(isLocationActivatedProvider.notifier).state =
+                                      true;
                                 } else {
                                   ref
                                       .read(subLocationsProvider.notifier)
                                       .state = [];
-                                  ref
-                                      .read(
-                                          isLocationActivatedProvider.notifier)
-                                      .state = false;
+                                  ref.read(isLocationActivatedProvider.notifier).state =
+                                      false;
                                 }
                               });
                             },
@@ -266,12 +259,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: DropdownSearch<String>(
                                   key: _locationDropdownSearchKey,
-                                  popupProps: PopupProps.menu(
-                                    emptyBuilder: (context, searchEntry) =>
-                                        const Center(
-                                            child: Center(
-                                      child: CircularProgressIndicator(),
-                                    )),
+                                  popupProps: const PopupProps.menu(
                                     showSearchBox: true,
                                     showSelectedItems: true,
                                     // disabledItemFn: (String s) => s.startsWith('I'),
@@ -279,11 +267,11 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   items: ref
                                       .watch(subLocationsProvider)
                                       .map((subLocations) {
-                                    return subLocations!.sub_location_en
-                                        .toString();
+                                    return subLocations!.sub_location_en.toString();
                                   }).toList(),
                                   dropdownDecoratorProps:
                                       DropDownDecoratorProps(
+                                        
                                     dropdownSearchDecoration: InputDecoration(
                                       labelText: "Sub Locations",
                                       hintText: "Select a Sub Location",
@@ -301,8 +289,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20)),
                                         borderSide: BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
+                                            color: ViwahaColor.primary, width: 1.0),
                                       ),
                                       errorBorder: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -338,16 +325,11 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                               )
                             : const SizedBox(),
 
-                        const SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownSearch<String>(
-                            popupProps: PopupProps.menu(
-                              emptyBuilder: (context, searchEntry) =>
-                                  const Center(
-                                      child: Center(
-                                child: CircularProgressIndicator(),
-                              )),
+                            popupProps: const PopupProps.menu(
                               showSearchBox: true,
                               showSelectedItems: true,
                               // disabledItemFn: (String s) => s.startsWith('I'),
@@ -392,9 +374,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             onChanged: (value) {
                               setState(() {
                                 if (value != null) {
-                                  _categoryDropdownSearchKey.currentState
-                                      ?.clear();
-                                  ref.refresh(selectedSubCategoryProvider);
+                                  _categoryDropdownSearchKey.currentState?.clear();
+                                 ref.refresh(selectedSubCategoryProvider);
                                   final selectedCategory = data.firstWhere(
                                       (category) => category.category == value);
                                   ref
@@ -422,13 +403,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             ? Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: DropdownSearch<String>(
-                                  key: _categoryDropdownSearchKey,
-                                  popupProps: PopupProps.menu(
-                                    emptyBuilder: (context, searchEntry) =>
-                                        const Center(
-                                            child: Center(
-                                      child: CircularProgressIndicator(),
-                                    )),
+                                  key:_categoryDropdownSearchKey,
+                                  popupProps: const PopupProps.menu(
                                     showSearchBox: true,
                                     showSelectedItems: true,
                                     // disabledItemFn: (String s) => s.startsWith('I'),
@@ -457,8 +433,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20)),
                                         borderSide: BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
+                                            color: ViwahaColor.primary, width: 1.0),
                                       ),
                                       errorBorder: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -506,7 +481,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
               widthFactor: 0.8,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  AutoRouter.of(context).push(const SearchingResultsPage());
+                  AutoRouter.of(context).push(SearchingResultsPage(
+                    topListing: _topListing,
+                    premiumVendors: _premiumVendors
+                  ));
                   // Perform login logic here
                 },
                 icon: const Icon(Icons.search),
