@@ -8,6 +8,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:expand_widget/expand_widget.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, {super.key});
@@ -205,7 +206,7 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
             ),
           ),
           const SizedBox(height: 10),
-          Text(
+          ExpandText(
             '${widget.description}',
             textAlign: TextAlign.center,
           ),

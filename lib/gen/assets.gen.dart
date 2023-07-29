@@ -82,12 +82,22 @@ class $LibAssetsImagesGen {
   AssetGenImage get facebook =>
       const AssetGenImage('lib/assets/images/facebook.png');
 
+  $LibAssetsImagesFormGen get form => const $LibAssetsImagesFormGen();
+
   /// File path: lib/assets/images/google-logo.png
   AssetGenImage get googleLogo =>
       const AssetGenImage('lib/assets/images/google-logo.png');
 
+  /// File path: lib/assets/images/logo-nav.png
+  AssetGenImage get logoNav =>
+      const AssetGenImage('lib/assets/images/logo-nav.png');
+
   /// File path: lib/assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('lib/assets/images/logo.png');
+
+  /// File path: lib/assets/images/profile.jpg
+  AssetGenImage get profile =>
+      const AssetGenImage('lib/assets/images/profile.jpg');
 
   /// File path: lib/assets/images/slider1.jpeg
   AssetGenImage get slider1 =>
@@ -135,7 +145,9 @@ class $LibAssetsImagesGen {
         colorLogo,
         facebook,
         googleLogo,
+        logoNav,
         logo,
+        profile,
         slider1,
         slider2,
         slider3,
@@ -144,6 +156,21 @@ class $LibAssetsImagesGen {
         groomDp,
         cover
       ];
+}
+
+class $LibAssetsImagesFormGen {
+  const $LibAssetsImagesFormGen();
+
+  /// File path: lib/assets/images/form/AddGalleryImg.png.png
+  AssetGenImage get addGalleryImgPng =>
+      const AssetGenImage('lib/assets/images/form/AddGalleryImg.png.png');
+
+  /// File path: lib/assets/images/form/addMainImg.png.png
+  AssetGenImage get addMainImgPng =>
+      const AssetGenImage('lib/assets/images/form/addMainImg.png.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [addGalleryImgPng, addMainImgPng];
 }
 
 class Assets {

@@ -18,16 +18,16 @@ import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
-class AllListingPage extends ConsumerStatefulWidget {
-  const AllListingPage({super.key});
+class FavListingPage extends ConsumerStatefulWidget {
+  const FavListingPage({super.key});
   @override
-  _AllListingPageState createState() => _AllListingPageState();
+  _FavListingPageState createState() => _FavListingPageState();
 }
 
-class _AllListingPageState extends ConsumerState<AllListingPage> {
+class _FavListingPageState extends ConsumerState<FavListingPage> {
   @override
   Widget build(BuildContext context) {
-    final allListing = ref.watch(allListingProvider);
+    final favListing = ref.watch(favListingProvider);
 
     @override
     initState() {
@@ -38,45 +38,24 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
     return Scaffold(
         body: Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: Colors.grey),
-            ),
-            child: Column(
-              children: [
-                TextField(
-                  // controller: _searchController,
-                  decoration: const InputDecoration(
-                    labelText: 'Search',
-                    prefixIcon: Icon(Icons.search),
-                    border: InputBorder.none,
-                  ),
-                  // onChanged: (value) => _runFilter(value),
-                ),
-              ],
-            ),
-          ),
-        ),
+       
         const SizedBox(height: 15),
         Expanded(
-          child: allListing.isNotEmpty
+          child: favListing.isNotEmpty 
               ? GridView.count(
                   crossAxisCount: 2, // Number of columns
                   children: List.generate(
-                    allListing.length, // Total number of cards
+                    favListing.length, // Total number of cards
                     (index) => SearchingCardItem(
                       imagePath: ref
                           .read(homeControllerProvider)
-                          .getTumbImage(allListing[index].thumb_images)
+                          .getTumbImage(favListing[index].thumb_images)
                           .first, // Replace with your image paths
-                      title: allListing[index].title.toString(),
-                      description: allListing[index].description.toString(),
+                      title: favListing[index].title.toString(),
+                      description: favListing[index].description.toString(),
                       starRating: 4.5,
-                      location: allListing[index].location.toString(),
-                      date: allListing[index].datetime.toString(),
+                      location: favListing[index].location.toString(),
+                      date: favListing[index].datetime.toString(),
                       type: '',
                       // Replace with the appropriate star rating value
                     ),
@@ -85,7 +64,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
               : const Center(
                   child: Center(
                   child: CircularProgressIndicator(),
-                )),
+                ))
         ),
       ],
     ));

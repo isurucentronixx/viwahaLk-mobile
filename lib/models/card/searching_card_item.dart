@@ -18,7 +18,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String date;
   final String type;
 
-  const SearchingCardItem({super.key, 
+  const SearchingCardItem({
     required this.imagePath,
     required this.title,
     required this.description,
@@ -34,74 +34,11 @@ class SearchingCardItem extends ConsumerWidget {
     var topListingData;
     return GestureDetector(
       onTap: () {
-       AutoRouter.of(context).push(SearchSingleView(
-              item: ref
-                  .watch(searchResultProvider)
-                  .where((element) => title == element.title)
-                  .first));
-        // bool exists =
-        //     ref.read(topListingProvider).any((file) => file.title == title);
-        
-        // print(exists);
-        // if (exists) {
-        //   AutoRouter.of(context).push(SingleView(
-        //       vendor: null,
-        //       topListing: ref
-        //           .watch(topListingProvider)
-        //           .where((element) => title == element.title)
-        //           .first));
-        // } else {
-        //   AutoRouter.of(context).push(SingleView(
-        //       vendor: ref
-        //           .watch(vendorsProvider)
-        //           .where((element) => title == element.title)
-        //           .first,
-        //       topListing: null));
-        // }
-
-
-
-        // if(ref.read(vendorsProvider).firstWhere((element) => element.title == title)){
-
-        // }
-
-        // final data = type == 'vendor'
-        //     ? ref
-        //         .watch(vendorsProvider)
-        //         .where((element) => title == element.title)
-        //         .first
-        //     : ref
-        //         .watch(topListingProvider)
-        //         .where((element) => title == element.title);
-        // if (type == 'vendor') {
-        //   AutoRouter.of(context).push(SingleView(
-        //       vendor: ref
-        //           .watch(vendorsProvider)
-        //           .where((element) => title == element.title)
-        //           .first,
-        //       topListing: null));
-        // } else {
-        // if (ref
-        //         .watch(topListingProvider)
-        //         .where((element) => title == element.title) != null) {
-        //           print("TOP");
-        //   // AutoRouter.of(context).push(SingleView(
-        //   //   vendor: null,
-        //   //   topListing: ref
-        //   //       .watch(topListingProvider)
-        //   //       .where((element) => title == element.title)
-        //   //       .first,
-        //   // ));
-        // } else {
-        //   print("VENDOR");
-        //   // AutoRouter.of(context).push(SingleView(
-        //   //     vendor: ref
-        //   //         .watch(vendorsProvider)
-        //   //         .where((element) => title == element.title)
-        //   //         .first,
-        //   //     topListing: null));
-        // }
-        // }
+        AutoRouter.of(context).push(SearchSingleView(
+            item: ref
+                .watch(searchResultProvider)
+                .where((element) => title == element.title)
+                .first));
       },
       child: Card(
         child: Column(
@@ -160,7 +97,8 @@ class SearchingCardItem extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
                             child: Text(
-                              Jiffy.parse(date).format(pattern: 'do MMMM  yyyy'),
+                              Jiffy.parse(date)
+                                  .format(pattern: 'do MMMM  yyyy'),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -197,11 +135,13 @@ class SearchingCardItem extends ConsumerWidget {
                           size: 16,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          location,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            location,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
