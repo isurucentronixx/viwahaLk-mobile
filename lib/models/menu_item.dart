@@ -108,18 +108,20 @@ class DrawerMenu extends ConsumerWidget {
                     AutoRouter.of(context).push(const Login());
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text('Logout'),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    ref.read(isloginProvider.notifier).state = false;
-                    AutoRouter.of(context).push(const Login());
-                    Navigator.pop(context);
-                  },
-                ),
+                ref.watch(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.logout),
+                        title: const Text('Logout'),
+                        onTap: () {
+                          // Update the state of the app
+                          // ...
+                          // Then close the drawer
+                          ref.read(isloginProvider.notifier).state = false;
+                          AutoRouter.of(context).push(const Login());
+                          Navigator.pop(context);
+                        },
+                      )
+                    : Container(),
               ],
             ),
           ),
@@ -127,7 +129,7 @@ class DrawerMenu extends ConsumerWidget {
           ListTile(
             title: const Center(
               child: Text(
-                'Version 1.0.0 powered by Viwaha.lk',
+                'Version 1.0.1 powered by Viwaha.lk',
                 style: TextStyle(fontSize: 12),
               ),
             ),

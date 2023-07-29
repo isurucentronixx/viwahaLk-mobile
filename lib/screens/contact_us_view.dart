@@ -221,7 +221,7 @@ class ContactUsPage extends StatelessWidget {
                       focusColor: Colors.white,
                       //add prefix icon
                       prefixIcon: const Icon(
-                        Icons.person_outline_rounded,
+                        Icons.email_outlined,
                         color: Colors.grey,
                       ),
                       border: OutlineInputBorder(
@@ -264,7 +264,7 @@ class ContactUsPage extends StatelessWidget {
                       focusColor: Colors.white,
                       //add prefix icon
                       prefixIcon: const Icon(
-                        Icons.person_outline_rounded,
+                        Icons.phone_android,
                         color: Colors.grey,
                       ),
                       border: OutlineInputBorder(
@@ -308,7 +308,7 @@ class ContactUsPage extends StatelessWidget {
                       focusColor: Colors.white,
                       //add prefix icon
                       prefixIcon: const Icon(
-                        Icons.person_outline_rounded,
+                        Icons.description_outlined,
                         color: Colors.grey,
                       ),
                       border: OutlineInputBorder(
