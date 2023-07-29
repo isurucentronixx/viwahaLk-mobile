@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
+import '../../gen/assets.gen.dart';
+
 @RoutePage()
 class CoupleInfoSection extends StatelessWidget {
   const CoupleInfoSection({super.key});
@@ -41,6 +43,8 @@ class CoupleInfoSection extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+
+                                //Thushan
                                 Image.asset(
                                   Assets.lib.assets.images.cover.path,
                                   fit: BoxFit.cover,
@@ -129,7 +133,7 @@ class CoupleInfoSection extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Assets.lib.assets.images.brideDp.image(
+                          child: Assets.lib.assets.images.bride.image(
                             height: 82,
                             width: 82,
                             fit: BoxFit.cover,
@@ -138,7 +142,7 @@ class CoupleInfoSection extends StatelessWidget {
                         const SizedBox(width: 10),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Assets.lib.assets.images.groomDp.image(
+                          child: Assets.lib.assets.images.groom.image(
                             height: 82,
                             width: 82,
                             fit: BoxFit.cover,
@@ -240,8 +244,7 @@ class CheckListSection extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     // Handle View All Vendors button pressed
-                    AutoRouter.of(context)
-                        .push(const CoupleDashboardToDoRoute());
+                    AutoRouter.of(context).push(const CoupleDashboard());
                   },
                   child: const Row(
                     children: [

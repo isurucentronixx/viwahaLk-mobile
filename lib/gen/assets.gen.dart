@@ -74,17 +74,28 @@ class $LibAssetsImagesGen {
   AssetGenImage get bgCard =>
       const AssetGenImage('lib/assets/images/bg-card.jpg');
 
+  /// File path: lib/assets/images/bride.jpg
+  AssetGenImage get bride => const AssetGenImage('lib/assets/images/bride.jpg');
+
   /// File path: lib/assets/images/color-logo.png
   AssetGenImage get colorLogo =>
       const AssetGenImage('lib/assets/images/color-logo.png');
+
+  /// File path: lib/assets/images/cover.jpg
+  AssetGenImage get cover => const AssetGenImage('lib/assets/images/cover.jpg');
 
   /// File path: lib/assets/images/facebook.png
   AssetGenImage get facebook =>
       const AssetGenImage('lib/assets/images/facebook.png');
 
+  $LibAssetsImagesFormGen get form => const $LibAssetsImagesFormGen();
+
   /// File path: lib/assets/images/google-logo.png
   AssetGenImage get googleLogo =>
       const AssetGenImage('lib/assets/images/google-logo.png');
+
+  /// File path: lib/assets/images/groom.jpg
+  AssetGenImage get groom => const AssetGenImage('lib/assets/images/groom.jpg');
 
   /// File path: lib/assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('lib/assets/images/logo.png');
@@ -120,15 +131,33 @@ class $LibAssetsImagesGen {
         weddingCars,
         weddingVenues,
         bgCard,
+        bride,
         colorLogo,
+        cover,
         facebook,
         googleLogo,
+        groom,
         logo,
         slider1,
         slider2,
         slider3,
         slider4
       ];
+}
+
+class $LibAssetsImagesFormGen {
+  const $LibAssetsImagesFormGen();
+
+  /// File path: lib/assets/images/form/AddGalleryImg.png.png
+  AssetGenImage get addGalleryImgPng =>
+      const AssetGenImage('lib/assets/images/form/AddGalleryImg.png.png');
+
+  /// File path: lib/assets/images/form/addMainImg.png.png
+  AssetGenImage get addMainImgPng =>
+      const AssetGenImage('lib/assets/images/form/addMainImg.png.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [addGalleryImgPng, addMainImgPng];
 }
 
 class Assets {
