@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:viwaha_lk/appColor.dart';
 
@@ -13,7 +14,7 @@ class AddFieldMainWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(

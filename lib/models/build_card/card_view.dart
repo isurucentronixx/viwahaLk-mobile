@@ -1,14 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/search/searching_page.dart';
 
-class CardView extends StatelessWidget {
+class CardView extends ConsumerWidget {
   const CardView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         const SizedBox(
@@ -58,81 +60,94 @@ class CardView extends StatelessWidget {
               'Venues',
               Assets.lib.assets.images.weddingVenues.image(),
               () async {
-                AutoRouter.of(context).push(const VenuesRoute());
+                ref.read(selectedMainCategoryProvider.notifier).state = "Venues";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Venues'));
               },
             ),
             _buildCard('Dressing', Assets.lib.assets.images.dressing.image(),
                 () {
-              AutoRouter.of(context).push(const DressingRoute());
+
+              ref.read(selectedMainCategoryProvider.notifier).state = "Dressing";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Dressing'));
             }),
             _buildCard(
               'Jewelry',
               Assets.lib.assets.images.jewelry.image(),
               () {
-                // Action for when Card 3 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Jewelry";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Jewelry'));
               },
             ),
             _buildCard(
               'Decorations',
               Assets.lib.assets.images.decorations.image(),
               () {
-                // Action for when Card 4 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Decorations";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Decorations'));
               },
             ),
             _buildCard(
               'Photography',
               Assets.lib.assets.images.photography.image(),
               () {
-                // Action for when Card 5 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Photography";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Photography'));
               },
             ),
             _buildCard(
               'Entertainment',
               Assets.lib.assets.images.entertainment.image(),
               () {
-                // Action for when Card 6 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Entertainment";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Entertainment'));
               },
             ),
             _buildCard(
               'Salon',
               Assets.lib.assets.images.makeup.image(),
               () {
-                // Action for when Card 7 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Salon'));
               },
             ),
             _buildCard(
               'Food',
               Assets.lib.assets.images.food.image(),
               () {
-                // Action for when Card 8 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Food";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Food'));
               },
             ),
             _buildCard(
               'Honeymoon',
               Assets.lib.assets.images.honeymoon.image(),
               () {
-                // Action for when Card 9 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Honeymoon";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Honeymoon'));
               },
             ),
             _buildCard(
               'Wedding Car',
               Assets.lib.assets.images.weddingCars.image(),
               () {
-                // Action for when Card 10 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Wedding Car";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Wedding Car'));
               },
             ),
             _buildCard(
               'Music',
               Assets.lib.assets.images.music.image(),
               () {
-                // Action for when Card 11 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Music";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Music'));
               },
             ),
             _buildCard(
               'Others',
               Assets.lib.assets.images.others.image(),
               () {
-                // Action for when Card 12 is clicked
+                 ref.read(selectedMainCategoryProvider.notifier).state = "Others";
+                AutoRouter.of(context).push(CategoryListingPage(category: 'Others'));
               },
             ),
             // Add more cards as needed

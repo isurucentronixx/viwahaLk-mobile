@@ -97,8 +97,16 @@ class $LibAssetsImagesGen {
   /// File path: lib/assets/images/groom.jpg
   AssetGenImage get groom => const AssetGenImage('lib/assets/images/groom.jpg');
 
+  /// File path: lib/assets/images/logo-nav.png
+  AssetGenImage get logoNav =>
+      const AssetGenImage('lib/assets/images/logo-nav.png');
+
   /// File path: lib/assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('lib/assets/images/logo.png');
+
+  /// File path: lib/assets/images/profile.jpg
+  AssetGenImage get profile =>
+      const AssetGenImage('lib/assets/images/profile.jpg');
 
   /// File path: lib/assets/images/slider1.jpeg
   AssetGenImage get slider1 =>
@@ -137,7 +145,9 @@ class $LibAssetsImagesGen {
         facebook,
         googleLogo,
         groom,
+        logoNav,
         logo,
+        profile,
         slider1,
         slider2,
         slider3,

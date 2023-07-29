@@ -77,7 +77,6 @@ class _BottomBarState extends State<BottomBar>
 
   Future<void> myScroll() async {
     scrollBottomBarController.addListener(() {
-      // print();
       if (scrollBottomBarController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         if (!isScrollingDown) {
@@ -187,7 +186,7 @@ class _BottomBarState extends State<BottomBar>
                           insets: EdgeInsets.fromLTRB(
                               16,
                               0,
-                              widget.currentPage == 2 ? 3 : 16,
+                              widget.currentPage == 2 ? 3 : 13,
                               widget.currentPage == 2 ? 5 : 8)),
                       tabs: [
                         SizedBox(
@@ -206,7 +205,7 @@ class _BottomBarState extends State<BottomBar>
                           width: 40,
                           child: Center(
                               child: Icon(
-                            Icons.align_horizontal_left_sharp,
+                            Icons.notes_outlined,
                             color: widget.currentPage == 1
                                 ? Colors.white
                                 : widget.unselectedColor,

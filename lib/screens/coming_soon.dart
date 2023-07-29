@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../gen/assets.gen.dart';
 
 @RoutePage()
 class ComingSoonPage extends StatelessWidget {
@@ -8,9 +9,9 @@ class ComingSoonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       
-      body: Center(
+      body: const Center(
         child: Text('Comming Soon!'),
       ),
     );

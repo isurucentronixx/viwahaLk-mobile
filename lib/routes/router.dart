@@ -10,10 +10,16 @@ class AppRouter extends $AppRouter {
           path: '/login',
         ),
         AutoRoute(page: HomePage.page, path: '/homePage', initial: true),
+        AutoRoute(page: AddListingPage.page, path: '/addListingPage'),
         AutoRoute(
           page: AboutUsPage.page,
           path: '/aboutPage',
         ),
+        AutoRoute(
+          page: ContactUsPage.page,
+          path: '/aboutPage',
+        ),
+
         AutoRoute(page: VenuesRoute.page, path: "/venuesPage"),
         AutoRoute(page: DressingRoute.page, path: "/dressingPage"),
         AutoRoute(page: VenusesSingleView.page, path: "/singleVenuesPage"),
@@ -22,14 +28,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: SearchingPage.page, path: "/searchingPage"),
         AutoRoute(
             page: SearchingResultsPage.page, path: "/searchingResultsPage"),
+        AutoRoute(page: CategoryListingPage.page, path: "/categoryListingPage"),
+        AutoRoute(page: ProfilePage.page, path: "/profilePage"),
         // AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
-        AutoRoute(
-            page: CoupleDashboardGuestList.page, path: "/CoupleDashboardPage"),
-        AutoRoute(
-            page: CoupleDashboardToDoList.page,
-            path: "/CoupleDashboardToDoPage"),
-
-        AutoRoute(
-            page: GuestListView.page, path: "/CoupleDashboardGuestListRoute"),
       ];
 }

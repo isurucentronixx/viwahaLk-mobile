@@ -8,6 +8,7 @@ import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
+import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 
@@ -22,6 +23,8 @@ final homeControllerProvider = Provider<HomeController>((ref) {
 final isLoadingHomeProvider = StateProvider<bool>((ref) {
   return true;
 });
+
+final appRouterProvider = Provider<AppRouter>((ref) => AppRouter());
 
 class HomeController {
   final HomeService homeService;
@@ -97,6 +100,32 @@ class HomeController {
   Future<List<SearchResultItem>> fetchAllListing() async {
     try {
       final res = await homeService.fetchAllListingApiRequest();
+      final searchResult =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<SearchResultItem>> fetchFavListing() async {
+    try {
+      final res = await homeService.fetchFavListingApiRequest();
+      final searchResult =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<SearchResultItem>> fetchCategoryListing( String category) async {
+    try {
+      final res = await homeService.fetchCategoryListingApiRequest(category);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

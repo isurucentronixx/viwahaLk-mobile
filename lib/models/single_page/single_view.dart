@@ -6,6 +6,7 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import '../menu_item.dart';
+import '../releted_items/releted.dart';
 
 @RoutePage()
 class SingleView extends StatefulWidget {
