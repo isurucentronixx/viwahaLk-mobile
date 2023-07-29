@@ -170,82 +170,60 @@ class _BottomBarState extends State<BottomBar>
             child: ClipRRect(
               borderRadius: BorderRadius.circular(500),
               child: Container(
+                  margin: const EdgeInsets.only(bottom: 10),
                   width: MediaQuery.of(context).size.width * 0.8,
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(500),
                   ),
-                  child: Material(
-                    color: widget.barColor,
-                    child: TabBar(
-                      indicatorPadding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
-                      controller: widget.tabController,
-                      indicator: UnderlineTabIndicator(
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 4),
-                          insets: EdgeInsets.fromLTRB(
-                              16,
-                              0,
-                              widget.currentPage == 2 ? 3 : 13,
-                              widget.currentPage == 2 ? 5 : 8)),
-                      tabs: [
-                        SizedBox(
-                          height: 55,
-                          width: 40,
-                          child: Center(
-                              child: Icon(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      color: widget.barColor,
+                      child: TabBar(
+                        controller: widget.tabController,
+                        labelPadding: const EdgeInsets.only(bottom: 4),
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicator: const UnderlineTabIndicator(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 4,
+                          ),
+                        ),
+                        tabs: [
+                          Icon(
                             Icons.home,
                             color: widget.currentPage == 0
                                 ? Colors.white
                                 : widget.unselectedColor,
-                          )),
-                        ),
-                        SizedBox(
-                          height: 55,
-                          width: 40,
-                          child: Center(
-                              child: Icon(
+                          ),
+                          Icon(
                             Icons.notes_outlined,
                             color: widget.currentPage == 1
                                 ? Colors.white
                                 : widget.unselectedColor,
-                          )),
-                        ),
-                        SizedBox(
-                          height: 55,
-                          width: 40,
-                          child: Center(
-                              child: Icon(
+                          ),
+                          Icon(
                             Icons.add_circle_outline_sharp,
                             size: 40.0,
                             color: widget.currentPage == 2
                                 ? Colors.white
                                 : widget.unselectedColor,
-                          )),
-                        ),
-                        SizedBox(
-                          height: 55,
-                          width: 40,
-                          child: Center(
-                              child: Icon(
+                          ),
+                          Icon(
                             Icons.account_circle_outlined,
                             color: widget.currentPage == 3
                                 ? Colors.white
                                 : widget.unselectedColor,
-                          )),
-                        ),
-                        SizedBox(
-                          height: 55,
-                          width: 40,
-                          child: Center(
-                              child: Icon(
+                          ),
+                          Icon(
                             Icons.favorite_outline,
                             color: widget.currentPage == 4
                                 ? Colors.white
                                 : widget.unselectedColor,
-                          )),
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   )),
             ),

@@ -32,10 +32,10 @@ dependencies:
   shared_preferences: ^2.1.2
   jiffy: ^6.2.1
   dropdown_search: ^5.0.6 
-  image_picker: ^1.0.0
+  image_picker: ^0.8.6
   google_fonts: ^4.0.4
   awesome_select: ^6.0.0
-  flutter_facebook_auth: ^5.0.11
+  # flutter_facebook_auth: ^5.0.11
   expand_widget: ^3.1.1
   
 

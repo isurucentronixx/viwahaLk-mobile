@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -21,26 +21,26 @@ class _LoginState extends State<Login> {
   bool _isLoggedIn = false;
   Map<String, dynamic> _userObj = {};
 
-  Future<void> loginWithFacebook(BuildContext context) async {
-    final LoginResult result = await FacebookAuth.instance.login(
-      permissions: ["public_profile", "email"],
-    );
+  // Future<void> loginWithFacebook(BuildContext context) async {
+  //   final LoginResult result = await FacebookAuth.instance.login(
+  //     permissions: ["public_profile", "email"],
+  //   );
 
-    switch (result.status) {
-      case LoginStatus.success:
-        final AccessToken accessToken = result.accessToken!;
-        await authenticateWithViwaha(accessToken.token);
-        break;
-      case LoginStatus.cancelled:
-        print('Facebook login cancelled.');
-        break;
-      case LoginStatus.failed:
-        print('Facebook login failed: ${result.message}');
-        break;
-      default:
-        break;
-    }
-  }
+  //   switch (result.status) {
+  //     case LoginStatus.success:
+  //       final AccessToken accessToken = result.accessToken!;
+  //       await authenticateWithViwaha(accessToken.token);
+  //       break;
+  //     case LoginStatus.cancelled:
+  //       print('Facebook login cancelled.');
+  //       break;
+  //     case LoginStatus.failed:
+  //       print('Facebook login failed: ${result.message}');
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   Future<void> authenticateWithViwaha(String facebookAccessToken) async {
     final url =
@@ -186,7 +186,7 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       // AutoRouter.of(context).push(FacebookLogin());
-                      loginWithFacebook(context);
+                      // loginWithFacebook(context);
                     },
                     icon: SizedBox(
                         width: 20,
