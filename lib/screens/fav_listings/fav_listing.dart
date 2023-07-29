@@ -29,7 +29,9 @@ class FavListingPage extends ConsumerStatefulWidget {
 class _FavListingPageState extends ConsumerState<FavListingPage> {
   @override
   Widget build(BuildContext context) {
-    final favListing = ref.watch(favListingProvider);
+    var favListing;
+    // final favListing = ref.watch(favListingProvider);
+    favListing = ref.watch(isloginProvider) ? ref.watch(favListingProvider):null;
 
     @override
     initState() {
@@ -37,6 +39,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
       super.initState();
     }
 
+    
     return Scaffold(
         body: Column(
       children: [
