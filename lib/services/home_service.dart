@@ -1,4 +1,5 @@
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/constant/endpoints.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'dart:async';
@@ -72,10 +73,10 @@ class HomeService {
     }
   }
 
-  Future fetchFavListingApiRequest() async {
+  Future fetchFavListingApiRequest({required Ref ref}) async {
     try {
-      final res =
-          await _dioClient.get(Endpoints.baseUrl + Endpoints.getFavListing);
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl}${Endpoints.getFavListing}${ref.watch(userProvider).user!.id}');
       return res.data;
     } catch (e) {
       rethrow;

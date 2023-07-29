@@ -22,7 +22,7 @@ class Endpoints {
       "search/get_listings_list";
 
     static const String getFavListing =
-      "listings/get_fav_listings";
+      "listings/get_fav_listings?id=";
 
   // receiveTimeout
   static const int receiveTimeout = 15000;
