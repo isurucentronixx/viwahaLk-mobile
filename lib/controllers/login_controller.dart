@@ -16,7 +16,7 @@ final loginControllerProvider = Provider<LoginController>((ref) {
 });
 
 
-final userProvider = StateProvider<UserModel>((ref) => UserModel());
+final userProvider = StateProvider<UserModel>((ref) => const UserModel());
 final isloginProvider = StateProvider<bool>((ref) => false);
 final isLoadingLoginProvider = StateProvider<bool>((ref) {
   return true;

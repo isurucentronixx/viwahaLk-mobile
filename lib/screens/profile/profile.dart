@@ -34,7 +34,7 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider).userId;
+    final user = ref.watch(userProvider).user;
     return Scaffold(
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(

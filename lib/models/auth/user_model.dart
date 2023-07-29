@@ -10,7 +10,7 @@ part 'user_model.g.dart';
 class UserModel with _$UserModel {
   const factory UserModel({
     String? responseCode,
-    User? userId,
+    User? user,
     String? token,
   }) = _UserModel;
 

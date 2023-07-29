@@ -123,9 +123,9 @@ class _LoginState extends ConsumerState<Login> {
                   decoration: const InputDecoration(
                     labelText: 'Username',
                   ),
-                  onChanged: (value) {
-                    usernameController.text = value;
-                  },
+                  // onChanged: (value) {
+                  //   usernameController.text = value;
+                  // },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your Username';
@@ -142,9 +142,9 @@ class _LoginState extends ConsumerState<Login> {
                   decoration: const InputDecoration(
                     labelText: 'Password',
                   ),
-                  onChanged: (value) {
-                    passwordController.text = value;
-                  },
+                  // onChanged: (value) {
+                  //   passwordController.text = value;
+                  // },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your Password';
@@ -178,6 +178,8 @@ class _LoginState extends ConsumerState<Login> {
                           usernameController.text;
                       ref.read(passwordProvider.notifier).state =
                           passwordController.text;
+                      print(ref.read(usernameProvider));
+
                       ref.refresh(loginProvider);
                     }
                   },

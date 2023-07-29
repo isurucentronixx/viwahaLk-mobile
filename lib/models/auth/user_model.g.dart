@@ -8,15 +8,15 @@ part of 'user_model.dart';
 
 _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       responseCode: json['responseCode'] as String?,
-      userId: json['userId'] == null
+      user: json['user'] == null
           ? null
-          : User.fromJson(json['userId'] as Map<String, dynamic>),
+          : User.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     <String, dynamic>{
       'responseCode': instance.responseCode,
-      'userId': instance.userId,
+      'user': instance.user,
       'token': instance.token,
     };

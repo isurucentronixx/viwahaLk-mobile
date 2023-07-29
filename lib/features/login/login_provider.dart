@@ -18,7 +18,7 @@ final loginProvider = StateNotifierProvider<LoginNotifier, UserModel>((ref) {
   return LoginNotifier(
     username: ref.read(usernameProvider),
     password: ref.read(passwordProvider),
-    //  username: "lakmalajantha@gmail.com",
+    //  username: "lakmalajantha@gmail.com", 
     // password: "123456789Vi",
     ref: ref,
   );

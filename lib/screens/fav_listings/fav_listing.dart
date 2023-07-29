@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -15,6 +16,7 @@ import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
@@ -41,7 +43,8 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
        
         const SizedBox(height: 15),
         Expanded(
-          child: favListing.isNotEmpty 
+          child: ref.watch(isloginProvider)
+          ? favListing.isNotEmpty 
               ? GridView.count(
                   crossAxisCount: 2, // Number of columns
                   children: List.generate(
@@ -64,7 +67,23 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
               : const Center(
                   child: Center(
                   child: CircularProgressIndicator(),
-                ))
+                )):Center(
+              child: FractionallySizedBox(
+                widthFactor: 0.8,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    AutoRouter.of(context).push(const Login());
+                  },
+                  icon: const Icon(Icons.login),
+                  label: const Text('Sign In'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ),
       ],
     ));

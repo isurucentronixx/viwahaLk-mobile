@@ -28,13 +28,14 @@ class LoginNotifier extends StateNotifier<UserModel> {
         .then((value) {
       // Setting current `state` to the fetched list of products.
       state = value;
-      
+
       // Setting isLoading to `false`.
       ref.read(isLoadingLoginProvider.notifier).state = false;
       if (int.parse(state.responseCode.toString()) == 1) {
         ref.read(userProvider.notifier).state = value;
         ref.read(isloginProvider.notifier).state = true;
-        
+        print("---------------------------------------------");
+        print(ref.read(userProvider));
         appRouter.push(const HomePage());
       } else {
         print("Invalid credintials");

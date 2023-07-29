@@ -2305,6 +2305,27 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         ],
                       ),
                     ]),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // AutoRouter.of(context).push(const SearchingResultsPage());
+                          // Perform login logic here
+                        },
+                        icon: const Icon(Icons.add_box_outlined),
+                        label: const Text('ADD YOUR LISTING'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 50,
                 )
