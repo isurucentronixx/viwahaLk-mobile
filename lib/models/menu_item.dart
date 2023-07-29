@@ -129,7 +129,7 @@ class DrawerMenu extends ConsumerWidget {
           ListTile(
             title: const Center(
               child: Text(
-                'Version 1.0.1 powered by Viwaha.lk',
+                'Version 1.0.0 powered by Viwaha.lk',
                 style: TextStyle(fontSize: 12),
               ),
             ),
