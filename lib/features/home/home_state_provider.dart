@@ -138,7 +138,7 @@ class FavListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 
   Future fetchFavListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchFavListing().then((value) {
+    await ref.read(homeControllerProvider).fetchFavListing(ref: ref).then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;

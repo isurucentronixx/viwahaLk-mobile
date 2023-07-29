@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/home/home_content.dart';
 import 'package:viwaha_lk/models/menu_item.dart';
@@ -9,17 +11,18 @@ import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
+import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends ConsumerState<HomePage>
+    with TickerProviderStateMixin {
   late int currentPage;
   late TabController tabController;
 
@@ -78,8 +81,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 : currentPage == 2
                     ? "Add New Listing"
                     : currentPage == 3
-                        ? "Profile"
-                        : "Favourite"),
+                        ? ref.watch(isloginProvider)
+                            ? "Profile"
+                            : "Please Login"
+                        : ref.watch(isloginProvider)
+                            ? "Favourite"
+                            : "Please Login"),
       ),
       drawer: const DrawerMenu(),
       body: BottomBar(
@@ -94,12 +101,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             controller: tabController,
             dragStartBehavior: DragStartBehavior.down,
             physics: const BouncingScrollPhysics(),
-            children: const [
-              HomeContent(),
-              AllListingPage(),
-              AddListingPage(),              
-              ProfilePage(),
-              FavListingPage(),
+            children: [
+              const HomeContent(),
+              const AllListingPage(),
+              const AddListingPage(),
+              ref.watch(isloginProvider) ? const ProfilePage() : const Login(),
+              ref.watch(isloginProvider)
+                  ? const FavListingPage()
+                  : const Login(),
             ]),
       ),
 

@@ -110,9 +110,9 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchFavListing() async {
+  Future<List<SearchResultItem>> fetchFavListing({required Ref ref}) async {
     try {
-      final res = await homeService.fetchFavListingApiRequest();
+      final res = await homeService.fetchFavListingApiRequest(ref: ref);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -123,7 +123,7 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchCategoryListing( String category) async {
+  Future<List<SearchResultItem>> fetchCategoryListing(String category) async {
     try {
       final res = await homeService.fetchCategoryListingApiRequest(category);
       final searchResult =
