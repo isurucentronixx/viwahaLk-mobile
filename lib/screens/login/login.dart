@@ -3,10 +3,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
+import 'package:viwaha_lk/models/auth/user.dart';
+import 'package:viwaha_lk/models/auth/user_model.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 
 final usernameProvider = StateProvider<String>((ref) => "");
 final passwordProvider = StateProvider<String>((ref) => "");
@@ -22,70 +27,8 @@ class Login extends ConsumerStatefulWidget {
 class _LoginState extends ConsumerState<Login> {
   final _formKey = GlobalKey<FormState>();
 
-  // bool _isLoggedIn = false;
-  // Map<String, dynamic> _userObj = {};
-
-  // Future<void> loginWithFacebook(BuildContext context) async {
-  //   final LoginResult result = await FacebookAuth.instance.login(
-  //     permissions: ["public_profile", "email"],
-  //   );
-
-  //   switch (result.status) {
-  //     case LoginStatus.success:
-  //       final AccessToken accessToken = result.accessToken!;
-  //       await authenticateWithViwaha(accessToken.token);
-  //       break;
-  //     case LoginStatus.cancelled:
-  //       print('Facebook login cancelled.');
-  //       break;
-  //     case LoginStatus.failed:
-  //       print('Facebook login failed: ${result.message}');
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  // Future<void> authenticateWithViwaha(String facebookAccessToken) async {
-  //   final url =
-  //       Uri.parse('https://viwahaapp.nikhilaholdings.lk/login/facebook');
-  //   final response = await http.post(
-  //     url,
-  //     body: {'access_token': facebookAccessToken},
-  //   );
-
-  //   print({facebookAccessToken, " Thushn"});
-
-  //   if (response.statusCode == 200) {
-  //     // Successfully authenticated with the Viwaha App API
-  //     print('Viwaha App login successful: ${response.body}');
-  //     // Extract the necessary data from the API response and update the UI accordingly
-  //     final data = jsonDecode(response.body);
-  //     final name = data['name'];
-  //     final email = data['email'];
-  //     final profilePicture = data['picture']['data']['url'];
-
-  //     setState(() {
-  //       _isLoggedIn = true;
-  //       _userObj = {
-  //         'name': name,
-  //         'email': email,
-  //         'picture': {
-  //           'data': {'url': profilePicture}
-  //         },
-  //       };
-  //     });
-  //   } else {
-  //     // Failed to authenticate with the Viwaha App API
-  //     print('Viwaha App login failed: ${response.statusCode}');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // final loginNotifier = ref.watch(loginProvider.notifier);
-    // final login = ref.read(loginProvider);
-
     TextEditingController passwordController = TextEditingController();
     TextEditingController usernameController = TextEditingController();
 
@@ -220,6 +163,7 @@ class _LoginState extends ConsumerState<Login> {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         // Perform Google sign-in logic here
+                        googleSignIn(context, ref);
                       },
                       icon: SizedBox(
                           width: 20,
@@ -269,4 +213,25 @@ class _LoginState extends ConsumerState<Login> {
       ),
     );
   }
+}
+
+Future googleSignIn(BuildContext context, WidgetRef ref) async {
+  final appRouter = ref.watch(appRouterProvider);
+  final user = await GoogleSignInApi.login();
+  if (user != null) {
+    ref.read(userProvider.notifier).state = UserModel(
+        user: User(
+            firstname: user.displayName,
+            email: user.email,
+            image: user.photoUrl));
+    ref.read(isloginProvider.notifier).state = true;
+    appRouter.push(const HomePage());
+  } else { 
+
+  }
+}
+
+class GoogleSignInApi {
+  static final _googleSignIn = GoogleSignIn();
+  static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 }

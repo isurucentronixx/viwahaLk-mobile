@@ -34,8 +34,6 @@ class LoginNotifier extends StateNotifier<UserModel> {
       if (int.parse(state.responseCode.toString()) == 1) {
         ref.read(userProvider.notifier).state = value;
         ref.read(isloginProvider.notifier).state = true;
-        print("---------------------------------------------");
-        print(ref.read(userProvider));
         appRouter.push(const HomePage());
       } else {
         print("Invalid credintials");

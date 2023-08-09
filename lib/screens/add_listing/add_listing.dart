@@ -7,6 +7,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/core/network/dio_client.dart';
+import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -28,14 +30,33 @@ import 'package:awesome_select/awesome_select.dart';
 final mainImageProvider = StateProvider<String>((ref) => '');
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 
+final adTitleProvider = StateProvider<String>((ref) => '');
+final adAddressProvider = StateProvider<String>((ref) => '');
+final adGoogleAddressProvider = StateProvider<String>((ref) => '');
+final adPriceProvider = StateProvider<String>((ref) => '');
+final adOwnerNameProvider = StateProvider<String>((ref) => '');
+final adEmailProvider = StateProvider<String>((ref) => '');
+final adPhoneProvider = StateProvider<String>((ref) => '');
+final adWhatsappProvider = StateProvider<String>((ref) => '');
+final adDesignationProvider = StateProvider<String>((ref) => '');
+final adCompanyProvider = StateProvider<String>((ref) => '');
+final adWebSiteProvider = StateProvider<String>((ref) => '');
+final adFacebookProvider = StateProvider<String>((ref) => '');
+final adInstagramProvider = StateProvider<String>((ref) => '');
+final adYoutubeProvider = StateProvider<String>((ref) => '');
+final adLinkedinProvider = StateProvider<String>((ref) => '');
+final adDescProvider = StateProvider<String>((ref) => '');
+final adVideoLinkProvider = StateProvider<String>((ref) => '');
+
 @RoutePage()
 class AddListingPage extends ConsumerStatefulWidget {
-  const AddListingPage({super.key}); 
+  const AddListingPage({super.key});
   @override
   _AddListingPageState createState() => _AddListingPageState();
 }
 
 class _AddListingPageState extends ConsumerState<AddListingPage> {
+  
   final picker = ImagePicker();
   String _cat = 'Select one';
   String _subCat = 'Select one';
@@ -57,6 +78,24 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
   String _saturedayClose = 'Select one';
   String _sundayOpen = 'Select one';
   String _sundayClose = 'Select one';
+
+  bool am1 = false;
+  bool am2 = false;
+  bool am3 = false;
+  bool am4 = false;
+  bool am5 = false;
+  bool am6 = false;
+  bool am7 = false;
+  bool am8 = false;
+  bool am9 = false;
+  bool am10 = false;
+  bool am11 = false;
+  bool am12 = false;
+
+  List<String> amenities = [];
+
+  bool askPrice = false;
+  bool negotiable = false;
 
   List<S2Choice<String>>? subCategoryData = [];
   List<S2Choice<String>>? subLocationData = [];
@@ -90,6 +129,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(postControllerProvider);
     List<S2Choice<String>>? mainCategoryData = ref
         .watch(categoriesProvider)
         .map((e) => S2Choice<String>(
@@ -108,6 +148,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
     }
 
     final TextEditingController _searchController = TextEditingController();
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -213,7 +254,11 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adTitleProvider.notifier).state = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -347,7 +392,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adAddressProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -390,7 +440,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adGoogleAddressProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -439,7 +494,11 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adPriceProvider.notifier).state = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -477,10 +536,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: askPrice,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                askPrice = value!;
                               });
                             },
                           ),
@@ -493,10 +552,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: negotiable,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                value = value;
                               });
                             },
                           ),
@@ -514,7 +573,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adOwnerNameProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -557,7 +621,11 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adEmailProvider.notifier).state = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -600,7 +668,11 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adPhoneProvider.notifier).state = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -643,7 +715,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adWhatsappProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -686,7 +763,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adDesignationProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -729,7 +811,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adCompanyProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -772,7 +859,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adWebSiteProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -815,7 +907,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adFacebookProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -858,7 +955,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adInstagramProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -901,7 +1003,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adYoutubeProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -944,7 +1051,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adLinkedinProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -989,7 +1101,11 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adDescProvider.notifier).state = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -1035,10 +1151,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am1,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am1 = value!;
+                                if (value) {
+                                  amenities.add('Elevator in Building');
+                                } else {
+                                  amenities.remove('Elevator in Building');
+                                }
                               });
                             },
                           ),
@@ -1051,10 +1172,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am2,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am2 = value!;
+                                if (value) {
+                                  amenities.add('Friendly Workspace');
+                                } else {
+                                  amenities.remove('Friendly Workspace');
+                                }
                               });
                             },
                           ),
@@ -1067,10 +1193,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am3,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am3 = value!;
+                                if (value) {
+                                  amenities.add('Instant Book');
+                                } else {
+                                  amenities.remove('Instant Book');
+                                }
                               });
                             },
                           ),
@@ -1083,10 +1214,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am4,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am4 = value!;
+                                if (value) {
+                                  amenities.add('Wifi');
+                                } else {
+                                  amenities.remove('Wifi');
+                                }
                               });
                             },
                           ),
@@ -1099,10 +1235,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am5,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am5 = value!;
+                                if (value) {
+                                  amenities.add('Free Parking on Premises');
+                                } else {
+                                  amenities.remove('Free Parking on Premises');
+                                }
                               });
                             },
                           ),
@@ -1115,10 +1256,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am6,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am6 = value!;
+                                if (value) {
+                                  amenities.add('Free Parking on Street');
+                                } else {
+                                  amenities.remove('Free Parking on Street');
+                                }
                               });
                             },
                           ),
@@ -1131,10 +1277,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am7,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am7 = value!;
+                                if (value) {
+                                  amenities.add('Smoking allowed');
+                                } else {
+                                  amenities.remove('Smoking allowed');
+                                }
                               });
                             },
                           ),
@@ -1147,10 +1298,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am8,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am8 = value!;
+                                if (value) {
+                                  amenities.add('Events');
+                                } else {
+                                  amenities.remove('Events');
+                                }
                               });
                             },
                           ),
@@ -1163,10 +1319,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am9,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am9 = value!;
+                                if (value) {
+                                  amenities.add('Electricity');
+                                } else {
+                                  amenities.remove('Electricity');
+                                }
                               });
                             },
                           ),
@@ -1179,10 +1340,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am10,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am10 = value!;
+                                if (value) {
+                                  amenities.add('Security Cameras');
+                                } else {
+                                  amenities.remove('Security Cameras');
+                                }
                               });
                             },
                           ),
@@ -1195,10 +1361,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am11,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am11 = value!;
+                                if (value) {
+                                  amenities.add('Intercom');
+                                } else {
+                                  amenities.remove('Intercom');
+                                }
                               });
                             },
                           ),
@@ -1211,10 +1382,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       Row(
                         children: <Widget>[
                           Checkbox(
-                            value: false,
+                            value: am12,
                             onChanged: (value) {
                               setState(() {
-                                value = true;
+                                am12 = value!;
+                                if (value) {
+                                  amenities.add('Door Attendant');
+                                } else {
+                                  amenities.remove('Door Attendant');
+                                }
                               });
                             },
                           ),
@@ -1374,42 +1550,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                           }),
                                     ),
                                   )
-                            // SingleChildScrollView(
-                            //     scrollDirection: Axis.vertical,
-                            //     child: ListView.builder(
-                            //         scrollDirection: Axis.vertical,
-                            //         itemCount: 3,
-                            //         itemBuilder: (context, index) {
-                            //           return Container(
-                            //             width: 150,
-                            //             height: 150,
-                            //             decoration: BoxDecoration(
-                            //                 border: Border.all(
-                            //                     color: ViwahaColor.primary),
-                            //                 borderRadius:
-                            //                     const BorderRadius.all(
-                            //                         Radius.circular(10))),
-                            //             child: Assets
-                            //                 .lib.assets.images.colorLogo
-                            //                 .image(),
-                            //           );
-                            //         }),
-                            //   ),
-                            // Container(
-                            //     width: 150,
-                            //     height: 150,
-                            //     decoration: BoxDecoration(
-                            //         // image: DecorationImage(
-                            //         //     fit: BoxFit.fill,
-                            //         //     image: Image.file(File(
-                            //         //             ref.watch(mainImageProvider)))
-                            //         //         .image),
-                            //         border:
-                            //             Border.all(color: ViwahaColor.primary),
-                            //         borderRadius: const BorderRadius.all(
-                            //             Radius.circular(10))),
-
-                            //   )
                           ],
                         ),
                       )
@@ -1428,7 +1568,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              ref.read(adVideoLinkProvider.notifier).state =
+                                  value;
+                            });
+                          },
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             //add prefix icon
@@ -2314,6 +2459,53 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         onPressed: () {
                           // AutoRouter.of(context).push(const SearchingResultsPage());
                           // Perform login logic here
+
+                          var newList = {
+                            "category": _cat,
+                            "subCategory": _subCat,
+                            "adTitle": ref.read(adTitleProvider),
+                            "distric": _location,
+                            "city": _subLocation,
+                            "address": ref.read(adAddressProvider),
+                            "googleLocation": ref.read(adGoogleAddressProvider),
+                            "price": ref.read(adPriceProvider),
+                            "askPrice": askPrice.toString(),
+                            "negotiable": negotiable.toString(),
+                            "ownerName": ref.read(adOwnerNameProvider),
+                            "email": ref.read(adEmailProvider),
+                            "phone": ref.read(adPhoneProvider),
+                            "whatsapp": ref.read(adWhatsappProvider),
+                            "designation": ref.read(adDesignationProvider),
+                            "company": ref.read(adCompanyProvider),
+                            "webSite": ref.read(adWebSiteProvider),
+                            "facebook": ref.read(adFacebookProvider),
+                            "instagram": ref.read(adInstagramProvider),
+                            "youtube": ref.read(adYoutubeProvider),
+                            "linkedin": ref.read(adLinkedinProvider),
+                            "description": ref.read(adDescProvider),
+                            "amenities": amenities.toString(),
+                            "mainImage": ref.read(mainImageProvider),
+                            "gallery": ref.read(imageGalleryProvider),
+                            "video": ref.read(adVideoLinkProvider),
+                            "alwaysOpen": _alwaysOpen,
+                            "openHollydays": _openInHollyday,
+                            "monOpen": _mondayOpen,
+                            "monClose": _mondayClose,
+                            "tueOpen": _tuesdayOpen,
+                            "tueClose": _tuesdayClose,
+                            "wedOpen": _wednesdayOpen,
+                            "wedClose": _wednesdayClose,
+                            "thuOpen": _thursdayOpen,
+                            "thuClose": _thursdayClose,
+                            "friOpen": _fridayOpen,
+                            "friClose": _fridayClose,
+                            "satOpen": _saturedayOpen,
+                            "satClose": _saturedayClose,
+                            "sunOpen": _sundayOpen,
+                            "sunClose": _sundayClose,
+                          };
+                          controller.addNewListing(newList);
+                          // PostData.addNewListing(newList);
                         },
                         icon: const Icon(Icons.add_box_outlined),
                         label: const Text('ADD YOUR LISTING'),
