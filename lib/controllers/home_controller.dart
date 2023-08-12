@@ -123,6 +123,19 @@ class HomeController {
     }
   }
 
+  Future<List<SearchResultItem>> fetchMyListing({required Ref ref}) async {
+    try {
+      final res = await homeService.fetchMyListingApiRequest(ref: ref);
+      final searchResult =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
   Future<List<SearchResultItem>> fetchCategoryListing(String category) async {
     try {
       final res = await homeService.fetchCategoryListingApiRequest(category);

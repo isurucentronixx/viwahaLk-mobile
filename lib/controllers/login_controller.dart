@@ -11,16 +11,14 @@ final loginServiceProvider = Provider<LoginService>((ref) {
   return LoginService(ref.read(dioClientProvider));
 });
 
-final loginControllerProvider = Provider<LoginController>((ref) {
-  return LoginController(ref.read(loginServiceProvider));
-});
-
 
 final userProvider = StateProvider<UserModel>((ref) => const UserModel());
 final isloginProvider = StateProvider<bool>((ref) => false);
 final isLoadingLoginProvider = StateProvider<bool>((ref) {
   return true;
 });
+
+
 
 class LoginController {
   final LoginService loginService;
@@ -29,13 +27,32 @@ class LoginController {
 
   Future<UserModel> fetchUser(
       {required String username, required String password}) async {
-
     try {
       final res = await loginService.fetchLoginApiRequest(
           username: username, password: password);
-    
+
       // ignore: use_build_context_synchronously
       final user = UserModel.fromJson(res);
+      return user;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<UserModel> fetchGoogleUser(
+      {required String? displayName,
+      required String? email,
+      required String? photoUrl}) async {
+    try {
+      final res = await loginService.fetchLoginGoogleApiRequest(
+          displayName: displayName, email: email, photoUrl: photoUrl);
+ 
+      // ignore: use_build_context_synchronously
+      final user = UserModel.fromJson(res);
+
+
       return user;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

@@ -56,6 +56,12 @@ final favListingProvider =
   return FavListingProviderNotifier(ref: ref);
 });
 
+final myListingProvider =
+    StateNotifierProvider<MyListingProviderNotifier, List<SearchResultItem>>(
+        (ref) {
+  return MyListingProviderNotifier(ref: ref);
+});
+
 final categoryListingProvider =
     StateNotifierProvider<CategoryListingProviderNotifier, List<SearchResultItem>>(
         (ref) {

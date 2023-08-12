@@ -322,7 +322,7 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'Contact Infromations',
+                  'Contact Informations',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

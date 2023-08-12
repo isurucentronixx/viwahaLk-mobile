@@ -7,12 +7,12 @@ import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import '../menu_item.dart';
-import '../releted_items/releted.dart';
 
 @RoutePage()
 class SearchSingleView extends StatefulWidget {
   final SearchResultItem? item;
-  const SearchSingleView(this.item, {super.key});
+  final String? type;
+  const SearchSingleView(this.item, this.type, {super.key});
 
   @override
   State<SearchSingleView> createState() => _SearchSingleViewState();
@@ -77,7 +77,8 @@ class _SearchSingleViewState extends State<SearchSingleView> {
                 widget.item!.datetime.toString(),
                 widget.item!.location.toString(),
                 widget.item!.title.toString(),
-                widget.item!.views.toString()),
+                widget.item!.views.toString(),
+                widget.type.toString()),
             SingleItemDescription(widget.item!.description.toString()),
             SingleItemContactInfo(
                 widget.item!.phone.toString(),

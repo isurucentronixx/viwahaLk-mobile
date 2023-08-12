@@ -66,9 +66,9 @@ class _LoginState extends ConsumerState<Login> {
                   decoration: const InputDecoration(
                     labelText: 'Username',
                   ),
-                  // onChanged: (value) {
-                  //   usernameController.text = value;
-                  // },
+                  onChanged: (value) {
+                    usernameController.text = value;
+                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your Username';
@@ -85,9 +85,9 @@ class _LoginState extends ConsumerState<Login> {
                   decoration: const InputDecoration(
                     labelText: 'Password',
                   ),
-                  // onChanged: (value) {
-                  //   passwordController.text = value;
-                  // },
+                  onChanged: (value) {
+                    passwordController.text = value;
+                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your Password';
@@ -118,10 +118,10 @@ class _LoginState extends ConsumerState<Login> {
                             )
                           : Container();
                       ref.read(usernameProvider.notifier).state =
-                          usernameController.text;
-                      ref.read(passwordProvider.notifier).state =
-                          passwordController.text;
-                      print(ref.read(usernameProvider));
+                          "lakmalajantha@gmail.com";
+                      // usernameController.text;
+                      ref.read(passwordProvider.notifier).state = "123456789Vi";
+                      // passwordController.text;
 
                       ref.refresh(loginProvider);
                     }
@@ -216,19 +216,20 @@ class _LoginState extends ConsumerState<Login> {
 }
 
 Future googleSignIn(BuildContext context, WidgetRef ref) async {
+  final controller = ref.read(loginControllerProvider);
   final appRouter = ref.watch(appRouterProvider);
   final user = await GoogleSignInApi.login();
   if (user != null) {
-    ref.read(userProvider.notifier).state = UserModel(
-        user: User(
-            firstname: user.displayName,
-            email: user.email,
-            image: user.photoUrl));
+    print(user.toString());
+    final res = await controller.fetchGoogleUser(
+        displayName: user.displayName,
+        email: user.email,
+        photoUrl: user.photoUrl);
+
+    ref.read(userProvider.notifier).state = res;
     ref.read(isloginProvider.notifier).state = true;
     appRouter.push(const HomePage());
-  } else { 
-
-  }
+  } else {}
 }
 
 class GoogleSignInApi {

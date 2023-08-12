@@ -36,9 +36,15 @@ class SearchingCardItem extends ConsumerWidget {
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
-                .watch(searchResultProvider)
+                .watch(type == "myAd"
+                    ? myListingProvider
+                    : type == "fav"
+                        ? favListingProvider
+                        : type == "all"
+                            ? allListingProvider
+                            : searchResultProvider)
                 .where((element) => title == element.title)
-                .first));
+                .first, type: type == "myAd"?'myAd':type == "fav"?'fav':type == "all"?'all':''));
       },
       child: Card(
         child: Column(

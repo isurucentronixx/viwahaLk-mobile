@@ -56,13 +56,13 @@ final isLoadingAddListingProvider = StateProvider<bool>((ref) => false);
 final isLoadingEditProfileProvider = StateProvider<bool>((ref) => false);
 final isLoadingChangePasswordProvider = StateProvider<bool>((ref) => false);
 @RoutePage()
-class AddListingPage extends ConsumerStatefulWidget {
-  const AddListingPage({super.key});
+class EditListingPage extends ConsumerStatefulWidget {
+  const EditListingPage({super.key});
   @override
-  _AddListingPageState createState() => _AddListingPageState();
+  _EditListingPageState createState() => _EditListingPageState();
 }
 
-class _AddListingPageState extends ConsumerState<AddListingPage> {
+class _EditListingPageState extends ConsumerState<EditListingPage> {
   final picker = ImagePicker();
   String _cat = 'Select one';
   String _subCat = 'Select one';

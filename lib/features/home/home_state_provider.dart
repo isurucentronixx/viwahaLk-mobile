@@ -77,9 +77,6 @@ class LocationsNotifier extends StateNotifier<List<Location>> {
 
 class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
   final Ref ref;
-  // final String location;
-  // final String category;
-  // final String keyword;
 
   SearchResultNotifier({
     required this.ref,
@@ -139,6 +136,26 @@ class FavListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
 
   Future fetchFavListing({required Ref ref}) async {
     await ref.read(homeControllerProvider).fetchFavListing(ref: ref).then((value) {
+      // Setting current `state` to the fetched list of products.
+      if (mounted) {
+        state = value;
+      }
+
+      // Setting isLoading to `false`.
+      ref.read(isLoadingHomeProvider.notifier).state = false;
+    });
+  }
+}
+
+class MyListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
+  final Ref ref;
+
+  MyListingProviderNotifier({required this.ref}) : super([]) {
+    fetchMyListing(ref: ref);
+  }
+
+  Future fetchMyListing({required Ref ref}) async {
+    await ref.read(homeControllerProvider).fetchMyListing(ref: ref).then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;

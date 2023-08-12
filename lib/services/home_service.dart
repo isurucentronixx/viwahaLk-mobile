@@ -83,6 +83,16 @@ class HomeService {
     }
   }
 
+  Future fetchMyListingApiRequest({required Ref ref}) async {
+    try {
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl}${Endpoints.getMyListing}${ref.watch(userProvider).user!.id}');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future fetchCategoryListingApiRequest(String category) async {
     print(category);
     try {

@@ -63,12 +63,14 @@ class _SliderState extends ConsumerState<SliderView> {
 }
 
 class SingleItemOverview extends StatefulWidget {
-  const SingleItemOverview(this.date, this.location, this.title, this.views,
+  const SingleItemOverview(
+      this.date, this.location, this.title, this.views, this.type,
       {super.key});
   final String date;
   final String location;
   final String title;
   final String views;
+  final String type;
   @override
   State<SingleItemOverview> createState() => _SingleItemOverviewState();
 }
@@ -85,14 +87,14 @@ class _SingleItemOverviewState extends State<SingleItemOverview> {
             color:
                 ViwahaColor.primary, // Set the background color for the title
             padding: const EdgeInsets.all(16.0),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.list,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
-                Text(
+                const SizedBox(width: 8),
+                const Text(
                   'Overview',
                   style: TextStyle(
                     fontSize: 24,
@@ -100,6 +102,17 @@ class _SingleItemOverviewState extends State<SingleItemOverview> {
                     color: Colors.white,
                   ),
                 ),
+                // widget.type == "myAd"
+                //     ?
+                IconButton(
+                    onPressed: () {
+                      
+                    },
+                    icon: const Icon(
+                      Icons.edit_document,
+                      color: Colors.white,
+                    ))
+                // : const SizedBox()
               ],
             ),
           ),
@@ -248,7 +261,7 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'Contact Infromations',
+                  'Contact Informations',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

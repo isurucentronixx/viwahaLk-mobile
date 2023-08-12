@@ -12,7 +12,8 @@ import '../releted_items/releted.dart';
 class SingleView extends StatefulWidget {
   final Vendor? vendor;
   final TopListing? topListing;
-  const SingleView(this.vendor, this.topListing, {super.key});
+  final String? type;
+  const SingleView(this.vendor, this.topListing, {super.key, this.type});
 
   @override
   State<SingleView> createState() => _SingleViewState();
@@ -82,7 +83,8 @@ class _SingleViewState extends State<SingleView> {
                 widget.vendor?.title.toString() ??
                     widget.topListing!.title.toString(),
                 widget.vendor?.views.toString() ??
-                    widget.topListing!.views!.toString()),
+                    widget.topListing!.views!.toString(),
+                widget.type.toString()),
             SingleItemDescription(widget.vendor?.description.toString() ??
                 widget.topListing!.description.toString()),
             SingleItemContactInfo(

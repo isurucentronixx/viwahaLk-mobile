@@ -20,19 +20,19 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
-class FavListingPage extends ConsumerStatefulWidget {
-  const FavListingPage({super.key});
+class MyListingPage extends ConsumerStatefulWidget {
+  const MyListingPage({super.key});
   @override
-  _FavListingPageState createState() => _FavListingPageState();
+  _MyListingPageState createState() => _MyListingPageState();
 }
 
-class _FavListingPageState extends ConsumerState<FavListingPage> {
+class _MyListingPageState extends ConsumerState<MyListingPage> {
   @override
   Widget build(BuildContext context) {
-    var favListing;
+    var myListing;
     // final favListing = ref.watch(favListingProvider);
-    favListing =
-        ref.watch(isloginProvider) ? ref.watch(favListingProvider) : null;
+    myListing =
+        ref.watch(isloginProvider) ? ref.watch(myListingProvider) : null;
 
     @override
     initState() {
@@ -46,22 +46,25 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
         const SizedBox(height: 15),
         Expanded(
           child: ref.watch(isloginProvider)
-              ? favListing.isNotEmpty
+              ? myListing.isNotEmpty
                   ? GridView.count(
                       crossAxisCount: 2, // Number of columns
                       children: List.generate(
-                        favListing.length, // Total number of cards
+                        myListing.length, // Total number of cards
                         (index) => SearchingCardItem(
-                          imagePath: ref
+                          imagePath:  ref
                               .read(homeControllerProvider)
-                              .getTumbImage(favListing[index].thumb_images)
-                              .first, // Replace with your image paths
-                          title: favListing[index].title.toString(),
-                          description: favListing[index].description.toString(),
+                              .getTumbImage(myListing[index].thumb_images)
+                              .first !=null? ref
+                              .read(homeControllerProvider)
+                              .getTumbImage(myListing[index].thumb_images)
+                              .first:"", // Replace with your image paths
+                          title: myListing[index].title.toString(),
+                          description: myListing[index].description.toString(),
                           starRating: 4.5,
-                          location: favListing[index].location.toString(),
-                          date: favListing[index].datetime.toString(),
-                          type: 'fav',
+                          location: myListing[index].location.toString(),
+                          date: myListing[index].datetime.toString(),
+                          type: 'myAd',
                           // Replace with the appropriate star rating value
                         ),
                       ),

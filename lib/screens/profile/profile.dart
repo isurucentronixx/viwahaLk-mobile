@@ -1,30 +1,15 @@
 // ignore_for_file: unused_import, unused_field
 
+
 import 'package:auto_route/auto_route.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
-import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:viwaha_lk/features/login/login_provider.dart';
-import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/auth/user_model.dart';
-import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
-import 'package:viwaha_lk/models/categories/categories.dart';
-import 'package:viwaha_lk/models/categories/sub_categories.dart';
-import 'package:viwaha_lk/models/locations/location.dart';
-import 'package:viwaha_lk/models/locations/sub_location.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
 class ProfilePage extends ConsumerStatefulWidget {
@@ -37,6 +22,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider).user;
+    final router = ref.watch(appRouterProvider);
     return Scaffold(
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(
@@ -195,19 +181,27 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ProfileMenuWidget(
                         title: "My Profile",
                         icon: Icons.person_outline_outlined,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const MyProfilePage());
+                        }),
                     ProfileMenuWidget(
                         title: "Edit Profile",
                         icon: Icons.edit_note,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const EditProfilePage());
+                        }),
                     ProfileMenuWidget(
                         title: "Message",
                         icon: Icons.mail_outline,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const MessagesPage());
+                        }),
                     ProfileMenuWidget(
                         title: "Change Password",
                         icon: Icons.password,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const ChangePasswordPage());
+                        }),
 
                     const SizedBox(height: 30),
 
@@ -229,19 +223,29 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     const Divider(),
                     const SizedBox(height: 10),
                     ProfileMenuWidget(
-                        title: "My Listing", icon: Icons.notes, onPress: () {}),
+                        title: "My Listing",
+                        icon: Icons.notes,
+                        onPress: () {
+                          router.push(const MyListingPage());
+                        }),
                     ProfileMenuWidget(
                         title: "My Favorite",
                         icon: Icons.favorite_border_outlined,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const FavListingPage());
+                        }),
                     ProfileMenuWidget(
                         title: "Reviews",
                         icon: Icons.reviews_outlined,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const ReviewsPage());
+                        }),
                     ProfileMenuWidget(
                         title: "Post Your Ad",
                         icon: Icons.add_circle_outline,
-                        onPress: () {}),
+                        onPress: () {
+                          router.push(const AddListingPage());
+                        }),
 
                     ElevatedButton(
                       style: ButtonStyle(
@@ -260,7 +264,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         final _googleSignIn = GoogleSignIn();
                         ref.read(isloginProvider.notifier).state = false;
                         await _googleSignIn.disconnect();
-                         appRouter.push(const Login());
+                        appRouter.push(const Login());
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,

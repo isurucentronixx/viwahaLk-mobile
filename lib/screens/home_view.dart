@@ -82,7 +82,7 @@ class _HomePageState extends ConsumerState<HomePage>
                     ? "Add New Listing"
                     : currentPage == 3
                         ? ref.watch(isloginProvider)
-                            ? "Profile"
+                            ? "Dashboard"
                             : "Please Login"
                         : ref.watch(isloginProvider)
                             ? "Favourite"
