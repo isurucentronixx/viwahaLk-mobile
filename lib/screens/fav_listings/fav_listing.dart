@@ -8,7 +8,7 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -52,6 +52,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                       children: List.generate(
                         favListing.length, // Total number of cards
                         (index) => SearchingCardItem(
+                          id: favListing[index].id.toString(),
                           imagePath: ref
                               .read(homeControllerProvider)
                               .getTumbImage(favListing[index].thumb_images)

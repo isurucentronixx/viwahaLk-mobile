@@ -88,7 +88,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(color: Colors.yellow),
+                  side: const BorderSide(color: Colors.yellow), 
                 ),
                 child: Column(
                   children: [

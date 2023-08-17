@@ -16,7 +16,7 @@ import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
@@ -110,16 +110,24 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
   String _sundayOpen = 'Select One';
   String _sundayClose = 'Select One';
 
+  List<String> extractStringList(String input) {
+    // Remove the square brackets and split the string by commas
+    String content = input.substring(1, input.length - 1);
+    List<String> items = content.split(', ');
+
+    return items;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     final SearchResultItem? item = widget.item;
-    // List<String> amList = json.decode(item!.amenities.toString());
-    List<dynamic> decodedAmenities =
-        json.decode('["Elevator in Building", "Wifi"]');
     List<String> stringAmenities =
-        decodedAmenities.map((item) => item.toString()).toList();
-    print(stringAmenities);
+        extractStringList(widget.item!.amenities.toString());
+
+    // List<String> stringAmenities =
+    //     amenities.map((item) => item.toString()).toList();
+
     _cat = item!.main_category ?? 'Select One';
     _subCat = widget.item!.category ?? 'Select One';
     _location = widget.item!.main_location ?? 'Select One';
@@ -156,6 +164,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
 
     askPrice = widget.item!.ask_price == "1" ? true : false;
     negotiable = widget.item!.negotiable == "1" ? true : false;
+
+    //To add exist amenities
+    amenities.addAll(stringAmenities);
     super.initState();
   }
 
@@ -627,7 +638,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                   value: negotiable,
                                   onChanged: (value) {
                                     setState(() {
-                                      value = value;
+                                      negotiable = value!;
                                     });
                                   },
                                 ),
@@ -2712,33 +2723,66 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     .state = true;
 
                                 var newList = {
-                                  "userId": "8",
-                                  "title": ref.read(adTitleProvider),
+                                  "userId": ref.read(userProvider).user!.id,
+                                  "title": ref.read(adTitleProvider) != ''
+                                      ? ref.read(adTitleProvider)
+                                      : widget.item!.title,
                                   "category": _subCat,
-                                  "address": ref.read(adAddressProvider),
+                                  "address": ref.read(adAddressProvider) != ''
+                                      ? ref.read(adAddressProvider)
+                                      : widget.item!.address,
                                   "location": _subLocation,
                                   "googleplace":
-                                      ref.read(adGoogleAddressProvider),
-                                  "video": ref.read(adVideoLinkProvider),
+                                      ref.read(adGoogleAddressProvider) != ''
+                                          ? ref.read(adGoogleAddressProvider)
+                                          : widget.item!.address,
+                                  "video": ref.read(adVideoLinkProvider) != ''
+                                      ? ref.read(adVideoLinkProvider)
+                                      : widget.item!.video,
                                   "video1": "",
                                   "video2": "",
                                   "video3": "",
                                   "video4": "",
                                   "video5": "",
-                                  "name": ref.read(adOwnerNameProvider),
-                                  "email": ref.read(adEmailProvider),
-                                  "phone": ref.read(adPhoneProvider),
-                                  "whatsapp": ref.read(adWhatsappProvider),
-                                  "website": ref.read(adWebSiteProvider),
+                                  "name": ref.read(adOwnerNameProvider) != ''
+                                      ? ref.read(adOwnerNameProvider)
+                                      : widget.item!.name,
+                                  "email": ref.read(adEmailProvider) != ''
+                                      ? ref.read(adEmailProvider)
+                                      : widget.item!.email,
+                                  "phone": ref.read(adPhoneProvider) != ''
+                                      ? ref.read(adPhoneProvider)
+                                      : widget.item!.phone,
+                                  "whatsapp": ref.read(adWhatsappProvider) != ''
+                                      ? ref.read(adWhatsappProvider)
+                                      : widget.item!.whatsapp,
+                                  "website": ref.read(adWebSiteProvider) != ''
+                                      ? ref.read(adWebSiteProvider)
+                                      : widget.item!.website,
                                   "designation":
-                                      ref.read(adDesignationProvider),
+                                      ref.read(adDesignationProvider) != ''
+                                          ? ref.read(adDesignationProvider)
+                                          : widget.item!.designation,
                                   "amenities": amenities.toString(),
-                                  "company": ref.read(adCompanyProvider),
-                                  "facebook": ref.read(adFacebookProvider),
-                                  "instagram": ref.read(adInstagramProvider),
-                                  "youtube": ref.read(adYoutubeProvider),
-                                  "linkedin": ref.read(adLinkedinProvider),
-                                  "description": ref.read(adDescProvider),
+                                  "company": ref.read(adCompanyProvider) != ''
+                                      ? ref.read(adCompanyProvider)
+                                      : widget.item!.company,
+                                  "facebook": ref.read(adFacebookProvider) != ''
+                                      ? ref.read(adFacebookProvider)
+                                      : widget.item!.facebook,
+                                  "instagram":
+                                      ref.read(adInstagramProvider) != ''
+                                          ? ref.read(adInstagramProvider)
+                                          : widget.item!.instagram,
+                                  "youtube": ref.read(adYoutubeProvider) != ''
+                                      ? ref.read(adYoutubeProvider)
+                                      : widget.item!.youtube,
+                                  "linkedin": ref.read(adLinkedinProvider) != ''
+                                      ? ref.read(adLinkedinProvider)
+                                      : widget.item!.linkedin,
+                                  "description": ref.read(adDescProvider) != ''
+                                      ? ref.read(adDescProvider)
+                                      : widget.item!.description,
                                   "saturdayOpenTime":
                                       _saturedayOpen == "Select one"
                                           ? ""
@@ -2800,7 +2844,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       : _openInHollyday,
                                   "mainLocation": _location,
                                   "mainCategory": _cat,
-                                  "price": ref.read(adPriceProvider),
+                                  "price": ref.read(adPriceProvider) != ''
+                                      ? ref.read(adPriceProvider)
+                                      : widget.item!.price,
                                   "askPrice": askPrice == false ? 0 : 1,
                                   "negotiable": negotiable == false ? 0 : 1,
                                   "duplicate": "",
@@ -2809,7 +2855,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       ref.read(imageNameGalleryProvider),
                                   "file1": ref.read(mainImageNameProvider)
                                 };
-                                controller.addNewListing(newList);
+                                controller.editListing(
+                                    newList, widget.item!.id);
                                 // PostData.addNewListing(newList);
                               },
                               icon: const Icon(Icons.add_box_outlined),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
@@ -15,9 +16,7 @@ final loginControllerProvider = Provider<LoginController>((ref) {
 });
 
 final loginProvider = StateNotifierProvider<LoginNotifier, UserModel>((ref) {
-  print("333333333333333333333333");
-  print(ref.read(usernameProvider));
-  print(ref.read(passwordProvider));
+
   return LoginNotifier(
     username: ref.read(usernameProvider),
     password: ref.read(passwordProvider),

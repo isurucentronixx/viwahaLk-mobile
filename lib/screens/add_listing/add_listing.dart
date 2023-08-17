@@ -7,12 +7,13 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
@@ -28,6 +29,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_select/awesome_select.dart';
 
 final mainImageProvider = StateProvider<String>((ref) => '');
+final premiumBillProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
@@ -51,6 +53,7 @@ final adDescProvider = StateProvider<String>((ref) => '');
 final adVideoLinkProvider = StateProvider<String>((ref) => '');
 
 final isLoadingMainImageProvider = StateProvider<bool>((ref) => false);
+final isLoadingBillImageProvider = StateProvider<bool>((ref) => false);
 final isLoadingGalleryProvider = StateProvider<bool>((ref) => false);
 final isLoadingAddListingProvider = StateProvider<bool>((ref) => false);
 final isLoadingEditProfileProvider = StateProvider<bool>((ref) => false);
@@ -2640,7 +2643,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     .state = true;
 
                                 var newList = {
-                                  "userId": "8",
+                                  "userId": ref.read(userProvider).user!.id,
                                   "title": ref.read(adTitleProvider),
                                   "category": _subCat,
                                   "address": ref.read(adAddressProvider),

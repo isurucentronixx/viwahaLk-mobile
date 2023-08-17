@@ -12,8 +12,8 @@ import 'package:auto_route/auto_route.dart' as _i33;
 import 'package:flutter/material.dart' as _i35;
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart' as _i36;
 import 'package:viwaha_lk/models/search/search_result_item.dart' as _i34;
-import 'package:viwaha_lk/models/single_page/search_single_view.dart' as _i1;
-import 'package:viwaha_lk/models/single_page/single_view.dart' as _i2;
+import 'package:viwaha_lk/screens/single_page/search_single_view.dart' as _i1;
+import 'package:viwaha_lk/screens/single_page/single_view.dart' as _i2;
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart'
     as _i37;
 import 'package:viwaha_lk/models/venues/single_venues.dart' as _i3;

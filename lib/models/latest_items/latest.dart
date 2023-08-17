@@ -135,7 +135,9 @@ class SingleItemLatest extends ConsumerWidget {
                 scrollDirection:
                     Axis.horizontal, // Set the scroll direction to horizontal
                 children: List.generate(
-                  finalCardList.length > 3?3:finalCardList.length, // Total number of cards
+                  finalCardList.length > 3
+                      ? 3
+                      : finalCardList.length, // Total number of cards
                   (index) => CardItem(
                     imagePath: finalCardList[index].imagePath!,
                     title: finalCardList[index].title!,

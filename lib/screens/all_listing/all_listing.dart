@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -68,6 +68,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                   children: List.generate(
                     allListing.length, // Total number of cards
                     (index) => SearchingCardItem(
+                      id: allListing[index].id.toString(),
                       imagePath: ref
                           .read(homeControllerProvider)
                           .getTumbImage(allListing[index].thumb_images)

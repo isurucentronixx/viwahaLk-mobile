@@ -13,7 +13,7 @@ import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/auth/user_model.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';

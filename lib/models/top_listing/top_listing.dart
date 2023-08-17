@@ -9,7 +9,7 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 

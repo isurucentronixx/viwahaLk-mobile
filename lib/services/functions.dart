@@ -34,6 +34,22 @@ class PostData {
     }
   }
 
+  Future editListing(newListing, id) async {
+    try {
+      final res = await _dioClient.post(
+          'http://viwahaweb.nikhilaholdings.lk/api/listings/edit_listing?listing_id=$id',
+          data: newListing);
+      // ref.read(provider)
+      ref.refresh(myListingProvider);
+      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      ref.watch(appRouterProvider).push(const HomePage());
+      return res.data;
+    } catch (e) {
+      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      rethrow;
+    }
+  }
+
   Future editMyProfile(editedDetails) async {
     try {
       final res = await _dioClient.post(
@@ -85,7 +101,6 @@ class PostData {
   }
 
   Future deleteMyListing(id) async {
-
     try {
       final res = await _dioClient.post(
           'http://viwahaweb.nikhilaholdings.lk/api/listings/delete?listing_id=${id}');
@@ -97,4 +112,5 @@ class PostData {
       rethrow;
     }
   }
+  
 }

@@ -8,7 +8,8 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
-import 'package:viwaha_lk/models/card/searching_card_item.dart';
+import 'package:viwaha_lk/screens/cards/myListingCard.dart';
+import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -48,23 +49,43 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
           child: ref.watch(isloginProvider)
               ? myListing.isNotEmpty
                   ? GridView.count(
-                      crossAxisCount: 2, // Number of columns
+                      crossAxisCount: 1, // Number of columns
+                      scrollDirection: Axis.vertical,
                       children: List.generate(
-                        myListing.length, // Total number of cards
-                        (index) => SearchingCardItem(
-                          imagePath: ref
-                              .read(homeControllerProvider)
-                              .getTumbImage(myListing[index].thumb_images)
-                              .first, // Replace with your image paths
-                          title: myListing[index].title.toString(),
-                          description: myListing[index].description.toString(),
-                          starRating: 4.5,
-                          location: myListing[index].location.toString(),
-                          date: myListing[index].datetime.toString(),
-                          type: 'myAd',
-                          // Replace with the appropriate star rating value
-                        ),
-                      ),
+                          myListing.length, // Total number of cards
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: MyCardItem(
+                                  id: myListing[index].id.toString(),
+                                  date: myListing[index].datetime.toString(),
+                                  description:
+                                      myListing[index].description.toString(),
+                                  imagePath: ref
+                                      .read(homeControllerProvider)
+                                      .getTumbImage(
+                                          myListing[index].thumb_images)
+                                      .first,
+                                  location:
+                                      myListing[index].location.toString(),
+                                  starRating: 3,
+                                  title: myListing[index].title.toString(),
+                                ),
+                              )
+                          // SearchingCardItem(
+                          //   id: myListing[index].id.toString(),
+                          //   imagePath: ref
+                          //       .read(homeControllerProvider)
+                          //       .getTumbImage(myListing[index].thumb_images)
+                          //       .first, // Replace with your image paths
+                          //   title: myListing[index].title.toString(),
+                          //   description: myListing[index].description.toString(),
+                          //   starRating: 4.5,
+                          //   location: myListing[index].location.toString(),
+                          //   date: myListing[index].datetime.toString(),
+                          //   type: 'myAd',
+                          //   // Replace with the appropriate star rating value
+                          // ),
+                          ),
                     )
                   : const Center(
                       child: Center(

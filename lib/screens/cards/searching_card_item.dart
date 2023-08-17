@@ -10,6 +10,7 @@ import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
 class SearchingCardItem extends ConsumerWidget {
+  final String id;
   final String imagePath;
   final String title;
   final String description;
@@ -19,6 +20,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String type;
 
   const SearchingCardItem({
+    required this.id,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -32,7 +34,7 @@ class SearchingCardItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var vendorData;
     var topListingData;
-    
+
     return GestureDetector(
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
@@ -44,8 +46,15 @@ class SearchingCardItem extends ConsumerWidget {
                         : type == "all"
                             ? allListingProvider
                             : searchResultProvider)
-                .where((element) => title == element.title)
-                .first, type: type == "myAd"?'myAd':type == "fav"?'fav':type == "all"?'all':''));
+                .where((element) => id == element.id)
+                .first,
+            type: type == "myAd"
+                ? 'myAd'
+                : type == "fav"
+                    ? 'fav'
+                    : type == "all"
+                        ? 'all'
+                        : ''));
       },
       child: Card(
         child: Column(
