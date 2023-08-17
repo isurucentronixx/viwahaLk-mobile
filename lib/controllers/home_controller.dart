@@ -157,6 +157,9 @@ class HomeController {
     Iterable<Match> matches = regex.allMatches(serializedString);
     List<String> filteredTextList =
         matches.map((match) => match.group(1)!).toList();
+    if (filteredTextList.isEmpty) {
+      filteredTextList = ["assets/img/logo/logo_dark.png"];
+    }
 
     return filteredTextList;
   }

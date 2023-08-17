@@ -30,6 +30,16 @@ class LoginService {
     }
   }
 
+  Future requestUserApiRequest(userDetails) async {
+    try {
+      final res = await _dioClient
+          .post(Endpoints.baseUrl + Endpoints.registerUrl, data: userDetails);
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future fetchLoginGoogleApiRequest(
       {required String? displayName,
       required String? email,

@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import, unused_field
 
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
 
@@ -226,6 +226,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "My Listing",
                         icon: Icons.notes,
                         onPress: () {
+                          ref.refresh(myListingProvider);
                           router.push(const MyListingPage());
                         }),
                     ProfileMenuWidget(

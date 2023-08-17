@@ -14,6 +14,7 @@ import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -29,10 +30,9 @@ class MyListingPage extends ConsumerStatefulWidget {
 class _MyListingPageState extends ConsumerState<MyListingPage> {
   @override
   Widget build(BuildContext context) {
-    var myListing;
+    List<SearchResultItem> myListing = ref.watch(myListingProvider);
+    // List<SearchResultItem> myListing;
     // final favListing = ref.watch(favListingProvider);
-    myListing =
-        ref.watch(isloginProvider) ? ref.watch(myListingProvider) : null;
 
     @override
     initState() {
@@ -52,13 +52,10 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                       children: List.generate(
                         myListing.length, // Total number of cards
                         (index) => SearchingCardItem(
-                          imagePath:  ref
+                          imagePath: ref
                               .read(homeControllerProvider)
                               .getTumbImage(myListing[index].thumb_images)
-                              .first !=null? ref
-                              .read(homeControllerProvider)
-                              .getTumbImage(myListing[index].thumb_images)
-                              .first:"", // Replace with your image paths
+                              .first, // Replace with your image paths
                           title: myListing[index].title.toString(),
                           description: myListing[index].description.toString(),
                           starRating: 4.5,

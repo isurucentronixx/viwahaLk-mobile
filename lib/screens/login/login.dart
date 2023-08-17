@@ -62,7 +62,7 @@ class _LoginState extends ConsumerState<Login> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
-                  controller: usernameController,
+                  // controller: usernameController,
                   decoration: const InputDecoration(
                     labelText: 'Username',
                   ),
@@ -80,7 +80,7 @@ class _LoginState extends ConsumerState<Login> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
-                  controller: passwordController,
+                  // controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Password',
@@ -140,6 +140,7 @@ class _LoginState extends ConsumerState<Login> {
                 child: ElevatedButton.icon(
                   onPressed: () {
                     // Perform login logic here
+                    AutoRouter.of(context).push(const Register());
                   },
                   icon: const Icon(Icons.create),
                   label: const Text('Create an account'),

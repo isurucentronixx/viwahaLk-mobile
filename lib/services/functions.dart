@@ -35,7 +35,6 @@ class PostData {
   }
 
   Future editMyProfile(editedDetails) async {
-    print(editedDetails);
     try {
       final res = await _dioClient.post(
           'http://viwahaweb.nikhilaholdings.lk/api/user/update_profile',
@@ -81,6 +80,20 @@ class PostData {
 
       return res.data;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future deleteMyListing(id) async {
+
+    try {
+      final res = await _dioClient.post(
+          'http://viwahaweb.nikhilaholdings.lk/api/listings/delete?listing_id=${id}');
+      ref.read(isDeletingListProvider.notifier).state = false;
+      ref.watch(appRouterProvider).push(const HomePage());
+      return res.data;
+    } catch (e) {
+      ref.read(isDeletingListProvider.notifier).state = false;
       rethrow;
     }
   }

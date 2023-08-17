@@ -5,6 +5,7 @@ class Endpoints {
   static const String getVendorListUrl = "vendors/get_top_wedding_vendors";
 
   static const String loginUrl = "auth/login";
+  static const String registerUrl = "auth/register";
 
   static const String getTopListUrl = "listings/get_top_wedding_listings";
 
@@ -19,7 +20,7 @@ class Endpoints {
   static const String getMyListing = "listings/get_my_listings?userId=";
 
   // receiveTimeout
-  static const int receiveTimeout = 15000;
+  static const int receiveTimeout = 15000; 
 
   // connectTimeout
   static const int connectionTimeout = 30000;

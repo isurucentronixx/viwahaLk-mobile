@@ -1,24 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/latest_items/latest.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
+import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import '../menu_item.dart';
 
 @RoutePage()
-class SearchSingleView extends StatefulWidget {
+class SearchSingleView extends ConsumerStatefulWidget {
   final SearchResultItem? item;
   final String? type;
   const SearchSingleView(this.item, this.type, {super.key});
 
   @override
-  State<SearchSingleView> createState() => _SearchSingleViewState();
+  _searchSingleViewState createState() => _searchSingleViewState();
 }
 
-class _SearchSingleViewState extends State<SearchSingleView> {
+class _searchSingleViewState extends ConsumerState<SearchSingleView> {
   List<String> items = ['Car', 'Photography'];
   List<String> filteredItems = [];
 
@@ -67,29 +69,34 @@ class _SearchSingleViewState extends State<SearchSingleView> {
         title: Text(widget.item!.title.toString()),
       ),
       drawer: const DrawerMenu(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            SliderView(widget.item!.images.toString()),
-            const SizedBox(height: 20),
-            SingleItemOverview(
-                widget.item!.datetime.toString(),
-                widget.item!.location.toString(),
-                widget.item!.title.toString(),
-                widget.item!.views.toString(),
-                widget.type.toString()),
-            SingleItemDescription(widget.item!.description.toString()),
-            SingleItemContactInfo(
-                widget.item!.phone.toString(),
-                widget.item!.whatsapp.toString(),
-                widget.item!.address.toString(),
-                widget.item!.email.toString()),
-            SingleItemMap(widget.item!.address.toString()),
-            const SingleItemLatest('topListing')
-          ],
-        ),
-      ),
+      body: ref.watch(isDeletingListProvider)
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  SliderView(
+                      widget.item!.images.toString(), widget.type.toString()),
+                  const SizedBox(height: 20),
+                  SingleItemOverview(
+                      widget.item!.datetime.toString(),
+                      widget.item!.location.toString(),
+                      widget.item!.title.toString(),
+                      widget.item!.views.toString(),
+                      widget.type.toString(),
+                      widget.item!.id.toString(),
+                      widget.item),
+                  SingleItemDescription(widget.item!.description.toString()),
+                  SingleItemContactInfo(
+                      widget.item!.phone.toString(),
+                      widget.item!.whatsapp.toString(),
+                      widget.item!.address.toString(),
+                      widget.item!.email.toString()),
+                  SingleItemMap(widget.item!.address.toString()),
+                  const SingleItemLatest('topListing')
+                ],
+              ),
+            ),
     );
   }
 }

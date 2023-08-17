@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, unused_field
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -7,7 +8,10 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -27,63 +31,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_select/awesome_select.dart';
 
-final mainImageProvider = StateProvider<String>((ref) => '');
-final mainImageNameProvider = StateProvider<String>((ref) => '');
-final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
-final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
-
-final adTitleProvider = StateProvider<String>((ref) => '');
-final adAddressProvider = StateProvider<String>((ref) => '');
-final adGoogleAddressProvider = StateProvider<String>((ref) => '');
-final adPriceProvider = StateProvider<String>((ref) => '');
-final adOwnerNameProvider = StateProvider<String>((ref) => '');
-final adEmailProvider = StateProvider<String>((ref) => '');
-final adPhoneProvider = StateProvider<String>((ref) => '');
-final adWhatsappProvider = StateProvider<String>((ref) => '');
-final adDesignationProvider = StateProvider<String>((ref) => '');
-final adCompanyProvider = StateProvider<String>((ref) => '');
-final adWebSiteProvider = StateProvider<String>((ref) => '');
-final adFacebookProvider = StateProvider<String>((ref) => '');
-final adInstagramProvider = StateProvider<String>((ref) => '');
-final adYoutubeProvider = StateProvider<String>((ref) => '');
-final adLinkedinProvider = StateProvider<String>((ref) => '');
-final adDescProvider = StateProvider<String>((ref) => '');
-final adVideoLinkProvider = StateProvider<String>((ref) => '');
-
-final isLoadingMainImageProvider = StateProvider<bool>((ref) => false);
-final isLoadingGalleryProvider = StateProvider<bool>((ref) => false);
-final isLoadingAddListingProvider = StateProvider<bool>((ref) => false);
-final isLoadingEditProfileProvider = StateProvider<bool>((ref) => false);
-final isLoadingChangePasswordProvider = StateProvider<bool>((ref) => false);
 @RoutePage()
 class EditListingPage extends ConsumerStatefulWidget {
-  const EditListingPage({super.key});
+  const EditListingPage(this.item, {super.key});
+  final SearchResultItem? item;
   @override
   _EditListingPageState createState() => _EditListingPageState();
 }
 
 class _EditListingPageState extends ConsumerState<EditListingPage> {
   final picker = ImagePicker();
-  String _cat = 'Select one';
-  String _subCat = 'Select one';
-  String _location = 'Select one';
-  String _subLocation = 'Select one';
-  String _alwaysOpen = 'Select one';
-  String _openInHollyday = 'Select one';
-  String _mondayOpen = 'Select one';
-  String _mondayClose = 'Select one';
-  String _tuesdayOpen = 'Select one';
-  String _tuesdayClose = 'Select one';
-  String _wednesdayOpen = 'Select one';
-  String _wednesdayClose = 'Select one';
-  String _thursdayOpen = 'Select one';
-  String _thursdayClose = 'Select one';
-  String _fridayOpen = 'Select one';
-  String _fridayClose = 'Select one';
-  String _saturedayOpen = 'Select one';
-  String _saturedayClose = 'Select one';
-  String _sundayOpen = 'Select one';
-  String _sundayClose = 'Select one';
 
   bool am1 = false;
   bool am2 = false;
@@ -132,9 +89,79 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     S2Choice<String>(title: '12:00 PM', value: '12:00 PM'),
     S2Choice<String>(title: 'Closed', value: 'Closed'),
   ];
+  String _cat = 'Select One';
+  String _subCat = 'Select One';
+  String _location = 'Select One';
+  String _subLocation = 'Select One';
+  String _alwaysOpen = 'Select One';
+  String _openInHollyday = 'Select One';
+  String _mondayOpen = 'Select One';
+  String _mondayClose = 'Select One';
+  String _tuesdayOpen = 'Select One';
+  String _tuesdayClose = 'Select One';
+  String _wednesdayOpen = 'Select One';
+  String _wednesdayClose = 'Select One';
+  String _thursdayOpen = 'Select One';
+  String _thursdayClose = 'Select One';
+  String _fridayOpen = 'Select One';
+  String _fridayClose = 'Select One';
+  String _saturedayOpen = 'Select One';
+  String _saturedayClose = 'Select One';
+  String _sundayOpen = 'Select One';
+  String _sundayClose = 'Select One';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    final SearchResultItem? item = widget.item;
+    // List<String> amList = json.decode(item!.amenities.toString());
+    List<dynamic> decodedAmenities =
+        json.decode('["Elevator in Building", "Wifi"]');
+    List<String> stringAmenities =
+        decodedAmenities.map((item) => item.toString()).toList();
+    print(stringAmenities);
+    _cat = item!.main_category ?? 'Select One';
+    _subCat = widget.item!.category ?? 'Select One';
+    _location = widget.item!.main_location ?? 'Select One';
+    _subLocation = widget.item!.location ?? 'Select One';
+    _alwaysOpen = widget.item!.always_open ?? 'Select One';
+    _openInHollyday = widget.item!.open_holiday ?? 'Select One';
+    _mondayOpen = widget.item!.monday_open_time ?? 'Select One';
+    _mondayClose = widget.item!.monday_close_time ?? 'Select One';
+    _tuesdayOpen = widget.item!.tuesday_open_time ?? 'Select One';
+    _tuesdayClose = widget.item!.tuesday_close_time ?? 'Select One';
+    _wednesdayOpen = widget.item!.wednesday_open_time ?? 'Select One';
+    _wednesdayClose = widget.item!.wednesday_close_time ?? 'Select One';
+    _thursdayOpen = widget.item!.thursday_open_time ?? 'Select One';
+    _thursdayClose = widget.item!.thursday_close_time ?? 'Select One';
+    _fridayOpen = widget.item!.friday_open_time ?? 'Select One';
+    _fridayClose = widget.item!.friday_close_time ?? 'Select One';
+    _saturedayOpen = widget.item!.saturday_open_time ?? 'Select One';
+    _saturedayClose = widget.item!.saturday_close_time ?? 'Select One';
+    _sundayOpen = widget.item!.sunday_open_time ?? 'Select One';
+    _sundayClose = widget.item!.sunday_close_time ?? 'Select One';
+
+    am1 = stringAmenities.contains("Elevator in Building") ? true : false;
+    am2 = stringAmenities.contains("Friendly Workspace") ? true : false;
+    am3 = stringAmenities.contains("Instant Book") ? true : false;
+    am4 = stringAmenities.contains("Wifi") ? true : false;
+    am5 = stringAmenities.contains("Free Parking on Premises") ? true : false;
+    am6 = stringAmenities.contains("Free Parking on Street") ? true : false;
+    am7 = stringAmenities.contains("Smoking allowed") ? true : false;
+    am8 = stringAmenities.contains("Events") ? true : false;
+    am9 = stringAmenities.contains("Electricity") ? true : false;
+    am10 = stringAmenities.contains("Security Cameras") ? true : false;
+    am11 = stringAmenities.contains("Intercom") ? true : false;
+    am12 = stringAmenities.contains("Door Attendant") ? true : false;
+
+    askPrice = widget.item!.ask_price == "1" ? true : false;
+    negotiable = widget.item!.negotiable == "1" ? true : false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.read(userProvider).user;
     final controller = ref.watch(postControllerProvider);
     List<S2Choice<String>>? mainCategoryData = ref
         .watch(categoriesProvider)
@@ -288,6 +315,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.title != null
+                                    ? widget.item!.title.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -431,6 +461,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.address != null
+                                    ? widget.item!.address.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -535,6 +568,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.price != null
+                                    ? widget.item!.price.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -616,6 +652,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue:
+                                    '${user!.firstname} ${user.lastname}',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -664,6 +702,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.email != null
+                                    ? widget.item!.email.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -712,6 +753,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.phone != null
+                                    ? widget.item!.phone.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -761,6 +805,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.whatsapp != null
+                                    ? widget.item!.whatsapp.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -810,6 +857,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.designation != null
+                                    ? widget.item!.designation.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -858,6 +908,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.company != null
+                                    ? widget.item!.company.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -906,6 +959,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.website != null
+                                    ? widget.item!.website.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -955,6 +1011,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.facebook != null
+                                    ? widget.item!.facebook.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -1004,6 +1063,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.instagram != null
+                                    ? widget.item!.instagram.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -1052,6 +1114,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.youtube != null
+                                    ? widget.item!.youtube.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -1101,6 +1166,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.linkedin != null
+                                    ? widget.item!.linkedin.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -1137,7 +1205,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: TextField(
+                              child: TextFormField(
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 4,
                                 style: const TextStyle(
@@ -1151,6 +1219,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         value;
                                   });
                                 },
+                                initialValue: widget.item!.description != null
+                                    ? widget.item!.description.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -1689,6 +1760,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .state = value;
                                   });
                                 },
+                                initialValue: widget.item!.video != null
+                                    ? widget.item!.video.toString()
+                                    : '',
                                 decoration: InputDecoration(
                                   focusColor: Colors.white,
                                   //add prefix icon
@@ -2735,7 +2809,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       ref.read(imageNameGalleryProvider),
                                   "file1": ref.read(mainImageNameProvider)
                                 };
-                                controller.addNewListing(newList); 
+                                controller.addNewListing(newList);
                                 // PostData.addNewListing(newList);
                               },
                               icon: const Icon(Icons.add_box_outlined),

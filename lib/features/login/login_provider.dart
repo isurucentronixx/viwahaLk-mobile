@@ -11,14 +11,17 @@ final loginServiceProvider = Provider<LoginService>((ref) {
 });
 
 final loginControllerProvider = Provider<LoginController>((ref) {
-  return LoginController(ref.read(loginServiceProvider));
+  return LoginController(ref, ref.read(loginServiceProvider));
 });
 
 final loginProvider = StateNotifierProvider<LoginNotifier, UserModel>((ref) {
+  print("333333333333333333333333");
+  print(ref.read(usernameProvider));
+  print(ref.read(passwordProvider));
   return LoginNotifier(
     username: ref.read(usernameProvider),
     password: ref.read(passwordProvider),
-    //  username: "lakmalajantha@gmail.com", 
+    //  username: "lakmalajantha@gmail.com",
     // password: "123456789Vi",
     ref: ref,
   );

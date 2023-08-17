@@ -55,6 +55,8 @@ final isLoadingGalleryProvider = StateProvider<bool>((ref) => false);
 final isLoadingAddListingProvider = StateProvider<bool>((ref) => false);
 final isLoadingEditProfileProvider = StateProvider<bool>((ref) => false);
 final isLoadingChangePasswordProvider = StateProvider<bool>((ref) => false);
+final isDeletingListProvider = StateProvider<bool>((ref) => false);
+
 @RoutePage()
 class AddListingPage extends ConsumerStatefulWidget {
   const AddListingPage({super.key});
@@ -2735,8 +2737,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       ref.read(imageNameGalleryProvider),
                                   "file1": ref.read(mainImageNameProvider)
                                 };
-                                controller.addNewListing(newList); 
+                                controller.addNewListing(newList);
                                 // PostData.addNewListing(newList);
+                                print(amenities);
+                                print(ref.read(imageNameGalleryProvider));
                               },
                               icon: const Icon(Icons.add_box_outlined),
                               label: const Text('ADD YOUR LISTING'),

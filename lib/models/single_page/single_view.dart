@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/latest_items/latest.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import '../menu_item.dart';
@@ -72,8 +73,10 @@ class _SingleViewState extends State<SingleView> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            SliderView(widget.vendor?.images.toString() ??
-                widget.topListing!.images.toString()),
+            SliderView(
+                widget.vendor?.images.toString() ??
+                    widget.topListing!.images.toString(),
+                widget.type.toString()),
             const SizedBox(height: 20),
             SingleItemOverview(
                 widget.vendor?.datetime.toString() ??
@@ -84,7 +87,10 @@ class _SingleViewState extends State<SingleView> {
                     widget.topListing!.title.toString(),
                 widget.vendor?.views.toString() ??
                     widget.topListing!.views!.toString(),
-                widget.type.toString()),
+                widget.type.toString(),
+                widget.vendor?.id.toString() ??
+                    widget.topListing!.id!.toString(),
+                const SearchResultItem()),
             SingleItemDescription(widget.vendor?.description.toString() ??
                 widget.topListing!.description.toString()),
             SingleItemContactInfo(

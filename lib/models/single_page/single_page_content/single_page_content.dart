@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,10 +10,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/services/functions.dart';
 
 class SliderView extends ConsumerStatefulWidget {
-  const SliderView(this.images, {super.key});
+  const SliderView(this.images, this.type, {super.key});
   final String images;
+  final String type;
   @override
   _SliderState createState() => _SliderState();
 }
@@ -20,8 +25,9 @@ class SliderView extends ConsumerStatefulWidget {
 class _SliderState extends ConsumerState<SliderView> {
   @override
   Widget build(BuildContext context) {
-    List<String> imagePaths =
-        ref.read(homeControllerProvider).getTumbImage(widget.images);
+    List<String> imagePaths = widget.type == "myAd"
+        ? ["assets/img/q5.jpg"]
+        : ref.read(homeControllerProvider).getTumbImage(widget.images);
     return CarouselSlider(
       options: CarouselOptions(
         height: 400, // Set the desired height of the slider
@@ -62,22 +68,26 @@ class _SliderState extends ConsumerState<SliderView> {
   }
 }
 
-class SingleItemOverview extends StatefulWidget {
-  const SingleItemOverview(
-      this.date, this.location, this.title, this.views, this.type,
+class SingleItemOverview extends ConsumerStatefulWidget {
+  const SingleItemOverview(this.date, this.location, this.title, this.views,
+      this.type, this.id, this.item,
       {super.key});
   final String date;
   final String location;
   final String title;
   final String views;
   final String type;
+  final String id;
+  final SearchResultItem? item;
+
   @override
-  State<SingleItemOverview> createState() => _SingleItemOverviewState();
+  _SingleItemOverviewState createState() => _SingleItemOverviewState();
 }
 
-class _SingleItemOverviewState extends State<SingleItemOverview> {
+class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(postControllerProvider);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -106,10 +116,53 @@ class _SingleItemOverviewState extends State<SingleItemOverview> {
                 //     ?
                 IconButton(
                     onPressed: () {
-                      
+                      AutoRouter.of(context)
+                          .push(EditListingPage(item: widget.item));
                     },
                     icon: const Icon(
                       Icons.edit_document,
+                      color: Colors.white,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.published_with_changes_outlined,
+                      color: Colors.white,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.workspace_premium_outlined,
+                      color: Colors.white,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      showDialog<bool>(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: const Text(
+                                  'Are you sure you want to delete?'),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  child: const Text('No'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                ),
+                                ElevatedButton(
+                                  child: const Text('Yes, delete'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true);
+                                    controller.deleteMyListing(widget.id);
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    },
+                    icon: const Icon(
+                      Icons.delete_forever,
                       color: Colors.white,
                     ))
                 // : const SizedBox()

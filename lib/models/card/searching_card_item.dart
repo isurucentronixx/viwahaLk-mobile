@@ -32,6 +32,7 @@ class SearchingCardItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var vendorData;
     var topListingData;
+    
     return GestureDetector(
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(

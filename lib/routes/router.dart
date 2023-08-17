@@ -9,6 +9,10 @@ class AppRouter extends $AppRouter {
           page: Login.page,
           path: '/login',
         ),
+         AutoRoute(
+          page: Register.page,
+          path: '/register',
+        ),
         AutoRoute(page: HomePage.page, path: '/homePage', initial: true),
         AutoRoute(page: AddListingPage.page, path: '/addListingPage'),
         AutoRoute(
@@ -36,6 +40,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ChangePasswordPage.page, path: "/changePasswordPage"),
         AutoRoute(page: FavListingPage.page, path: "/favListingPage"),
         AutoRoute(page: MyListingPage.page, path: "/myListingPage"),
+        AutoRoute(page: EditListingPage.page, path: "/editListingPage"),
+
         // AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
       ];
 }
