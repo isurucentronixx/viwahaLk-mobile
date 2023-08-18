@@ -78,8 +78,11 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                   );
                                 },
                                 errorBuilder: (context, error, stackTrace) {
-                                  return const Center(
-                                    child: Text('Failed to load image'),
+                                  return Center(
+                                    child: Image.network(
+                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
                                   );
                                 },
                               ),
@@ -100,7 +103,9 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                 fontWeight: FontWeight.bold, fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
-                          subtitle: Text(user.firstname.toString(),
+                          subtitle: Text(
+                              '${user.firstname} ${user.lastname != "" ? user.lastname : ""}'
+                                  .toString(),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                               textAlign: TextAlign.center),

@@ -86,6 +86,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.type.toString(),
                       widget.item!.id.toString(),
                       widget.item),
+                  // SingleItemAmenities(widget.item!.amenities.toString()),
                   SingleItemDescription(widget.item!.description.toString()),
                   SingleItemContactInfo(
                       widget.item!.phone.toString(),
@@ -93,6 +94,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.item!.address.toString(),
                       widget.item!.email.toString()),
                   SingleItemMap(widget.item!.address.toString()),
+                  const SingleItemReview(),
                   const SingleItemLatest('topListing')
                 ],
               ),

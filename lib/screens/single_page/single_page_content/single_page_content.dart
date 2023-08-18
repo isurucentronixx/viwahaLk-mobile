@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:jiffy/jiffy.dart';
@@ -25,9 +26,8 @@ class SliderView extends ConsumerStatefulWidget {
 class _SliderState extends ConsumerState<SliderView> {
   @override
   Widget build(BuildContext context) {
-    List<String> imagePaths = widget.type == "myAd"
-        ? ["assets/img/q5.jpg"]
-        : ref.read(homeControllerProvider).getTumbImage(widget.images);
+    List<String> imagePaths =
+        ref.read(homeControllerProvider).getTumbImage(widget.images);
     return CarouselSlider(
       options: CarouselOptions(
         height: 400, // Set the desired height of the slider
@@ -39,7 +39,7 @@ class _SliderState extends ConsumerState<SliderView> {
       ),
       items: imagePaths.map((imagePath) {
         return Image.network(
-          'https://viwaha.lk/$imagePath',
+          imagePath,
           fit: BoxFit.cover,
           loadingBuilder: (context, child, progress) {
             if (progress == null) {
@@ -58,8 +58,11 @@ class _SliderState extends ConsumerState<SliderView> {
             );
           },
           errorBuilder: (context, error, stackTrace) {
-            return const Center(
-              child: Text('Failed to load image'),
+            return Center(
+              child: Image.network(
+                'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                fit: BoxFit.cover,
+              ),
             );
           },
         );
@@ -87,7 +90,6 @@ class SingleItemOverview extends ConsumerStatefulWidget {
 class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(postControllerProvider);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -126,65 +128,149 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Date: ${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Text(
-            'Time: 10:00 AM - 12:00 PM',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Location: ${widget.location}',
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           Text(
             '${widget.title}',
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
             ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const Icon(
+                Icons.date_range,
+                color: Colors.grey,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  // color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Icon(
+                Icons.pin_drop,
+                color: Colors.grey,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '${widget.location}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  // color: Colors.grey,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Row(
             children: [
               const Icon(
                 Icons.remove_red_eye,
+                color: Colors.red,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Text(
-                'Views: ${widget.views}',
+                '${widget.views} Views',
                 style: const TextStyle(
                   fontSize: 16,
+                  color: Colors.grey,
                 ),
               ),
-            ],
-          ),
-          const Row(
-            children: [
-              Icon(
+              const SizedBox(
+                width: 10,
+              ),
+              const Icon(
                 Icons.star,
                 color: Colors.yellow,
               ),
-              SizedBox(width: 4),
-              Text(
+              const SizedBox(width: 4),
+              const Text(
                 'Ratings: 4.5',
                 style: TextStyle(
                   fontSize: 16,
+                  color: Colors.grey,
                 ),
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SingleItemAmenities extends StatefulWidget {
+  const SingleItemAmenities(this.amenities, {super.key});
+  final String amenities;
+  @override
+  State<SingleItemAmenities> createState() => _SingleItemAmenitiesState();
+}
+
+class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
+  List<String> amenities = [];
+
+  List<String> getAmenites(String amenities) {
+    // Remove the initial 'a:11:' part from the string
+    String serializedString = amenities!.substring(6);
+    // Replace the semicolons, colons, and quotes to format it as a valid JSON
+    RegExp regex = RegExp('"([^"]+)"');
+    Iterable<Match> matches = regex.allMatches(serializedString);
+    List<String> filteredTextList =
+        matches.map((match) => match.group(1)!).toList();
+    if (filteredTextList.isEmpty) {
+      filteredTextList = [""];
+    }
+    return filteredTextList;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    amenities = getAmenites(widget.amenities);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: const Row(
+              children: [
+                Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  'Amenities',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -407,26 +493,209 @@ class _SingleItemMapState extends State<SingleItemMap> {
           SizedBox(
             child: Image.network(url),
           ),
+        ],
+      ),
+    );
+  }
+}
 
-          // Container(
-          //   height: 500,
-          //   width: 500,
-          //   child: GoogleMap(
-          //     initialCameraPosition: const CameraPosition(
-          //       target: LatLng(37.7749,
-          //           -122.4194), // Set the initial map center coordinates
-          //       zoom: 13.0, // Set the initial zoom level
-          //     ),
-          //     markers: {
-          //       const Marker(
-          //         markerId: MarkerId('marker_1'),
-          //         position:
-          //             LatLng(37.7749, -122.4194), // Set the marker coordinates
-          //       ),
-          //       // Add more Marker widgets as needed
-          //     },
-          //   ),
-          // ),
+class SingleItemReview extends StatefulWidget {
+  const SingleItemReview({super.key});
+
+  @override
+  State<SingleItemReview> createState() => _SingleItemReviewState();
+}
+
+class _SingleItemReviewState extends State<SingleItemReview> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: const Row(
+              children: [
+                Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  'Review',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: RatingBar.builder(
+              initialRating: 0,
+              minRating: 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextFormField(
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w300,
+              ),
+              onChanged: (value) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                focusColor: Colors.white,
+                //add prefix icon
+                prefixIcon: const Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.grey,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                fillColor: Colors.grey,
+                hintText: "This name will appear on your review.",
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+                labelText: 'Name',
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              validator: null,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextFormField(
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w300,
+              ),
+              onChanged: (value) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                focusColor: Colors.white,
+                //add prefix icon
+                prefixIcon: const Icon(
+                  Icons.mail_outline_rounded,
+                  color: Colors.grey,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                fillColor: Colors.grey,
+                hintText: "This email will appear on your review.",
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+                labelText: 'Email',
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              validator: null,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+              // minLines: 3,
+              maxLines: 6,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w300,
+              ),
+              onChanged: (value) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                focusColor: Colors.white,
+                //add prefix icon
+                prefixIcon: const Icon(
+                  Icons.description_outlined,
+                  color: Colors.grey,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                fillColor: Colors.grey,
+                hintText: "Write your review here.",
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+                labelText: 'Review',
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontFamily: "verdana_regular",
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
         ],
       ),
     );

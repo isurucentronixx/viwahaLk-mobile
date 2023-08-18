@@ -75,22 +75,20 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                 );
                               },
                               errorBuilder: (context, error, stackTrace) {
-                                return const Center(
-                                  child: Text('Failed to load image'),
+                                return Center(
+                                  child: Image.network(
+                                    'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
                                 );
                               },
                             ),
                           ),
                         ),
-                       
                       ],
                     ),
                     const SizedBox(height: 10),
-                    
 
-                   
-
-                   
                     const SizedBox(height: 60),
                   ],
                 ),

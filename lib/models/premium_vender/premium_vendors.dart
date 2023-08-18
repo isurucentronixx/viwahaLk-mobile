@@ -88,7 +88,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(color: Colors.yellow), 
+                  side: const BorderSide(color: Colors.yellow),
                 ),
                 child: Column(
                   children: [
@@ -98,7 +98,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                       child: Stack(
                         children: [
                           Image.network(
-                            'https://viwaha.lk/$thumbImg',
+                            thumbImg,
                             fit: BoxFit.cover,
                             loadingBuilder: (context, child, progress) {
                               if (progress == null) {
@@ -119,8 +119,11 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               );
                             },
                             errorBuilder: (context, error, stackTrace) {
-                              return const Center(
-                                child: Text('Failed to load image'),
+                              return  Center(
+                                child: Image.network(
+                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
                               );
                             },
                           ),

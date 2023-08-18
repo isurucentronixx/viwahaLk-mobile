@@ -14,7 +14,6 @@ import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 
-
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -105,7 +104,9 @@ class _HomePageState extends ConsumerState<HomePage>
             children: [
               const HomeContent(),
               const AllListingPage(),
-              const AddListingPage(),
+              ref.watch(isloginProvider)
+                  ? const AddListingPage()
+                  : const Login(),
               ref.watch(isloginProvider) ? const ProfilePage() : const Login(),
               ref.watch(isloginProvider)
                   ? const FavListingPage()

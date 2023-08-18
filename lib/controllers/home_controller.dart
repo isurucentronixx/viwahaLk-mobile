@@ -168,7 +168,7 @@ class HomeController {
     List<String> filteredTextList =
         matches.map((match) => match.group(1)!).toList();
     if (filteredTextList.isEmpty) {
-      filteredTextList = ["assets/img/logo/logo_dark.png"];
+      filteredTextList = ["https://viwaha.lk/assets/img/logo/no_image.jpg"];
     }
 
     return filteredTextList;

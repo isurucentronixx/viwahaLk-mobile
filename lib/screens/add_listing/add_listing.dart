@@ -34,6 +34,7 @@ import 'package:awesome_select/awesome_select.dart';
 
 final mainImageProvider = StateProvider<String>((ref) => '');
 final premiumBillProvider = StateProvider<String>((ref) => '');
+final premiumBillNameProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
@@ -60,6 +61,7 @@ final isLoadingMainImageProvider = StateProvider<bool>((ref) => false);
 final isLoadingBillImageProvider = StateProvider<bool>((ref) => false);
 final isLoadingGalleryProvider = StateProvider<bool>((ref) => false);
 final isDeletingListProvider = StateProvider<bool>((ref) => false);
+final isLoadingBillImgProvider = StateProvider<bool>((ref) => false);
 
 @RoutePage()
 class AddListingPage extends ConsumerStatefulWidget {
@@ -169,12 +171,15 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
       final res = await controller.imageUpload(image, name);
       setState(() {
-        if (type == "gallery") {
-          ref.read(imageNameGalleryProvider).add(name);
-          ref.read(isLoadingGalleryProvider.notifier).state = false;
-        } else {
-          ref.read(mainImageNameProvider.notifier).state = name;
-          ref.read(isLoadingMainImageProvider.notifier).state = false;
+        if (res['responseCode'].toString() == "1") {
+          if (type == "gallery") {
+            ref.read(imageNameGalleryProvider).add(res['imageUrl'].toString());
+            ref.read(isLoadingGalleryProvider.notifier).state = false;
+          } else {
+            ref.read(mainImageNameProvider.notifier).state =
+                res['imageUrl'].toString();
+            ref.read(isLoadingMainImageProvider.notifier).state = false;
+          }
         }
       });
     }

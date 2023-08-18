@@ -218,7 +218,7 @@ class CardItem extends ConsumerWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      'https://viwaha.lk/$imagePath',
+                      imagePath,
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, progress) {
                         if (progress == null) {
@@ -239,8 +239,11 @@ class CardItem extends ConsumerWidget {
                         );
                       },
                       errorBuilder: (context, error, stackTrace) {
-                        return const Center(
-                          child: Text('Failed to load image'),
+                        return Center(
+                          child: Image.network(
+                            'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                            fit: BoxFit.cover,
+                          ),
                         );
                       },
                     ),

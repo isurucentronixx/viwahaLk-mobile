@@ -290,7 +290,8 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 
     ref.read(userProvider.notifier).state = res;
     ref.read(isloginProvider.notifier).state = true;
-    appRouter.push(const HomePage());
+     AutoRouter.of(context).push(const HomePage());
+    // appRouter.push(const HomePage());
   } else {}
 }
 

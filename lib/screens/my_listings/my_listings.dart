@@ -74,79 +74,101 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
       });
     });
 
-    return Scaffold(
-        body: LoadingOverlay(
+    return LoadingOverlay(
       isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
       color: Colors.white,
-      child: Column(
-        children: [
-          const SizedBox(height: 15),
-          Expanded(
-            child: ref.watch(isloginProvider)
-                ? myListing.isNotEmpty
-                    ? GridView.count(
-                        crossAxisCount: 1, // Number of columns
-                        scrollDirection: Axis.vertical,
-                        children: List.generate(
-                            myListing.length, // Total number of cards
-                            (index) => Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: MyCardItem(
-                                    id: myListing[index].id.toString(),
-                                    date: myListing[index].datetime.toString(),
-                                    description:
-                                        myListing[index].description.toString(),
-                                    imagePath: ref
-                                        .read(homeControllerProvider)
-                                        .getTumbImage(
-                                            myListing[index].thumb_images)
-                                        .first,
-                                    location:
-                                        myListing[index].location.toString(),
-                                    starRating: 3,
-                                    title: myListing[index].title.toString(),
-                                  ),
-                                )
-                            // SearchingCardItem(
-                            //   id: myListing[index].id.toString(),
-                            //   imagePath: ref
-                            //       .read(homeControllerProvider)
-                            //       .getTumbImage(myListing[index].thumb_images)
-                            //       .first, // Replace with your image paths
-                            //   title: myListing[index].title.toString(),
-                            //   description: myListing[index].description.toString(),
-                            //   starRating: 4.5,
-                            //   location: myListing[index].location.toString(),
-                            //   date: myListing[index].datetime.toString(),
-                            //   type: 'myAd',
-                            //   // Replace with the appropriate star rating value
-                            // ),
+      child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 100,
+                      child: Assets.lib.assets.images.logo.image(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            title: const Text("My Listings"),
+          ),
+          body: Column(
+            children: [
+              const SizedBox(height: 15),
+              Expanded(
+                child: ref.watch(isloginProvider)
+                    ? myListing.isNotEmpty
+                        ? GridView.count(
+                            crossAxisCount: 1, // Number of columns
+                            scrollDirection: Axis.vertical,
+                            children: List.generate(
+                                myListing.length, // Total number of cards
+                                (index) => Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: MyCardItem(
+                                        id: myListing[index].id.toString(),
+                                        date: myListing[index]
+                                            .datetime
+                                            .toString(),
+                                        description: myListing[index]
+                                            .description
+                                            .toString(),
+                                        imagePath: ref
+                                            .read(homeControllerProvider)
+                                            .getTumbImage(
+                                                myListing[index].thumb_images)
+                                            .first,
+                                        location: myListing[index]
+                                            .location
+                                            .toString(),
+                                        starRating: 3,
+                                        title:
+                                            myListing[index].title.toString(),
+                                      ),
+                                    )
+                                // SearchingCardItem(
+                                //   id: myListing[index].id.toString(),
+                                //   imagePath: ref
+                                //       .read(homeControllerProvider)
+                                //       .getTumbImage(myListing[index].thumb_images)
+                                //       .first, // Replace with your image paths
+                                //   title: myListing[index].title.toString(),
+                                //   description: myListing[index].description.toString(),
+                                //   starRating: 4.5,
+                                //   location: myListing[index].location.toString(),
+                                //   date: myListing[index].datetime.toString(),
+                                //   type: 'myAd',
+                                //   // Replace with the appropriate star rating value
+                                // ),
+                                ),
+                          )
+                        : const Center(
+                            child: Center(
+                            child: CircularProgressIndicator(),
+                          ))
+                    : Center(
+                        child: FractionallySizedBox(
+                          widthFactor: 0.8,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              AutoRouter.of(context).push(const Login());
+                            },
+                            icon: const Icon(Icons.login),
+                            label: const Text('Sign In'),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
-                      )
-                    : const Center(
-                        child: Center(
-                        child: CircularProgressIndicator(),
-                      ))
-                : Center(
-                    child: FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          AutoRouter.of(context).push(const Login());
-                        },
-                        icon: const Icon(Icons.login),
-                        label: const Text('Sign In'),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-          ),
-        ],
-      ),
-    ));
+              ),
+            ],
+          )),
+    );
   }
 }
