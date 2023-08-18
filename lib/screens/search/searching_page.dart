@@ -496,26 +496,27 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FractionallySizedBox(
-              widthFactor: 0.8,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  AutoRouter.of(context).push(const SearchingResultsPage());
-                  // Perform login logic here
-                },
-                icon: const Icon(Icons.search),
-                label: const Text('Search Now'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: FractionallySizedBox(
+                      widthFactor: 1,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          AutoRouter.of(context)
+                              .push(const SearchingResultsPage());
+                          // Perform login logic here
+                        },
+                        icon: const Icon(Icons.search),
+                        label: const Text('Search Now'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
