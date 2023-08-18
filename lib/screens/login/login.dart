@@ -142,63 +142,11 @@ class _LoginState extends ConsumerState<Login> {
                         ref.read(loginViewStateProvider.notifier).state =
                             const AsyncValue.loading();
                         ref.read(usernameProvider.notifier).state =
-                            "lakmalajantha@gmail.com";
-                        // usernameController.text;
+                            usernameController.text;
                         ref.read(passwordProvider.notifier).state =
-                            "123456789Vi";
-                        // passwordController.text;
+                            passwordController.text;
 
                         ref.refresh(loginProvider);
-                        // final res = await controller.fetchUser(
-                        //     username: ref.read(usernameProvider),
-                        //     password: ref.read(passwordProvider));
-
-                        // if (res.responseCode == "1") {
-                        //   // ref.read(userProvider.notifier).state = res;
-                        //   ref.read(isLoadingLoginProvider.notifier).state = false;
-                        //   //  ref.read(isloginProvider.notifier).state = true;
-                        //   // ignore: use_build_context_synchronously
-                        //   // AutoRouter.of(context).push(const HomePage());
-                        //   // final snackBar = SnackBar(
-                        //   //   /// need to set following properties for best effect of awesome_snackbar_content
-                        //   //   elevation: 0,
-                        //   //   behavior: SnackBarBehavior.floating,
-                        //   //   backgroundColor: Colors.transparent,
-                        //   //   content: AwesomeSnackbarContent(
-                        //   //     title: 'On Snap!',
-                        //   //     message:
-                        //   //         'This is an example error message that will be shown in the body of snackbar!',
-
-                        //   //     /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                        //   //     contentType: ContentType.success,
-                        //   //   ),
-                        //   // );
-
-                        //   // ScaffoldMessenger.of(context)
-                        //   //   ..hideCurrentSnackBar()
-                        //   //   ..showSnackBar(snackBar);
-                        // } else {
-                        //     ref.read(isLoadingLoginProvider.notifier).state = false;
-
-                        //   // final snackBar = SnackBar(
-                        //   //   /// need to set following properties for best effect of awesome_snackbar_content
-                        //   //   elevation: 0,
-                        //   //   behavior: SnackBarBehavior.floating,
-                        //   //   backgroundColor: Colors.transparent,
-                        //   //   content: AwesomeSnackbarContent(
-                        //   //     title: 'On Snap!',
-                        //   //     message:
-                        //   //         'This is an example error message that will be shown in the body of snackbar!',
-
-                        //   //     /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                        //   //     contentType: ContentType.failure,
-                        //   //   ),
-                        //   // );
-
-                        //   // ScaffoldMessenger.of(context)
-                        //   //   ..hideCurrentSnackBar()
-                        //   //   ..showSnackBar(snackBar);
-                        // }
                       }
                     },
                     icon: const Icon(Icons.login),
