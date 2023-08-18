@@ -70,10 +70,7 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                         );
                       }
                       return const Center(
-                        child: CircularProgressIndicator(
-                            // value: progress.cumulativeBytesLoaded /
-                            //     progress.expectedTotalBytes!.toDouble(),
-                            ),
+                        child: CircularProgressIndicator(),
                       );
                     },
                     errorBuilder: (context, error, stackTrace) {
@@ -84,6 +81,20 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                         ),
                       );
                     },
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.8),
+                          Colors.transparent
+                        ],
+                      ),
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,12 +155,16 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                                   child: const Row(
                                     children: [
                                       SizedBox(width: 10),
-                                      Icon(Icons.search, color: Colors.grey),
+                                      Icon(Icons.search,
+                                          color:
+                                              Color.fromARGB(255, 96, 96, 96)),
                                       SizedBox(width: 5),
                                       Text(
                                         'Search',
                                         style: TextStyle(
-                                            fontSize: 20, color: Colors.grey),
+                                            fontSize: 20,
+                                            color: Color.fromARGB(
+                                                255, 96, 96, 96)),
                                       ),
                                     ],
                                   )),

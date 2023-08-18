@@ -35,21 +35,21 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
       super.initState();
     }
 
-    return Scaffold(
-        body: Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Scaffold(
+          body: Column(
+        children: [
+          Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(color: Colors.grey),
             ),
-            child: Column(
+            child: const Column(
               children: [
                 TextField(
                   // controller: _searchController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Search',
                     prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
@@ -59,36 +59,36 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 15),
-        Expanded(
-          child: allListing.isNotEmpty
-              ? GridView.count(
-                  crossAxisCount: 2, // Number of columns
-                  children: List.generate(
-                    allListing.length, // Total number of cards
-                    (index) => SearchingCardItem(
-                      id: allListing[index].id.toString(),
-                      imagePath: ref
-                          .read(homeControllerProvider)
-                          .getTumbImage(allListing[index].thumb_images)
-                          .first, // Replace with your image paths
-                      title: allListing[index].title.toString(),
-                      description: allListing[index].description.toString(),
-                      starRating: 4.5,
-                      location: allListing[index].location.toString(),
-                      date: allListing[index].datetime.toString(),
-                      type: 'all',
-                      // Replace with the appropriate star rating value
+          const SizedBox(height: 15),
+          Expanded(
+            child: allListing.isNotEmpty
+                ? GridView.count(
+                    crossAxisCount: 2, // Number of columns
+                    children: List.generate(
+                      allListing.length, // Total number of cards
+                      (index) => SearchingCardItem(
+                        id: allListing[index].id.toString(),
+                        imagePath: ref
+                            .read(homeControllerProvider)
+                            .getTumbImage(allListing[index].thumb_images)
+                            .first, // Replace with your image paths
+                        title: allListing[index].title.toString(),
+                        description: allListing[index].description.toString(),
+                        starRating: 4.5,
+                        location: allListing[index].location.toString(),
+                        date: allListing[index].datetime.toString(),
+                        type: 'all',
+                        // Replace with the appropriate star rating value
+                      ),
                     ),
-                  ),
-                )
-              : const Center(
-                  child: Center(
-                  child: CircularProgressIndicator(),
-                )),
-        ),
-      ],
-    ));
+                  )
+                : const Center(
+                    child: Center(
+                    child: CircularProgressIndicator(),
+                  )),
+          ),
+        ],
+      )),
+    );
   }
 }

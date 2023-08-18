@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:viwaha_lk/appColor.dart';
 
 import '../gen/assets.gen.dart';
 
@@ -63,12 +65,20 @@ class AboutUsPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(2.0)),
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Image.network(url),
+            const Text("We look forward to welcoming you!",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: ViwahaColor.primary),
+                    borderRadius: BorderRadius.circular(2.0)),
+                width: double.infinity,
+                child: Image.network(url),
+              ),
             ),
           ],
         ));

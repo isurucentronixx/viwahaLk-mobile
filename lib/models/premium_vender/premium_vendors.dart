@@ -119,13 +119,27 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               );
                             },
                             errorBuilder: (context, error, stackTrace) {
-                              return  Center(
+                              return Center(
                                 child: Image.network(
-                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
+                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                  fit: BoxFit.cover,
+                                ),
                               );
                             },
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.3),
+                                  Colors.transparent
+                                ],
+                              ),
+                            ),
                           ),
                           const Align(
                             alignment: Alignment.topLeft,

@@ -131,6 +131,21 @@ class TopListing extends ConsumerWidget {
                                     );
                                   },
                                 ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.75,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                      colors: [
+                                        Colors.black.withOpacity(0.3),
+                                        Colors.transparent
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const Align(
                                   alignment: Alignment.topLeft,
                                   child: Padding(

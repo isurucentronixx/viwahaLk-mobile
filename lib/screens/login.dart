@@ -83,7 +83,7 @@ class _LoginOldState extends State<LoginOld> {
         title: const Text('Login'),
       ),
       body: Container(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -181,29 +181,29 @@ class _LoginOldState extends State<LoginOld> {
                   ),
                 ),
                 const SizedBox(width: 10.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // AutoRouter.of(context).push(FacebookLogin());
-                      // loginWithFacebook(context);
-                    },
-                    icon: SizedBox(
-                        width: 20,
-                        child: Assets.lib.assets.images.facebook.image()),
-                    label: const Text('Sign in with Facebook'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      side: const BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
+                // FractionallySizedBox(
+                //   widthFactor: 0.8,
+                //   child: ElevatedButton.icon(
+                //     onPressed: () {
+                //       // AutoRouter.of(context).push(FacebookLogin());
+                //       // loginWithFacebook(context);
+                //     },
+                //     icon: SizedBox(
+                //         width: 20,
+                //         child: Assets.lib.assets.images.facebook.image()),
+                //     label: const Text('Sign in with Facebook'),
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.white,
+                //       foregroundColor: Colors.black,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(8.0),
+                //       ),
+                //       side: const BorderSide(
+                //         color: Colors.blue,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],

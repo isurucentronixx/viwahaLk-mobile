@@ -80,7 +80,7 @@ class _LoginState extends ConsumerState<Login> {
         body: Form(
           key: _formKey,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -217,7 +217,7 @@ class _LoginState extends ConsumerState<Login> {
                       // Perform login logic here
                       AutoRouter.of(context).push(const Register());
                     },
-                    icon: const Icon(Icons.create),
+                    icon: const Icon(Icons.app_registration),
                     label: const Text('Create an account'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -229,7 +229,10 @@ class _LoginState extends ConsumerState<Login> {
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                const Text('or'),
+                const Text(
+                  "OR",
+                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.normal),
+                ),
                 const SizedBox(height: 20.0),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -258,29 +261,29 @@ class _LoginState extends ConsumerState<Login> {
                       ),
                     ),
                     const SizedBox(width: 10.0),
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // AutoRouter.of(context).push(FacebookLogin());
-                          // loginWithFacebook(context);
-                        },
-                        icon: SizedBox(
-                            width: 20,
-                            child: Assets.lib.assets.images.facebook.image()),
-                        label: const Text('Sign in with Facebook'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // FractionallySizedBox(
+                    //   widthFactor: 0.8,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       // AutoRouter.of(context).push(FacebookLogin());
+                    //       // loginWithFacebook(context);
+                    //     },
+                    //     icon: SizedBox(
+                    //         width: 20,
+                    //         child: Assets.lib.assets.images.facebook.image()),
+                    //     label: const Text('Sign in with Facebook'),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.white,
+                    //       foregroundColor: Colors.black,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(8.0),
+                    //       ),
+                    //       side: const BorderSide(
+                    //         color: Colors.blue,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -305,8 +308,8 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 
     ref.read(userProvider.notifier).state = res;
     ref.read(isloginProvider.notifier).state = true;
-     // ignore: use_build_context_synchronously
-     AutoRouter.of(context).push(const HomePage());
+    // ignore: use_build_context_synchronously
+    AutoRouter.of(context).push(const HomePage());
   } else {}
 }
 

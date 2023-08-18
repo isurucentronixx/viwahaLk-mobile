@@ -46,7 +46,7 @@ class _RegisterState extends ConsumerState<Register> {
         child: Form(
           key: _formKey,
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -58,7 +58,7 @@ class _RegisterState extends ConsumerState<Register> {
                       height: 100.0,
                       child: Assets.lib.assets.images.colorLogo.image(),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 40.0),
                   ],
                 ),
                 const SizedBox(
@@ -150,7 +150,7 @@ class _RegisterState extends ConsumerState<Register> {
                     },
                   ),
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 40.0),
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: ElevatedButton.icon(
@@ -181,12 +181,11 @@ class _RegisterState extends ConsumerState<Register> {
                                 },
                               )
                             : Container();
-                       
-                       
+
                         controller.userRegister(userDetails);
                       }
                     },
-                    icon: const Icon(Icons.create),
+                    icon: const Icon(Icons.app_registration),
                     label: const Text('Create an account'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -197,77 +196,30 @@ class _RegisterState extends ConsumerState<Register> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20.0),
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      AutoRouter.of(context).push(const Login());
+                      // Perform Google sign-in logic here
+                      googleSignIn(context, ref);
                     },
-                    icon: const Icon(Icons.login),
-                    label: const Text('Sign Up'),
+                    icon: SizedBox(
+                        width: 20,
+                        child: Assets.lib.assets.images.googleLogo.image()),
+                    label: const Text('Sign up with Google'),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      side: const BorderSide(
+                        color: Colors.blue,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 40.0),
-                const Text('or'),
-                const SizedBox(height: 20.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Perform Google sign-in logic here
-                          googleSignIn(context, ref);
-                        },
-                        icon: SizedBox(
-                            width: 20,
-                            child: Assets.lib.assets.images.googleLogo.image()),
-                        label: const Text('Sign in with Google'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // AutoRouter.of(context).push(FacebookLogin());
-                          // loginWithFacebook(context);
-                        },
-                        icon: SizedBox(
-                            width: 20,
-                            child: Assets.lib.assets.images.facebook.image()),
-                        label: const Text('Sign in with Facebook'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
@@ -290,7 +242,7 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 
     ref.read(userProvider.notifier).state = res;
     ref.read(isloginProvider.notifier).state = true;
-     AutoRouter.of(context).push(const HomePage());
+    AutoRouter.of(context).push(const HomePage());
     // appRouter.push(const HomePage());
   } else {}
 }

@@ -83,10 +83,10 @@ class _HomePageState extends ConsumerState<HomePage>
                     : currentPage == 3
                         ? ref.watch(isloginProvider)
                             ? "Dashboard"
-                            : "Please Login"
+                            : "Login"
                         : ref.watch(isloginProvider)
                             ? "Favourite"
-                            : "Please Login"),
+                            : "Login"),
       ),
       drawer: const DrawerMenu(),
       body: BottomBar(

@@ -109,8 +109,8 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 const Text(
                   'Overview',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -132,7 +132,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           Text(
             '${widget.title}',
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -148,7 +148,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
                 style: const TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w400,
                   // color: Colors.grey,
                 ),
               ),
@@ -166,7 +166,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 '${widget.location}',
                 style: const TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w400,
                   // color: Colors.grey,
                 ),
               ),
@@ -177,7 +177,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             children: [
               const Icon(
                 Icons.remove_red_eye,
-                color: Colors.red,
+                color: Colors.grey,
               ),
               const SizedBox(width: 4),
               Text(
@@ -262,8 +262,8 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
                 Text(
                   'Amenities',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -306,8 +306,8 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
                 Text(
                   'Description',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -359,8 +359,8 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                 Text(
                   'Contact Informations',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -481,8 +481,8 @@ class _SingleItemMapState extends State<SingleItemMap> {
                 Text(
                   'Location',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -528,8 +528,8 @@ class _SingleItemReviewState extends State<SingleItemReview> {
                 Text(
                   'Review',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
                 ),
@@ -693,8 +693,17 @@ class _SingleItemReviewState extends State<SingleItemReview> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 8,
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: SizedBox(
+                width: double.infinity, // Full width
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Add Review'),
+                ),
+              ),
+            ),
           ),
         ],
       ),

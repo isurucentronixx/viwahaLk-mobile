@@ -118,8 +118,8 @@ class SingleItemLatest extends ConsumerWidget {
                   Text(
                     'Latest',
                     style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                   ),
