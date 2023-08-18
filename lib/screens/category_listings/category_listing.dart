@@ -35,7 +35,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
     @override
     initState() {
       // at the beginning, all users are shown
-      
+
       super.initState();
     }
 
@@ -83,32 +83,32 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
             ),
             const SizedBox(height: 15),
             Expanded(
-              child: allListing.isNotEmpty
-                  ? GridView.count(
-                      crossAxisCount: 2, // Number of columns
-                      children: List.generate(
-                        allListing.length, // Total number of cards
-                        (index) => SearchingCardItem(
-                          id: allListing[index].title.toString(),
-                          imagePath: ref
-                              .read(homeControllerProvider)
-                              .getTumbImage(allListing[index].thumb_images)
-                              .first, // Replace with your image paths
-                          title: allListing[index].title.toString(),
-                          description: allListing[index].description.toString(),
-                          starRating: 4.5,
-                          location: allListing[index].location.toString(),
-                          date: allListing[index].datetime.toString(),
-                          type: '',
-                          // Replace with the appropriate star rating value
+                child: allListing.isNotEmpty
+                    ? GridView.count(
+                        crossAxisCount: 2, // Number of columns
+                        children: List.generate(
+                          allListing.length, // Total number of cards
+                          (index) => SearchingCardItem(
+                            id: allListing[index].id.toString(),
+                            imagePath: ref
+                                .read(homeControllerProvider)
+                                .getTumbImage(allListing[index].thumb_images)
+                                .first, // Replace with your image paths
+                            title: allListing[index].title.toString(),
+                            description:
+                                allListing[index].description.toString(),
+                            starRating: 4.5,
+                            location: allListing[index].location.toString(),
+                            date: allListing[index].datetime.toString(),
+                            type: 'cat',
+                            // Replace with the appropriate star rating value
+                          ),
                         ),
-                      ),
-                    )
-                  : const Center(
-                  child: Center(
-                  child: CircularProgressIndicator(),
-                ))
-            ),
+                      )
+                    : const Center(
+                        child: Center(
+                        child: CircularProgressIndicator(),
+                      ))),
           ],
         ));
   }

@@ -43,6 +43,8 @@ class SearchingCardItem extends ConsumerWidget {
                     ? myListingProvider
                     : type == "fav"
                         ? favListingProvider
+                        : type == "cat"
+                            ? categoryListingProvider
                         : type == "all"
                             ? allListingProvider
                             : searchResultProvider)
@@ -52,6 +54,8 @@ class SearchingCardItem extends ConsumerWidget {
                 ? 'myAd'
                 : type == "fav"
                     ? 'fav'
+                    : type == "cat"
+                        ? 'cat'
                     : type == "all"
                         ? 'all'
                         : ''));
