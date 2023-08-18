@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_string_interpolations
-
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -375,11 +374,13 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                 title: const Text('Contact Number'),
                 subtitle: Text('${widget.contactNumber}'),
               ),
-              ListTile(
-                leading: const Icon(Icons.phone),
-                title: const Text('Telephone Number'),
-                subtitle: Text('${widget.telephoneNumer}'),
-              ),
+              widget.telephoneNumer.isEmpty
+                  ? Container()
+                  : ListTile(
+                      leading: const Icon(Icons.phone),
+                      title: const Text('Telephone Number'),
+                      subtitle: Text('${widget.telephoneNumer}'),
+                    ),
               ListTile(
                 leading: const Icon(Icons.home),
                 title: const Text('Address'),
