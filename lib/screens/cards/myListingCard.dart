@@ -48,6 +48,21 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
   Widget build(BuildContext context) {
     final controller = ref.watch(postControllerProvider);
     final picker = ImagePicker();
+    print(widget.imagePath);
+
+    imageUpload(File image, String name, String type) async {
+      ref.read(isLoadingBillImgProvider.notifier).state = true;
+
+      final res = await controller.imageUpload(image, name);
+      setState(() {
+        if (res['responseCode'].toString() == "1") {
+          ref.read(premiumBillNameProvider.notifier).state =
+              res['imageUrl'].toString();
+          ref.read(isLoadingBillImgProvider.notifier).state = false;
+        }
+      });
+    }
+
     return GestureDetector(
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
@@ -74,7 +89,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.network(
-                        'https://viwaha.lk/${widget.imagePath}',
+                        widget.imagePath,
                         fit: BoxFit.fill,
                         loadingBuilder: (context, child, progress) {
                           if (progress == null) {
@@ -95,8 +110,16 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                           );
                         },
                         errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: Text('Failed to load image'),
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              width: 400,
+                              height: 150,
+                              child: Image.network(
+                                'https://viwaha.lk/assets/img/logo/logo_dark.png',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           );
                         },
                       ),
@@ -234,6 +257,10 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                                 value.path),
                                                             stfSetState(
                                                               () {
+                                                                imageUpload(
+                                                                    image,
+                                                                    value.name,
+                                                                    "review");
                                                                 ref
                                                                     .read(premiumBillProvider
                                                                         .notifier)
@@ -304,6 +331,11 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                     child: const Text('Upload'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
+                                      ref
+                                          .read(myListingViewStateProvider
+                                              .notifier)
+                                          .state = const AsyncValue.loading();
+                                      controller.premiumMyListing(widget.id);
                                     },
                                   ),
                                 ],
@@ -336,11 +368,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ElevatedButton(
                                   child: const Text('No'),
                                   onPressed: () {
-                                    ref
-                                        .read(
-                                            myListingViewStateProvider.notifier)
-                                        .state = const AsyncValue.loading();
-                                    controller.boostMyListing(widget.id);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -348,6 +375,11 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                   child: const Text('Yes, Boost now!'),
                                   onPressed: () {
                                     Navigator.of(context).pop();
+                                    ref
+                                        .read(
+                                            myListingViewStateProvider.notifier)
+                                        .state = const AsyncValue.loading();
+                                    controller.boostMyListing(widget.id);
                                   },
                                 ),
                               ],
@@ -385,13 +417,13 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ElevatedButton(
                                   child: const Text('Yes, delete'),
                                   onPressed: () {
+                                    Navigator.of(context).pop();
                                     ref
                                         .read(
                                             myListingViewStateProvider.notifier)
                                         .state = const AsyncValue.loading();
 
                                     controller.deleteMyListing(widget.id);
-                                    Navigator.of(context).pop();
                                   },
                                 ),
                               ],

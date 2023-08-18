@@ -91,6 +91,8 @@ class _SingleViewState extends State<SingleView> {
                 widget.vendor?.id.toString() ??
                     widget.topListing!.id!.toString(),
                 const SearchResultItem()),
+            // SingleItemAmenities(widget.vendor?.amenities.toString() ??
+            //     widget.topListing!.amenities.toString()),
             SingleItemDescription(widget.vendor?.description.toString() ??
                 widget.topListing!.description.toString()),
             SingleItemContactInfo(
@@ -104,6 +106,7 @@ class _SingleViewState extends State<SingleView> {
                     widget.topListing!.email.toString()),
             SingleItemMap(widget.vendor?.address.toString() ??
                 widget.topListing!.address.toString()),
+            const SingleItemReview(),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing')
           ],
         ),

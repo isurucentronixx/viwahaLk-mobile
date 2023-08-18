@@ -27,6 +27,7 @@ import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
+import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/services/functions.dart';
@@ -150,8 +151,11 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                     );
                                   },
                                   errorBuilder: (context, error, stackTrace) {
-                                    return const Center(
-                                      child: Text('Failed to load image'),
+                                    return Center(
+                                      child: Image.network(
+                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                        fit: BoxFit.cover,
+                                      ),
                                     );
                                   },
                                 ),
@@ -1027,8 +1031,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               child: ElevatedButton.icon(
                                 onPressed: () {
                                   ref
-                                      .read(
-                                          addListingViewStateProvider.notifier)
+                                      .read(profileViewStateProvider.notifier)
                                       .state = const AsyncValue.loading();
 
                                   var editedDetails = {

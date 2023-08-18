@@ -59,8 +59,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                 );
                               },
                               errorBuilder: (context, error, stackTrace) {
-                                return const Center(
-                                  child: Text('Failed to load image'),
+                                return Center(
+                                  child: Image.network(
+                                    'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
                                 );
                               },
                             ),
@@ -85,7 +88,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                     const SizedBox(height: 10),
                     Text('Hi,', style: Theme.of(context).textTheme.headline4),
-                    Text('${user.firstname}',
+                    Text(
+                        '${user.firstname} ${user.lastname != "" ? user.lastname : ""}',
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
 
@@ -182,25 +186,26 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "My Profile",
                         icon: Icons.person_outline_outlined,
                         onPress: () {
-                          router.push(const MyProfilePage());
+                          AutoRouter.of(context).push(const MyProfilePage());
                         }),
                     ProfileMenuWidget(
                         title: "Edit Profile",
                         icon: Icons.edit_note,
                         onPress: () {
-                          router.push(const EditProfilePage());
+                          AutoRouter.of(context).push(const EditProfilePage());
                         }),
                     ProfileMenuWidget(
                         title: "Message",
                         icon: Icons.mail_outline,
                         onPress: () {
-                          router.push(const MessagesPage());
+                          AutoRouter.of(context).push(const MessagesPage());
                         }),
                     ProfileMenuWidget(
                         title: "Change Password",
                         icon: Icons.password,
                         onPress: () {
-                          router.push(const ChangePasswordPage());
+                          AutoRouter.of(context)
+                              .push(const ChangePasswordPage());
                         }),
 
                     const SizedBox(height: 30),

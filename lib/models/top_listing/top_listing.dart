@@ -20,7 +20,6 @@ class TopListing extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-     
     var inputDateFormat = DateFormat('dd MMMM, yyyy');
     final data = ref.watch(topListingProvider);
     // final isLoading = ref.watch(isLoadingHomeProvider);
@@ -74,7 +73,6 @@ class TopListing extends ConsumerWidget {
         ),
         data.isNotEmpty
             ? GridView.count(
-              
                 physics: const ScrollPhysics(),
                 childAspectRatio: 0.8,
                 shrinkWrap: true,
@@ -104,7 +102,7 @@ class TopListing extends ConsumerWidget {
                             child: Stack(
                               children: [
                                 Image.network(
-                                  'https://viwaha.lk/$thumbImg',
+                                  thumbImg,
                                   fit: BoxFit.cover,
                                   loadingBuilder: (context, child, progress) {
                                     if (progress == null) {
@@ -125,8 +123,11 @@ class TopListing extends ConsumerWidget {
                                     );
                                   },
                                   errorBuilder: (context, error, stackTrace) {
-                                    return const Center(
-                                      child: Text('Failed to load image'),
+                                    return Center(
+                                      child: Image.network(
+                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                        fit: BoxFit.cover,
+                                      ),
                                     );
                                   },
                                 ),
@@ -233,9 +234,9 @@ class TopListing extends ConsumerWidget {
                 }),
               )
             : const Center(
-                  child: Center(
-                  child: CircularProgressIndicator(),
-                ))
+                child: Center(
+                child: CircularProgressIndicator(),
+              ))
       ],
     );
   }

@@ -77,8 +77,11 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                       );
                     },
                     errorBuilder: (context, error, stackTrace) {
-                      return const Center(
-                        child: Text('Failed to load image'),
+                      return Center(
+                        child: Image.network(
+                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       );
                     },
                   ),
