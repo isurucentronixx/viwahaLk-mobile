@@ -13,7 +13,7 @@ class VendorNotifier extends StateNotifier<List<Vendor>> {
   VendorNotifier({required this.ref}) : super([]) {
     fetchVendors(ref: ref);
   }
-
+ 
   Future fetchVendors({required Ref ref}) async {
     await ref.read(homeControllerProvider).fetchVendorList().then((value) {
       // Setting current `state` to the fetched list of products.

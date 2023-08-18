@@ -42,7 +42,7 @@ class _LoginState extends ConsumerState<Login> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.height * 0.65,
+            bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
 
@@ -57,8 +57,8 @@ class _LoginState extends ConsumerState<Login> {
 
             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
             contentType: ref.read(isloginProvider)
-                ? ContentType.failure
-                : ContentType.warning,
+                ? ContentType('', ViwahaColor.primary)
+                : ContentType('', Colors.redAccent),
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -69,6 +69,7 @@ class _LoginState extends ConsumerState<Login> {
 
     return LoadingOverlay(
       isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
+      color: Colors.white,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: ref.watch(isloginProvider)

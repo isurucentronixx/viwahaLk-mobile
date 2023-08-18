@@ -15,6 +15,7 @@ import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:intl/intl.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
+import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
 import '../../appColor.dart';
@@ -335,6 +336,11 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ElevatedButton(
                                   child: const Text('No'),
                                   onPressed: () {
+                                    ref
+                                        .read(
+                                            myListingViewStateProvider.notifier)
+                                        .state = const AsyncValue.loading();
+                                    controller.boostMyListing(widget.id);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -379,8 +385,13 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ElevatedButton(
                                   child: const Text('Yes, delete'),
                                   onPressed: () {
-                                    Navigator.of(context).pop(true);
+                                    ref
+                                        .read(
+                                            myListingViewStateProvider.notifier)
+                                        .state = const AsyncValue.loading();
+
                                     controller.deleteMyListing(widget.id);
+                                    Navigator.of(context).pop();
                                   },
                                 ),
                               ],

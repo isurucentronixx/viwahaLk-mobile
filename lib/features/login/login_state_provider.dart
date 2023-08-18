@@ -10,23 +10,18 @@ import 'package:viwaha_lk/screens/login/login.dart';
 
 final loginViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
-    
+
 
 class LoginNotifier extends StateNotifier<UserModel> {
   final Ref ref;
   String username;
   String password;
 
-
   LoginNotifier(
-      {required this.ref,
-      required this.username,
-      required this.password})
+      {required this.ref, required this.username, required this.password})
       : super(const UserModel()) {
-    fetchUser(
-        ref: ref, password: password, username: username);
+    fetchUser(ref: ref, password: password, username: username);
   }
-  
 
   Future fetchUser({
     required Ref ref,
@@ -35,7 +30,6 @@ class LoginNotifier extends StateNotifier<UserModel> {
   }) async {
     final appRouter = ref.watch(appRouterProvider);
     try {
-     
       await ref
           .read(loginControllerProvider)
           .fetchUser(username: username, password: password)
@@ -49,13 +43,16 @@ class LoginNotifier extends StateNotifier<UserModel> {
           ref.read(userProvider.notifier).state = value;
           ref.read(isloginProvider.notifier).state = true;
           ref.read(loginViewStateProvider.notifier).state = AsyncValue.data(
-              "Hi, ${state.user!.firstname.toString()} Welcome to Viwaha mobile app.");
-          ref.read(loginViewStateProvider.notifier).state = const AsyncValue.data(null);
+              "Hi ${state.user!.firstname.toString()}, Welcome to the Viwaha mobile app. let's make your celebrations great.");
+          ref.read(loginViewStateProvider.notifier).state =
+              const AsyncValue.data(null);
           appRouter.push(const HomePage());
         } else {
-          ref.read(loginViewStateProvider.notifier).state = const AsyncValue.data(
-              "Login Faield");
-          ref.read(loginViewStateProvider.notifier).state = const AsyncValue.data(null);
+          ref.read(loginViewStateProvider.notifier).state = const AsyncValue
+                  .data(
+              "Invalid credentials or Unable to login for some other reason. Please try again...");
+          ref.read(loginViewStateProvider.notifier).state =
+              const AsyncValue.data(null);
           print("Invalid credintials");
         }
       });

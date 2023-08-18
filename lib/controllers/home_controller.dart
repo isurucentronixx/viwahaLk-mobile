@@ -12,6 +12,16 @@ import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 
+final addListingViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+
+final profileViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+
+final changePasswordViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+    
+
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });

@@ -10,6 +10,7 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
+import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 
 final postControllerProvider =
     Provider((ref) => PostData(ref, ref.read(dioClientProvider)));
@@ -25,11 +26,17 @@ class PostData {
           'http://viwahaweb.nikhilaholdings.lk/api/listings/add_listing',
           data: newListing);
       ref.refresh(myListingProvider);
-      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly published your listing.");
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly published your listing.");
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -41,11 +48,17 @@ class PostData {
           data: newListing);
       // ref.read(provider)
       ref.refresh(myListingProvider);
-      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly updated your listing.");
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      ref.read(isLoadingAddListingProvider.notifier).state = false;
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly updated your listing.");
+      ref.read(addListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -56,11 +69,17 @@ class PostData {
           'http://viwahaweb.nikhilaholdings.lk/api/user/update_profile',
           data: editedDetails);
       ref.refresh(loginProvider);
-      ref.read(isLoadingEditProfileProvider.notifier).state = false;
+      ref.read(profileViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly updated your profile.");
+      ref.read(profileViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      ref.read(isLoadingEditProfileProvider.notifier).state = false;
+      ref.read(profileViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly updated your profile.");
+      ref.read(profileViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -70,11 +89,17 @@ class PostData {
       final res = await _dioClient.post(
           'http://viwahaweb.nikhilaholdings.lk/api/auth/change_password',
           data: passwords);
-      ref.read(isLoadingChangePasswordProvider.notifier).state = false;
+       ref.read(changePasswordViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly changed your password.");
+      ref.read(changePasswordViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      ref.read(isLoadingChangePasswordProvider.notifier).state = false;
+       ref.read(changePasswordViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly changed your password.");
+      ref.read(changePasswordViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -104,13 +129,39 @@ class PostData {
     try {
       final res = await _dioClient.post(
           'http://viwahaweb.nikhilaholdings.lk/api/listings/delete?listing_id=${id}');
-      ref.read(isDeletingListProvider.notifier).state = false;
+       ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly deleted your listing.");
+      ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      ref.read(isDeletingListProvider.notifier).state = false;
+      ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly.");
+      ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
-  
+
+  Future boostMyListing(id) async {
+    try {
+      final res = await _dioClient.post(
+          'http://viwahaweb.nikhilaholdings.lk/api/listings/request_boost?listing_id=${id}');
+      // ref.read(isDeletingListProvider.notifier).state = false;
+        ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfuly boosted your listing.");
+      ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
+      ref.watch(appRouterProvider).push(const HomePage());
+      return res.data;
+    } catch (e) {
+      // ref.read(isDeletingListProvider.notifier).state = false;
+       ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Unsuccessfuly.");
+      ref.read(myListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
+      rethrow;
+    }
+  }
 }

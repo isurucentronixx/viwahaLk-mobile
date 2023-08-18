@@ -101,13 +101,15 @@ class DrawerMenu extends ConsumerWidget {
                   },
                 ),
                 const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.login),
-                  title: const Text('Login'),
-                  onTap: () {
-                    AutoRouter.of(context).push(const Login());
-                  },
-                ),
+                !ref.read(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.login),
+                        title: const Text('Login'),
+                        onTap: () {
+                          AutoRouter.of(context).push(const Login());
+                        },
+                      )
+                    : const SizedBox(),
                 ref.watch(isloginProvider)
                     ? ListTile(
                         leading: const Icon(Icons.logout),
