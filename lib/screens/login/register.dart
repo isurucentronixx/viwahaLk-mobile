@@ -24,7 +24,7 @@ class Register extends ConsumerStatefulWidget {
 
 class _RegisterState extends ConsumerState<Register> {
   final _formKey = GlobalKey<FormState>();
-
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     TextEditingController passwordController = TextEditingController();
@@ -118,8 +118,22 @@ class _RegisterState extends ConsumerState<Register> {
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    // controller: passwordController,
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(
                       labelText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
                     ),
                     onChanged: (value) {
                       passwordController.text = value;

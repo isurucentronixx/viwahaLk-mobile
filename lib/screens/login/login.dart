@@ -29,6 +29,7 @@ class Login extends ConsumerStatefulWidget {
 
 class _LoginState extends ConsumerState<Login> {
   final _formKey = GlobalKey<FormState>();
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -119,9 +120,19 @@ class _LoginState extends ConsumerState<Login> {
                   widthFactor: 0.8,
                   child: TextFormField(
                     // controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
+                    obscureText: obscureText,
+                    decoration: InputDecoration(
                       labelText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureText ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            obscureText = !obscureText;
+                          });
+                        },
+                      ),
                     ),
                     onChanged: (value) {
                       passwordController.text = value;
