@@ -213,29 +213,41 @@ class ContactUsPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text('Submit'),
+                      child: const Text('Submit'),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Column(
                       children: [
-                        SizedBox(
-                          child: Icon(
-                            Icons.location_on_outlined,
-                            color: ViwahaColor.primary,
-                            size: 35,
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ViwahaColor.primary, // Border color
+                              width: 2, // Border width
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(8), // Border radius
+                          ),
+                          child: const SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Icon(
+                              Icons.location_on_outlined,
+                              color: ViwahaColor.primary,
+                              size: 35,
+                            ),
                           ),
                         )
                       ],
                     ),
-                    SizedBox(width: 20),
-                    Column(
+                    const SizedBox(width: 20),
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -262,13 +274,25 @@ class ContactUsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Column(
+                    Column(
                       children: [
-                        SizedBox(
-                          child: Icon(
-                            Icons.phone_android_outlined,
-                            color: ViwahaColor.primary,
-                            size: 35,
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ViwahaColor.primary, // Border color
+                              width: 2, // Border width
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(8), // Border radius
+                          ),
+                          child: const SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Icon(
+                              Icons.phone_android_outlined,
+                              color: ViwahaColor.primary,
+                              size: 35,
+                            ),
                           ),
                         )
                       ],
@@ -326,13 +350,25 @@ class ContactUsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Column(
+                    Column(
                       children: [
-                        SizedBox(
-                          child: Icon(
-                            Icons.email_outlined,
-                            color: ViwahaColor.primary,
-                            size: 35,
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ViwahaColor.primary, // Border color
+                              width: 2, // Border width
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(8), // Border radius
+                          ),
+                          child: const SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Icon(
+                              Icons.email_outlined,
+                              color: ViwahaColor.primary,
+                              size: 35,
+                            ),
                           ),
                         )
                       ],

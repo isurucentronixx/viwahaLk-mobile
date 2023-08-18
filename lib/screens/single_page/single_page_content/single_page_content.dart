@@ -374,7 +374,9 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                 title: const Text('Contact Number'),
                 subtitle: Text('${widget.contactNumber}'),
               ),
-              widget.telephoneNumer.isEmpty
+              widget.telephoneNumer.isEmpty ||
+                      widget.telephoneNumer == 'null' ||
+                      widget.telephoneNumer == 'Null'
                   ? Container()
                   : ListTile(
                       leading: const Icon(Icons.phone),
@@ -398,34 +400,43 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
-                      child: FlutterSocialButton(
-                        mini: true,
-                        title: "0770369602",
-                        buttonType: ButtonType.whatsapp,
-                        onTap: () {
-                          launchUrl(Uri.parse(
-                              "whatsapp://send?phone=0770369602&text=Hi, Message from Viwaha App"));
-                        },
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to resize the button
+                        child: FlutterSocialButton(
+                          mini: true,
+                          title: '${widget.contactNumber}',
+                          buttonType: ButtonType.whatsapp,
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
+                          },
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
-                      child: FlutterSocialButton(
-                        mini: true,
-                        title: "Facebook",
-                        buttonType: ButtonType.facebook,
-                        onTap: () {
-                          launchUrl(Uri.parse("https://www.facebook.com/"));
-                        },
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to resize the button
+                        child: FlutterSocialButton(
+                          mini: true,
+                          title: "Facebook",
+                          buttonType: ButtonType.facebook,
+                          onTap: () {
+                            launchUrl(Uri.parse("https://www.facebook.com/"));
+                          },
+                        ),
                       ),
                     ),
-                    FlutterSocialButton(
-                      mini: true,
-                      title: "Twitter",
-                      buttonType: ButtonType.twitter,
-                      onTap: () {
-                        launchUrl(Uri.parse("https://www.twitter.com/"));
-                      },
+                    Transform.scale(
+                      scale: 0.8, // Adjust this value to resize the button
+                      child: FlutterSocialButton(
+                        mini: true,
+                        title: "Twitter",
+                        buttonType: ButtonType.twitter,
+                        onTap: () {
+                          launchUrl(Uri.parse("https://www.twitter.com/"));
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -490,7 +501,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 20),
           SizedBox(
             child: Image.network(url),
           ),
@@ -511,7 +522,7 @@ class _SingleItemReviewState extends State<SingleItemReview> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
