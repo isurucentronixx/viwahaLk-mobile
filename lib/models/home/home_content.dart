@@ -156,15 +156,14 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                                     children: [
                                       SizedBox(width: 10),
                                       Icon(Icons.search,
-                                          color: Color.fromARGB(
-                                              255, 118, 118, 118)),
+                                          color: Color.fromARGB(255, 0, 0, 0)),
                                       SizedBox(width: 5),
                                       Text(
                                         'Search',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            color: Color.fromARGB(
-                                                255, 118, 118, 118)),
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
                                       ),
                                     ],
                                   )),
