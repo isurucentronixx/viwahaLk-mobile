@@ -48,7 +48,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
   Widget build(BuildContext context) {
     final controller = ref.watch(postControllerProvider);
     final picker = ImagePicker();
-    print(widget.imagePath);
 
     imageUpload(File image, String name, String type) async {
       ref.read(isLoadingBillImgProvider.notifier).state = true;

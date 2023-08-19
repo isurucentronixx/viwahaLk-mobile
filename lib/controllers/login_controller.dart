@@ -46,7 +46,7 @@ class LoginController {
   Future<UserModel> userRegister(userDetails) async {
     try {
       final res = await loginService.requestUserApiRequest(userDetails);
-      print(res);
+
       if (res['responseCode'] == "1") {
         ref.read(usernameProvider.notifier).state = userDetails['email'];
         ref.read(passwordProvider.notifier).state = userDetails['password'];

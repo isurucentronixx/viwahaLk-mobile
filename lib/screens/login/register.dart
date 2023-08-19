@@ -248,7 +248,6 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
   final appRouter = ref.watch(appRouterProvider);
   final user = await GoogleSignInApi.login();
   if (user != null) {
-    print(user.toString());
     final res = await controller.fetchGoogleUser(
         displayName: user.displayName,
         email: user.email,

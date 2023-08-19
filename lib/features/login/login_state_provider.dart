@@ -11,7 +11,6 @@ import 'package:viwaha_lk/screens/login/login.dart';
 final loginViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
-
 class LoginNotifier extends StateNotifier<UserModel> {
   final Ref ref;
   String username;

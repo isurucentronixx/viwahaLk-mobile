@@ -49,12 +49,7 @@ class _LoginOldState extends State<LoginOld> {
       body: {'access_token': facebookAccessToken},
     );
 
-    print({facebookAccessToken, " Thushn"});
-
     if (response.statusCode == 200) {
-      // Successfully authenticated with the Viwaha App API
-      print('Viwaha App login successful: ${response.body}');
-      // Extract the necessary data from the API response and update the UI accordingly
       final data = jsonDecode(response.body);
       final name = data['name'];
       final email = data['email'];
@@ -70,10 +65,7 @@ class _LoginOldState extends State<LoginOld> {
           },
         };
       });
-    } else {
-      // Failed to authenticate with the Viwaha App API
-      print('Viwaha App login failed: ${response.statusCode}');
-    }
+    } else {}
   }
 
   @override
@@ -122,10 +114,7 @@ class _LoginOldState extends State<LoginOld> {
             FractionallySizedBox(
               widthFactor: 0.8,
               child: ElevatedButton.icon(
-                onPressed: () {
-                  // Perform login logic here
-                  print("zxxcxcxc");
-                },
+                onPressed: () {},
                 icon: const Icon(Icons.login),
                 label: const Text('Sign In'),
                 style: ElevatedButton.styleFrom(

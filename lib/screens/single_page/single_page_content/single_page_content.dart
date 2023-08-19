@@ -576,9 +576,7 @@ class _SingleItemReviewState extends State<SingleItemReview> {
                 Icons.star,
                 color: Colors.amber,
               ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
+              onRatingUpdate: (rating) {},
             ),
           ),
           const SizedBox(height: 8),

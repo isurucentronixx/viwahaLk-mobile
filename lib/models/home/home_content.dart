@@ -57,7 +57,6 @@ class _HomeContentState extends ConsumerState<HomeContent> {
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       final List<String> imageUrls = data.map((item) {
-        print(item['url']);
         return item['url'] as String;
       }).toList();
 

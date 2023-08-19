@@ -13,7 +13,7 @@ class VendorNotifier extends StateNotifier<List<Vendor>> {
   VendorNotifier({required this.ref}) : super([]) {
     fetchVendors(ref: ref);
   }
- 
+
   Future fetchVendors({required Ref ref}) async {
     await ref.read(homeControllerProvider).fetchVendorList().then((value) {
       // Setting current `state` to the fetched list of products.
@@ -90,7 +90,6 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
     String category = ref.watch(selectedSubCategoryProvider).sub_category ??
         ref.watch(selectedMainCategoryProvider);
     String keyword = "";
-    print(location + category + keyword);
 
     await ref
         .read(homeControllerProvider)
@@ -135,7 +134,10 @@ class FavListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 
   Future fetchFavListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchFavListing(ref: ref).then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchFavListing(ref: ref)
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
@@ -155,7 +157,10 @@ class MyListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 
   Future fetchMyListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchMyListing(ref: ref).then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchMyListing(ref: ref)
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
@@ -167,7 +172,8 @@ class MyListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 }
 
-class CategoryListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
+class CategoryListingProviderNotifier
+    extends StateNotifier<List<SearchResultItem>> {
   final Ref ref;
 
   CategoryListingProviderNotifier({required this.ref}) : super([]) {
@@ -176,7 +182,10 @@ class CategoryListingProviderNotifier extends StateNotifier<List<SearchResultIte
 
   Future fetchCategoryListing({required Ref ref}) async {
     String category = ref.watch(selectedMainCategoryProvider);
-    await ref.read(homeControllerProvider).fetchCategoryListing(category).then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchCategoryListing(category)
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;

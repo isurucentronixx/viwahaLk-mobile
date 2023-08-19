@@ -2678,8 +2678,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             };
                             controller.addNewListing(newList);
                             // PostData.addNewListing(newList);
-                            print(amenities);
-                            print(ref.read(imageNameGalleryProvider));
                           },
                           icon: const Icon(Icons.add_box_outlined),
                           label: const Text('ADD YOUR LISTING'),
