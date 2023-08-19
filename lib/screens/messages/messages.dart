@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -60,38 +61,53 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(
               child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     Stack(
                       children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.8,
-                          margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                          padding: const EdgeInsets.only(bottom: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: ViwahaColor.primary, width: 1),
-                            borderRadius: BorderRadius.circular(5),
-                            shape: BoxShape.rectangle,
+                        TextField(
+                          maxLines: 10,
+                          decoration: const InputDecoration(
+                            labelText: 'Message',
+                            hintText: 'Enter a small message here',
+                            border: OutlineInputBorder(),
                           ),
+                          onChanged: (value) {
+                            // Handle changes in the entered text
+                            // You can update the state or perform other actions here
+                          },
                         ),
-                        Positioned(
-                          left: 50,
-                          top: 12,
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                                bottom: 10, left: 10, right: 10),
-                            color: Colors.white,
-                            child: const Text(
-                              'Messagess (0)',
-                              style: TextStyle(
-                                  color: ViwahaColor.primary, fontSize: 12),
+                      ],
+                    ),
+                    Container(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(ViwahaColor.primary),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: const BorderSide(color: Colors.white),
                             ),
                           ),
                         ),
-                      ],
+                        onPressed: () async {},
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(width: 8),
+                            Text(
+                              "Submit",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 60),
                   ],

@@ -45,7 +45,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
               ],
             ),
           ],
-          title: const Text('Results'),
+          title: const Text('Search Results'),
         ),
         body: Column(
           children: [

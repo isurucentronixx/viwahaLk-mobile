@@ -243,11 +243,10 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     return LoadingOverlay(
       isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
       color: Colors.white,
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+      child: SafeArea(
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -292,7 +291,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -329,7 +327,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -361,11 +358,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -379,14 +371,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
-                              labelText: 'AD Title',
+                              labelText: 'Ad Title',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -408,7 +398,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               border: Border.all(color: Colors.grey),
                             ),
                             child: SmartSelect<String>.single(
-                              title: 'Distric',
+                              title: 'District',
                               selectedValue: _location,
                               choiceItems: mainLocationData,
                               onChange: (selected) {
@@ -436,7 +426,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -473,7 +462,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -506,10 +494,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -523,69 +508,62 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Address',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             validator: null,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w300,
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                ref
-                                    .read(adGoogleAddressProvider.notifier)
-                                    .state = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: ViwahaColor.primary, width: 1.0),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              fillColor: Colors.grey,
-                              hintText: "Your google bussiness address",
-                              hintStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                                fontFamily: "verdana_regular",
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelText: 'Google Location Address',
-                              labelStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18,
-                                fontFamily: "verdana_regular",
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            validator: null,
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFormField(
+                        //     style: const TextStyle(
+                        //       fontSize: 18,
+                        //       color: Colors.black,
+                        //       fontWeight: FontWeight.w300,
+                        //     ),
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         ref
+                        //             .read(adGoogleAddressProvider.notifier)
+                        //             .state = value;
+                        //       });
+                        //     },
+                        //     decoration: InputDecoration(
+                        //       focusColor: Colors.white,
+                        //       //add prefix icon
+
+                        //       border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(10.0),
+                        //       ),
+                        //       focusedBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: ViwahaColor.primary, width: 1.0),
+                        //         borderRadius: BorderRadius.circular(10.0),
+                        //       ),
+                        //       fillColor: Colors.grey,
+                        //       hintText: "Your google bussiness address",
+                        //       hintStyle: const TextStyle(
+                        //         color: Colors.grey,
+                        //         fontSize: 16,
+                        //         fontWeight: FontWeight.w400,
+                        //       ),
+                        //       labelText: 'Google Location Address',
+                        //       labelStyle: const TextStyle(
+                        //         color: Colors.grey,
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.w400,
+                        //       ),
+                        //     ),
+                        //     validator: null,
+                        //   ),
+                        // ),
                       ]),
                   AddFieldMainWidget(
                       icon: Icons.menu_book_outlined,
@@ -593,6 +571,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                       description:
                           "Write full details information about listing",
                       inputList: [
+                        SizedBox(
+                          height: 10,
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
@@ -612,11 +593,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -630,14 +606,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Price',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -694,10 +668,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -711,14 +682,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Owner Name',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -745,10 +714,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -762,14 +728,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Email',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -796,10 +760,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -813,14 +774,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Phone',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -847,10 +806,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -864,14 +820,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Whatsapp (without +94)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -898,10 +852,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -915,14 +866,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Designation (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -949,10 +898,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -966,14 +912,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Company (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1000,10 +944,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                             decoration: InputDecoration(
                               focusColor: Colors.white,
                               //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
+
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1017,14 +958,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Website (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1050,11 +989,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1068,14 +1002,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Facebook (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1101,11 +1033,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1119,14 +1046,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Instagram (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1152,11 +1077,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1170,14 +1090,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Youtube (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1203,11 +1121,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1221,14 +1134,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Linkedin (optional)',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1255,11 +1166,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 : '',
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              //add prefix icon
-                              prefixIcon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: Colors.grey,
-                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1274,14 +1180,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Description',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1795,14 +1699,12 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                               labelText: 'Youtube video link',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
-                                fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -1843,7 +1745,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -1883,7 +1784,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -1935,7 +1835,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -1972,7 +1871,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2043,7 +1941,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2080,7 +1977,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2151,7 +2047,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2188,7 +2083,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2259,7 +2153,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2296,7 +2189,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2367,7 +2259,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2404,7 +2295,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2475,7 +2365,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2512,7 +2401,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2583,7 +2471,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2620,7 +2507,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                               style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
-                                                fontFamily: "verdana_regular",
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -2808,8 +2694,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                   )
                 ],
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }

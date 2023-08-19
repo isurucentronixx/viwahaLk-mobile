@@ -125,39 +125,45 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         Stack(
                           children: [
                             SizedBox(
-                              width: 120,
-                              height: 120,
+                              width: 150,
+                              height: 150,
                               child: SizedBox(
-                                child: Image.network(
-                                  user!.image.toString(),
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, progress) {
-                                    if (progress == null) {
-                                      return ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: SizedBox(
-                                          width: 120,
-                                          height: 120,
-                                          child: child,
-                                        ),
-                                      );
-                                    }
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                          // value: progress.cumulativeBytesLoaded /
-                                          //     progress.expectedTotalBytes!.toDouble(),
-                                          ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                      child: Image.network(
-                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    );
-                                  },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: ViwahaColor
+                                          .primary, // Set your desired border color here
+                                      width: 4, // Set the desired border width
+                                    ),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      user!.image.toString(),
+                                      fit: BoxFit.cover,
+                                      loadingBuilder:
+                                          (context, child, progress) {
+                                        if (progress == null) {
+                                          return SizedBox(
+                                            width: 150,
+                                            height: 150,
+                                            child: child,
+                                          );
+                                        }
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.network(
+                                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -187,11 +193,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   },
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -239,11 +240,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.lastname.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -291,11 +287,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.company.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -344,11 +335,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.designation.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -396,11 +382,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.birthday.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -448,11 +429,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.email.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -501,11 +477,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.phone.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -553,11 +524,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.phonenumber.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -605,11 +571,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.address.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -663,11 +624,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.facebook.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -715,11 +671,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.instagram.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -767,11 +718,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.youtube.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -819,11 +765,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.twitter.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -872,11 +813,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.linkedin.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -924,11 +860,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   initialValue: user.website.toString(),
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -987,11 +918,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
-                                    //add prefix icon
-                                    prefixIcon: const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: Colors.grey,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),

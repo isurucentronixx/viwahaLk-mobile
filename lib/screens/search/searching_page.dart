@@ -56,21 +56,21 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
     final locationsData = ref.watch(locationsProvider);
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
-                  ),
-                ),
-              ],
-            ),
-          ],
-          title: const Text(''),
+          // actions: [
+          //   Row(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: SizedBox(
+          //           width: 100,
+          //           child: Assets.lib.assets.images.logo.image(),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ],
+          title: const Text('Search'),
           centerTitle: true,
         ),
         body: Column(children: [
@@ -78,6 +78,16 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Image(
+                        width: 250,
+                        image:
+                            Assets.lib.assets.images.colorLogo.image().image),
+                  ),
                   const SizedBox(height: 20),
                   Center(
                     child: Column(

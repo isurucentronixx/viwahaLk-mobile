@@ -75,7 +75,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          side: const BorderSide(color: Colors.yellow),
+          side: const BorderSide(color: ViwahaColor.primary),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -97,7 +97,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
                                 width: 400,
-                                height: 150,
                                 child: child,
                               ),
                             );
@@ -114,7 +113,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
                               width: 400,
-                              height: 150,
                               child: Image.network(
                                 'https://viwaha.lk/assets/img/logo/logo_dark.png',
                                 fit: BoxFit.fill,
@@ -122,6 +120,15 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             ),
                           );
                         },
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color:
+                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
                       ),
                     ),
                     const Align(
@@ -137,7 +144,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.4),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.4),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
@@ -167,10 +175,10 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      widget.title,
+                      widget.title.toUpperCase(),
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -186,7 +194,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             textAlign: TextAlign.end,
                             style: const TextStyle(
                               overflow: TextOverflow.ellipsis,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -220,8 +227,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                   padding: const EdgeInsets.all(10),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       const Text(
@@ -230,7 +235,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                         style: TextStyle(fontSize: 20),
                                       ),
                                       const Text(
-                                        '( maximum image size 1 Mb )',
+                                        '(Maximum image size 1 Mb)',
+                                        style: TextStyle(fontSize: 12),
                                         textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(
@@ -322,6 +328,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ),
                                 actions: <Widget>[
                                   ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blueGrey),
                                     child: const Text('Cancel'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -345,11 +353,11 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     },
                     icon: const Icon(
                       Icons.workspace_premium_outlined,
-                      size: 24.0,
+                      size: 22.0,
                     ),
                     label: const Text('Premium'), // <-- Text
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.yellow,
+                      backgroundColor: ViwahaColor.primary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -387,8 +395,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                           });
                     },
                     icon: const Icon(
-                      Icons.delete_forever,
-                      size: 24.0,
+                      Icons.analytics_outlined,
+                      size: 22.0,
                     ),
                     label: const Text('Boost'), // <-- Text
                     style: ElevatedButton.styleFrom(
@@ -438,8 +446,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                       ),
                     ),
                     child: const Icon(
-                      Icons.delete_forever,
-                      size: 24.0,
+                      Icons.delete_outline_rounded,
+                      size: 22,
                     ),
                   ),
                 ],

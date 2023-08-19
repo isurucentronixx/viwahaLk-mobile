@@ -34,41 +34,47 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     Stack(
                       children: [
                         SizedBox(
-                          width: 120,
-                          height: 120,
+                          width: 150,
+                          height: 150,
                           child: SizedBox(
-                            child: Image.network(
-                              user!.image.toString(),
-                              fit: BoxFit.cover,
-                              loadingBuilder: (context, child, progress) {
-                                if (progress == null) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: SizedBox(
-                                      width: 120,
-                                      height: 120,
-                                      child: child,
-                                    ),
-                                  );
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                      // value: progress.cumulativeBytesLoaded /
-                                      //     progress.expectedTotalBytes!.toDouble(),
-                                      ),
-                                );
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(
-                                  child: Image.network(
-                                    'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: ViwahaColor
+                                      .primary, // Set your desired border color here
+                                  width: 4, // Set the desired border width
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.network(
+                                  user!.image.toString(),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, progress) {
+                                    if (progress == null) {
+                                      return SizedBox(
+                                        width: 150,
+                                        height: 150,
+                                        child: child,
+                                      );
+                                    }
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.network(
+                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                         ),
+
                         // Positioned(
                         //   bottom: 0,
                         //   right: 0,
@@ -93,63 +99,65 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
 
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(ViwahaColor.primary),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: const BorderSide(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        AutoRouter.of(context).push(const AddListingPage());
-                      },
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Column(
                         children: [
-                          Icon(Icons.add,
-                              color: Colors
-                                  .white), // Replace Icons.copy with your desired icon.
-                          SizedBox(
-                              width:
-                                  8), // Add some space between the icon and the text.
-                          Text(
-                            "POST YOUR ADD",
-                            style: TextStyle(fontSize: 14, color: Colors.white),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  ViwahaColor.primary),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  side: const BorderSide(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              AutoRouter.of(context)
+                                  .push(const AddListingPage());
+                            },
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.add, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text(
+                                  "POST YOUR ADD",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.yellow[700]),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: const BorderSide(color: Colors.yellow),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.copy_all_outlined,
-                              color: Colors
-                                  .black), // Replace Icons.copy with your desired icon.
-                          SizedBox(
-                              width:
-                                  8), // Add some space between the icon and the text.
-                          Text(
-                            "Copy referral link !",
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.yellow[700]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  side: const BorderSide(color: Colors.yellow),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.copy_all_outlined,
+                                    color: Colors.black),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Copy referral link",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -169,8 +177,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 16),
                           ),
-                          const Icon(Icons.settings,
-                              color: ViwahaColor.primary),
                         ],
                       ),
                     ),
@@ -220,8 +226,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 16),
                           ),
-                          const Icon(Icons.check_circle_outline_outlined,
-                              color: ViwahaColor.primary),
                         ],
                       ),
                     ),
@@ -252,11 +256,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         onPress: () {
                           router.push(const AddListingPage());
                         }),
-
+                    const SizedBox(
+                      height: 10,
+                    ),
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.redAccent),
+                            MaterialStateProperty.all(ViwahaColor.primary),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
@@ -288,7 +294,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 100),
                   ],
                 ),
               ),

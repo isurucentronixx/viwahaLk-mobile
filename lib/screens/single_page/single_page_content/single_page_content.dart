@@ -286,41 +286,45 @@ class SingleItemDescription extends StatefulWidget {
 class _SingleItemDescriptionState extends State<SingleItemDescription> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color:
-                ViwahaColor.primary, // Set the background color for the title
-            padding: const EdgeInsets.all(16.0),
-            child: const Row(
+    return widget.description.isEmpty ||
+            widget.description == 'null' ||
+            widget.description == 'NULL'
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.list,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'Description',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
+                Container(
+                  color: ViwahaColor
+                      .primary, // Set the background color for the title
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.list,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Description',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                const SizedBox(height: 10),
+                ExpandText(
+                  '${widget.description}',
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 10),
-          ExpandText(
-            '${widget.description}',
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
+          );
   }
 }
 
@@ -339,113 +343,122 @@ class SingleItemContactInfo extends StatefulWidget {
 class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color:
-                ViwahaColor.primary, // Set the background color for the title
-            padding: const EdgeInsets.all(16.0),
-            child: const Row(
+    return widget.telephoneNumer.isEmpty ||
+            widget.telephoneNumer == 'null' ||
+            widget.telephoneNumer == 'Null'
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.list,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'Contact Informations',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
+                Container(
+                  color: ViwahaColor
+                      .primary, // Set the background color for the title
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.list,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Contact Informations',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                const SizedBox(height: 8),
+                Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.phone_android),
+                      title: const Text('Contact Number'),
+                      subtitle: Text('${widget.contactNumber}'),
+                    ),
+                    widget.telephoneNumer.isEmpty ||
+                            widget.telephoneNumer == 'null' ||
+                            widget.telephoneNumer == 'Null'
+                        ? Container()
+                        : ListTile(
+                            leading: const Icon(Icons.phone),
+                            title: const Text('Telephone Number'),
+                            subtitle: Text('${widget.telephoneNumer}'),
+                          ),
+                    ListTile(
+                      leading: const Icon(Icons.home),
+                      title: const Text('Address'),
+                      subtitle: Text('${widget.address}'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.email),
+                      title: const Text('Email'),
+                      subtitle: Text('${widget.email}'),
+                    ),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Transform.scale(
+                              scale:
+                                  0.8, // Adjust this value to resize the button
+                              child: FlutterSocialButton(
+                                mini: true,
+                                title: '${widget.contactNumber}',
+                                buttonType: ButtonType.whatsapp,
+                                onTap: () {
+                                  launchUrl(Uri.parse(
+                                      "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Transform.scale(
+                              scale:
+                                  0.8, // Adjust this value to resize the button
+                              child: FlutterSocialButton(
+                                mini: true,
+                                title: "Facebook",
+                                buttonType: ButtonType.facebook,
+                                onTap: () {
+                                  launchUrl(
+                                      Uri.parse("https://www.facebook.com/"));
+                                },
+                              ),
+                            ),
+                          ),
+                          Transform.scale(
+                            scale:
+                                0.8, // Adjust this value to resize the button
+                            child: FlutterSocialButton(
+                              mini: true,
+                              title: "Twitter",
+                              buttonType: ButtonType.twitter,
+                              onTap: () {
+                                launchUrl(
+                                    Uri.parse("https://www.twitter.com/"));
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
-          ),
-          const SizedBox(height: 8),
-          Column(
-            children: [
-              ListTile(
-                leading: const Icon(Icons.phone_android),
-                title: const Text('Contact Number'),
-                subtitle: Text('${widget.contactNumber}'),
-              ),
-              widget.telephoneNumer.isEmpty ||
-                      widget.telephoneNumer == 'null' ||
-                      widget.telephoneNumer == 'Null'
-                  ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.phone),
-                      title: const Text('Telephone Number'),
-                      subtitle: Text('${widget.telephoneNumer}'),
-                    ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Address'),
-                subtitle: Text('${widget.address}'),
-              ),
-              ListTile(
-                leading: const Icon(Icons.email),
-                title: const Text('Email'),
-                subtitle: Text('${widget.email}'),
-              ),
-              const SizedBox(height: 8),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to resize the button
-                        child: FlutterSocialButton(
-                          mini: true,
-                          title: '${widget.contactNumber}',
-                          buttonType: ButtonType.whatsapp,
-                          onTap: () {
-                            launchUrl(Uri.parse(
-                                "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to resize the button
-                        child: FlutterSocialButton(
-                          mini: true,
-                          title: "Facebook",
-                          buttonType: ButtonType.facebook,
-                          onTap: () {
-                            launchUrl(Uri.parse("https://www.facebook.com/"));
-                          },
-                        ),
-                      ),
-                    ),
-                    Transform.scale(
-                      scale: 0.8, // Adjust this value to resize the button
-                      child: FlutterSocialButton(
-                        mini: true,
-                        title: "Twitter",
-                        buttonType: ButtonType.twitter,
-                        onTap: () {
-                          launchUrl(Uri.parse("https://www.twitter.com/"));
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+          );
   }
 }
 
