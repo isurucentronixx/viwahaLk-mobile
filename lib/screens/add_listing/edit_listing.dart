@@ -203,6 +203,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
       }
 
       final res = await controller.imageUpload(image, name);
+      print(res);
       setState(() {
         if (type == "gallery") {
           ref.read(imageNameGalleryProvider).add(name);

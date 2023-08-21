@@ -36,7 +36,7 @@ class _HomePageState extends ConsumerState<HomePage>
     tabController.animation!.addListener(
       () {
         final value = tabController.animation!.value.round();
-        if (value != currentPage && mounted) {
+        if (value != 2 && mounted) {
           changePage(value);
         }
       },

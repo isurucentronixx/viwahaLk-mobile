@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
@@ -32,13 +33,17 @@ class LoginNotifier extends StateNotifier<UserModel> {
       await ref
           .read(loginControllerProvider)
           .fetchUser(username: username, password: password)
-          .then((value) {
+          .then((value) async {
         // Setting current `state` to the fetched list of products.
         state = value;
 
         // Setting isLoading to `false`.
         ref.read(isLoadingLoginProvider.notifier).state = false;
         if (int.parse(state.responseCode.toString()) == 1) {
+          //Saving user credentials to SharedPreferences
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString("email", ref.read(usernameProvider));
+          pref.setString("password", ref.read(passwordProvider));
           ref.read(userProvider.notifier).state = value;
           ref.read(isloginProvider.notifier).state = true;
           ref.read(loginViewStateProvider.notifier).state = AsyncValue.data(

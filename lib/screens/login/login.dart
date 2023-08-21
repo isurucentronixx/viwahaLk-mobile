@@ -106,7 +106,8 @@ class _LoginState extends ConsumerState<Login> {
                       labelText: 'Username',
                     ),
                     onChanged: (value) {
-                      usernameController.text = value;
+                      // usernameController.text = value;
+                      ref.read(usernameProvider.notifier).state = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -135,7 +136,9 @@ class _LoginState extends ConsumerState<Login> {
                       ),
                     ),
                     onChanged: (value) {
-                      passwordController.text = value;
+                      // passwordController.text = value;
+
+                      ref.read(passwordProvider.notifier).state = value;
                     },
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -152,11 +155,13 @@ class _LoginState extends ConsumerState<Login> {
                       if (_formKey.currentState!.validate()) {
                         ref.read(loginViewStateProvider.notifier).state =
                             const AsyncValue.loading();
-                        ref.read(usernameProvider.notifier).state =
-                            usernameController.text;
-                        ref.read(passwordProvider.notifier).state =
-                            passwordController.text;
-
+                        // ref.read(usernameProvider.notifier).state =
+                        //     usernameController.text;
+                        // ref.read(passwordProvider.notifier).state =
+                        //     passwordController.text;
+                        print(ref.read(usernameProvider));
+                        print(usernameController.text);
+                        print("*********************************************");
                         ref.refresh(loginProvider);
                       }
                     },

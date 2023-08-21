@@ -5,15 +5,17 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
+        AutoRoute(page: SplashRoute.page, path: '/splashScreen', initial: true),
         AutoRoute(
           page: Login.page,
           path: '/login',
         ),
-         AutoRoute(
+
+        AutoRoute(
           page: Register.page,
           path: '/register',
         ),
-        AutoRoute(page: HomePage.page, path: '/homePage', initial: true),
+        AutoRoute(page: HomePage.page, path: '/homePage'),
         AutoRoute(page: AddListingPage.page, path: '/addListingPage'),
         AutoRoute(
           page: AboutUsPage.page,
@@ -21,9 +23,8 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(
           page: ContactUsPage.page,
-          path: '/aboutPage',
+          path: '/contactPage',
         ),
-
         AutoRoute(page: VenuesRoute.page, path: "/venuesPage"),
         AutoRoute(page: DressingRoute.page, path: "/dressingPage"),
         AutoRoute(page: VenusesSingleView.page, path: "/singleVenuesPage"),

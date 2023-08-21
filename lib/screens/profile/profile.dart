@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -272,9 +273,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ),
                       ),
                       onPressed: () async {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+
                         final appRouter = ref.watch(appRouterProvider);
                         final _googleSignIn = GoogleSignIn();
                         ref.read(isloginProvider.notifier).state = false;
+                        pref.remove("email");
+                        pref.remove("password");
                         await _googleSignIn.disconnect();
                         appRouter.push(const Login());
                       },

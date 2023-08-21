@@ -43,6 +43,8 @@ class PostData {
 
   Future editListing(newListing, id) async {
     try {
+      print("newListingnewListingnewListingnewListingnewListingnewListingnewListingnewListingnewListingnewListingnewListing");
+      print(newListing);
       final res = await _dioClient.post(
           'http://viwahaweb.nikhilaholdings.lk/api/listings/edit_listing?listing_id=$id',
           data: newListing);

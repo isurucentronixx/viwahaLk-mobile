@@ -11,9 +11,6 @@ import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
-final usernameProvider = StateProvider<String>((ref) => "");
-final passwordProvider = StateProvider<String>((ref) => "");
-
 @RoutePage()
 class Register extends ConsumerStatefulWidget {
   const Register({super.key});
