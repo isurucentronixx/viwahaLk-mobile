@@ -26,6 +26,8 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 final myListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+final singleListingViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
 @RoutePage()
 class MyListingPage extends ConsumerStatefulWidget {

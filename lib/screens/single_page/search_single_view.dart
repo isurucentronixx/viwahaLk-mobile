@@ -1,10 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/latest_items/latest.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -50,55 +55,81 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+    final state = ref.watch(singleListingViewStateProvider);
+    ref.listen<AsyncValue>(singleListingViewStateProvider, (_, state) {
+      state.whenData((items) {
+        final snackBar = SnackBar(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * 0.70,
+          ),
+          elevation: 0,
+
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Status!',
+            message: items,
+            inMaterialBanner: true,
+            contentType: ContentType('', ViwahaColor.primary),
+          ),
+        );
+        (items == null ? null : ScaffoldMessenger.of(context))!
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+      });
+    });
+    return LoadingOverlay(
+      isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
+      color: Colors.white,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          title: Text(widget.item!.title.toString()),
+        ),
+        drawer: const DrawerMenu(),
+        body: ref.watch(isDeletingListProvider)
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    SliderView(
+                        widget.item!.images.toString(), widget.type.toString()),
+                    const SizedBox(height: 20),
+                    SingleItemOverview(
+                        widget.item!.datetime.toString(),
+                        widget.item!.location.toString(),
+                        widget.item!.title.toString(),
+                        widget.item!.views.toString(),
+                        widget.type.toString(),
+                        widget.item!.id.toString(),
+                        widget.item),
+                    // SingleItemAmenities(widget.item!.amenities.toString()),
+                    SingleItemDescription(widget.item!.description.toString()),
+                    SingleItemContactInfo(
+                        widget.item!.phone.toString(),
+                        widget.item!.whatsapp.toString(),
+                        widget.item!.address.toString(),
+                        widget.item!.email.toString()),
+                    SingleItemMap(widget.item!.address.toString()),
+                    const SingleItemLatest('topListing')
+                  ],
                 ),
               ),
-            ],
-          ),
-        ],
-        title: Text(widget.item!.title.toString()),
       ),
-      drawer: const DrawerMenu(),
-      body: ref.watch(isDeletingListProvider)
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  SliderView(
-                      widget.item!.images.toString(), widget.type.toString()),
-                  const SizedBox(height: 20),
-                  SingleItemOverview(
-                      widget.item!.datetime.toString(),
-                      widget.item!.location.toString(),
-                      widget.item!.title.toString(),
-                      widget.item!.views.toString(),
-                      widget.type.toString(),
-                      widget.item!.id.toString(),
-                      widget.item),
-                  // SingleItemAmenities(widget.item!.amenities.toString()),
-                  SingleItemDescription(widget.item!.description.toString()),
-                  SingleItemContactInfo(
-                      widget.item!.phone.toString(),
-                      widget.item!.whatsapp.toString(),
-                      widget.item!.address.toString(),
-                      widget.item!.email.toString()),
-                  SingleItemMap(widget.item!.address.toString()),
-                  const SingleItemReview(),
-                  const SingleItemLatest('topListing')
-                ],
-              ),
-            ),
     );
   }
 }

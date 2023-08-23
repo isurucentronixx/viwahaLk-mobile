@@ -12,6 +12,8 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
+import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
 class SliderView extends ConsumerStatefulWidget {
@@ -203,6 +205,34 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          widget.type != "myAd"
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        showRequestQuoteForm(context, ref,
+                            listingId: widget.item!.id.toString(),
+                            userId: widget.item!.user_id.toString());
+                      },
+                      child: const Text('Request Quote'),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showReviewForm(context, ref,
+                            listingId: widget.item!.id.toString(),
+                            userId: widget.item!.user_id.toString());
+                      },
+                      child: const Text('Add Review'),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -517,216 +547,6 @@ class _SingleItemMapState extends State<SingleItemMap> {
           const SizedBox(height: 20),
           SizedBox(
             child: Image.network(url),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SingleItemReview extends StatefulWidget {
-  const SingleItemReview({super.key});
-
-  @override
-  State<SingleItemReview> createState() => _SingleItemReviewState();
-}
-
-class _SingleItemReviewState extends State<SingleItemReview> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color:
-                ViwahaColor.primary, // Set the background color for the title
-            padding: const EdgeInsets.all(16.0),
-            child: const Row(
-              children: [
-                Icon(
-                  Icons.list,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'Review',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Center(
-            child: RatingBar.builder(
-              initialRating: 0,
-              minRating: 0,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {},
-            ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                focusColor: Colors.white,
-                //add prefix icon
-                prefixIcon: const Icon(
-                  Icons.person_outline_rounded,
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                fillColor: Colors.grey,
-                hintText: "This name will appear on your review.",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-                labelText: 'Name',
-                labelStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              validator: null,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                focusColor: Colors.white,
-                //add prefix icon
-                prefixIcon: const Icon(
-                  Icons.mail_outline_rounded,
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                fillColor: Colors.grey,
-                hintText: "This email will appear on your review.",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-                labelText: 'Email',
-                labelStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              validator: null,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              // minLines: 3,
-              maxLines: 6,
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                focusColor: Colors.white,
-                //add prefix icon
-                prefixIcon: const Icon(
-                  Icons.description_outlined,
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: ViwahaColor.primary, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                fillColor: Colors.grey,
-                hintText: "Write your review here.",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-                labelText: 'Review',
-                labelStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontFamily: "verdana_regular",
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Center(
-              child: SizedBox(
-                width: double.infinity, // Full width
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Add Review'),
-                ),
-              ),
-            ),
           ),
         ],
       ),
