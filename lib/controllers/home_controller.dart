@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -8,6 +9,7 @@ import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -18,9 +20,10 @@ final addListingViewStateProvider =
 final profileViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
+
+
 final changePasswordViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
-    
 
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
@@ -152,6 +155,18 @@ class HomeController {
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<UserDashboard> fetchUserDashboardCounts(String userId) async {
+    try {
+      final res = await homeService.fetchUserDashboardCountsApiRequest(userId);
+      final result = UserDashboard.fromJson(res);
+      return result;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());

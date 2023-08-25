@@ -188,7 +188,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ProfileMenuWidget(
                         title: "Dashboard",
                         icon: Icons.settings,
-                        onPress: () {}),
+                        onPress: () {
+                          
+                          router.push(
+                              UserDashboardPage(userId: user.id.toString()));
+                        }),
                     ProfileMenuWidget(
                         title: "My Profile",
                         icon: Icons.person_outline_outlined,

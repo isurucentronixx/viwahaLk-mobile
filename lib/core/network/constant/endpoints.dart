@@ -19,6 +19,8 @@ class Endpoints {
 
   static const String getMyListing = "listings/get_my_listings?userId=";
 
+  static const String getDashboardCounts = "profile/get_dashboard?userId=";
+
   // receiveTimeout
   static const int receiveTimeout = 15000; 
 

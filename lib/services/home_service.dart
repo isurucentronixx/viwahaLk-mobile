@@ -64,7 +64,7 @@ class HomeService {
 
   Future fetchAllListingApiRequest() async {
     try {
-      final res =
+      final res = 
           await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing);
       return res.data;
     } catch (e) {
@@ -96,6 +96,16 @@ class HomeService {
     try {
       final res = await _dioClient.get(
           '${Endpoints.baseUrl + Endpoints.getAllListing}?location=&category=$category&keyword=');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future fetchUserDashboardCountsApiRequest(String userId) async {
+    try {
+      final res = await _dioClient.get(
+          '${Endpoints.baseUrl + Endpoints.getDashboardCounts}$userId');
       return res.data;
     } catch (e) {
       rethrow;
