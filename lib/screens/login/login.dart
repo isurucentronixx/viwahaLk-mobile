@@ -56,11 +56,10 @@ class _LoginState extends ConsumerState<Login> {
                 : 'Login Failed!',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ref.read(isloginProvider)
-                ? ContentType('', ViwahaColor.primary)
-                : ContentType('', Colors.redAccent),
+            contentType: ContentType.success,
+            color: ref.read(isloginProvider)
+                ? ViwahaColor.primary
+                : Colors.redAccent,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

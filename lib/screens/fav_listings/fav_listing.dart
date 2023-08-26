@@ -41,55 +41,76 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
     }
 
     return Scaffold(
-        body: Column(
-      children: [
-        const SizedBox(height: 15),
-        Expanded(
-          child: ref.watch(isloginProvider)
-              ? favListing.isNotEmpty
-                  ? GridView.count(
-                      crossAxisCount: 2, // Number of columns
-                      children: List.generate(
-                        favListing.length, // Total number of cards
-                        (index) => SearchingCardItem(
-                          id: favListing[index].id.toString(),
-                          imagePath: ref
-                              .read(homeControllerProvider)
-                              .getTumbImage(favListing[index].thumb_images)
-                              .first, // Replace with your image paths
-                          title: favListing[index].title.toString(),
-                          description: favListing[index].description.toString(),
-                          starRating: 4.5,
-                          location: favListing[index].location.toString(),
-                          date: favListing[index].datetime.toString(),
-                          type: 'fav',
-                          // Replace with the appropriate star rating value
-                        ),
-                      ),
-                    )
-                  : const Center(
-                      child: Center(
-                      child: CircularProgressIndicator(),
-                    ))
-              : Center(
-                  child: FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        AutoRouter.of(context).push(const Login());
-                      },
-                      icon: const Icon(Icons.login),
-                      label: const Text('Sign In'),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
+        appBar: AppBar(
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
                   ),
                 ),
+              ],
+            ),
+          ],
+          title: const Text('My Favorites'),
         ),
-      ],
-    ));
+        body: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Expanded(
+                child: ref.watch(isloginProvider)
+                    ? favListing.isNotEmpty
+                        ? GridView.count(
+                            crossAxisCount: 2, // Number of columns
+                            children: List.generate(
+                              favListing.length, // Total number of cards
+                              (index) => SearchingCardItem(
+                                id: favListing[index].id.toString(),
+                                imagePath: ref
+                                    .read(homeControllerProvider)
+                                    .getTumbImage(
+                                        favListing[index].thumb_images)
+                                    .first, // Replace with your image paths
+                                title: favListing[index].title.toString(),
+                                description:
+                                    favListing[index].description.toString(),
+                                starRating: 4.5,
+                                location: favListing[index].location.toString(),
+                                date: favListing[index].datetime.toString(),
+                                type: 'fav',
+                                // Replace with the appropriate star rating value
+                              ),
+                            ),
+                          )
+                        : const Center(
+                            child: Center(
+                            child: CircularProgressIndicator(),
+                          ))
+                    : Center(
+                        child: FractionallySizedBox(
+                          widthFactor: 0.8,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              AutoRouter.of(context).push(const Login());
+                            },
+                            icon: const Icon(Icons.login),
+                            label: const Text('Sign In'),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+              ),
+            ],
+          ),
+        ));
   }
 }

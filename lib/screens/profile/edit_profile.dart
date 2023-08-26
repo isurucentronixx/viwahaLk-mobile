@@ -80,9 +80,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
             title: 'Successfully Updated!',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

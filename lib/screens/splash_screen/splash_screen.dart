@@ -69,11 +69,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-              title: 'Welcome back!',
-              message:
-                  "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
-              inMaterialBanner: true,
-              contentType: ContentType('', ViwahaColor.primary)),
+            title: 'Welcome back!',
+            message:
+                "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
+            inMaterialBanner: true,
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
+          ),
         );
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()

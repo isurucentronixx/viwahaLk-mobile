@@ -64,9 +64,8 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
             title: 'Successfully',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
