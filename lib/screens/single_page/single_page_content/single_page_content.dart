@@ -205,6 +205,20 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             ],
           ),
           const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  AutoRouter.of(context).push(VendorProfilePage(
+                      userId: widget.item!.user_id.toString()));
+                },
+                icon: const Icon(Icons.person),
+                label: const Text('Vendor Profile'),
+              ),
+            ],
+          ),
           widget.type != "myAd"
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

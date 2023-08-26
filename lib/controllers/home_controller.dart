@@ -13,6 +13,7 @@ import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_notifications.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_reviews.dart';
+import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -205,6 +206,19 @@ class HomeController {
       final res = await homeService.fetchUserReviewsApiRequest(userId);
        final searchResult =
           (res as List).map((e) => UserReviews.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<VendorProfile> fetchVendor(String userId) async {
+    try {
+      final res = await homeService.fetchVendorApiRequest(userId);
+       final searchResult = VendorProfile.fromJson(res);
+       
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

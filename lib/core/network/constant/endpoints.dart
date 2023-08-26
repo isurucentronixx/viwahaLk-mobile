@@ -27,6 +27,8 @@ class Endpoints {
 
   static const String getUserReviews = "profile/get_reviews?userId=";
 
+  static const String getVendor = "profile/get_profile_by_userid?userId=";
+
   // receiveTimeout
   static const int receiveTimeout = 15000; 
 

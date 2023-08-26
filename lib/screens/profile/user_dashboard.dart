@@ -36,14 +36,14 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
   List<UserNotification> notifications = [];
   List<UserReviews> reviews = [];
   bool isLoading = false;
-  @override
+  @override 
   void initState() {
-    gerData();
+    getData();
     // TODO: implement initState
     super.initState();
   }
 
-  gerData() async {
+  getData() async { 
     counts = await ref
         .read(homeControllerProvider)
         .fetchUserDashboardCounts(widget.userId);
