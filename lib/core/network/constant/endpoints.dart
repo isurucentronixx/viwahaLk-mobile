@@ -25,6 +25,8 @@ class Endpoints {
 
   static const String getUserNotification = "profile/get_notifications?userId=";
 
+  static const String getUserReviews = "profile/get_reviews?userId=";
+
   // receiveTimeout
   static const int receiveTimeout = 15000; 
 

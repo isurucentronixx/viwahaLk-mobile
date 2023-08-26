@@ -12,6 +12,7 @@ import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_notifications.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_reviews.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -31,9 +32,7 @@ final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });
 
-final homeControllerProvider = Provider<HomeController>((ref) {
-  return HomeController(ref.read(homeServiceProvider));
-});
+
 
 final isLoadingHomeProvider = StateProvider<bool>((ref) {
   return true;
@@ -194,6 +193,18 @@ class HomeController {
       final res = await homeService.fetchUserNotificationsApiRequest(userId);
        final searchResult =
           (res as List).map((e) => UserNotification.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+   Future<List<UserReviews>> fetchUserReviews(String userId) async {
+    try {
+      final res = await homeService.fetchUserReviewsApiRequest(userId);
+       final searchResult =
+          (res as List).map((e) => UserReviews.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

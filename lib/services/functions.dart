@@ -229,4 +229,25 @@ class PostData {
       rethrow;
     }
   }
+
+  Future reportListing(data) async {
+    try {
+      print("datadatadatadatadatadata");
+      print(data);
+      final res = await _dioClient.post(
+          'http://viwahaweb.nikhilaholdings.lk/api/listings/report',
+          data: data);
+      ref.read(singleListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Successfully submited report listing.");
+      ref.read(singleListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
+      return res.data;
+    } catch (e) {
+      ref.read(singleListingViewStateProvider.notifier).state =
+          const AsyncValue.data("Requesting failed.");
+      ref.read(singleListingViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
+      rethrow;
+    }
+  }
 }

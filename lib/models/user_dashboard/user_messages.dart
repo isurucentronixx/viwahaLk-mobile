@@ -19,6 +19,7 @@ class Message with _$Message {
     String? guests,   
     String? message,   
     String? title,   
+    String? image,   
        
   }) = _Message;
 

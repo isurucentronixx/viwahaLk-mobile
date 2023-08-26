@@ -64,7 +64,7 @@ class HomeService {
 
   Future fetchAllListingApiRequest() async {
     try {
-      final res = 
+      final res =
           await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing);
       return res.data;
     } catch (e) {
@@ -104,17 +104,18 @@ class HomeService {
 
   Future fetchUserDashboardCountsApiRequest(String userId) async {
     try {
-      final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getDashboardCounts}$userId');
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl + Endpoints.getDashboardCounts}$userId');
       return res.data;
     } catch (e) {
       rethrow;
     }
   }
-   Future fetchUserMessagesApiRequest(String userId) async {
+
+  Future fetchUserMessagesApiRequest(String userId) async {
     try {
-      final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getUserMessages}$userId');
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl + Endpoints.getUserMessages}$userId');
       return res.data;
     } catch (e) {
       rethrow;
@@ -123,8 +124,19 @@ class HomeService {
 
   Future fetchUserNotificationsApiRequest(String userId) async {
     try {
-      final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getUserNotification}$userId');
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl + Endpoints.getUserNotification}$userId');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future fetchUserReviewsApiRequest(String userId) async {
+    try {
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl + Endpoints.getUserReviews}$userId');
+     
       return res.data;
     } catch (e) {
       rethrow;

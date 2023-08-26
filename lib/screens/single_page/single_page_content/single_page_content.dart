@@ -10,8 +10,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/services/functions.dart';
@@ -52,10 +54,7 @@ class _SliderState extends ConsumerState<SliderView> {
               );
             }
             return const Center(
-              child: CircularProgressIndicator(
-                  // value: progress.cumulativeBytesLoaded /
-                  //     progress.expectedTotalBytes!.toDouble(),
-                  ),
+              child: CircularProgressIndicator(),
             );
           },
           errorBuilder: (context, error, stackTrace) {
@@ -229,6 +228,17 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             userId: widget.item!.user_id.toString());
                       },
                       child: const Text('Add Review'),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showReportingForm(context, ref,
+                            listingId: widget.item!.id.toString(),
+                            userId: widget.item!.user_id.toString());
+                      },
+                      child: const Text('Report'),
                     ),
                   ],
                 )

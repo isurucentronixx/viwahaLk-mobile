@@ -31,6 +31,7 @@ mixin _$Message {
   String? get guests => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $MessageCopyWith<$Res> {
       String? date,
       String? guests,
       String? message,
-      String? title});
+      String? title,
+      String? image});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? guests = freezed,
     Object? message = freezed,
     Object? title = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -126,6 +129,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -148,7 +155,8 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String? date,
       String? guests,
       String? message,
-      String? title});
+      String? title,
+      String? image});
 }
 
 /// @nodoc
@@ -172,6 +180,7 @@ class __$$_MessageCopyWithImpl<$Res>
     Object? guests = freezed,
     Object? message = freezed,
     Object? title = freezed,
+    Object? image = freezed,
   }) {
     return _then(_$_Message(
       id: freezed == id
@@ -218,6 +227,10 @@ class __$$_MessageCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -236,7 +249,8 @@ class _$_Message implements _Message {
       this.date,
       this.guests,
       this.message,
-      this.title});
+      this.title,
+      this.image});
 
   factory _$_Message.fromJson(Map<String, dynamic> json) =>
       _$$_MessageFromJson(json);
@@ -263,10 +277,12 @@ class _$_Message implements _Message {
   final String? message;
   @override
   final String? title;
+  @override
+  final String? image;
 
   @override
   String toString() {
-    return 'Message(id: $id, datetime: $datetime, user_id: $user_id, listing_id: $listing_id, name: $name, email: $email, phone: $phone, date: $date, guests: $guests, message: $message, title: $title)';
+    return 'Message(id: $id, datetime: $datetime, user_id: $user_id, listing_id: $listing_id, name: $name, email: $email, phone: $phone, date: $date, guests: $guests, message: $message, title: $title, image: $image)';
   }
 
   @override
@@ -286,13 +302,14 @@ class _$_Message implements _Message {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.guests, guests) || other.guests == guests) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, datetime, user_id,
-      listing_id, name, email, phone, date, guests, message, title);
+      listing_id, name, email, phone, date, guests, message, title, image);
 
   @JsonKey(ignore: true)
   @override
@@ -320,7 +337,8 @@ abstract class _Message implements Message {
       final String? date,
       final String? guests,
       final String? message,
-      final String? title}) = _$_Message;
+      final String? title,
+      final String? image}) = _$_Message;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
@@ -346,6 +364,8 @@ abstract class _Message implements Message {
   String? get message;
   @override
   String? get title;
+  @override
+  String? get image;
   @override
   @JsonKey(ignore: true)
   _$$_MessageCopyWith<_$_Message> get copyWith =>
