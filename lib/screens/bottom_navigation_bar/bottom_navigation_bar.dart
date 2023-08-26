@@ -46,7 +46,7 @@ class _BottomBarState extends State<BottomBar>
         child: const Icon(Icons.add),
         onPressed: () {
           setState(() {
-            const AddListingPage();
+            const AddListingPage(false);
           });
         },
       ),
@@ -153,7 +153,7 @@ class _BottomBarState extends State<BottomBar>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const FavListingPage();
+                        currentScreen = const FavListingPage(false);
                         currentTab = 3;
                       });
                     },

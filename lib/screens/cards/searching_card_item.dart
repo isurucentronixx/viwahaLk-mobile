@@ -71,7 +71,13 @@ class SearchingCardItem extends ConsumerWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      imagePath,
+                      (imagePath != "null")
+                          ? (imagePath != null)
+                              ? (imagePath != "")
+                                  ? imagePath
+                                  : "https://viwaha.lk/assets/img/logo/no_image.jpg"
+                              : "https://viwaha.lk/assets/img/logo/no_image.jpg"
+                          : "https://viwaha.lk/assets/img/logo/no_image.jpg",
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, progress) {
                         if (progress == null) {
@@ -121,30 +127,35 @@ class SearchingCardItem extends ConsumerWidget {
                         child: FavoriteIcon(),
                       ),
                     ),
-                    date.toString() != "null"
-                        ? Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.4),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 4.0),
-                                  child: Text(
-                                    Jiffy.parse(date)
-                                        .format(pattern: 'do MMMM  yyyy'),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
+                    (date != "null")
+                        ? (date != null)
+                            ? (date != "")
+                                ? Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.4),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 4.0),
+                                          child: Text(
+                                            Jiffy.parse(date).format(
+                                                pattern: 'do MMMM  yyyy'),
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container()
+                            : Container()
                         : Container()
                   ],
                 ),
@@ -164,41 +175,63 @@ class SearchingCardItem extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.location_pin,
-                          color: ViwahaColor.primary,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            location,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    description.toString().replaceAll('\r\n', " "),
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  (location != "null")
+                      ? (location != null)
+                          ? (location != "")
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 8.0),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.location_pin,
+                                        color: ViwahaColor.primary,
+                                        size: 16,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: Text(
+                                          location,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container()
+                          : Container()
+                      : Container(),
+                  (location != "null")
+                      ? (location != null)
+                          ? (location != "")
+                              ? Text(
+                                  description
+                                      .toString()
+                                      .replaceAll('\r\n', " "),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 12),
+                                )
+                              : Container()
+                          : Container()
+                      : Container(),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.yellow),
-                      const SizedBox(width: 4),
-                      Text(starRating.toString()),
-                    ],
-                  ),
+                  (starRating != "null")
+                      ? (starRating != null)
+                          ? (starRating != "")
+                              ? Row(
+                                  children: [
+                                    const Icon(Icons.star,
+                                        color: Colors.yellow),
+                                    const SizedBox(width: 4),
+                                    Text(starRating.toString()),
+                                  ],
+                                )
+                              : Container()
+                          : Container()
+                      : Container(),
                 ],
               ),
             ),

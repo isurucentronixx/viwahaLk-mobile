@@ -152,4 +152,14 @@ class HomeService {
       rethrow;
     }
   }
+  Future fetchVendorListingsApiRequest(String userId) async {
+    try {
+      final res = await _dioClient
+          .get('${Endpoints.baseUrl + Endpoints.getVendorListings}$userId');
+     
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

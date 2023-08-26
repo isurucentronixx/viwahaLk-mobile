@@ -9,9 +9,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i36;
-import 'package:flutter/material.dart' as _i38;
+import 'package:flutter/material.dart' as _i37;
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart' as _i39;
-import 'package:viwaha_lk/models/search/search_result_item.dart' as _i37;
+import 'package:viwaha_lk/models/search/search_result_item.dart' as _i38;
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart'
     as _i40;
 import 'package:viwaha_lk/models/venues/single_venues.dart' as _i1;
@@ -69,9 +69,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     AddListingPage.name: (routeData) {
+      final args = routeData.argsAs<AddListingPageArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.AddListingPage(),
+        child: _i3.AddListingPage(
+          args.isAppBar,
+          key: args.key,
+        ),
       );
     },
     EditListingPage.name: (routeData) {
@@ -155,9 +159,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     FavListingPage.name: (routeData) {
+      final args = routeData.argsAs<FavListingPageArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i16.FavListingPage(),
+        child: _i16.FavListingPage(
+          args.isAppBar,
+          key: args.key,
+        ),
       );
     },
     HomePage.name: (routeData) {
@@ -326,24 +334,48 @@ class AboutUsPage extends _i36.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.AddListingPage]
-class AddListingPage extends _i36.PageRouteInfo<void> {
-  const AddListingPage({List<_i36.PageRouteInfo>? children})
-      : super(
+class AddListingPage extends _i36.PageRouteInfo<AddListingPageArgs> {
+  AddListingPage({
+    required bool isAppBar,
+    _i37.Key? key,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           AddListingPage.name,
+          args: AddListingPageArgs(
+            isAppBar: isAppBar,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddListingPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<AddListingPageArgs> page =
+      _i36.PageInfo<AddListingPageArgs>(name);
+}
+
+class AddListingPageArgs {
+  const AddListingPageArgs({
+    required this.isAppBar,
+    this.key,
+  });
+
+  final bool isAppBar;
+
+  final _i37.Key? key;
+
+  @override
+  String toString() {
+    return 'AddListingPageArgs{isAppBar: $isAppBar, key: $key}';
+  }
 }
 
 /// generated route for
 /// [_i4.EditListingPage]
 class EditListingPage extends _i36.PageRouteInfo<EditListingPageArgs> {
   EditListingPage({
-    required _i37.SearchResultItem? item,
-    _i38.Key? key,
+    required _i38.SearchResultItem? item,
+    _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           EditListingPage.name,
@@ -366,9 +398,9 @@ class EditListingPageArgs {
     this.key,
   });
 
-  final _i37.SearchResultItem? item;
+  final _i38.SearchResultItem? item;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   @override
   String toString() {
@@ -395,7 +427,7 @@ class AllListingPage extends _i36.PageRouteInfo<void> {
 class CategoryListingPage extends _i36.PageRouteInfo<CategoryListingPageArgs> {
   CategoryListingPage({
     required String category,
-    _i38.Key? key,
+    _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           CategoryListingPage.name,
@@ -420,7 +452,7 @@ class CategoryListingPageArgs {
 
   final String category;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   @override
   String toString() {
@@ -556,16 +588,40 @@ class DressingRoute extends _i36.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.FavListingPage]
-class FavListingPage extends _i36.PageRouteInfo<void> {
-  const FavListingPage({List<_i36.PageRouteInfo>? children})
-      : super(
+class FavListingPage extends _i36.PageRouteInfo<FavListingPageArgs> {
+  FavListingPage({
+    required bool isAppBar,
+    _i37.Key? key,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           FavListingPage.name,
+          args: FavListingPageArgs(
+            isAppBar: isAppBar,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'FavListingPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<FavListingPageArgs> page =
+      _i36.PageInfo<FavListingPageArgs>(name);
+}
+
+class FavListingPageArgs {
+  const FavListingPageArgs({
+    required this.isAppBar,
+    this.key,
+  });
+
+  final bool isAppBar;
+
+  final _i37.Key? key;
+
+  @override
+  String toString() {
+    return 'FavListingPageArgs{isAppBar: $isAppBar, key: $key}';
+  }
 }
 
 /// generated route for
@@ -727,7 +783,7 @@ class ReviewsPage extends _i36.PageRouteInfo<void> {
 class UserDashboardPage extends _i36.PageRouteInfo<UserDashboardPageArgs> {
   UserDashboardPage({
     required String userId,
-    _i38.Key? key,
+    _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           UserDashboardPage.name,
@@ -752,7 +808,7 @@ class UserDashboardPageArgs {
 
   final String userId;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   @override
   String toString() {
@@ -765,7 +821,7 @@ class UserDashboardPageArgs {
 class VendorProfilePage extends _i36.PageRouteInfo<VendorProfilePageArgs> {
   VendorProfilePage({
     required String userId,
-    _i38.Key? key,
+    _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           VendorProfilePage.name,
@@ -790,7 +846,7 @@ class VendorProfilePageArgs {
 
   final String userId;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   @override
   String toString() {
@@ -830,9 +886,9 @@ class SearchingResultsPage extends _i36.PageRouteInfo<void> {
 /// [_i32.SearchSingleView]
 class SearchSingleView extends _i36.PageRouteInfo<SearchSingleViewArgs> {
   SearchSingleView({
-    required _i37.SearchResultItem? item,
+    required _i38.SearchResultItem? item,
     required String? type,
-    _i38.Key? key,
+    _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           SearchSingleView.name,
@@ -857,11 +913,11 @@ class SearchSingleViewArgs {
     this.key,
   });
 
-  final _i37.SearchResultItem? item;
+  final _i38.SearchResultItem? item;
 
   final String? type;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   @override
   String toString() {
@@ -875,7 +931,7 @@ class SingleView extends _i36.PageRouteInfo<SingleViewArgs> {
   SingleView({
     required _i39.Vendor? vendor,
     required _i40.TopListing? topListing,
-    _i38.Key? key,
+    _i37.Key? key,
     String? type,
     List<_i36.PageRouteInfo>? children,
   }) : super(
@@ -907,7 +963,7 @@ class SingleViewArgs {
 
   final _i40.TopListing? topListing;
 
-  final _i38.Key? key;
+  final _i37.Key? key;
 
   final String? type;
 

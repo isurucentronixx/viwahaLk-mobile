@@ -84,10 +84,12 @@ class _HomePageState extends ConsumerState<HomePage>
             : currentPage == 1
                 ? "All Listings"
                 : currentPage == 2
-                    ? "Add New Listing"
+                    ? ref.watch(isloginProvider)
+                        ? "Add New Listing"
+                        : "Login"
                     : currentPage == 3
                         ? ref.watch(isloginProvider)
-                            ? "Dashboard"
+                            ? "Profile"
                             : "Login"
                         : ref.watch(isloginProvider)
                             ? "Favourite"
@@ -105,8 +107,11 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
         onPressed: () {
           setState(() {
-            currentScreen = const AddListingPage();
+            currentScreen = ref.watch(isloginProvider)
+                ? const AddListingPage(false)
+                : const Login();
             currentTab = 4;
+            currentPage = 2;
           });
         },
       ),
@@ -129,6 +134,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       setState(() {
                         currentScreen = const HomeContent();
                         currentTab = 0;
+                        currentPage = 0;
                       });
                     },
                     child: Column(
@@ -157,6 +163,7 @@ class _HomePageState extends ConsumerState<HomePage>
                             ? const AllListingPage()
                             : const Login();
                         currentTab = 1;
+                        currentPage = 1;
                       });
                     },
                     child: Column(
@@ -193,6 +200,7 @@ class _HomePageState extends ConsumerState<HomePage>
                             ? const ProfilePage()
                             : const Login();
                         currentTab = 2;
+                        currentPage = 3;
                       });
                     },
                     child: Column(
@@ -218,9 +226,10 @@ class _HomePageState extends ConsumerState<HomePage>
                     onPressed: () {
                       setState(() {
                         currentScreen = ref.watch(isloginProvider)
-                            ? const FavListingPage()
+                            ? const FavListingPage(false)
                             : const Login();
                         currentTab = 3;
+                        currentPage = 4;
                       });
                     },
                     child: Column(

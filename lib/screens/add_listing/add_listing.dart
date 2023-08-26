@@ -66,7 +66,8 @@ final isLoadingBillImgProvider = StateProvider<bool>((ref) => false);
 
 @RoutePage()
 class AddListingPage extends ConsumerStatefulWidget {
-  const AddListingPage({super.key});
+  final bool isAppBar;
+  const AddListingPage(this.isAppBar, {super.key});
   @override
   _AddListingPageState createState() => _AddListingPageState();
 }
@@ -216,26 +217,28 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
       isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
       color: Colors.white,
       child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 100,
-                      child: Assets.lib.assets.images.logo.image(),
+          appBar: widget.isAppBar
+              ? AppBar(
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            child: Assets.lib.assets.images.logo.image(),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ],
-            title: Text('Add Listing'),
-          ),
+                  ],
+                  title: const Text('Add Listing'),
+                )
+              : null,
           resizeToAvoidBottomInset: false,
           body: Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -56,7 +56,6 @@ class _SingleViewState extends ConsumerState<SingleView> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         actions: [

@@ -227,6 +227,20 @@ class HomeController {
     }
   }
 
+ Future<List<SearchResultItem>> fetchVendorListings(String userId) async {
+    try {
+      final res = await homeService.fetchVendorListingsApiRequest(userId);
+      final searchResult =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+       
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
   List<String> getTumbImage(String? serializedData) {
     // Remove the initial 'a:11:' part from the string
     String serializedString = serializedData!.substring(6);

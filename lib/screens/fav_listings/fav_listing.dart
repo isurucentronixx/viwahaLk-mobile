@@ -21,7 +21,8 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 @RoutePage()
 class FavListingPage extends ConsumerStatefulWidget {
-  const FavListingPage({super.key});
+  final bool isAppBar;
+  const FavListingPage(this.isAppBar, {super.key});
   @override
   _FavListingPageState createState() => _FavListingPageState();
 }
@@ -41,7 +42,8 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
     }
 
     return Scaffold(
-        appBar: AppBar(
+        
+        appBar: widget.isAppBar? AppBar(
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -57,7 +59,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
             ),
           ],
           title: const Text('My Favorites'),
-        ),
+        ):null,
         body: Container(
           padding: const EdgeInsets.all(16),
           child: Column(

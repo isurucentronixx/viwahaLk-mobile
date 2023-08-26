@@ -26,13 +26,22 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final user = ref.watch(userProvider).user;
     final router = ref.watch(appRouterProvider);
     void _copyReferralLink(BuildContext context) {
-      const String referralLink =
-          'Your referral link'; // Replace with your actual link
-      Clipboard.setData(const ClipboardData(text: referralLink));
+      String referralLink =
+          'https://viwaha.lk/register?ref=${user!.id}'; // Replace with your actual link
+      Clipboard.setData(ClipboardData(text: referralLink));
 
-      const snackBar = SnackBar(
-          backgroundColor: ViwahaColor.primary,
-          content: Text('Referral link copied'));
+      SnackBar snackBar = SnackBar(
+        content:
+            const Text('Referral link copied!', style: TextStyle(fontSize: 15)),
+        backgroundColor: ViwahaColor.primary,
+        dismissDirection: DismissDirection.up,
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 220,
+            left: 50,
+            right: 50),
+      );
+
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
@@ -108,7 +117,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     const SizedBox(height: 10),
                     Text('Hi,', style: Theme.of(context).textTheme.headline4),
                     Text(
-                        '${user.firstname} ${user.lastname != "" ? user.lastname : ""}',
+                        '${user.firstname} ${user.lastname != "" ? user.lastname != null ? user.lastname : "" : ""}',
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
 
@@ -131,7 +140,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             ),
                             onPressed: () {
                               AutoRouter.of(context)
-                                  .push(const AddListingPage());
+                                  .push(AddListingPage(isAppBar: true));
                             },
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
@@ -206,7 +215,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "Dashboard",
                         icon: Icons.settings,
                         onPress: () {
-                          
                           router.push(
                               UserDashboardPage(userId: user.id.toString()));
                         }),
@@ -264,7 +272,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "My Favorite",
                         icon: Icons.favorite_border_outlined,
                         onPress: () {
-                          router.push(const FavListingPage());
+                          router.push(FavListingPage(isAppBar: true));
                         }),
                     ProfileMenuWidget(
                         title: "Reviews",
@@ -276,7 +284,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "Post Your Ad",
                         icon: Icons.add_circle_outline,
                         onPress: () {
-                          router.push(const AddListingPage());
+                          router.push(AddListingPage(isAppBar: true));
                         }),
                     const SizedBox(
                       height: 30,
@@ -322,7 +330,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 100),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),

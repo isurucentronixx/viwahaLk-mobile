@@ -91,7 +91,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -137,73 +137,91 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             ),
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              const Icon(
-                Icons.date_range,
-                color: Colors.grey,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  // color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
+          (widget.date != "null")
+              ? (widget.date != null)
+                  ? (widget.date != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.date_range,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                // color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(
-                Icons.pin_drop,
-                color: Colors.grey,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '${widget.location}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  // color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
+          (widget.location != "null")
+              ? (widget.location != null)
+                  ? (widget.location != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.pin_drop,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${widget.location}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                // color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(
-                Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '${widget.views} Views',
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Icon(
-                Icons.star,
-                color: Colors.yellow,
-              ),
-              const SizedBox(width: 4),
-              const Text(
-                'Ratings: 4.5',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
+          (widget.views != "null")
+              ? (widget.views != null)
+                  ? (widget.views != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.remove_red_eye,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${widget.views} Views',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            const SizedBox(width: 4),
+                            const Text(
+                              'Ratings: 4.5',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -219,6 +237,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               ),
             ],
           ),
+          const SizedBox(height: 20),
           widget.type != "myAd"
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -397,122 +416,113 @@ class SingleItemContactInfo extends StatefulWidget {
 class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
   @override
   Widget build(BuildContext context) {
-    return widget.telephoneNumer.isEmpty ||
-            widget.telephoneNumer == 'null' ||
-            widget.telephoneNumer == 'Null'
-        ? Container()
-        : Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: const Row(
               children: [
-                Container(
-                  color: ViwahaColor
-                      .primary, // Set the background color for the title
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.list,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Contact Informations',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  'Contact Informations',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
-                Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.phone_android),
-                      title: const Text('Contact Number'),
-                      subtitle: Text('${widget.contactNumber}'),
-                    ),
-                    widget.telephoneNumer.isEmpty ||
-                            widget.telephoneNumer == 'null' ||
-                            widget.telephoneNumer == 'Null'
-                        ? Container()
-                        : ListTile(
-                            leading: const Icon(Icons.phone),
-                            title: const Text('Telephone Number'),
-                            subtitle: Text('${widget.telephoneNumer}'),
-                          ),
-                    ListTile(
-                      leading: const Icon(Icons.home),
-                      title: const Text('Address'),
-                      subtitle: Text('${widget.address}'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.email),
-                      title: const Text('Email'),
-                      subtitle: Text('${widget.email}'),
-                    ),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Transform.scale(
-                              scale:
-                                  0.8, // Adjust this value to resize the button
-                              child: FlutterSocialButton(
-                                mini: true,
-                                title: '${widget.contactNumber}',
-                                buttonType: ButtonType.whatsapp,
-                                onTap: () {
-                                  launchUrl(Uri.parse(
-                                      "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
-                                },
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Transform.scale(
-                              scale:
-                                  0.8, // Adjust this value to resize the button
-                              child: FlutterSocialButton(
-                                mini: true,
-                                title: "Facebook",
-                                buttonType: ButtonType.facebook,
-                                onTap: () {
-                                  launchUrl(
-                                      Uri.parse("https://www.facebook.com/"));
-                                },
-                              ),
-                            ),
-                          ),
-                          Transform.scale(
-                            scale:
-                                0.8, // Adjust this value to resize the button
-                            child: FlutterSocialButton(
-                              mini: true,
-                              title: "Twitter",
-                              buttonType: ButtonType.twitter,
-                              onTap: () {
-                                launchUrl(
-                                    Uri.parse("https://www.twitter.com/"));
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                )
               ],
             ),
-          );
+          ),
+          const SizedBox(height: 8),
+          Column(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.phone_android),
+                title: const Text('Contact Number'),
+                subtitle: Text('${widget.contactNumber}'),
+              ),
+              widget.telephoneNumer.isEmpty ||
+                      widget.telephoneNumer == 'null' ||
+                      widget.telephoneNumer == 'Null'
+                  ? Container()
+                  : ListTile(
+                      leading: const Icon(Icons.phone),
+                      title: const Text('Telephone Number'),
+                      subtitle: Text('${widget.telephoneNumer}'),
+                    ),
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Address'),
+                subtitle: Text('${widget.address}'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.email),
+                title: const Text('Email'),
+                subtitle: Text('${widget.email}'),
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to resize the button
+                        child: FlutterSocialButton(
+                          mini: true,
+                          title: '${widget.contactNumber}',
+                          buttonType: ButtonType.whatsapp,
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to resize the button
+                        child: FlutterSocialButton(
+                          mini: true,
+                          title: "Facebook",
+                          buttonType: ButtonType.facebook,
+                          onTap: () {
+                            launchUrl(Uri.parse("https://www.facebook.com/"));
+                          },
+                        ),
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: 0.8, // Adjust this value to resize the button
+                      child: FlutterSocialButton(
+                        mini: true,
+                        title: "Twitter",
+                        buttonType: ButtonType.twitter,
+                        onTap: () {
+                          launchUrl(Uri.parse("https://www.twitter.com/"));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 
