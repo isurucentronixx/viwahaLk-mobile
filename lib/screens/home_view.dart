@@ -56,6 +56,11 @@ class _HomePageState extends ConsumerState<HomePage>
     super.dispose();
   }
 
+  int currentTab = 0;
+
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentScreen = const HomeContent();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,29 +94,158 @@ class _HomePageState extends ConsumerState<HomePage>
                             : "Login"),
       ),
       drawer: const DrawerMenu(),
-      body: BottomBar(
-        currentPage: currentPage,
-        tabController: tabController,
-        // colors: colors,
-        unselectedColor: Colors.white,
-        barColor: ViwahaColor.transparent,
-        start: 10,
-        end: 2,
-        child: TabBarView(
-            controller: tabController,
-            dragStartBehavior: DragStartBehavior.down,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const HomeContent(),
-              const AllListingPage(),
-              ref.watch(isloginProvider)
-                  ? const AddListingPage()
-                  : const Login(),
-              ref.watch(isloginProvider) ? const ProfilePage() : const Login(),
-              ref.watch(isloginProvider)
-                  ? const FavListingPage()
-                  : const Login(),
-            ]),
+      body: PageStorage(
+        child: currentScreen,
+        bucket: bucket,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: currentTab == 4 ? Colors.black54 : Colors.white,
+        ),
+        onPressed: () {
+          setState(() {
+            currentScreen = const AddListingPage();
+            currentTab = 4;
+          });
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: ViwahaColor.primary,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = const HomeContent();
+                        currentTab = 0;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.home_outlined,
+                          color:
+                              currentTab == 0 ? Colors.black54 : Colors.white,
+                        ),
+                        Text(
+                          'Home',
+                          style: TextStyle(
+                            color:
+                                currentTab == 0 ? Colors.black54 : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = ref.watch(isloginProvider)
+                            ? const AllListingPage()
+                            : const Login();
+                        currentTab = 1;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.notes_outlined,
+                          color:
+                              currentTab == 1 ? Colors.black54 : Colors.white,
+                        ),
+                        Text(
+                          'List',
+                          style: TextStyle(
+                            color:
+                                currentTab == 1 ? Colors.black54 : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+
+              // Right Tab bar icons
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = ref.watch(isloginProvider)
+                            ? const ProfilePage()
+                            : const Login();
+                        currentTab = 2;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.account_circle_outlined,
+                          color:
+                              currentTab == 2 ? Colors.black54 : Colors.white,
+                        ),
+                        Text(
+                          'Profile',
+                          style: TextStyle(
+                            color:
+                                currentTab == 2 ? Colors.black54 : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = ref.watch(isloginProvider)
+                            ? const FavListingPage()
+                            : const Login();
+                        currentTab = 3;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.favorite_outline,
+                          color:
+                              currentTab == 3 ? Colors.black54 : Colors.white,
+                        ),
+                        Text(
+                          'Favorite',
+                          style: TextStyle(
+                            color:
+                                currentTab == 3 ? Colors.black54 : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
 
       // body: const HomeContent(),
