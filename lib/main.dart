@@ -30,8 +30,6 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Viwaha App',
       theme: MyTheme.lightTheme,
-      // darkTheme: MyTheme.darkTheme,
-      // routerConfig: _appRouter.config(),
       routerDelegate: AutoRouterDelegate(
         router,
         navigatorObservers: () => [RouteObserver()],

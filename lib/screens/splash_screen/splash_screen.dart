@@ -62,17 +62,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         ref.read(isloginProvider.notifier).state = true;
         final snackBar = SnackBar(
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-              title: 'Welcome back!',
-              message:
-                  "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
-              inMaterialBanner: true,
-              contentType: ContentType('', ViwahaColor.primary)),
+            title: 'Welcome back!',
+            message:
+                "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
+            inMaterialBanner: true,
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
+          ),
         );
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -83,6 +86,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     } else {
       final snackBar = SnackBar(
         margin: EdgeInsets.only(
+          top: 10,
           bottom: MediaQuery.of(context).size.height * 0.70,
         ),
         elevation: 0,
@@ -92,8 +96,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             title: 'Welcome!',
             message:
                 "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
-            inMaterialBanner: true,
-            contentType: ContentType('', ViwahaColor.primary)),
+            inMaterialBanner: false,
+            contentType: ContentType("", ViwahaColor.primary)),
       );
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

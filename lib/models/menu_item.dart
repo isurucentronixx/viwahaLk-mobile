@@ -25,7 +25,7 @@ class DrawerMenu extends ConsumerWidget {
                     image: DecorationImage(
                         image: ref.watch(isloginProvider)
                             ? Assets.lib.assets.images.logoNav.image().image
-                            : Assets.lib.assets.images.logo.image().image,
+                            : Assets.lib.assets.images.logoNav.image().image,
                         fit: BoxFit.contain,
                         alignment: Alignment.center),
                   ),

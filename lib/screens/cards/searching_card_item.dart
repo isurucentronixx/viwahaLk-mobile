@@ -45,9 +45,9 @@ class SearchingCardItem extends ConsumerWidget {
                         ? favListingProvider
                         : type == "cat"
                             ? categoryListingProvider
-                        : type == "all"
-                            ? allListingProvider
-                            : searchResultProvider)
+                            : type == "all"
+                                ? allListingProvider
+                                : searchResultProvider)
                 .where((element) => id == element.id)
                 .first,
             type: type == "myAd"
@@ -56,9 +56,9 @@ class SearchingCardItem extends ConsumerWidget {
                     ? 'fav'
                     : type == "cat"
                         ? 'cat'
-                    : type == "all"
-                        ? 'all'
-                        : ''));
+                        : type == "all"
+                            ? 'all'
+                            : ''));
       },
       child: Card(
         child: Column(

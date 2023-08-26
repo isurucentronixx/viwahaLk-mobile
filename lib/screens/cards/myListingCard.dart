@@ -113,7 +113,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             child: SizedBox(
                               width: 400,
                               child: Image.network(
-                                'https://viwaha.lk/assets/img/logo/logo_dark.png',
+                                'https://viwaha.lk/assets/img/logo/color-logo.png',
                                 fit: BoxFit.fill,
                               ),
                             ),

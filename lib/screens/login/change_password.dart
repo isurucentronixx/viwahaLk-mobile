@@ -55,6 +55,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
@@ -65,9 +66,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
             title: 'Successfully publishing!',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -97,7 +97,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
           ? LoadingOverlay(
               isLoading:
                   state.maybeWhen(loading: () => true, orElse: () => false),
-                  color: Colors.white,
+              color: Colors.white,
               child: SingleChildScrollView(
                 child: Form(
                   key: _changePasswordFormKey,
@@ -107,8 +107,6 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.20),
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
@@ -140,8 +138,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               fillColor: Colors.grey,
-                              hintText:
-                                  "This name will appear on your profile.",
+                              hintText: "Enter your Current Password",
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -193,8 +190,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               fillColor: Colors.grey,
-                              hintText:
-                                  "This name will appear on your profile.",
+                              hintText: "Enter your New Password",
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -247,15 +243,14 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               fillColor: Colors.grey,
-                              hintText:
-                                  "This name will appear on your profile.",
+                              hintText: "Re-enter your New Password",
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
                                 fontFamily: "verdana_regular",
                                 fontWeight: FontWeight.w400,
                               ),
-                              labelText: 'Retype New Password',
+                              labelText: 'Conform Password',
                               labelStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,

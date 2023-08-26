@@ -55,6 +55,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
@@ -65,9 +66,8 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
             title: 'Successfully',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

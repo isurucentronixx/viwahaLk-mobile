@@ -220,6 +220,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
@@ -230,9 +231,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
             title: 'Successfully publishing!',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -246,6 +246,23 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
+            appBar: AppBar(
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 100,
+                        child: Assets.lib.assets.images.logo.image(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              title: Text('Edit Listing'),
+            ),
             resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
               child: Column(

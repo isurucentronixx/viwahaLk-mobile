@@ -43,6 +43,7 @@ class _LoginState extends ConsumerState<Login> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
@@ -55,11 +56,10 @@ class _LoginState extends ConsumerState<Login> {
                 : 'Login Failed!',
             message: items,
             inMaterialBanner: true,
-
-            /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ref.read(isloginProvider)
-                ? ContentType('', ViwahaColor.primary)
-                : ContentType('', Colors.redAccent),
+            contentType: ContentType.success,
+            color: ref.read(isloginProvider)
+                ? ViwahaColor.primary
+                : Colors.redAccent,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

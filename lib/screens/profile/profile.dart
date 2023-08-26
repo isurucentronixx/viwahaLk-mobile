@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider).user;
     final router = ref.watch(appRouterProvider);
+    void _copyReferralLink(BuildContext context) {
+      const String referralLink =
+          'Your referral link'; // Replace with your actual link
+      Clipboard.setData(const ClipboardData(text: referralLink));
+
+      const snackBar = SnackBar(
+          backgroundColor: ViwahaColor.primary,
+          content: Text('Referral link copied'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     return Scaffold(
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(
@@ -106,13 +118,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         children: [
                           ElevatedButton(
                             style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(
+                                  Size(double.infinity, 48)),
                               backgroundColor: MaterialStateProperty.all(
                                   ViwahaColor.primary),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  side: const BorderSide(color: Colors.white),
                                 ),
                               ),
                             ),
@@ -133,29 +146,33 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               ],
                             ),
                           ),
+                          SizedBox(
+                            height: 16,
+                          ),
                           ElevatedButton(
                             style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(
+                                  Size(double.infinity, 48)),
                               backgroundColor:
-                                  MaterialStateProperty.all(Colors.yellow[700]),
+                                  MaterialStateProperty.all(Colors.blue),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  side: const BorderSide(color: Colors.yellow),
                                 ),
                               ),
                             ),
-                            onPressed: () {},
-                            child: const Row(
+                            onPressed: () => _copyReferralLink(context),
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.copy_all_outlined,
-                                    color: Colors.black),
-                                SizedBox(width: 8),
+                                const Icon(Icons.copy_all_outlined,
+                                    color: Colors.white),
+                                const SizedBox(width: 8),
                                 Text(
-                                  "Copy referral link",
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                  "Copy referral link".toUpperCase(),
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -272,7 +289,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(color: Colors.white),
                           ),
                         ),
                       ),
