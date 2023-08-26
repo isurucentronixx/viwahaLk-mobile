@@ -94,7 +94,7 @@ class _HomePageState extends ConsumerState<HomePage>
         tabController: tabController,
         // colors: colors,
         unselectedColor: Colors.white,
-        barColor: ViwahaColor.primary,
+        barColor: ViwahaColor.transparent,
         start: 10,
         end: 2,
         child: TabBarView(

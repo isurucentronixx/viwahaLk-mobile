@@ -55,6 +55,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
         final snackBar = SnackBar(
           /// need to set following properties for best effect of awesome_snackbar_content
           margin: EdgeInsets.only(
+            top: 10,
             bottom: MediaQuery.of(context).size.height * 0.70,
           ),
           elevation: 0,
@@ -97,7 +98,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
           ? LoadingOverlay(
               isLoading:
                   state.maybeWhen(loading: () => true, orElse: () => false),
-                  color: Colors.white,
+              color: Colors.white,
               child: SingleChildScrollView(
                 child: Form(
                   key: _changePasswordFormKey,
