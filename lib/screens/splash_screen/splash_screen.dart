@@ -83,6 +83,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     } else {
       final snackBar = SnackBar(
         margin: EdgeInsets.only(
+          top: 10,
           bottom: MediaQuery.of(context).size.height * 0.70,
         ),
         elevation: 0,
@@ -92,8 +93,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             title: 'Welcome!',
             message:
                 "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
-            inMaterialBanner: true,
-            contentType: ContentType('', ViwahaColor.primary)),
+            inMaterialBanner: false,
+            contentType: ContentType.success),
       );
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

@@ -12,9 +12,4 @@ class MyTheme {
       bodyText1: TextStyle(fontSize: 16.0),
     ),
   );
-
-  static ThemeData darkTheme = ThemeData.dark().copyWith(
-    primaryColor: Colors.green[800],
-    hintColor: Colors.green[600],
-  );
 }
