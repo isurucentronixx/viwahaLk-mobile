@@ -10,6 +10,8 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_notifications.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -167,6 +169,32 @@ class HomeController {
       final res = await homeService.fetchUserDashboardCountsApiRequest(userId);
       final result = UserDashboard.fromJson(res);
       return result;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<Message>> fetchUserMessages(String userId) async {
+    try {
+      final res = await homeService.fetchUserMessagesApiRequest(userId);
+       final searchResult =
+          (res as List).map((e) => Message.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<UserNotification>> fetchUserNotifications(String userId) async {
+    try {
+      final res = await homeService.fetchUserNotificationsApiRequest(userId);
+       final searchResult =
+          (res as List).map((e) => UserNotification.fromJson(e)).toList();
+      return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());

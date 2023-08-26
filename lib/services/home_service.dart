@@ -111,4 +111,23 @@ class HomeService {
       rethrow;
     }
   }
+   Future fetchUserMessagesApiRequest(String userId) async {
+    try {
+      final res = await _dioClient.get(
+          '${Endpoints.baseUrl + Endpoints.getUserMessages}$userId');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future fetchUserNotificationsApiRequest(String userId) async {
+    try {
+      final res = await _dioClient.get(
+          '${Endpoints.baseUrl + Endpoints.getUserNotification}$userId');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

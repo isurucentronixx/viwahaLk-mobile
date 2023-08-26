@@ -21,6 +21,10 @@ class Endpoints {
 
   static const String getDashboardCounts = "profile/get_dashboard?userId=";
 
+  static const String getUserMessages = "profile/get_messages?userId=";
+
+  static const String getUserNotification = "profile/get_notifications?userId=";
+
   // receiveTimeout
   static const int receiveTimeout = 15000; 
 
