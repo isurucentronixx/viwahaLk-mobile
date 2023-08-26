@@ -275,10 +275,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           router.push(const AddListingPage());
                         }),
                     const SizedBox(
-                      height: 10,
+                      height: 30,
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(
+                            Size(double.infinity, 48)),
                         backgroundColor:
                             MaterialStateProperty.all(ViwahaColor.primary),
                         shape:
