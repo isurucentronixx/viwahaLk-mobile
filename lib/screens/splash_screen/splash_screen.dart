@@ -61,10 +61,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         ref.read(userProvider.notifier).state = value;
         ref.read(isloginProvider.notifier).state = true;
         final snackBar = SnackBar(
-          margin: EdgeInsets.only(
-            top: 10,
-            bottom: MediaQuery.of(context).size.height * 0.70,
-          ),
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
@@ -85,20 +81,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       });
     } else {
       final snackBar = SnackBar(
-        margin: EdgeInsets.only(
-          top: 10,
-          bottom: MediaQuery.of(context).size.height * 0.70,
-        ),
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
             title: 'Welcome!',
             message:
                 "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
             inMaterialBanner: false,
-            contentType: ContentType("", ViwahaColor.primary)),
-      );
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
+          ));
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(snackBar);
@@ -111,6 +104,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     return Scaffold(
       body: Stack(
         children: [
+          // Loading Bar
+          LinearProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(
+              Theme.of(context)
+                  .primaryColor, // You can replace this with your desired color
+            ),
+            backgroundColor: Colors.grey[300],
+          ),
+          // Fading Logo
           FadeTransition(
             opacity: _animation,
             child: Container(

@@ -59,18 +59,15 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
     ref.listen<AsyncValue>(singleListingViewStateProvider, (_, state) {
       state.whenData((items) {
         final snackBar = SnackBar(
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.height * 0.70,
-          ),
           elevation: 0,
-
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
             title: 'Status!',
             message: items,
             inMaterialBanner: true,
-            contentType: ContentType('', ViwahaColor.primary),
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

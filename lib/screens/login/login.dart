@@ -41,13 +41,7 @@ class _LoginState extends ConsumerState<Login> {
     ref.listen<AsyncValue>(loginViewStateProvider, (_, state) {
       state.whenData((items) {
         final snackBar = SnackBar(
-          /// need to set following properties for best effect of awesome_snackbar_content
-          margin: EdgeInsets.only(
-            top: 10,
-            bottom: MediaQuery.of(context).size.height * 0.70,
-          ),
           elevation: 0,
-
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(

@@ -195,15 +195,15 @@ class _HomeContentState extends ConsumerState<HomeContent> {
           const SizedBox(
             height: 16,
           ),
-          const PopularCities(),
-          const SizedBox(
-            height: 16,
-          ),
           const PremiumVendors(),
           const SizedBox(
             height: 16,
           ),
           const TopListing(),
+          const SizedBox(
+            height: 16,
+          ),
+          const PopularCities(),
           const SizedBox(height: 75),
         ],
       ),

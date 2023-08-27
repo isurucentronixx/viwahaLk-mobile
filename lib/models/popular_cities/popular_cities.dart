@@ -70,6 +70,9 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
 
     return Column(
       children: [
+        const SizedBox(
+          height: 20,
+        ),
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
@@ -100,12 +103,10 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
         CarouselSlider(
           options: CarouselOptions(
             reverse: true,
-            height: 280, // Set the desired height of the slider
-            autoPlay: true, // Enable auto-playing of images
-            // enlargeCenterPage: true, // Increase the size of the center image
-            viewportFraction:
-                0.6, // Fraction of the viewport width occupied by each image
-            aspectRatio: 16 / 9, // Aspect ratio of the images
+            height: 280,
+            autoPlay: true,
+            viewportFraction: 0.6,
+            aspectRatio: 16 / 9,
           ),
           items: data.map((data) {
             final city = data;
@@ -159,11 +160,11 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                               );
                             },
                             errorBuilder: (context, error, stackTrace) {
-                              return  Center(
+                              return Center(
                                 child: Image.network(
-                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
+                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                  fit: BoxFit.cover,
+                                ),
                               );
                             },
                           ),

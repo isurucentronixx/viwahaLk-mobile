@@ -53,13 +53,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
     ref.listen<AsyncValue>(myListingViewStateProvider, (_, state) {
       state.whenData((items) {
         final snackBar = SnackBar(
-          /// need to set following properties for best effect of awesome_snackbar_content
-          margin: EdgeInsets.only(
-            top: 10,
-            bottom: MediaQuery.of(context).size.height * 0.70,
-          ),
           elevation: 0,
-
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
@@ -106,7 +100,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                         ? GridView.count(
                             crossAxisCount: 1,
                             scrollDirection: Axis.vertical,
-                            children: List.generate( 
+                            children: List.generate(
                                 myListing.length,
                                 (index) => Padding(
                                       padding: const EdgeInsets.all(15.0),
