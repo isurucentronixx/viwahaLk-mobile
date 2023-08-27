@@ -479,14 +479,22 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                       padding: const EdgeInsets.only(right: 16.0),
                       child: Transform.scale(
                         scale: 0.8, // Adjust this value to resize the button
-                        child: FlutterSocialButton(
-                          mini: true,
-                          title: '${widget.contactNumber}',
-                          buttonType: ButtonType.whatsapp,
-                          onTap: () {
-                            launchUrl(Uri.parse(
-                                "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, Message from Viwaha App"));
-                          },
+                        child: Container(
+                          width: 65,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff25d366),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: IconButton(
+                            iconSize: 30,
+                            icon: const FaIcon(FontAwesomeIcons.whatsapp),
+                            color: Colors.white,
+                            onPressed: () {
+                              launchUrl(Uri.parse(
+                                  "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, This Message from Viwaha App"));
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -494,25 +502,46 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                       padding: const EdgeInsets.only(right: 16.0),
                       child: Transform.scale(
                         scale: 0.8, // Adjust this value to resize the button
-                        child: FlutterSocialButton(
-                          mini: true,
-                          title: "Facebook",
-                          buttonType: ButtonType.facebook,
-                          onTap: () {
-                            launchUrl(Uri.parse("https://www.facebook.com/"));
-                          },
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff4267B2),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: IconButton(
+                            iconSize: 30,
+                            icon: const FaIcon(FontAwesomeIcons.facebookF),
+                            color: Colors.white,
+                            onPressed: () {
+                              launchUrl(Uri.parse("https://www.facebook.com/"));
+                            },
+                          ),
                         ),
                       ),
                     ),
                     Transform.scale(
                       scale: 0.8, // Adjust this value to resize the button
-                      child: FlutterSocialButton(
-                        mini: true,
-                        title: "Twitter",
-                        buttonType: ButtonType.twitter,
-                        onTap: () {
-                          launchUrl(Uri.parse("https://www.twitter.com/"));
-                        },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff1DA1F2),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: IconButton(
+                              iconSize: 30,
+                              icon: const FaIcon(FontAwesomeIcons.twitter),
+                              color: Colors.white,
+                              onPressed: () {
+                                launchUrl(
+                                    Uri.parse("https://www.twitter.com/"));
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
