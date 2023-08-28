@@ -95,7 +95,7 @@ class TopListing extends ConsumerWidget {
                         children: [
                           SizedBox(
                             width: 200,
-                            height: 200,
+                            height: 185,
                             child: Stack(
                               children: [
                                 Image.network(

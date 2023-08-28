@@ -23,6 +23,7 @@ import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
+import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 final myListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
@@ -120,7 +121,13 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                         location: myListing[index]
                                             .location
                                             .toString(),
-                                        starRating: 3,
+                                        starRating:
+                                            myListing[index].average_rating !=
+                                                    null
+                                                ? double.parse(myListing[index]
+                                                    .average_rating
+                                                    .toString())
+                                                : 0,
                                         title:
                                             myListing[index].title.toString(),
                                       ),
@@ -141,10 +148,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                 // ),
                                 ),
                           )
-                        : const Center(
-                            child: Center(
-                            child: CircularProgressIndicator(),
-                          ))
+                        : NoListingPage()
                     : Center(
                         child: FractionallySizedBox(
                           widthFactor: 0.8,

@@ -56,6 +56,8 @@ class TopListing with _$TopListing {
     String? price,
     String? ask_price,
     String? negotiable,
+    String? boosted,
+    String? average_rating,
   }) = _TopListing;
 
   factory TopListing.fromJson(Map<String, dynamic> json) =>

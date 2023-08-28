@@ -290,7 +290,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               },
                             ),
                           ),
-                        ),
+                        ), 
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: Container(

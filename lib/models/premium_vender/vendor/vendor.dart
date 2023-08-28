@@ -91,6 +91,8 @@ class Vendor with _$Vendor {
     String? price,
     String? ask_price,
     String? negotiable,
+    String? boosted,
+    String? average_rating,
   }) = _Vendor;
 
   factory Vendor.fromJson(Map<String, dynamic> json) => _$VendorFromJson(json);

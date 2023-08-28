@@ -68,6 +68,8 @@ mixin _$SearchResultItem {
   String? get price => throw _privateConstructorUsedError;
   String? get ask_price => throw _privateConstructorUsedError;
   String? get negotiable => throw _privateConstructorUsedError;
+  String? get boosted => throw _privateConstructorUsedError;
+  String? get average_rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -129,7 +131,9 @@ abstract class $SearchResultItemCopyWith<$Res> {
       String? bank_receipt_image,
       String? price,
       String? ask_price,
-      String? negotiable});
+      String? negotiable,
+      String? boosted,
+      String? average_rating});
 }
 
 /// @nodoc
@@ -193,6 +197,8 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
+    Object? boosted = freezed,
+    Object? average_rating = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -387,6 +393,14 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
           ? _value.negotiable
           : negotiable // ignore: cast_nullable_to_non_nullable
               as String?,
+      boosted: freezed == boosted
+          ? _value.boosted
+          : boosted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      average_rating: freezed == average_rating
+          ? _value.average_rating
+          : average_rating // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -447,7 +461,9 @@ abstract class _$$_SearchResultItemCopyWith<$Res>
       String? bank_receipt_image,
       String? price,
       String? ask_price,
-      String? negotiable});
+      String? negotiable,
+      String? boosted,
+      String? average_rating});
 }
 
 /// @nodoc
@@ -509,6 +525,8 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
+    Object? boosted = freezed,
+    Object? average_rating = freezed,
   }) {
     return _then(_$_SearchResultItem(
       id: freezed == id
@@ -703,6 +721,14 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
           ? _value.negotiable
           : negotiable // ignore: cast_nullable_to_non_nullable
               as String?,
+      boosted: freezed == boosted
+          ? _value.boosted
+          : boosted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      average_rating: freezed == average_rating
+          ? _value.average_rating
+          : average_rating // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -758,7 +784,9 @@ class _$_SearchResultItem implements _SearchResultItem {
       this.bank_receipt_image,
       this.price,
       this.ask_price,
-      this.negotiable});
+      this.negotiable,
+      this.boosted,
+      this.average_rating});
 
   factory _$_SearchResultItem.fromJson(Map<String, dynamic> json) =>
       _$$_SearchResultItemFromJson(json);
@@ -859,10 +887,14 @@ class _$_SearchResultItem implements _SearchResultItem {
   final String? ask_price;
   @override
   final String? negotiable;
+  @override
+  final String? boosted;
+  @override
+  final String? average_rating;
 
   @override
   String toString() {
-    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable)';
+    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, average_rating: $average_rating)';
   }
 
   @override
@@ -949,7 +981,10 @@ class _$_SearchResultItem implements _SearchResultItem {
             (identical(other.ask_price, ask_price) ||
                 other.ask_price == ask_price) &&
             (identical(other.negotiable, negotiable) ||
-                other.negotiable == negotiable));
+                other.negotiable == negotiable) &&
+            (identical(other.boosted, boosted) || other.boosted == boosted) &&
+            (identical(other.average_rating, average_rating) ||
+                other.average_rating == average_rating));
   }
 
   @JsonKey(ignore: true)
@@ -1003,7 +1038,9 @@ class _$_SearchResultItem implements _SearchResultItem {
         bank_receipt_image,
         price,
         ask_price,
-        negotiable
+        negotiable,
+        boosted,
+        average_rating
       ]);
 
   @JsonKey(ignore: true)
@@ -1069,7 +1106,9 @@ abstract class _SearchResultItem implements SearchResultItem {
       final String? bank_receipt_image,
       final String? price,
       final String? ask_price,
-      final String? negotiable}) = _$_SearchResultItem;
+      final String? negotiable,
+      final String? boosted,
+      final String? average_rating}) = _$_SearchResultItem;
 
   factory _SearchResultItem.fromJson(Map<String, dynamic> json) =
       _$_SearchResultItem.fromJson;
@@ -1170,6 +1209,10 @@ abstract class _SearchResultItem implements SearchResultItem {
   String? get ask_price;
   @override
   String? get negotiable;
+  @override
+  String? get boosted;
+  @override
+  String? get average_rating;
   @override
   @JsonKey(ignore: true)
   _$$_SearchResultItemCopyWith<_$_SearchResultItem> get copyWith =>

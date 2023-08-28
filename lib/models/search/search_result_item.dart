@@ -56,6 +56,8 @@ class SearchResultItem with _$SearchResultItem {
     String? price,
     String? ask_price,
     String? negotiable,
+    String? boosted,
+    String? average_rating,
   }) = _SearchResultItem;
 
   factory SearchResultItem.fromJson(Map<String, dynamic> json) =>

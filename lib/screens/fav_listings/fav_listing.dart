@@ -18,6 +18,7 @@ import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
+import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
 class FavListingPage extends ConsumerStatefulWidget {
@@ -42,24 +43,25 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
     }
 
     return Scaffold(
-        
-        appBar: widget.isAppBar? AppBar(
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
+        appBar: widget.isAppBar
+            ? AppBar(
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 100,
+                          child: Assets.lib.assets.images.logo.image(),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ],
-          title: const Text('My Favorites'),
-        ):null,
+                ],
+                title: const Text('My Favorites'),
+              )
+            : null,
         body: Container(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -81,7 +83,10 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                                 title: favListing[index].title.toString(),
                                 description:
                                     favListing[index].description.toString(),
-                                starRating: 4.5,
+                                starRating: favListing[index].average_rating != null
+                            ? double.parse(
+                                favListing[index].average_rating.toString())
+                            : 0,
                                 location: favListing[index].location.toString(),
                                 date: favListing[index].datetime.toString(),
                                 type: 'fav',
@@ -89,10 +94,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                               ),
                             ),
                           )
-                        : const Center(
-                            child: Center(
-                            child: CircularProgressIndicator(),
-                          ))
+                        : NoListingPage()
                     : Center(
                         child: FractionallySizedBox(
                           widthFactor: 0.8,

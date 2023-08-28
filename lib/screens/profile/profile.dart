@@ -234,7 +234,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "Message",
                         icon: Icons.mail_outline,
                         onPress: () {
-                          AutoRouter.of(context).push(const MessagesPage());
+                          AutoRouter.of(context).push(MessagesPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
                         title: "Change Password",
@@ -279,6 +279,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         icon: Icons.reviews_outlined,
                         onPress: () {
                           // router.push(const ReviewsPage());
+                           AutoRouter.of(context).push(ReviewsPage(userId: user.id.toString()));
+                          
                         }),
                     ProfileMenuWidget(
                         title: "Post Your Ad",
@@ -311,7 +313,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ref.read(isloginProvider.notifier).state = false;
                         pref.remove("email");
                         pref.remove("password");
-                        await _googleSignIn.disconnect();
+                        await _googleSignIn.signOut();
                         appRouter.push(const Login());
                       },
                       child: const Row(

@@ -379,7 +379,10 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                     description: vendorListing[index].description != null
                         ? vendorListing[index].description!
                         : "",
-                    starRating: 4.5,
+                    starRating: vendorListing[index].average_rating != null
+                        ? double.parse(
+                            vendorListing[index].average_rating.toString())
+                        : 0,
                     type: "vendorAd",
                     date: vendorListing[index].datetime != null
                         ? vendorListing[index].datetime!

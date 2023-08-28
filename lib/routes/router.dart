@@ -38,6 +38,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: MyProfilePage.page, path: "/myProfilePage"),
         AutoRoute(page: EditProfilePage.page, path: "/editProfilePage"),
         AutoRoute(page: MessagesPage.page, path: "/messagesPage"),
+        AutoRoute(page: ReviewsPage.page, path: "/reviewsPage"),
         AutoRoute(page: ChangePasswordPage.page, path: "/changePasswordPage"),
         AutoRoute(page: FavListingPage.page, path: "/favListingPage"),
         AutoRoute(page: MyListingPage.page, path: "/myListingPage"),

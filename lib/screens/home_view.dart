@@ -63,201 +63,210 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
-        title: Text(currentPage == 0
-            ? "Home"
-            : currentPage == 1
-                ? "All Listings"
-                : currentPage == 2
-                    ? ref.watch(isloginProvider)
-                        ? "Add New Listing"
-                        : "Login"
-                    : currentPage == 3
-                        ? ref.watch(isloginProvider)
-                            ? "Profile"
-                            : "Login"
-                        : ref.watch(isloginProvider)
-                            ? "Favourite"
-                            : "Login"),
-      ),
-      drawer: const DrawerMenu(),
-      body: PageStorage(
-        child: currentScreen,
-        bucket: bucket,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: currentTab == 4 ? Colors.black54 : Colors.white,
+              ],
+            ),
+          ],
+          title: Text(currentPage == 0
+              ? "Home"
+              : currentPage == 1
+                  ? "All Listings"
+                  : currentPage == 2
+                      ? ref.watch(isloginProvider)
+                          ? "Add New Listing"
+                          : "Login"
+                      : currentPage == 3
+                          ? ref.watch(isloginProvider)
+                              ? "Profile"
+                              : "Login"
+                          : ref.watch(isloginProvider)
+                              ? "Favourite"
+                              : "Login"),
         ),
-        onPressed: () {
-          setState(() {
-            currentScreen = ref.watch(isloginProvider)
-                ? const AddListingPage(false)
-                : const Login();
-            currentTab = 4;
-            currentPage = 2;
-          });
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: ViwahaColor.primary,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 10,
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const HomeContent();
-                        currentTab = 0;
-                        currentPage = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.home_outlined,
-                          color:
-                              currentTab == 0 ? Colors.black54 : Colors.white,
-                        ),
-                        Text(
-                          'Home',
-                          style: TextStyle(
+        drawer: const DrawerMenu(),
+        body: PageStorage(
+          child: currentScreen,
+          bucket: bucket,
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            color: currentTab == 4 ? Colors.black54 : Colors.white,
+          ),
+          onPressed: () {
+            setState(() {
+              currentScreen = ref.watch(isloginProvider)
+                  ? const AddListingPage(false)
+                  : const Login();
+              currentTab = 4;
+              currentPage = 2;
+            });
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          color: ViwahaColor.primary,
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 10,
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = const HomeContent();
+                          currentTab = 0;
+                          currentPage = 0;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.home_outlined,
                             color:
                                 currentTab == 0 ? Colors.black54 : Colors.white,
                           ),
-                        ),
-                      ],
+                          Text(
+                            'Home',
+                            style: TextStyle(
+                              color: currentTab == 0
+                                  ? Colors.black54
+                                  : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = ref.watch(isloginProvider)
-                            ? const AllListingPage()
-                            : const Login();
-                        currentTab = 1;
-                        currentPage = 1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.notes_outlined,
-                          color:
-                              currentTab == 1 ? Colors.black54 : Colors.white,
-                        ),
-                        Text(
-                          'List',
-                          style: TextStyle(
+                    MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = ref.watch(isloginProvider)
+                              ? const AllListingPage()
+                              : const Login();
+                          currentTab = 1;
+                          currentPage = 1;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.notes_outlined,
                             color:
                                 currentTab == 1 ? Colors.black54 : Colors.white,
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                          Text(
+                            'List',
+                            style: TextStyle(
+                              color: currentTab == 1
+                                  ? Colors.black54
+                                  : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
 
-              // Right Tab bar icons
+                // Right Tab bar icons
 
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = ref.watch(isloginProvider)
-                            ? const ProfilePage()
-                            : const Login();
-                        currentTab = 2;
-                        currentPage = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.account_circle_outlined,
-                          color:
-                              currentTab == 2 ? Colors.black54 : Colors.white,
-                        ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = ref.watch(isloginProvider)
+                              ? const ProfilePage()
+                              : const Login();
+                          currentTab = 2;
+                          currentPage = 3;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.account_circle_outlined,
                             color:
                                 currentTab == 2 ? Colors.black54 : Colors.white,
                           ),
-                        ),
-                      ],
+                          Text(
+                            'Profile',
+                            style: TextStyle(
+                              color: currentTab == 2
+                                  ? Colors.black54
+                                  : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = ref.watch(isloginProvider)
-                            ? const FavListingPage(false)
-                            : const Login();
-                        currentTab = 3;
-                        currentPage = 4;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.favorite_outline,
-                          color:
-                              currentTab == 3 ? Colors.black54 : Colors.white,
-                        ),
-                        Text(
-                          'Favorite',
-                          style: TextStyle(
+                    MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = ref.watch(isloginProvider)
+                              ? const FavListingPage(false)
+                              : const Login();
+                          currentTab = 3;
+                          currentPage = 4;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.favorite_outline,
                             color:
                                 currentTab == 3 ? Colors.black54 : Colors.white,
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+                          Text(
+                            'Favorite',
+                            style: TextStyle(
+                              color: currentTab == 3
+                                  ? Colors.black54
+                                  : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
-      ),
 
-      // body: const HomeContent(),
+        // body: const HomeContent(),
+      ),
     );
   }
 }

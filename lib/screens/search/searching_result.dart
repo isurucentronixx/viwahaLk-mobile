@@ -16,6 +16,7 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
+import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
 class SearchingResultsPage extends ConsumerStatefulWidget {
@@ -49,28 +50,6 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
         ),
         body: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(10.0),
-            //       border: Border.all(color: Colors.grey),
-            //     ),
-            //     child: Column(
-            //       children: [
-            //         TextField(
-            //           controller: _searchController,
-            //           decoration: const InputDecoration(
-            //             labelText: 'Search',
-            //             prefixIcon: Icon(Icons.search),
-            //             border: InputBorder.none,
-            //           ),
-            //           onChanged: (value) => _runFilter(value),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             const SizedBox(height: 15),
             Expanded(
                 child: searchingResult.isNotEmpty
@@ -88,7 +67,12 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                             title: searchingResult[index].title.toString(),
                             description:
                                 searchingResult[index].description.toString(),
-                            starRating: 4.5,
+                            starRating:
+                                searchingResult[index].average_rating != null
+                                    ? double.parse(searchingResult[index]
+                                        .average_rating
+                                        .toString())
+                                    : 0,
                             location:
                                 searchingResult[index].location.toString(),
                             date: searchingResult[index].datetime.toString(),
@@ -97,10 +81,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                           ),
                         ),
                       )
-                    : const Center(
-                        child: Center(
-                        child: CircularProgressIndicator(),
-                      ))),
+                    : NoListingPage()),
           ],
         ));
   }
