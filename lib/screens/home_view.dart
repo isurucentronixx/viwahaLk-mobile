@@ -159,9 +159,9 @@ class _HomePageState extends ConsumerState<HomePage>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = ref.watch(isloginProvider)
-                            ? const AllListingPage()
-                            : const Login();
+                 
+                         const AllListingPage()
+                           
                         currentTab = 1;
                         currentPage = 1;
                       });
