@@ -13,9 +13,7 @@ class CardView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
-        ),
+    
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
