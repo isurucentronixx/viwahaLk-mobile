@@ -1,6 +1,6 @@
 class Endpoints {
   // base url
-  static const String baseUrl = "http://viwahaweb.nikhilaholdings.lk/api/";
+  static const String baseUrl = "https://viwahaapp.viwaha.lk/api/";
 
   static const String getVendorListUrl = "vendors/get_top_wedding_vendors";
 
@@ -29,10 +29,11 @@ class Endpoints {
 
   static const String getVendor = "profile/get_profile_by_userid?userId=";
 
-  static const String getVendorListings = "listings/get_listings_by_userid?userId=";
+  static const String getVendorListings =
+      "listings/get_listings_by_userid?userId=";
 
   // receiveTimeout
-  static const int receiveTimeout = 15000; 
+  static const int receiveTimeout = 15000;
 
   // connectTimeout
   static const int connectionTimeout = 30000;
