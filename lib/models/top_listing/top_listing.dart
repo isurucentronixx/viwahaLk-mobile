@@ -9,7 +9,6 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
@@ -22,7 +21,6 @@ class TopListing extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var inputDateFormat = DateFormat('dd MMMM, yyyy');
     final data = ref.watch(topListingProvider);
-    // final isLoading = ref.watch(isLoadingHomeProvider);
 
     final homeServiceProvider = Provider<HomeService>((ref) {
       return HomeService(ref.read(dioClientProvider));
@@ -33,7 +31,6 @@ class TopListing extends ConsumerWidget {
 
     return Column(
       children: [
-      
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
@@ -229,7 +226,10 @@ class TopListing extends ConsumerWidget {
                             children: [
                               const Text("Rating: "),
                               RatingBarIndicator(
-                                rating: 3.ceilToDouble(),
+                                rating: double.parse(
+                                    wedding.average_rating != null
+                                        ? wedding.average_rating.toString()
+                                        : '0'),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color: Colors.amber,
