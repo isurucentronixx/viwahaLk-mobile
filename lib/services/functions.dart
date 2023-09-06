@@ -112,10 +112,10 @@ class PostData {
     });
     try {
       final res = await _dioClient.post(
-        options: Options(
+        options: Options( 
           headers: {'Content-Type': 'multipart/form-data'},
         ),
-        'http://viwahaweb.nikhilaholdings.lk/api/listings/upload_image',
+        'http://viwahaapp.viwaha.lk/api/listings/upload_image',
         data: formData,
       );
 
