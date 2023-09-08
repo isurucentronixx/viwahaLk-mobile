@@ -22,14 +22,13 @@ class Register extends ConsumerStatefulWidget {
 class _RegisterState extends ConsumerState<Register> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordReController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController passwordReController = TextEditingController();
-    TextEditingController firstnameController = TextEditingController();
-    TextEditingController lastnameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-
     final controller = ref.read(loginControllerProvider);
 
     return Scaffold(
@@ -42,197 +41,211 @@ class _RegisterState extends ConsumerState<Register> {
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 40.0),
-                    SizedBox(
-                      width: 200.0,
-                      height: 100.0,
-                      child: Assets.lib.assets.images.colorLogo.image(),
-                    ),
-                    const SizedBox(height: 40.0),
-                  ],
-                ),
-                const SizedBox(
-                  child: Center(),
-                ),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'First Name',
-                    ),
-                    onChanged: (value) {
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 40.0),
+                  SizedBox(
+                    width: 200.0,
+                    height: 100.0,
+                    child: Assets.lib.assets.images.colorLogo.image(),
+                  ),
+                  const SizedBox(height: 40.0),
+                ],
+              ),
+              const SizedBox(
+                child: Center(),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'First Name',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
                       firstnameController.text = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your Firstname';
-                      }
-                    },
-                  ),
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your Firstname';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 20.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Last Name',
-                    ),
-                    onChanged: (value) {
+              ),
+              const SizedBox(height: 20.0),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Last Name',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
                       lastnameController.text = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your Lastname';
-                      }
-                    },
-                  ),
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your Lastname';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                const SizedBox(height: 20.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'E-Mail',
-                    ),
-                    onChanged: (value) {
+              ),
+              const SizedBox(height: 20.0),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'E-Mail',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
                       emailController.text = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your E-Mail';
-                      }
-                    },
-                  ),
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your E-Mail';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                const SizedBox(height: 20.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    // controller: passwordController,
-                    obscureText: _obscureText,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
+              ),
+              const SizedBox(height: 20.0),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: TextFormField(
+                  // controller: passwordController,
+                  obscureText: _obscureText,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
                       ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
                     ),
-                    onChanged: (value) {
+                  ),
+                  onChanged: (value) {
+                    setState(() {
                       passwordController.text = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your Password';
-                      }
-                    },
-                  ),
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your Password';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                const SizedBox(height: 20.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    // controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Re-Enter Password',
-                    ),
-                    onChanged: (value) {
+              ),
+              const SizedBox(height: 20.0),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: TextFormField(
+                  // controller: passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Re-Enter Password',
+                  ),
+                  onChanged: (value) {
+                    setState(() {
                       passwordReController.text = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please re-enter your Password';
-                      }
-                    },
-                  ),
+                    });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please re-enter your Password';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                const SizedBox(height: 40.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Perform register logic here
-                      if (_formKey.currentState!.validate()) {
-                        var userDetails = {
-                          "firstname": firstnameController.text,
-                          "lastname": lastnameController.text,
-                          "email": emailController.text,
-                          "password": passwordController.text,
-                          "repeatPassword": passwordReController.text,
-                        };
+              ),
+              const SizedBox(height: 40.0),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Perform register logic here
+                    if (_formKey.currentState!.validate()) {
+                      var userDetails = {
+                        "firstname": firstnameController.text,
+                        "lastname": lastnameController.text,
+                        "email": emailController.text,
+                        "password": passwordController.text,
+                        "repeatPassword": passwordReController.text,
+                      };
 
-                        ref.watch(isLoadingLoginProvider)
-                            ? showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return Container(
-                                    color: Colors.transparent,
-                                    child: const Center(
-                                      child: CircularProgressIndicator(
-                                        color: ViwahaColor.primary,
-                                      ),
+                      ref.watch(isLoadingLoginProvider)
+                          ? showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return Container(
+                                  color: Colors.transparent,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(
+                                      color: ViwahaColor.primary,
                                     ),
-                                  );
-                                },
-                              )
-                            : Container();
+                                  ),
+                                );
+                              },
+                            )
+                          : Container();
 
-                        controller.userRegister(userDetails);
-                      }
-                    },
-                    icon: const Icon(Icons.app_registration),
-                    label: const Text('Create an account'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                      controller.userRegister(userDetails);
+                    }
+                  },
+                  icon: const Icon(Icons.app_registration),
+                  label: const Text('Create an account'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Perform Google sign-in logic here
-                      googleSignIn(context, ref);
-                    },
-                    icon: SizedBox(
-                        width: 20,
-                        child: Assets.lib.assets.images.googleLogo.image()),
-                    label: const Text('Sign up with Google'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      side: const BorderSide(
-                        color: Colors.blue,
-                      ),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Perform Google sign-in logic here
+                    googleSignIn(context, ref);
+                  },
+                  icon: SizedBox(
+                      width: 20,
+                      child: Assets.lib.assets.images.googleLogo.image()),
+                  label: const Text('Sign up with Google'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    side: const BorderSide(
+                      color: Colors.blue,
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0),
-              ],
-            ),
+              ),
+              const SizedBox(height: 40.0),
+            ],
           ),
         ),
       ),

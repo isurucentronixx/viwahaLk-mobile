@@ -5,6 +5,7 @@ class Endpoints {
   static const String getVendorListUrl = "vendors/get_top_wedding_vendors";
 
   static const String loginUrl = "auth/login";
+
   static const String registerUrl = "auth/register";
 
   static const String getTopListUrl = "listings/get_top_wedding_listings";

@@ -546,7 +546,8 @@ class MyCardItem extends ConsumerWidget {
                     children: [
                       const Icon(Icons.star, color: Colors.yellow),
                       const SizedBox(width: 4),
-                      Text(starRating.toString()),
+                      Text(
+                          '${(double.parse(starRating != null ? starRating.toString() : '0')).roundToDouble()}'),
                     ],
                   ),
                 ],

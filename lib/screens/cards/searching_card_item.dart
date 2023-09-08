@@ -226,7 +226,8 @@ class SearchingCardItem extends ConsumerWidget {
                                     const Icon(Icons.star,
                                         color: Colors.yellow),
                                     const SizedBox(width: 4),
-                                    Text(starRating.toString()),
+                                    Text(
+                                        '${(double.parse(starRating.toString())).roundToDouble()}'),
                                   ],
                                 )
                               : Container()

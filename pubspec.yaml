@@ -39,6 +39,8 @@ dependencies:
   expand_widget: ^3.1.1
   awesome_snackbar_content: ^0.1.1
   loading_overlay: ^0.3.0
+  flutter_sinhala: ^2.0.0
+  convert: ^3.1.1
   
 
 dev_dependencies:
@@ -61,6 +63,27 @@ flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
+  fonts:
+     - family: Noto Serif Sinhala
+       fonts:
+         - asset: lib/assets/fonts/NotoSerifSinhala-Black.ttf
+           weight: 900
+         - asset: lib/assets/fonts/NotoSerifSinhala-Bold.ttf
+           weight: 700
+         - asset: lib/assets/fonts/NotoSerifSinhala-ExtraBold.ttf
+           weight: 800
+         - asset: lib/assets/fonts/NotoSerifSinhala-ExtraLight.ttf
+           weight: 200
+         - asset: lib/assets/fonts/NotoSerifSinhala-Light.ttf
+           weight: 300
+         - asset: lib/assets/fonts/NotoSerifSinhala-Medium.ttf
+           weight: 500
+         - asset: lib/assets/fonts/NotoSerifSinhala-Regular.ttf
+           weight: 400
+         - asset: lib/assets/fonts/NotoSerifSinhala-SemiBold.ttf
+           weight: 600
+         - asset: lib/assets/fonts/NotoSerifSinhala-Thin.ttf
+           weight: 100
 
   assets:
     - lib/assets/images/

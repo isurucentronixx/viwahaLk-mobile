@@ -23,7 +23,7 @@ class PostData {
   Future addNewListing(newListing) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/add_listing',
+          'https://viwahaapp.viwaha.lk/api/listings/add_listing',
           data: newListing);
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
@@ -44,9 +44,8 @@ class PostData {
   Future editListing(newListing, id) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/edit_listing?listing_id=$id',
+          'https://viwahaapp.viwaha.lk/api/listings/edit_listing?listing_id=$id',
           data: newListing);
-      // ref.read(provider)
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly updated your listing.");
@@ -66,7 +65,7 @@ class PostData {
   Future editMyProfile(editedDetails) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/user/update_profile',
+          'https://viwahaapp.viwaha.lk/api/user/update_profile',
           data: editedDetails);
       ref.refresh(loginProvider);
       ref.read(profileViewStateProvider.notifier).state =
@@ -87,7 +86,7 @@ class PostData {
   Future changePassword(passwords) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/auth/change_password',
+          'https://viwahaapp.viwaha.lk/api/auth/change_password',
           data: passwords);
       ref.read(changePasswordViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly changed your password.");
@@ -112,10 +111,10 @@ class PostData {
     });
     try {
       final res = await _dioClient.post(
-        options: Options( 
+        options: Options(
           headers: {'Content-Type': 'multipart/form-data'},
         ),
-        'http://viwahaapp.viwaha.lk/api/listings/upload_image',
+        'https://viwahaapp.viwaha.lk/api/listings/upload_image',
         data: formData,
       );
 
@@ -128,7 +127,7 @@ class PostData {
   Future deleteMyListing(id) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/delete?listing_id=${id}');
+          'https://viwahaapp.viwaha.lk/api/listings/delete?listing_id=${id}');
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly deleted your listing.");
       ref.read(myListingViewStateProvider.notifier).state =
@@ -147,8 +146,7 @@ class PostData {
   Future boostMyListing(id) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/request_boost?listing_id=${id}');
-      // ref.read(isDeletingListProvider.notifier).state = false;
+          'https://viwahaapp.viwaha.lk/api/listings/request_boost?listing_id=${id}');
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly boosted your listing.");
       ref.read(myListingViewStateProvider.notifier).state =
@@ -156,7 +154,6 @@ class PostData {
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      // ref.read(isDeletingListProvider.notifier).state = false;
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Unsuccessfuly.");
       ref.read(myListingViewStateProvider.notifier).state =
@@ -168,7 +165,7 @@ class PostData {
   Future premiumMyListing(id) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/request_premium',
+          'https://viwahaapp.viwaha.lk/api/listings/request_premium',
           data: {
             "listing_id": id,
             "image": ref.read(premiumBillNameProvider),
@@ -181,7 +178,6 @@ class PostData {
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
-      // ref.read(isDeletingListProvider.notifier).state = false;
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requesting failed.");
       ref.read(myListingViewStateProvider.notifier).state =
@@ -193,7 +189,7 @@ class PostData {
   Future requestQuote(quote) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/profile/post_message',
+          'https://viwahaapp.viwaha.lk/api/profile/post_message',
           data: quote);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Your request has been sent.");
@@ -213,7 +209,7 @@ class PostData {
   Future reviewAdd(review) async {
     try {
       final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/add_review',
+          'https://viwahaapp.viwaha.lk/api/listings/add_review',
           data: review);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Your review has been published.");
@@ -232,11 +228,8 @@ class PostData {
 
   Future reportListing(data) async {
     try {
-      print("datadatadatadatadatadata");
-      print(data);
-      final res = await _dioClient.post(
-          'http://viwahaweb.nikhilaholdings.lk/api/listings/report',
-          data: data);
+      final res = await _dioClient
+          .post('https://viwahaapp.viwaha.lk/api/listings/report', data: data);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfully submited report listing.");
       ref.read(singleListingViewStateProvider.notifier).state =

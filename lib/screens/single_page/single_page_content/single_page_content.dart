@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -210,9 +211,9 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               color: Colors.yellow,
                             ),
                             const SizedBox(width: 4),
-                            const Text(
-                              'Ratings: 4.5',
-                              style: TextStyle(
+                            Text(
+                              'Ratings: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
                               ),
@@ -393,6 +394,11 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
                 const SizedBox(height: 10),
                 ExpandText(
                   '${widget.description}',
+                  // style: GoogleFonts.lato(),
+                  // TextStyle(
+                  //   color: Colors.amber,
+                  //   fontFamily: 'Noto Serif Sinhala',
+                  // ),
                   textAlign: TextAlign.center,
                 ),
               ],
