@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/models/build_card/card_view.dart';
 import 'package:viwaha_lk/models/popular_cities/popular_cities.dart';
@@ -23,7 +25,9 @@ class _HomeContentState extends ConsumerState<HomeContent> {
   List<String> items = ['Car', 'Photography'];
   List<String> filteredItems = [];
 
+
   final TextEditingController _searchController = TextEditingController();
+
 
   @override
   void initState() {
@@ -31,6 +35,8 @@ class _HomeContentState extends ConsumerState<HomeContent> {
     _searchController.addListener(_onSearchChanged);
     filteredItems.addAll(items);
     fetchSliderImages();
+
+    
   }
 
   List<String> sliderImageUrls = [];
@@ -52,7 +58,7 @@ class _HomeContentState extends ConsumerState<HomeContent> {
 
   Future<void> fetchSliderImages() async {
     final response = await http.get(
-        Uri.parse('https://viwahaweb.nikhilaholdings.lk/api/app/get_sliders/'));
+        Uri.parse('https://viwahaapp.viwaha.lk/api/app/get_sliders/'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
@@ -172,24 +178,13 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                           color: Colors.pink[300],
                         ),
                       ),
+                     
                     ],
                   ),
                 ),
               ),
             ],
-          ),
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.stretch,
-          //   children: [
-          //     Card(
-          //       child: Column(
-          //         children: [
-
-          //         ],
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          ),     
 
           const CardView(),
           const SizedBox(

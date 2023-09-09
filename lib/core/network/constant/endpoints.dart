@@ -9,6 +9,8 @@ class Endpoints {
   static const String registerUrl = "auth/register";
 
   static const String getTopListUrl = "listings/get_top_wedding_listings";
+  
+  static const String getMainSliderImages = "app/get_sliders";
 
   static const String getCategoryUrl = "locations/get_categories";
 

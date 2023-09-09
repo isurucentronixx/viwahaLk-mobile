@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
+import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
@@ -24,16 +25,12 @@ final addListingViewStateProvider =
 final profileViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
-
-
 final changePasswordViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });
-
-
 
 final isLoadingHomeProvider = StateProvider<bool>((ref) {
   return true;
@@ -65,6 +62,21 @@ class HomeController {
       final topListing =
           (res as List).map((e) => TopListing.fromJson(e)).toList();
       return topListing;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<MainSlider>> fetchSliderImagesList() async {
+    try {
+      final res = await homeService.fetchSliderImagesRequest();
+      final sliderImages =
+          (res as List).map((e) => MainSlider.fromJson(e)).toList();
+      // res as List<String>;
+      print(sliderImages);
+      return sliderImages;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
@@ -179,7 +191,7 @@ class HomeController {
   Future<List<Message>> fetchUserMessages(String userId) async {
     try {
       final res = await homeService.fetchUserMessagesApiRequest(userId);
-       final searchResult =
+      final searchResult =
           (res as List).map((e) => Message.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
@@ -192,7 +204,7 @@ class HomeController {
   Future<List<UserNotification>> fetchUserNotifications(String userId) async {
     try {
       final res = await homeService.fetchUserNotificationsApiRequest(userId);
-       final searchResult =
+      final searchResult =
           (res as List).map((e) => UserNotification.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
@@ -201,10 +213,11 @@ class HomeController {
       rethrow;
     }
   }
-   Future<List<UserReviews>> fetchUserReviews(String userId) async {
+
+  Future<List<UserReviews>> fetchUserReviews(String userId) async {
     try {
       final res = await homeService.fetchUserReviewsApiRequest(userId);
-       final searchResult =
+      final searchResult =
           (res as List).map((e) => UserReviews.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
@@ -217,8 +230,8 @@ class HomeController {
   Future<VendorProfile> fetchVendor(String userId) async {
     try {
       final res = await homeService.fetchVendorApiRequest(userId);
-       final searchResult = VendorProfile.fromJson(res);
-       
+      final searchResult = VendorProfile.fromJson(res);
+
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -227,12 +240,12 @@ class HomeController {
     }
   }
 
- Future<List<SearchResultItem>> fetchVendorListings(String userId) async {
+  Future<List<SearchResultItem>> fetchVendorListings(String userId) async {
     try {
       final res = await homeService.fetchVendorListingsApiRequest(userId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
-       
+
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
