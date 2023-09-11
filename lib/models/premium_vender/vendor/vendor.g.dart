@@ -89,6 +89,8 @@ _$_Vendor _$$_VendorFromJson(Map<String, dynamic> json) => _$_Vendor(
       price: json['price'] as String?,
       ask_price: json['ask_price'] as String?,
       negotiable: json['negotiable'] as String?,
+      boosted: json['boosted'] as String?,
+      average_rating: json['average_rating'] as String?,
     );
 
 Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
@@ -174,4 +176,6 @@ Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
       'price': instance.price,
       'ask_price': instance.ask_price,
       'negotiable': instance.negotiable,
+      'boosted': instance.boosted,
+      'average_rating': instance.average_rating,
     };

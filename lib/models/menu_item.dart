@@ -129,7 +129,7 @@ class DrawerMenu extends ConsumerWidget {
                           ref.read(isloginProvider.notifier).state = false;
                           pref.remove("email");
                           pref.remove("password");
-                          await _googleSignIn.disconnect();
+                          await _googleSignIn.signOut();
                           appRouter.push(const Login());
                           // Update the state of the app
                           // ...

@@ -36,7 +36,8 @@ class SingleItemLatest extends ConsumerWidget {
                 .first,
             title: e.title,
             description: e.description,
-            starRating: "4.5",
+            starRating:
+                e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'vendor');
@@ -52,7 +53,7 @@ class SingleItemLatest extends ConsumerWidget {
                 .first,
             title: e.title,
             description: e.description,
-            starRating: "4.5",
+            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'topListing');
@@ -68,7 +69,7 @@ class SingleItemLatest extends ConsumerWidget {
                 .first,
             title: e.title,
             description: e.description,
-            starRating: "4.5",
+            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'vendor');
@@ -83,7 +84,7 @@ class SingleItemLatest extends ConsumerWidget {
                 .first,
             title: e.title,
             description: e.description,
-            starRating: "4.5",
+            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'topListing');
@@ -142,7 +143,10 @@ class SingleItemLatest extends ConsumerWidget {
                     imagePath: finalCardList[index].imagePath!,
                     title: finalCardList[index].title!,
                     description: finalCardList[index].description!,
-                    starRating: 4.5,
+                    starRating: finalCardList[index].starRating != null
+                            ? double.parse(
+                                finalCardList[index].starRating.toString())
+                            : 0,
                     type: type,
                     date: finalCardList[index].date!,
                     location: finalCardList[index].location!,

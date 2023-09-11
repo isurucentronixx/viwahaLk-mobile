@@ -30,6 +30,17 @@ class HomeService {
     }
   }
 
+  Future fetchSliderImagesRequest() async {
+    try {
+      final res = await _dioClient
+          .get(Endpoints.baseUrl + Endpoints.getMainSliderImages);
+    
+        return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future fetchCategoryListApiRequest() async {
     try {
       final res =
@@ -136,27 +147,29 @@ class HomeService {
     try {
       final res = await _dioClient
           .get('${Endpoints.baseUrl + Endpoints.getUserReviews}$userId');
-     
+
       return res.data;
     } catch (e) {
       rethrow;
     }
   }
+
   Future fetchVendorApiRequest(String userId) async {
     try {
       final res = await _dioClient
           .get('${Endpoints.baseUrl + Endpoints.getVendor}$userId');
-     
+
       return res.data;
     } catch (e) {
       rethrow;
     }
   }
+
   Future fetchVendorListingsApiRequest(String userId) async {
     try {
       final res = await _dioClient
           .get('${Endpoints.baseUrl + Endpoints.getVendorListings}$userId');
-     
+
       return res.data;
     } catch (e) {
       rethrow;

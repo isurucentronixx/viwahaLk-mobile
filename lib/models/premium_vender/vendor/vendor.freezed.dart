@@ -102,6 +102,8 @@ mixin _$Vendor {
   String? get price => throw _privateConstructorUsedError;
   String? get ask_price => throw _privateConstructorUsedError;
   String? get negotiable => throw _privateConstructorUsedError;
+  String? get boosted => throw _privateConstructorUsedError;
+  String? get average_rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -195,7 +197,9 @@ abstract class $VendorCopyWith<$Res> {
       String? premium,
       String? price,
       String? ask_price,
-      String? negotiable});
+      String? negotiable,
+      String? boosted,
+      String? average_rating});
 }
 
 /// @nodoc
@@ -293,6 +297,8 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
+    Object? boosted = freezed,
+    Object? average_rating = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -623,6 +629,14 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.negotiable
           : negotiable // ignore: cast_nullable_to_non_nullable
               as String?,
+      boosted: freezed == boosted
+          ? _value.boosted
+          : boosted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      average_rating: freezed == average_rating
+          ? _value.average_rating
+          : average_rating // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -715,7 +729,9 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
       String? premium,
       String? price,
       String? ask_price,
-      String? negotiable});
+      String? negotiable,
+      String? boosted,
+      String? average_rating});
 }
 
 /// @nodoc
@@ -810,6 +826,8 @@ class __$$_VendorCopyWithImpl<$Res>
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
+    Object? boosted = freezed,
+    Object? average_rating = freezed,
   }) {
     return _then(_$_Vendor(
       id: freezed == id
@@ -1140,6 +1158,14 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.negotiable
           : negotiable // ignore: cast_nullable_to_non_nullable
               as String?,
+      boosted: freezed == boosted
+          ? _value.boosted
+          : boosted // ignore: cast_nullable_to_non_nullable
+              as String?,
+      average_rating: freezed == average_rating
+          ? _value.average_rating
+          : average_rating // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1229,7 +1255,9 @@ class _$_Vendor implements _Vendor {
       this.premium,
       this.price,
       this.ask_price,
-      this.negotiable});
+      this.negotiable,
+      this.boosted,
+      this.average_rating});
 
   factory _$_Vendor.fromJson(Map<String, dynamic> json) =>
       _$$_VendorFromJson(json);
@@ -1399,10 +1427,14 @@ class _$_Vendor implements _Vendor {
   final String? ask_price;
   @override
   final String? negotiable;
+  @override
+  final String? boosted;
+  @override
+  final String? average_rating;
 
   @override
   String toString() {
-    return 'Vendor(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, password: $password, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, location: $location, main_location: $main_location, video: $video, name: $name, whatsapp: $whatsapp, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, premium: $premium, price: $price, ask_price: $ask_price, negotiable: $negotiable)';
+    return 'Vendor(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, password: $password, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, location: $location, main_location: $main_location, video: $video, name: $name, whatsapp: $whatsapp, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, premium: $premium, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, average_rating: $average_rating)';
   }
 
   @override
@@ -1534,7 +1566,9 @@ class _$_Vendor implements _Vendor {
             (identical(other.premium, premium) || other.premium == premium) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.ask_price, ask_price) || other.ask_price == ask_price) &&
-            (identical(other.negotiable, negotiable) || other.negotiable == negotiable));
+            (identical(other.negotiable, negotiable) || other.negotiable == negotiable) &&
+            (identical(other.boosted, boosted) || other.boosted == boosted) &&
+            (identical(other.average_rating, average_rating) || other.average_rating == average_rating));
   }
 
   @JsonKey(ignore: true)
@@ -1622,7 +1656,9 @@ class _$_Vendor implements _Vendor {
         premium,
         price,
         ask_price,
-        negotiable
+        negotiable,
+        boosted,
+        average_rating
       ]);
 
   @JsonKey(ignore: true)
@@ -1722,7 +1758,9 @@ abstract class _Vendor implements Vendor {
       final String? premium,
       final String? price,
       final String? ask_price,
-      final String? negotiable}) = _$_Vendor;
+      final String? negotiable,
+      final String? boosted,
+      final String? average_rating}) = _$_Vendor;
 
   factory _Vendor.fromJson(Map<String, dynamic> json) = _$_Vendor.fromJson;
 
@@ -1890,6 +1928,10 @@ abstract class _Vendor implements Vendor {
   String? get ask_price;
   @override
   String? get negotiable;
+  @override
+  String? get boosted;
+  @override
+  String? get average_rating;
   @override
   @JsonKey(ignore: true)
   _$$_VendorCopyWith<_$_Vendor> get copyWith =>

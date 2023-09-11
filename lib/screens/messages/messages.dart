@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -14,6 +15,7 @@ import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/auth/user_model.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -27,19 +29,39 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
+import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
 class MessagesPage extends ConsumerStatefulWidget {
-  const MessagesPage({super.key});
+  final String userId;
+  const MessagesPage(this.userId, {super.key});
   @override
   _MessagesPageState createState() => _MessagesPageState();
 }
 
 class _MessagesPageState extends ConsumerState<MessagesPage> {
+  List<Message> messages = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    getData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getData() async {
+    messages.addAll(await ref
+        .read(homeControllerProvider)
+        .fetchUserMessages(widget.userId));
+
+    setState(() {
+      isLoading = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider).user;
-    final router = AppRouter();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -58,79 +80,206 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
         ],
         title: const Text("Messages"),
       ),
-      body: ref.watch(isloginProvider)
-          ? SingleChildScrollView(
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: <Widget>[
-                        TextField(
-                          maxLines: 10,
-                          decoration: const InputDecoration(
-                            labelText: 'Message',
-                            hintText: 'Enter a small message here',
-                            border: OutlineInputBorder(),
-                          ),
-                          onChanged: (value) {
-                            // Handle changes in the entered text
-                            // You can update the state or perform other actions here
-                          },
-                        ),
+      body: isLoading
+          ? messages.isNotEmpty
+              ? SingleChildScrollView(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        messages.isNotEmpty
+                            ? ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: messages.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return messageCard(
+                                      message: messages[index], index: index);
+                                })
+                            : const Center(
+                                child: Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Text(
+                                  'It appears that there are no messages to show here right now!',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              ))
                       ],
                     ),
-                    Container(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(ViwahaColor.primary),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              side: const BorderSide(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {},
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
+                  ),
+                )
+              : NoListingPage()
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
+    );
+  }
+
+  Widget messageCard({required Message message, required int index}) {
+    return GestureDetector(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                side: const BorderSide(color: ViwahaColor.primary),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(width: 8),
-                            Text(
-                              "Submit",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.white),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: 70,
+                                      height: 70,
+                                      child: SizedBox(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: ViwahaColor
+                                                  .primary, // Set your desired border color here
+                                              width:
+                                                  2, // Set the desired border width
+                                            ),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: Image.network(
+                                              messages[index].image != null
+                                                  ? 'https://viwaha.lk/${messages[index].image.toString()}'
+                                                  : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                              fit: BoxFit.fill,
+                                              loadingBuilder:
+                                                  (context, child, progress) {
+                                                if (progress == null) {
+                                                  return SizedBox(
+                                                    width: 150,
+                                                    height: 150,
+                                                    child: child,
+                                                  );
+                                                }
+                                                return const Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              },
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return Image.network(
+                                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                                  fit: BoxFit.cover,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 100, top: 5, right: 5),
+                              child: Text(
+                                Jiffy.parse(messages[index].datetime.toString())
+                                    .format(pattern: 'yyyy-MM-dd hh:mm'),
+                                style: const TextStyle(color: Colors.grey),
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                            SizedBox(
+                                width: 200,
+                                child: Text(
+                                  messages[index].title.toString(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            SizedBox(
+                              width: 200,
+                              child: Text(messages[index].message.toString()),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.replay,
+                                    size: 22.0,
+                                  ),
+                                  label: const Text('Reply'), // <-- Text
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: ViwahaColor.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: ViwahaColor.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.delete_outline_rounded,
+                                    size: 22,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8,
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 60),
-                  ],
-                ),
-              ),
-            )
-          : Center(
-              child: FractionallySizedBox(
-                widthFactor: 0.8,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const Login());
-                  },
-                  icon: const Icon(Icons.login),
-                  label: const Text('Sign In'),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
+                  )
+                ],
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 }

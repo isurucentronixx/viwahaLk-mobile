@@ -36,14 +36,14 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
   List<UserNotification> notifications = [];
   List<UserReviews> reviews = [];
   bool isLoading = false;
-  @override 
+  @override
   void initState() {
     getData();
     // TODO: implement initState
     super.initState();
   }
 
-  getData() async { 
+  getData() async {
     counts = await ref
         .read(homeControllerProvider)
         .fetchUserDashboardCounts(widget.userId);
@@ -286,6 +286,8 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
               shape: RoundedRectangleBorder(
@@ -297,9 +299,12 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -517,6 +522,8 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -715,7 +722,10 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     description: myListing[index].description != null
                         ? myListing[index].description!
                         : "",
-                    starRating: 4.5,
+                    starRating: myListing[index].average_rating != null
+                        ? double.parse(
+                            myListing[index].average_rating.toString())
+                        : 0,
                     type: "myAd",
                     date: myListing[index].datetime != null
                         ? myListing[index].datetime!

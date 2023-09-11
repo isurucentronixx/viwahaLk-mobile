@@ -4,6 +4,7 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_state_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
+import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
@@ -25,6 +26,11 @@ final vendorsProvider =
 final topListingProvider =
     StateNotifierProvider<TopListingNotifier, List<TopListing>>((ref) {
   return TopListingNotifier(ref: ref);
+});
+
+final mainSliderImageProvider =
+    StateNotifierProvider<MainSliderImageNotifier, List<MainSlider>>((ref) {
+  return MainSliderImageNotifier(ref: ref);
 });
 
 final categoriesProvider =

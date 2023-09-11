@@ -247,11 +247,11 @@ class ContactUsPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: 20),
-                    const Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           child: Text(
                             'Address',
                             style: TextStyle(
@@ -259,9 +259,15 @@ class ContactUsPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          child: Text(
-                            '184 Collins Street West Colombo, Sri Lanka',
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                          width: MediaQuery.of(context).size.width * 0.60,
+                          child: const Column(
+                            children: [
+                              Text(
+                                '184 Collins Street West Colombo, Sri Lanka',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 15),
+                              ),
+                            ],
                           ),
                         ),
                       ],

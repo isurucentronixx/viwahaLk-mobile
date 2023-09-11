@@ -4,18 +4,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
-import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/popular_cities/popular_cities/popular_city_model.dart';
-import 'package:viwaha_lk/models/premium_vender/feedback.dart';
-import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
-
 import 'package:viwaha_lk/routes/router.gr.dart';
 
 class PopularCities extends ConsumerStatefulWidget {
@@ -34,37 +29,37 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
           id: "1",
           name: "Colombo",
           image: "https://viwaha.lk/assets/img/city/Colombo.png",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "2",
           name: "Kandy",
           image: "https://viwaha.lk/assets/img/city/Kandy.png",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "3",
           name: "Galle",
           image: "https://viwaha.lk/assets/img/city/Galle.png",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "4",
           name: "Jaffna",
           image: "https://viwaha.lk/assets/img/city/Jaffna.png",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "5",
           name: "Kurunegala",
           image: "https://viwaha.lk/assets/img/city/Kurunegala.jpg",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "6",
           name: "Anuradhapura",
           image: "https://viwaha.lk/assets/img/city/Anuradhapura.png",
-          ratings: "5"),
+          ratings: "0"),
       const City(
           id: "7",
           name: "Badulla",
           image: "https://viwaha.lk/assets/img/city/Badulla.png",
-          ratings: "5")
+          ratings: "0")
     ];
     final data = popularCities;
 

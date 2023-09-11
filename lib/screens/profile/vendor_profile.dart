@@ -379,7 +379,10 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                     description: vendorListing[index].description != null
                         ? vendorListing[index].description!
                         : "",
-                    starRating: 4.5,
+                    starRating: vendorListing[index].average_rating != null
+                        ? double.parse(
+                            vendorListing[index].average_rating.toString())
+                        : 0,
                     type: "vendorAd",
                     date: vendorListing[index].datetime != null
                         ? vendorListing[index].datetime!
@@ -543,7 +546,8 @@ class MyCardItem extends ConsumerWidget {
                     children: [
                       const Icon(Icons.star, color: Colors.yellow),
                       const SizedBox(width: 4),
-                      Text(starRating.toString()),
+                      Text(
+                          '${(double.parse(starRating != null ? starRating.toString() : '0')).roundToDouble()}'),
                     ],
                   ),
                 ],

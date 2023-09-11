@@ -17,6 +17,7 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
+import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
 class CategoryListingPage extends ConsumerStatefulWidget {
@@ -97,7 +98,10 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                             title: allListing[index].title.toString(),
                             description:
                                 allListing[index].description.toString(),
-                            starRating: 4.5,
+                            starRating: allListing[index].average_rating != null
+                                ? double.parse(
+                                    allListing[index].average_rating.toString())
+                                : 0,
                             location: allListing[index].location.toString(),
                             date: allListing[index].datetime.toString(),
                             type: 'cat',
@@ -105,10 +109,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                           ),
                         ),
                       )
-                    : const Center(
-                        child: Center(
-                        child: CircularProgressIndicator(),
-                      ))),
+                    : NoListingPage()),
           ],
         ));
   }

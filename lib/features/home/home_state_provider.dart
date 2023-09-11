@@ -3,6 +3,7 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
+import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
@@ -38,6 +39,21 @@ class TopListingNotifier extends StateNotifier<List<TopListing>> {
       state = value;
       // Setting isLoading to `false`.
       ref.read(isLoadingHomeProvider.notifier).state = false;
+    });
+  }
+}
+
+class MainSliderImageNotifier extends StateNotifier<List<MainSlider>> {
+  final Ref ref;
+
+  MainSliderImageNotifier({required this.ref}) : super([]) {
+    fetchSliderImage(ref: ref);
+  }
+
+  Future fetchSliderImage({required Ref ref}) async {
+    await ref.read(homeControllerProvider).fetchSliderImagesList().then((value) {
+      // Setting current `state` to the fetched list of products.
+      state = value;
     });
   }
 }

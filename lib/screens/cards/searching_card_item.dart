@@ -71,13 +71,13 @@ class SearchingCardItem extends ConsumerWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      (imagePath != "null")
-                          ? (imagePath != null)
-                              ? (imagePath != "")
-                                  ? imagePath
-                                  : "https://viwaha.lk/assets/img/logo/no_image.jpg"
-                              : "https://viwaha.lk/assets/img/logo/no_image.jpg"
-                          : "https://viwaha.lk/assets/img/logo/no_image.jpg",
+                      (imagePath == "null")
+                          ? "https://viwaha.lk/assets/img/logo/no_image.jpg"
+                          : (imagePath == null)
+                              ? "https://viwaha.lk/assets/img/logo/no_image.jpg"
+                              : (imagePath == "")
+                                  ? "https://viwaha.lk/assets/img/logo/no_image.jpg"
+                                  : imagePath,
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, progress) {
                         if (progress == null) {
@@ -226,7 +226,8 @@ class SearchingCardItem extends ConsumerWidget {
                                     const Icon(Icons.star,
                                         color: Colors.yellow),
                                     const SizedBox(width: 4),
-                                    Text(starRating.toString()),
+                                    Text(
+                                        '${(double.parse(starRating.toString())).roundToDouble()}'),
                                   ],
                                 )
                               : Container()

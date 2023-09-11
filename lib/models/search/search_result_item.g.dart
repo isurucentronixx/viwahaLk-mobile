@@ -56,6 +56,8 @@ _$_SearchResultItem _$$_SearchResultItemFromJson(Map<String, dynamic> json) =>
       price: json['price'] as String?,
       ask_price: json['ask_price'] as String?,
       negotiable: json['negotiable'] as String?,
+      boosted: json['boosted'] as String?,
+      average_rating: json['average_rating'] as String?,
     );
 
 Map<String, dynamic> _$$_SearchResultItemToJson(_$_SearchResultItem instance) =>
@@ -108,4 +110,6 @@ Map<String, dynamic> _$$_SearchResultItemToJson(_$_SearchResultItem instance) =>
       'price': instance.price,
       'ask_price': instance.ask_price,
       'negotiable': instance.negotiable,
+      'boosted': instance.boosted,
+      'average_rating': instance.average_rating,
     };
