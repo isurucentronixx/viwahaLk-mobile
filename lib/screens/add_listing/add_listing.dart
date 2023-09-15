@@ -34,17 +34,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_select/awesome_select.dart';
 
-final mainImageProvider = StateProvider<String>((ref) => '');
+
 final proposerNameProvider = StateProvider<String>((ref) => '');
 final proposerDobProvider =
     StateProvider<DateTime>((ref) => DateTime(1996, 08, 22));
 final premiumBillProvider = StateProvider<String>((ref) => '');
 
 final premiumBillNameProvider = StateProvider<String>((ref) => '');
-final mainImageNameProvider = StateProvider<String>((ref) => '');
-final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
-final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
-
 final adTitleProvider = StateProvider<String>((ref) => '');
 final adAddressProvider = StateProvider<String>((ref) => '');
 final adGoogleAddressProvider = StateProvider<String>((ref) => '');
@@ -80,6 +76,24 @@ class AddListingPage extends ConsumerStatefulWidget {
 
 class _AddListingPageState extends ConsumerState<AddListingPage> {
   final picker = ImagePicker();
+
+  Color _catColor = Colors.grey;
+  Color _subCatColor = Colors.grey;
+  Color _locationColor = Colors.grey;
+  Color _subLocationColor = Colors.grey;
+  Color _mondayOpenColor = Colors.grey;
+  Color _tuesdayOpenColor = Colors.grey;
+  Color _wednesdayOpenColor = Colors.grey;
+  Color _thursdayOpenColor = Colors.grey;
+  Color _fridayOpenColor = Colors.grey;
+  Color _saturedayOpenColor = Colors.grey;
+  Color _sundayOpenColor = Colors.grey;
+  Color _genderColor = Colors.grey;
+  Color _bornDateColor = Colors.grey;
+  Color _askPriceColor = Colors.grey;
+  Color _thumbImgColor = ViwahaColor.primary;
+  Color _galleryImgColor = ViwahaColor.primary;
+
   String _cat = 'Select one';
   String _gender = 'Select one';
   String _subCat = 'Select one';
@@ -572,11 +586,18 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
         title: 'Short Relationship as friends',
         value: 'Short Relationship as friends')
   ];
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();   
+  }
 
   @override
   Widget build(BuildContext context) {
     final controller = ref.watch(postControllerProvider);
     final state = ref.watch(addListingViewStateProvider);
+
     List<S2Choice<String>>? mainCategoryData = ref
         .watch(categoriesProvider)
         .map((e) => S2Choice<String>(
@@ -587,11 +608,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
         .map((e) => S2Choice<String>(
             value: e.location_en.toString(), title: e.location_en.toString()))
         .toList();
-
-    @override
-    initState() {
-      super.initState();
-    }
 
     imageUpload(File image, String name, String type) async {
       if (type == "gallery") {
@@ -663,3790 +679,4068 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
           body: Container(
             margin: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AddFieldMainWidget(
-                      icon: Icons.info_outline,
-                      title: "General Information",
-                      description: "General information about your self",
-                      inputList: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: SmartSelect<String>.single(
-                              title: 'Category',
-                              selectedValue: _cat,
-                              choiceItems: mainCategoryData,
-                              onChange: (selected) {
-                                setState(() {
-                                  _cat = selected.value;
-                                  subCategoryData = ref
-                                      .watch(categoriesProvider)
-                                      .where((element) =>
-                                          element.category == selected.value)
-                                      .first
-                                      .sub_categories!
-                                      .map((e) => S2Choice<String>(
-                                          value: e!.sub_category.toString(),
-                                          title: e.sub_category
-                                              .toString()
-                                              .toString()))
-                                      .toList();
-                                });
-                              },
-                              modalType: S2ModalType.bottomSheet,
-                              tileBuilder: (context, state) {
-                                return ListTile(
-                                  title: Text(
-                                    state.title.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AddFieldMainWidget(
+                        icon: Icons.info_outline,
+                        title: "General Information",
+                        description: "General information about your self",
+                        inputList: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: _catColor),
+                              ),
+                              child: SmartSelect<String>.single(
+                                title: 'Category',
+                                selectedValue: _cat,
+                                choiceItems: mainCategoryData,
+                                onChange: (selected) {
+                                  setState(() {
+                                    _cat = selected.value;
+                                    subCategoryData = ref
+                                        .watch(categoriesProvider)
+                                        .where((element) =>
+                                            element.category == selected.value)
+                                        .first
+                                        .sub_categories!
+                                        .map((e) => S2Choice<String>(
+                                            value: e!.sub_category.toString(),
+                                            title: e.sub_category
+                                                .toString()
+                                                .toString()))
+                                        .toList();
+                                    _catColor = Colors.grey;
+                                  });
+                                },
+                                modalType: S2ModalType.bottomSheet,
+                                tileBuilder: (context, state) {
+                                  return ListTile(
+                                    title: Text(
+                                      state.title.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                  subtitle: Text(_cat),
-                                  trailing:
-                                      const Icon(Icons.keyboard_arrow_down),
-                                  onTap: state.showModal,
-                                );
-                              },
+                                    subtitle: Text(_cat),
+                                    trailing:
+                                        const Icon(Icons.keyboard_arrow_down),
+                                    onTap: state.showModal,
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: SmartSelect<String>.single(
-                              title: 'Sub Category',
-                              selectedValue: _subCat,
-                              choiceItems: subCategoryData,
-                              onChange: (selected) {
-                                setState(() {
-                                  _subCat = selected.value;
-                                });
-                              },
-                              modalType: S2ModalType.bottomSheet,
-                              tileBuilder: (context, state) {
-                                return ListTile(
-                                  title: Text(
-                                    state.title.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: _subCatColor),
+                              ),
+                              child: SmartSelect<String>.single(
+                                title: 'Sub Category',
+                                selectedValue: _subCat,
+                                choiceItems: subCategoryData,
+                                onChange: (selected) {
+                                  setState(() {
+                                    _subCat = selected.value;
+                                  });
+                                },
+                                modalType: S2ModalType.bottomSheet,
+                                tileBuilder: (context, state) {
+                                  return ListTile(
+                                    title: Text(
+                                      state.title.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                  subtitle: Text(_subCat),
-                                  trailing:
-                                      const Icon(Icons.keyboard_arrow_down),
-                                  onTap: state.showModal,
-                                );
-                              },
+                                    subtitle: Text(_subCat),
+                                    trailing:
+                                        const Icon(Icons.keyboard_arrow_down),
+                                    onTap: state.showModal,
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        _cat != 'Proposal'
-                            ? Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adTitleProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText:
-                                        "This name will appear on your ad.",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'AD Title',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
+                          _cat != 'Proposal'
+                              ? Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
                                     ),
-                                  ),
-                                  validator: null,
-                                ),
-                              )
-                            : const SizedBox(),
-                      ]),
-                  _cat == 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.perm_contact_cal_sharp,
-                          title: "Basic Details",
-                          description:
-                              "Take the 1st step to your happy marriage",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(proposerNameProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText:
-                                        "This name will appear on your ad.",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Name',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'I am a',
-                                    selectedValue: _gender,
-                                    choiceItems: genderData,
-                                    onChange: (selected) {
+                                    onChanged: (value) {
                                       setState(() {
-                                        _gender = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_gender),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  controller: _dobController,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime(2101));
-                                    if (pickedDate != null) {
-                                      String formattedDate =
-                                          Jiffy.parse(pickedDate.toString())
-                                              .format(pattern: 'yyyy-MM-dd');
-
-                                      setState(() {
-                                        _dobController.text = formattedDate;
                                         ref
-                                            .read(proposerDobProvider.notifier)
-                                            .state = DateTime.parse(formattedDate);
+                                            .read(adTitleProvider.notifier)
+                                            .state = value;
                                       });
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText:
+                                          "This name will appear on your ad.",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'AD Title',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText:
-                                        "This date will appear on your ad.",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Born on',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "AD Title can't be empty";
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adEmailProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Email address",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Email',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adPhoneProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Phone number",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Phone',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adWhatsappProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Ex:0710000000",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Whatsapp (without +94)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  AddFieldMainWidget(
-                      icon: Icons.location_searching_outlined,
-                      title: "Add Location",
-                      description:
-                          "Address information about your listing location",
-                      inputList: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: SmartSelect<String>.single(
-                              title: 'Distric',
-                              selectedValue: _location,
-                              choiceItems: mainLocationData,
-                              onChange: (selected) {
-                                setState(() {
-                                  _location = selected.value;
-                                  subLocationData = ref
-                                      .watch(locationsProvider)
-                                      .where((element) =>
-                                          element.location_en == selected.value)
-                                      .first
-                                      .sub_locations!
-                                      .map((e) => S2Choice<String>(
-                                          value: e!.sub_location_en.toString(),
-                                          title: e.sub_location_en
-                                              .toString()
-                                              .toString()))
-                                      .toList();
-                                });
-                              },
-                              modalType: S2ModalType.bottomSheet,
-                              tileBuilder: (context, state) {
-                                return ListTile(
-                                  title: Text(
-                                    state.title.toString(),
+                                )
+                              : const SizedBox(),
+                        ]),
+                    _cat == 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.perm_contact_cal_sharp,
+                            title: "Basic Details",
+                            description:
+                                "Take the 1st step to your happy marriage",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
                                     style: const TextStyle(
-                                      color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(proposerNameProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText:
+                                          "This name will appear on your ad.",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Name',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Proposer name can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: _genderColor),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'I am a',
+                                      selectedValue: _gender,
+                                      choiceItems: genderData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _gender = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_gender),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
                                     ),
                                   ),
-                                  subtitle: Text(_location),
-                                  trailing:
-                                      const Icon(Icons.keyboard_arrow_down),
-                                  onTap: state.showModal,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: SmartSelect<String>.single(
-                              title: 'City',
-                              selectedValue: _subLocation,
-                              choiceItems: subLocationData,
-                              onChange: (selected) {
-                                setState(() {
-                                  _subLocation = selected.value;
-                                });
-                              },
-                              modalType: S2ModalType.bottomSheet,
-                              tileBuilder: (context, state) {
-                                return ListTile(
-                                  title: Text(
-                                    state.title.toString(),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    controller: _dobController,
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(1900),
+                                              lastDate: DateTime(2101));
+                                      if (pickedDate != null) {
+                                        String formattedDate =
+                                            Jiffy.parse(pickedDate.toString())
+                                                .format(pattern: 'yyyy-MM-dd');
+
+                                        setState(() {
+                                          _dobController.text = formattedDate;
+                                          ref
+                                                  .read(proposerDobProvider
+                                                      .notifier)
+                                                  .state =
+                                              DateTime.parse(formattedDate);
+                                        });
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText:
+                                          "This date will appear on your ad.",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Born on',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Proposer DOB can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
                                     style: const TextStyle(
-                                      color: Colors.grey,
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
                                     ),
-                                  ),
-                                  subtitle: Text(_subLocation),
-                                  trailing:
-                                      const Icon(Icons.keyboard_arrow_down),
-                                  onTap: state.showModal,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        _cat != 'Proposal'
-                            ? Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adAddressProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Your bussiness address",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Address',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              )
-                            : const SizedBox(),
-                        _cat != 'Proposal'
-                            ? Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(
-                                              adGoogleAddressProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Your google bussiness address",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Google Location Address',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              )
-                            : const SizedBox(),
-                      ]),
-                  _cat != 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.menu_book_outlined,
-                          title: "Full Details",
-                          description:
-                              "Write full details information about listing",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adPriceProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Price range - LKR 0.00",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Price',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: askPrice,
                                     onChanged: (value) {
                                       setState(() {
-                                        askPrice = value!;
+                                        ref
+                                            .read(adEmailProvider.notifier)
+                                            .state = value;
                                       });
                                     },
-                                  ),
-                                  const Text(
-                                    'Ask Price ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: negotiable,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        negotiable = value!;
-                                      });
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Email address",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Email',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Proposer email can't be empty";
+                                      }
+                                      return null;
                                     },
                                   ),
-                                  const Text(
-                                    'Negotiable ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adOwnerNameProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Your name",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Owner Name',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adEmailProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Email address",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Email',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
                                     ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adPhoneProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Phone number",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Phone',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Proposer phone number can't be empty";
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  validator: null,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adPhoneProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Phone number",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Phone',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
                                       fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
                                     ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adWhatsappProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Ex:0710000000",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Whatsapp (without +94)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
                                   ),
-                                  validator: null,
                                 ),
+                              ])
+                        : const SizedBox(),
+                    AddFieldMainWidget(
+                        icon: Icons.location_searching_outlined,
+                        title: "Add Location",
+                        description:
+                            "Address information about your listing location",
+                        inputList: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: _locationColor),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adWhatsappProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    //add prefix icon
-
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Ex:0710000000",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Whatsapp (without +94)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adDesignationProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Your position",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Designation (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adCompanyProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    //add prefix icon
-
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "Your company Name",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Company (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adWebSiteProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://www.example.com",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Website (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adFacebookProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://www.facebook.com",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Facebook (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adInstagramProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://wwww.instagram.com",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Instagram (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adYoutubeProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://www.youtube.com",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Youtube (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adLinkedinProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://linkedin.com",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Linkedin (optional)',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextField(
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 4,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adDescProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText:
-                                        "Write something about your Ad informations",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Description',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  // validator: null,
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  _cat != 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.card_giftcard_outlined,
-                          title: "Amenities",
-                          description:
-                              "Check full detail information aboutfacilities",
-                          inputList: [
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am1,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am1 = value!;
-                                        if (value) {
-                                          amenities.add('Elevator in Building');
-                                        } else {
-                                          amenities
-                                              .remove('Elevator in Building');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Elevator in Building ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am2,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am2 = value!;
-                                        if (value) {
-                                          amenities.add('Friendly Workspace');
-                                        } else {
-                                          amenities
-                                              .remove('Friendly Workspace');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Friendly Workspace ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am3,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am3 = value!;
-                                        if (value) {
-                                          amenities.add('Instant Book');
-                                        } else {
-                                          amenities.remove('Instant Book');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Instant Book ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am4,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am4 = value!;
-                                        if (value) {
-                                          amenities.add('Wifi');
-                                        } else {
-                                          amenities.remove('Wifi');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Wifi ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am5,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am5 = value!;
-                                        if (value) {
-                                          amenities
-                                              .add('Free Parking on Premises');
-                                        } else {
-                                          amenities.remove(
-                                              'Free Parking on Premises');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Free Parking on Premises ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am6,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am6 = value!;
-                                        if (value) {
-                                          amenities
-                                              .add('Free Parking on Street');
-                                        } else {
-                                          amenities
-                                              .remove('Free Parking on Street');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Free Parking on Street ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am7,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am7 = value!;
-                                        if (value) {
-                                          amenities.add('Smoking allowed');
-                                        } else {
-                                          amenities.remove('Smoking allowed');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Smoking allowed ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am8,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am8 = value!;
-                                        if (value) {
-                                          amenities.add('Events');
-                                        } else {
-                                          amenities.remove('Events');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Events ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am9,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am9 = value!;
-                                        if (value) {
-                                          amenities.add('Electricity');
-                                        } else {
-                                          amenities.remove('Electricity');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Electricity ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am10,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am10 = value!;
-                                        if (value) {
-                                          amenities.add('Security Cameras');
-                                        } else {
-                                          amenities.remove('Security Cameras');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Security Cameras ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am11,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am11 = value!;
-                                        if (value) {
-                                          amenities.add('Intercom');
-                                        } else {
-                                          amenities.remove('Intercom');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Intercom ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: am12,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        am12 = value!;
-                                        if (value) {
-                                          amenities.add('Door Attendant');
-                                        } else {
-                                          amenities.remove('Door Attendant');
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  const Text(
-                                    'Door Attendant ',
-                                    style: TextStyle(fontSize: 17.0),
-                                  ),
-                                ],
-                              ),
-                            ])
-                      : const SizedBox(),
-                  AddFieldMainWidget(
-                      icon: Icons.image_sharp,
-                      title: "Main Image ",
-                      description:
-                          "[Valid formats : jpg, jpeg, png][Max size : 5Mb] NOTE: If you upload image here, this will be thumbnail image",
-                      inputList: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  File image;
-                                  picker
-                                      .pickImage(
-                                          source: ImageSource.gallery,
-                                          imageQuality: 50,
-                                          maxWidth: 800,
-                                          maxHeight: 800)
-                                      .then((value) => {
-                                            if (value != null)
-                                              {
-                                                image = File(value.path),
-                                                imageUpload(
-                                                    image, value.name, "main"),
-                                                ref
-                                                    .read(mainImageProvider
-                                                        .notifier)
-                                                    .state = image.path,
-                                              }
-                                          });
+                              child: SmartSelect<String>.single(
+                                title: 'Distric',
+                                selectedValue: _location,
+                                choiceItems: mainLocationData,
+                                onChange: (selected) {
+                                  setState(() {
+                                    _location = selected.value;
+                                    subLocationData = ref
+                                        .watch(locationsProvider)
+                                        .where((element) =>
+                                            element.location_en ==
+                                            selected.value)
+                                        .first
+                                        .sub_locations!
+                                        .map((e) => S2Choice<String>(
+                                            value:
+                                                e!.sub_location_en.toString(),
+                                            title: e.sub_location_en
+                                                .toString()
+                                                .toString()))
+                                        .toList();
+                                  });
                                 },
-                                child: Container(
-                                  color: ViwahaColor.transparent,
-                                  width: 50,
-                                  height: 50,
-                                  child: Assets.lib.assets.images.photography
-                                      .image(),
-                                ),
+                                modalType: S2ModalType.bottomSheet,
+                                tileBuilder: (context, state) {
+                                  return ListTile(
+                                    title: Text(
+                                      state.title.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    subtitle: Text(_location),
+                                    trailing:
+                                        const Icon(Icons.keyboard_arrow_down),
+                                    onTap: state.showModal,
+                                  );
+                                },
                               ),
-                              ref.watch(isLoadingMainImageProvider)
-                                  ? Container(
-                                      width: 150,
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: ViwahaColor.primary),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: const Center(
-                                          child: CircularProgressIndicator()),
-                                    )
-                                  : ref.watch(mainImageProvider).isEmpty
-                                      ? Container(
-                                          width: 150,
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: ViwahaColor.primary),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                          child: Assets
-                                              .lib.assets.images.colorLogo
-                                              .image(),
-                                        )
-                                      : Container(
-                                          width: 150,
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  fit: BoxFit.fill,
-                                                  image: Image.file(File(
-                                                          ref.watch(
-                                                              mainImageProvider)))
-                                                      .image),
-                                              border: Border.all(
-                                                  color: ViwahaColor.primary),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                        )
-                            ],
+                            ),
                           ),
-                        )
-                      ]),
-                  AddFieldMainWidget(
-                      icon: Icons.image_search,
-                      title: "Add Gallery ",
-                      description:
-                          "NOTE: First uploaded image will be the thumbnail image ",
-                      inputList: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  File image;
-                                  picker
-                                      .pickImage(
-                                          source: ImageSource.gallery,
-                                          imageQuality: 50,
-                                          maxWidth: 800,
-                                          maxHeight: 800)
-                                      .then((value) => {
-                                            if (value != null)
-                                              {
-                                                image = File(value.path),
-                                                imageUpload(image, value.name,
-                                                    "gallery"),
-                                                setState(() {
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: _subLocationColor),
+                              ),
+                              child: SmartSelect<String>.single(
+                                title: 'City',
+                                selectedValue: _subLocation,
+                                choiceItems: subLocationData,
+                                onChange: (selected) {
+                                  setState(() {
+                                    _subLocation = selected.value;
+                                  });
+                                },
+                                modalType: S2ModalType.bottomSheet,
+                                tileBuilder: (context, state) {
+                                  return ListTile(
+                                    title: Text(
+                                      state.title.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    subtitle: Text(_subLocation),
+                                    trailing:
+                                        const Icon(Icons.keyboard_arrow_down),
+                                    onTap: state.showModal,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          _cat != 'Proposal'
+                              ? Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adAddressProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Your bussiness address",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Address',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          _cat != 'Proposal'
+                              ? Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adGoogleAddressProvider
+                                                .notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Your google bussiness address",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Google Location Address',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ]),
+                    _cat != 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.menu_book_outlined,
+                            title: "Full Details",
+                            description:
+                                "Write full details information about listing",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adPriceProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Price range - LKR 0.00",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Price',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      side: BorderSide(color: _askPriceColor),
+                                      value: askPrice,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          askPrice = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Ask Price ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: negotiable,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          negotiable = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Negotiable ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adOwnerNameProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Your name",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Owner Name',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Owner name can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adEmailProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Email address",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Email',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Owner email can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adPhoneProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Phone number",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Phone',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Owner phone number can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adWhatsappProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      //add prefix icon
+
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Ex:0710000000",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Whatsapp (without +94)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(
+                                                adDesignationProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Your position",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Designation (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adCompanyProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      //add prefix icon
+
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "Your company Name",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Company (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adWebSiteProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://www.example.com",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Website (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adFacebookProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://www.facebook.com",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Facebook (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adInstagramProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://wwww.instagram.com",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Instagram (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adYoutubeProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://www.youtube.com",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Youtube (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adLinkedinProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://linkedin.com",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Linkedin (optional)',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 4,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adDescProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText:
+                                          "Write something about your Ad informations",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Description',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Description can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ])
+                        : const SizedBox(),
+                    _cat != 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.card_giftcard_outlined,
+                            title: "Amenities",
+                            description:
+                                "Check full detail information aboutfacilities",
+                            inputList: [
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am1,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am1 = value!;
+                                          if (value) {
+                                            amenities
+                                                .add('Elevator in Building');
+                                          } else {
+                                            amenities
+                                                .remove('Elevator in Building');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Elevator in Building ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am2,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am2 = value!;
+                                          if (value) {
+                                            amenities.add('Friendly Workspace');
+                                          } else {
+                                            amenities
+                                                .remove('Friendly Workspace');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Friendly Workspace ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am3,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am3 = value!;
+                                          if (value) {
+                                            amenities.add('Instant Book');
+                                          } else {
+                                            amenities.remove('Instant Book');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Instant Book ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am4,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am4 = value!;
+                                          if (value) {
+                                            amenities.add('Wifi');
+                                          } else {
+                                            amenities.remove('Wifi');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Wifi ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am5,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am5 = value!;
+                                          if (value) {
+                                            amenities.add(
+                                                'Free Parking on Premises');
+                                          } else {
+                                            amenities.remove(
+                                                'Free Parking on Premises');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Free Parking on Premises ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am6,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am6 = value!;
+                                          if (value) {
+                                            amenities
+                                                .add('Free Parking on Street');
+                                          } else {
+                                            amenities.remove(
+                                                'Free Parking on Street');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Free Parking on Street ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am7,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am7 = value!;
+                                          if (value) {
+                                            amenities.add('Smoking allowed');
+                                          } else {
+                                            amenities.remove('Smoking allowed');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Smoking allowed ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am8,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am8 = value!;
+                                          if (value) {
+                                            amenities.add('Events');
+                                          } else {
+                                            amenities.remove('Events');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Events ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am9,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am9 = value!;
+                                          if (value) {
+                                            amenities.add('Electricity');
+                                          } else {
+                                            amenities.remove('Electricity');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Electricity ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am10,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am10 = value!;
+                                          if (value) {
+                                            amenities.add('Security Cameras');
+                                          } else {
+                                            amenities
+                                                .remove('Security Cameras');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Security Cameras ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am11,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am11 = value!;
+                                          if (value) {
+                                            amenities.add('Intercom');
+                                          } else {
+                                            amenities.remove('Intercom');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Intercom ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Checkbox(
+                                      value: am12,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          am12 = value!;
+                                          if (value) {
+                                            amenities.add('Door Attendant');
+                                          } else {
+                                            amenities.remove('Door Attendant');
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'Door Attendant ',
+                                      style: TextStyle(fontSize: 17.0),
+                                    ),
+                                  ],
+                                ),
+                              ])
+                        : const SizedBox(),
+                    AddFieldMainWidget(
+                        icon: Icons.image_sharp,
+                        title: "Main Image ",
+                        description:
+                            "[Valid formats : jpg, jpeg, png][Max size : 5Mb] NOTE: If you upload image here, this will be thumbnail image",
+                        inputList: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    File image;
+                                    picker
+                                        .pickImage(
+                                            source: ImageSource.gallery,
+                                            imageQuality: 50,
+                                            maxWidth: 800,
+                                            maxHeight: 800)
+                                        .then((value) => {
+                                              if (value != null)
+                                                {
+                                                  image = File(value.path),
+                                                  imageUpload(image, value.name,
+                                                      "main"),
                                                   ref
-                                                      .read(
+                                                      .read(mainImageProvider
+                                                          .notifier)
+                                                      .state = image.path,
+                                                }
+                                            });
+                                  },
+                                  child: Container(
+                                    color: ViwahaColor.transparent,
+                                    width: 50,
+                                    height: 50,
+                                    child: Assets.lib.assets.images.photography
+                                        .image(),
+                                  ),
+                                ),
+                                ref.watch(isLoadingMainImageProvider)
+                                    ? Container(
+                                        width: 150,
+                                        height: 150,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: ViwahaColor.primary),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: const Center(
+                                            child: CircularProgressIndicator()),
+                                      )
+                                    : ref.watch(mainImageProvider).isEmpty
+                                        ? Container(
+                                            width: 150,
+                                            height: 150,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: _thumbImgColor),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10))),
+                                            child: Assets
+                                                .lib.assets.images.colorLogo
+                                                .image(),
+                                          )
+                                        : Container(
+                                            width: 150,
+                                            height: 150,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: Image.file(File(
+                                                            ref.watch(
+                                                                mainImageProvider)))
+                                                        .image),
+                                                border: Border.all(
+                                                    color: ViwahaColor.primary),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10))),
+                                          )
+                              ],
+                            ),
+                          )
+                        ]),
+                    AddFieldMainWidget(
+                        icon: Icons.image_search,
+                        title: "Add Gallery *",
+                        description:
+                            "NOTE: First uploaded image will be the thumbnail image ",
+                        inputList: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    File image;
+                                    picker
+                                        .pickImage(
+                                            source: ImageSource.gallery,
+                                            imageQuality: 50,
+                                            maxWidth: 800,
+                                            maxHeight: 800)
+                                        .then((value) => {
+                                              if (value != null)
+                                                {
+                                                  image = File(value.path),
+                                                  imageUpload(image, value.name,
+                                                      "gallery"),
+                                                  setState(() {
+                                                    ref
+                                                        .read(
+                                                            imageGalleryProvider)
+                                                        .add(ImageObject(
+                                                            path: value.path));
+                                                  })
+                                                }
+                                            });
+                                  },
+                                  child: Container(
+                                    color: ViwahaColor.transparent,
+                                    width: 50,
+                                    height: 50,
+                                    child: Assets.lib.assets.images.photography
+                                        .image(),
+                                  ),
+                                ),
+                                ref.watch(isLoadingGalleryProvider)
+                                    ? Container(
+                                        width: 150,
+                                        height: 150,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: _galleryImgColor),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10))),
+                                        child: const Center(
+                                            child: CircularProgressIndicator()),
+                                      )
+                                    : ref.watch(imageGalleryProvider).isEmpty
+                                        ? Container(
+                                            width: 150,
+                                            height: 150,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: _thumbImgColor),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10))),
+                                            child: Assets
+                                                .lib.assets.images.colorLogo
+                                                .image(),
+                                          )
+                                        : SizedBox(
+                                            width: 150,
+                                            height: 150,
+                                            child: SingleChildScrollView(
+                                              child: ListView.builder(
+                                                  physics:
+                                                      const NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: ref
+                                                      .watch(
                                                           imageGalleryProvider)
-                                                      .add(ImageObject(
-                                                          path: value.path));
-                                                })
-                                              }
-                                          });
-                                },
-                                child: Container(
-                                  color: ViwahaColor.transparent,
-                                  width: 50,
-                                  height: 50,
-                                  child: Assets.lib.assets.images.photography
-                                      .image(),
+                                                      .length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 5,
+                                                              bottom: 5),
+                                                      child: Container(
+                                                        width: 130,
+                                                        height: 130,
+                                                        decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                image: Image.file(File(ref
+                                                                        .watch(imageGalleryProvider)[
+                                                                            index]
+                                                                        .path
+                                                                        .toString()))
+                                                                    .image),
+                                                            border: Border.all(
+                                                                color: ViwahaColor
+                                                                    .primary),
+                                                            borderRadius:
+                                                                const BorderRadius.all(
+                                                                    Radius.circular(10))),
+                                                      ),
+                                                    );
+                                                  }),
+                                            ),
+                                          )
+                              ],
+                            ),
+                          )
+                        ]),
+                    _cat == 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.document_scanner_outlined,
+                            title: "Proposal Details",
+                            description:
+                                "Write full detail information about you",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Height',
+                                      selectedValue: _heightData,
+                                      choiceItems: heightData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _heightData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_heightData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              ref.watch(isLoadingGalleryProvider)
-                                  ? Container(
-                                      width: 150,
-                                      height: 150,
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Weight',
+                                      selectedValue: _weightData,
+                                      choiceItems: weightData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _weightData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_weightData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'body',
+                                      selectedValue: _bodyData,
+                                      choiceItems: bodyData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _bodyData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_bodyData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Appearance',
+                                      selectedValue: _appearanceData,
+                                      choiceItems: appearanceData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _appearanceData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_appearanceData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Complexion',
+                                      selectedValue: _complexionData,
+                                      choiceItems: complexionData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _complexionData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_complexionData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Marital Status',
+                                      selectedValue: _maritalStatusData,
+                                      choiceItems: maritalStatusData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _maritalStatusData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_maritalStatusData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Education',
+                                      selectedValue: _eduData,
+                                      choiceItems: eduData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _eduData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_eduData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Career',
+                                      selectedValue: _carrerData,
+                                      choiceItems: carrerData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _carrerData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_carrerData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Religion',
+                                      selectedValue: _religionData,
+                                      choiceItems: religionData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _religionData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_religionData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Ethnicity',
+                                      selectedValue: _ethnicityData,
+                                      choiceItems: ethnicityData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _ethnicityData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_ethnicityData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Social Class',
+                                      selectedValue: _socialClassData,
+                                      choiceItems: socialClassData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _socialClassData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_socialClassData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Residency',
+                                      selectedValue: _residencyData,
+                                      choiceItems: residencyData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _residencyData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_residencyData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Family Values',
+                                      selectedValue: _familyValuesData,
+                                      choiceItems: familyValuesData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _familyValuesData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_familyValuesData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Smoking',
+                                      selectedValue: _smokingData,
+                                      choiceItems: smokingData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _smokingData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_smokingData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Drinking',
+                                      selectedValue: _drinkingData,
+                                      choiceItems: drinkingData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _drinkingData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_drinkingData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Diet',
+                                      selectedValue: _dietData,
+                                      choiceItems: dietData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _dietData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_dietData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Personality',
+                                      selectedValue: _personalityData,
+                                      choiceItems: personalityData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _personalityData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_personalityData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Next Step',
+                                      selectedValue: _nextStepData,
+                                      choiceItems: nextStepData,
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _nextStepData = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_nextStepData),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 4,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adDescProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText:
+                                          "Write something about your Ad informations",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Your Proposal Description',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Description can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ])
+                        : const SizedBox(),
+                    _cat == 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.person_pin_rounded,
+                            title: "Social Media Links",
+                            description: "Links for you social media profiles",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adFacebookProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://facebook.com/",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Facebook',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adInstagramProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://instagram.com/",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Instagram',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adYoutubeProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://youtube.com/",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Youtube',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adLinkedinProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://linkedIn.com/",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'LinkedIn',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                              ])
+                        : const SizedBox(),
+                    _cat != 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.video_camera_back_outlined,
+                            title: "Add Video",
+                            description:
+                                "Copy and paste the youtube or facebook video link",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        ref
+                                            .read(adVideoLinkProvider.notifier)
+                                            .state = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      focusColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: ViwahaColor.primary,
+                                            width: 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      fillColor: Colors.grey,
+                                      hintText: "https://youtube.com/video",
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelText: 'Youtube video link',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontFamily: "verdana_regular",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    validator: null,
+                                  ),
+                                ),
+                              ])
+                        : const SizedBox(),
+                    _cat != 'Proposal'
+                        ? AddFieldMainWidget(
+                            icon: Icons.share_arrival_time_outlined,
+                            title: "Opening Hours",
+                            description:
+                                "Select full detail information about opening time",
+                            inputList: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Always Open',
+                                      selectedValue: _alwaysOpen,
+                                      choiceItems: [
+                                        S2Choice<String>(
+                                            title: 'No', value: 'No'),
+                                        S2Choice<String>(
+                                            title: 'Yes', value: 'Yes')
+                                      ],
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _alwaysOpen = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_alwaysOpen),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: SmartSelect<String>.single(
+                                      title: 'Open in holidays',
+                                      selectedValue: _openInHollyday,
+                                      choiceItems: [
+                                        S2Choice<String>(
+                                            title: 'No', value: 'No'),
+                                        S2Choice<String>(
+                                            title: 'Yes', value: 'Yes')
+                                      ],
+                                      onChange: (selected) {
+                                        setState(() {
+                                          _openInHollyday = selected.value;
+                                        });
+                                      },
+                                      modalType: S2ModalType.bottomSheet,
+                                      tileBuilder: (context, state) {
+                                        return ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_openInHollyday),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: ViwahaColor.primary),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: const Center(
-                                          child: CircularProgressIndicator()),
-                                    )
-                                  : ref.watch(imageGalleryProvider).isEmpty
-                                      ? Container(
-                                          width: 150,
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: ViwahaColor.primary),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                          child: Assets
-                                              .lib.assets.images.colorLogo
-                                              .image(),
-                                        )
-                                      : SizedBox(
-                                          width: 150,
-                                          height: 150,
-                                          child: SingleChildScrollView(
-                                            child: ListView.builder(
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount: ref
-                                                    .watch(imageGalleryProvider)
-                                                    .length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5, bottom: 5),
-                                                    child: Container(
-                                                      width: 130,
-                                                      height: 130,
-                                                      decoration: BoxDecoration(
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.fill,
-                                                              image: Image.file(File(ref
-                                                                      .watch(imageGalleryProvider)[
-                                                                          index]
-                                                                      .path
-                                                                      .toString()))
-                                                                  .image),
-                                                          border: Border.all(
-                                                              color: ViwahaColor
-                                                                  .primary),
-                                                          borderRadius:
-                                                              const BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10))),
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _mondayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _mondayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _mondayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
                                                     ),
+                                                    subtitle: Text(_mondayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
                                                   );
-                                                }),
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        )
-                            ],
-                          ),
-                        )
-                      ]),
-                  _cat == 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.document_scanner_outlined,
-                          title: "Proposal Details",
-                          description:
-                              "Write full detail information about you",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Height',
-                                    selectedValue: _heightData,
-                                    choiceItems: heightData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _heightData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _mondayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _mondayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_mondayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Monday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_heightData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Weight',
-                                    selectedValue: _weightData,
-                                    choiceItems: weightData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _weightData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _tuesdayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                
+                                                title: 'Opening Time',
+                                                selectedValue: _tuesdayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _tuesdayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_tuesdayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_weightData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'body',
-                                    selectedValue: _bodyData,
-                                    choiceItems: bodyData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _bodyData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _tuesdayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _tuesdayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_tuesdayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Tuesday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_bodyData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Appearance',
-                                    selectedValue: _appearanceData,
-                                    choiceItems: appearanceData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _appearanceData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _wednesdayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _wednesdayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _wednesdayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_wednesdayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_appearanceData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Complexion',
-                                    selectedValue: _complexionData,
-                                    choiceItems: complexionData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _complexionData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _wednesdayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _wednesdayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_wednesdayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Wednesday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_complexionData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Marital Status',
-                                    selectedValue: _maritalStatusData,
-                                    choiceItems: maritalStatusData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _maritalStatusData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _thursdayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _thursdayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _thursdayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_thursdayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_maritalStatusData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Education',
-                                    selectedValue: _eduData,
-                                    choiceItems: eduData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _eduData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _thursdayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _thursdayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_thursdayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Thursday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_eduData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Career',
-                                    selectedValue: _carrerData,
-                                    choiceItems: carrerData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _carrerData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _fridayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _fridayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _fridayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle: Text(_fridayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_carrerData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Religion',
-                                    selectedValue: _religionData,
-                                    choiceItems: religionData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _religionData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _fridayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _fridayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_fridayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Friday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_religionData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Ethnicity',
-                                    selectedValue: _ethnicityData,
-                                    choiceItems: ethnicityData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _ethnicityData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _saturedayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _saturedayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _saturedayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_saturedayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_ethnicityData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Social Class',
-                                    selectedValue: _socialClassData,
-                                    choiceItems: socialClassData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _socialClassData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _saturedayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _saturedayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_saturedayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Saturday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_socialClassData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Residency',
-                                    selectedValue: _residencyData,
-                                    choiceItems: residencyData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _residencyData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 200,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          20, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ViwahaColor.primary,
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(5),
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: _sundayOpenColor),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Opening Time',
+                                                selectedValue: _sundayOpen,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _sundayOpen =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle: Text(_sundayOpen),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        subtitle: Text(_residencyData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Family Values',
-                                    selectedValue: _familyValuesData,
-                                    choiceItems: familyValuesData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _familyValuesData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
+                                          Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                              ),
+                                              child: SmartSelect<String>.single(
+                                                title: 'Closing Time',
+                                                selectedValue: _sundayClose,
+                                                choiceItems: timeData,
+                                                onChange: (selected) {
+                                                  setState(() {
+                                                    _sundayClose =
+                                                        selected.value;
+                                                  });
+                                                },
+                                                modalType:
+                                                    S2ModalType.bottomSheet,
+                                                tileBuilder: (context, state) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      state.title.toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 18,
+                                                        fontFamily:
+                                                            "verdana_regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    subtitle:
+                                                        Text(_sundayClose),
+                                                    trailing: const Icon(Icons
+                                                        .keyboard_arrow_down),
+                                                    onTap: state.showModal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 50,
+                                      top: 12,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, left: 10, right: 10),
+                                        color: Colors.white,
+                                        child: const Text(
+                                          'Sunday',
+                                          style: TextStyle(
+                                              color: ViwahaColor.primary,
+                                              fontSize: 12),
                                         ),
-                                        subtitle: Text(_familyValuesData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Smoking',
-                                    selectedValue: _smokingData,
-                                    choiceItems: smokingData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _smokingData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_smokingData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Drinking',
-                                    selectedValue: _drinkingData,
-                                    choiceItems: drinkingData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _drinkingData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_drinkingData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Diet',
-                                    selectedValue: _dietData,
-                                    choiceItems: dietData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _dietData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_dietData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Personality',
-                                    selectedValue: _personalityData,
-                                    choiceItems: personalityData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _personalityData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_personalityData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Next Step',
-                                    selectedValue: _nextStepData,
-                                    choiceItems: nextStepData,
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _nextStepData = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_nextStepData),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 4,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref.read(adDescProvider.notifier).state =
-                                          value;
-                                    });
-                                  },
+                              ])
+                        : const SizedBox(),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: FractionallySizedBox(
+                          widthFactor: 0.8,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) {
+                                return;
+                              } else if (_cat != 'Proposal') {
+                                if (_cat == 'Select one' ||
+                                    _subCat == 'Select one' ||
+                                    _location == 'Select one' ||
+                                    _subLocation == 'Select one' ||
+                                    _mondayOpen == 'Select one' ||
+                                    _tuesdayOpen == 'Select one' ||
+                                    _wednesdayOpen == 'Select one' ||
+                                    _thursdayOpen == 'Select one' ||
+                                    _fridayOpen == 'Select one' ||
+                                    _saturedayOpen == 'Select one' ||
+                                    _sundayOpen == 'Select one' ||
+                                    askPrice == false ||
+                                    ref.watch(imageGalleryProvider).isEmpty ||
+                                    ref.watch(mainImageProvider) == '') {
+                                  setState(() {
+                                    _catColor = Colors.red;
+                                    _subCatColor = Colors.red;
+                                    _locationColor = Colors.red;
+                                    _subLocationColor = Colors.red;
+                                    _mondayOpenColor = Colors.red;
+                                    _tuesdayOpenColor = Colors.red;
+                                    _wednesdayOpenColor = Colors.red;
+                                    _thursdayOpenColor = Colors.red;
+                                    _fridayOpenColor = Colors.red;
+                                    _saturedayOpenColor = Colors.red;
+                                    _sundayOpenColor = Colors.red;
+                                    _askPriceColor = Colors.red;
+                                    _galleryImgColor = Colors.red;
+                                    _thumbImgColor = Colors.red;
+                                  });
 
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText:
-                                        "Write something about your Ad informations",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Your Proposal Description',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  // validator: null,
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  _cat == 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.person_pin_rounded,
-                          title: "Social Media Links",
-                          description: "Links for you social media profiles",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adFacebookProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://facebook.com/",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Facebook',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adInstagramProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://instagram.com/",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Instagram',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adYoutubeProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://youtube.com/",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Youtube',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adLinkedinProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://linkedIn.com/",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'LinkedIn',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  _cat != 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.video_camera_back_outlined,
-                          title: "Add Video",
-                          description:
-                              "Copy and paste the youtube or facebook video link",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      ref
-                                          .read(adVideoLinkProvider.notifier)
-                                          .state = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: ViwahaColor.primary,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintText: "https://youtube.com/video",
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Youtube video link',
-                                    labelStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  validator: null,
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  _cat != 'Proposal'
-                      ? AddFieldMainWidget(
-                          icon: Icons.share_arrival_time_outlined,
-                          title: "Opening Hours",
-                          description:
-                              "Select full detail information about opening time",
-                          inputList: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Always Open',
-                                    selectedValue: _alwaysOpen,
-                                    choiceItems: [
-                                      S2Choice<String>(
-                                          title: 'No', value: 'No'),
-                                      S2Choice<String>(
-                                          title: 'Yes', value: 'Yes')
-                                    ],
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _alwaysOpen = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_alwaysOpen),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: SmartSelect<String>.single(
-                                    title: 'Open in holidays',
-                                    selectedValue: _openInHollyday,
-                                    choiceItems: [
-                                      S2Choice<String>(
-                                          title: 'No', value: 'No'),
-                                      S2Choice<String>(
-                                          title: 'Yes', value: 'Yes')
-                                    ],
-                                    onChange: (selected) {
-                                      setState(() {
-                                        _openInHollyday = selected.value;
-                                      });
-                                    },
-                                    modalType: S2ModalType.bottomSheet,
-                                    tileBuilder: (context, state) {
-                                      return ListTile(
-                                        title: Text(
-                                          state.title.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18,
-                                            fontFamily: "verdana_regular",
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        subtitle: Text(_openInHollyday),
-                                        trailing: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        onTap: state.showModal,
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _mondayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _mondayOpen = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_mondayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _mondayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _mondayClose = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_mondayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Monday',
+                                  SnackBar snackBar = SnackBar(
+                                    content: const Text(
+                                        'Please make sure to fill in all the required fields.',
                                         style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
+                                            fontSize: 15, color: Colors.white)),
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(
+                                          color: Colors.red, width: 1),
+                                      borderRadius: BorderRadius.circular(24),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _tuesdayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _tuesdayOpen = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_tuesdayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _tuesdayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _tuesdayClose =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_tuesdayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Tuesday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _wednesdayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _wednesdayOpen =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle:
-                                                      Text(_wednesdayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _wednesdayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _wednesdayClose =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle:
-                                                      Text(_wednesdayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Wednesday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _thursdayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _thursdayOpen =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_thursdayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _thursdayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _thursdayClose =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle:
-                                                      Text(_thursdayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Thursday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _fridayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _fridayOpen = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_fridayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _fridayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _fridayClose = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_fridayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Friday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _saturedayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _saturedayOpen =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle:
-                                                      Text(_saturedayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _saturedayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _saturedayClose =
-                                                      selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle:
-                                                      Text(_saturedayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Saturday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 200,
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 20, 20, 10),
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ViwahaColor.primary, width: 1),
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Opening Time',
-                                              selectedValue: _sundayOpen,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _sundayOpen = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_sundayOpen),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: SmartSelect<String>.single(
-                                              title: 'Closing Time',
-                                              selectedValue: _sundayClose,
-                                              choiceItems: timeData,
-                                              onChange: (selected) {
-                                                setState(() {
-                                                  _sundayClose = selected.value;
-                                                });
-                                              },
-                                              modalType:
-                                                  S2ModalType.bottomSheet,
-                                              tileBuilder: (context, state) {
-                                                return ListTile(
-                                                  title: Text(
-                                                    state.title.toString(),
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 18,
-                                                      fontFamily:
-                                                          "verdana_regular",
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  subtitle: Text(_sundayClose),
-                                                  trailing: const Icon(Icons
-                                                      .keyboard_arrow_down),
-                                                  onTap: state.showModal,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 50,
-                                    top: 12,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 10, left: 10, right: 10),
-                                      color: Colors.white,
-                                      child: const Text(
-                                        'Sunday',
-                                        style: TextStyle(
-                                            color: ViwahaColor.primary,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ])
-                      : const SizedBox(),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: FractionallySizedBox(
-                        widthFactor: 0.8,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            var newList;
-                            ref
-                                .read(addListingViewStateProvider.notifier)
-                                .state = const AsyncValue.loading();
-                            if (_cat != 'Proposal') {
-                              newList = {
-                                "userId": ref.read(userProvider).user!.id,
-                                "title": ref.read(adTitleProvider),
-                                "category": _subCat,
-                                "address": ref.read(adAddressProvider),
-                                "location": _subLocation,
-                                "googleplace":
-                                    ref.read(adGoogleAddressProvider),
-                                "video": ref.read(adVideoLinkProvider),
-                                "video1": "",
-                                "video2": "",
-                                "video3": "",
-                                "video4": "",
-                                "video5": "",
-                                "name": ref.read(adOwnerNameProvider),
-                                "email": ref.read(adEmailProvider),
-                                "phone": ref.read(adPhoneProvider),
-                                "whatsapp": ref.read(adWhatsappProvider),
-                                "website": ref.read(adWebSiteProvider),
-                                "designation": ref.read(adDesignationProvider),
-                                "amenities": amenities.toString(),
-                                "company": ref.read(adCompanyProvider),
-                                "facebook": ref.read(adFacebookProvider),
-                                "instagram": ref.read(adInstagramProvider),
-                                "youtube": ref.read(adYoutubeProvider),
-                                "linkedin": ref.read(adLinkedinProvider),
-                                "description": ref.read(adDescProvider),
-                                "saturdayOpenTime":
-                                    _saturedayOpen == "Select one"
-                                        ? ""
-                                        : _saturedayOpen,
-                                "saturdayCloseTime":
-                                    _saturedayClose == "Select one"
-                                        ? ""
-                                        : _saturedayClose,
-                                "sundayOpenTime": _sundayOpen == "Select one"
-                                    ? ""
-                                    : _sundayOpen,
-                                "sundayCloseTime": _sundayClose == "Select one"
-                                    ? ""
-                                    : _sundayClose,
-                                "mondayOpenTime": _mondayOpen == "Select one"
-                                    ? ""
-                                    : _mondayOpen,
-                                "mondayCloseTime": _mondayClose == "Select one"
-                                    ? ""
-                                    : _mondayClose,
-                                "tuesdayOpenTime": _tuesdayOpen == "Select one"
-                                    ? ""
-                                    : _tuesdayOpen,
-                                "tuesdayCloseTime":
-                                    _tuesdayClose == "Select one"
-                                        ? ""
-                                        : _tuesdayClose,
-                                "wednesdayOpenTime":
-                                    _wednesdayOpen == "Select one"
-                                        ? ""
-                                        : _wednesdayOpen,
-                                "wednesdayCloseTime":
-                                    _wednesdayClose == "Select one"
-                                        ? ""
-                                        : _wednesdayClose,
-                                "thursdayOpenTime":
-                                    _thursdayOpen == "Select one"
-                                        ? ""
-                                        : _thursdayOpen,
-                                "thursdayCloseTime":
-                                    _thursdayClose == "Select one"
-                                        ? ""
-                                        : _thursdayClose,
-                                "fridayOpenTime": _fridayOpen == "Select one"
-                                    ? ""
-                                    : _fridayOpen,
-                                "fridayCloseTime": _fridayClose == "Select one"
-                                    ? ""
-                                    : _fridayClose,
-                                "alwaysOpen": _alwaysOpen == "Select one"
-                                    ? ""
-                                    : _alwaysOpen,
-                                "openHoliday": _openInHollyday == "Select one"
-                                    ? ""
-                                    : _openInHollyday,
-                                "mainLocation": _location,
-                                "mainCategory": _cat,
-                                "price": ref.read(adPriceProvider),
-                                "askPrice": askPrice == false ? 0 : 1,
-                                "negotiable": negotiable == false ? 0 : 1,
-                                "duplicate": "",
-                                "uniqueImageName11": "",
-                                "gallery_images":
-                                    ref.read(imageNameGalleryProvider),
-                                "file1": ref.read(mainImageNameProvider)
-                              };
-                            } else {
-                              newList = {
-                                "name": ref.read(proposerNameProvider),
-                                "userId": ref.read(userProvider).user!.id,
-                                "gender": _genderData,
-                                "birthday": ref.read(proposerDobProvider).day,
-                                "birthmonth":
-                                    ref.read(proposerDobProvider).month,
-                                "birthyear": ref.read(proposerDobProvider).year,
-                                "height": _heightData,
-                                "weight": _weightData,
-                                "body": _bodyData,
-                                "appearance": _appearanceData,
-                                "complexion": _complexionData,
-                                "maritial": _maritalStatusData,
-                                "education": _eduData,
-                                "career": _carrerData,
-                                "religion": _religionData,
-                                "ethnicity": _ethnicityData,
-                                "social_class": _socialClassData,
-                                "residency": _residencyData,
-                                "family_values": _familyValuesData,
-                                "smoking": _smokingData,
-                                "drinking": _drinkingData,
-                                "diet": _dietData,
-                                "personality": _personalityData,
-                                "next_step": _nextStepData,
-                                "facebook": ref.read(adFacebookProvider),
-                                "instagram": ref.read(adInstagramProvider),
-                                "youtube": ref.read(adYoutubeProvider),
-                                "linkedin": ref.read(adLinkedinProvider),
-                                "description": ref.read(adDescProvider),
-                                "phone": ref.read(adPhoneProvider),
-                                "whatsapp": ref.read(adWhatsappProvider),
-                                "email": ref.read(adEmailProvider),
-                                "gallery_images":
-                                    ref.read(imageNameGalleryProvider),
-                                "file1": ref.read(mainImageNameProvider)
-                              };
-                            }
+                                    backgroundColor: ViwahaColor.primary,
+                                    dismissDirection: DismissDirection.up,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.of(context).size.height -
+                                                250,
+                                        left: 50,
+                                        right: 50),
+                                  );
 
-                            controller.addNewListing(newList);
-                          },
-                          icon: const Icon(Icons.add_box_outlined),
-                          label: const Text('ADD YOUR LISTING'),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  _formKey.currentState!.save();
+                                  Map<String, Object?> newList;
+                                  ref
+                                      .read(
+                                          addListingViewStateProvider.notifier)
+                                      .state = const AsyncValue.loading();
+
+                                  newList = {
+                                    "userId": ref.read(userProvider).user!.id,
+                                    "title": ref.read(adTitleProvider),
+                                    "category": _subCat,
+                                    "address": ref.read(adAddressProvider),
+                                    "location": _subLocation,
+                                    "googleplace":
+                                        ref.read(adGoogleAddressProvider),
+                                    "video": ref.read(adVideoLinkProvider),
+                                    "video1": "",
+                                    "video2": "",
+                                    "video3": "",
+                                    "video4": "",
+                                    "video5": "",
+                                    "name": ref.read(adOwnerNameProvider),
+                                    "email": ref.read(adEmailProvider),
+                                    "phone": ref.read(adPhoneProvider),
+                                    "whatsapp": ref.read(adWhatsappProvider),
+                                    "website": ref.read(adWebSiteProvider),
+                                    "designation":
+                                        ref.read(adDesignationProvider),
+                                    "amenities": amenities.toString(),
+                                    "company": ref.read(adCompanyProvider),
+                                    "facebook": ref.read(adFacebookProvider),
+                                    "instagram": ref.read(adInstagramProvider),
+                                    "youtube": ref.read(adYoutubeProvider),
+                                    "linkedin": ref.read(adLinkedinProvider),
+                                    "description": ref.read(adDescProvider),
+                                    "saturdayOpenTime":
+                                        _saturedayOpen == "Select one"
+                                            ? ""
+                                            : _saturedayOpen,
+                                    "saturdayCloseTime":
+                                        _saturedayClose == "Select one"
+                                            ? ""
+                                            : _saturedayClose,
+                                    "sundayOpenTime":
+                                        _sundayOpen == "Select one"
+                                            ? ""
+                                            : _sundayOpen,
+                                    "sundayCloseTime":
+                                        _sundayClose == "Select one"
+                                            ? ""
+                                            : _sundayClose,
+                                    "mondayOpenTime":
+                                        _mondayOpen == "Select one"
+                                            ? ""
+                                            : _mondayOpen,
+                                    "mondayCloseTime":
+                                        _mondayClose == "Select one"
+                                            ? ""
+                                            : _mondayClose,
+                                    "tuesdayOpenTime":
+                                        _tuesdayOpen == "Select one"
+                                            ? ""
+                                            : _tuesdayOpen,
+                                    "tuesdayCloseTime":
+                                        _tuesdayClose == "Select one"
+                                            ? ""
+                                            : _tuesdayClose,
+                                    "wednesdayOpenTime":
+                                        _wednesdayOpen == "Select one"
+                                            ? ""
+                                            : _wednesdayOpen,
+                                    "wednesdayCloseTime":
+                                        _wednesdayClose == "Select one"
+                                            ? ""
+                                            : _wednesdayClose,
+                                    "thursdayOpenTime":
+                                        _thursdayOpen == "Select one"
+                                            ? ""
+                                            : _thursdayOpen,
+                                    "thursdayCloseTime":
+                                        _thursdayClose == "Select one"
+                                            ? ""
+                                            : _thursdayClose,
+                                    "fridayOpenTime":
+                                        _fridayOpen == "Select one"
+                                            ? ""
+                                            : _fridayOpen,
+                                    "fridayCloseTime":
+                                        _fridayClose == "Select one"
+                                            ? ""
+                                            : _fridayClose,
+                                    "alwaysOpen": _alwaysOpen == "Select one"
+                                        ? ""
+                                        : _alwaysOpen,
+                                    "openHoliday":
+                                        _openInHollyday == "Select one"
+                                            ? ""
+                                            : _openInHollyday,
+                                    "mainLocation": _location,
+                                    "mainCategory": _cat,
+                                    "price": ref.read(adPriceProvider),
+                                    "askPrice": askPrice == false ? 0 : 1,
+                                    "negotiable": negotiable == false ? 0 : 1,
+                                    "duplicate": "",
+                                    "uniqueImageName11": "",
+                                    "gallery_images":
+                                        ref.read(imageNameGalleryProvider),
+                                    "file1": ref.read(mainImageNameProvider)
+                                  };
+
+                                  controller.addNewListing(newList);
+                                }
+                              } else {
+                                if (_gender == 'Select one' ||
+                                    _cat == 'Select one' ||
+                                    _subCat == 'Select one' ||
+                                    _location == 'Select one' ||
+                                    _subLocation == 'Select one' ||
+                                    ref.watch(imageGalleryProvider).isEmpty ||
+                                    ref.watch(mainImageProvider) == '') {
+                                  setState(() {
+                                    _genderColor = Colors.red;
+                                    _catColor = Colors.red;
+                                    _subCatColor = Colors.red;
+                                    _locationColor = Colors.red;
+                                    _subLocationColor = Colors.red;
+                                    _galleryImgColor = Colors.red;
+                                    _thumbImgColor = Colors.red;
+                                  });
+
+                                  SnackBar snackBar = SnackBar(
+                                    content: const Text(
+                                        'Please make sure to fill in all the required fields.',
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.white)),
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(
+                                          color: Colors.red, width: 1),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    backgroundColor: ViwahaColor.primary,
+                                    dismissDirection: DismissDirection.up,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.of(context).size.height -
+                                                250,
+                                        left: 50,
+                                        right: 50),
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  _formKey.currentState!.save();
+                                  Map<String, Object?> newList;
+                                  ref
+                                      .read(
+                                          addListingViewStateProvider.notifier)
+                                      .state = const AsyncValue.loading();
+
+                                  newList = {
+                                    "name": ref.read(proposerNameProvider),
+                                    "userId": ref.read(userProvider).user!.id,
+                                    "category": _subCat,
+                                    "location": _subLocation,
+                                    "mainLocation": _location,
+                                    "mainCategory": _cat,
+                                    "gender": _gender,
+                                    "birthday":
+                                        ref.read(proposerDobProvider).day,
+                                    "birthmonth":
+                                        ref.read(proposerDobProvider).month,
+                                    "birthyear":
+                                        ref.read(proposerDobProvider).year,
+                                    "height": _heightData,
+                                    "weight": _weightData,
+                                    "body": _bodyData,
+                                    "appearance": _appearanceData,
+                                    "complexion": _complexionData,
+                                    "maritial": _maritalStatusData,
+                                    "education": _eduData,
+                                    "career": _carrerData,
+                                    "religion": _religionData,
+                                    "ethnicity": _ethnicityData,
+                                    "social_class": _socialClassData,
+                                    "residency": _residencyData,
+                                    "family_values": _familyValuesData,
+                                    "smoking": _smokingData,
+                                    "drinking": _drinkingData,
+                                    "diet": _dietData,
+                                    "personality": _personalityData,
+                                    "next_step": _nextStepData,
+                                    "facebook": ref.read(adFacebookProvider),
+                                    "instagram": ref.read(adInstagramProvider),
+                                    "youtube": ref.read(adYoutubeProvider),
+                                    "linkedin": ref.read(adLinkedinProvider),
+                                    "description": ref.read(adDescProvider),
+                                    "phone": ref.read(adPhoneProvider),
+                                    "whatsapp": ref.read(adWhatsappProvider),
+                                    "email": ref.read(adEmailProvider),
+                                    "gallery_images":
+                                        ref.read(imageNameGalleryProvider),
+                                    "file1": ref.read(mainImageNameProvider)
+                                  };
+
+                                  controller.addNewListing(newList);
+                                }
+                              }
+                            },
+                            icon: const Icon(Icons.add_box_outlined),
+                            label: const Text('ADD YOUR LISTING'),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  )
-                ],
+                    const SizedBox(
+                      height: 50,
+                    )
+                  ],
+                ),
               ),
             ),
           )),

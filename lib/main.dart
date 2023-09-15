@@ -6,8 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:viwaha_lk/translations/codegen_loader.g.dart';
 
 Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   // if (kIsWeb || defaultTargetPlatform == TargetPlatform.macOS) {
   //   // initialiaze the facebook javascript SDK
   //   await FacebookAuth.instance.webAndDesktopInitialize(
@@ -17,7 +21,11 @@ Future<void> main() async {
   //     version: "v15.0",
   //   );
   // }
-  runApp(ProviderScope(child: App()));
+  runApp(EasyLocalization(path: 'assets/translations',supportedLocales: const [
+      Locale('en'),
+      Locale('si'),
+      Locale('ta'),
+    ], fallbackLocale: const Locale('en'),assetLoader: const CodegenLoader(),child: ProviderScope(child: App())));
 }
 
 // assuing this is the root widget of your App
@@ -28,6 +36,10 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.read(appRouterProvider);
     return MaterialApp.router(
+       supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
+       debugShowCheckedModeBanner: false,
       title: 'Viwaha App',
       theme: MyTheme.lightTheme,
       routerDelegate: AutoRouterDelegate(

@@ -234,13 +234,21 @@ packages:
     source: hosted
     version: "3.0.0"
   convert:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: convert
       sha256: "0f08b14755d163f6e2134cb58222dd25ea2a2ee8a195e53983d57c075324d592"
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  country_flags:
+    dependency: "direct main"
+    description:
+      name: country_flags
+      sha256: "500ba4d1052cc50848f1207cfd041cc91ee60e08492b2ccd8d7916980c75d63e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -297,6 +305,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.6"
+  easy_localization:
+    dependency: "direct main"
+    description:
+      name: easy_localization
+      sha256: de63e3b422adfc97f256cbb3f8cf12739b6a4993d390f3cadb3f51837afaefe5
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
+  easy_logger:
+    dependency: transitive
+    description:
+      name: easy_logger
+      sha256: c764a6e024846f33405a2342caf91c62e357c24b02c04dbc712ef232bf30ffb7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   expand_widget:
     dependency: "direct main"
     description:
@@ -467,14 +491,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  flutter_sinhala:
-    dependency: "direct main"
-    description:
-      name: flutter_sinhala
-      sha256: "826f739ef05a6be4c0e39f7b0b50895d5dfec1bc4e951e09d1ef530b5d6d61ae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   flutter_social_button:
     dependency: "direct main"
     description:
@@ -725,6 +741,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.1"
+  jovial_misc:
+    dependency: transitive
+    description:
+      name: jovial_misc
+      sha256: f6e64f789ee311025bb367be9c9afe9759f76dd8209070b7f38e735b5f529eb1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.5"
+  jovial_svg:
+    dependency: transitive
+    description:
+      name: jovial_svg
+      sha256: "5365abf2f021da99dba3eb391f495509561de077a3893ae55e76233775790370"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.14"
   js:
     dependency: transitive
     description:

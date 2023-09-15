@@ -27,6 +27,7 @@ mixin _$SearchResultItem {
   String? get category => throw _privateConstructorUsedError;
   String? get main_category => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
+  String? get googleplace => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
   String? get main_location => throw _privateConstructorUsedError;
   String? get video => throw _privateConstructorUsedError;
@@ -69,6 +70,31 @@ mixin _$SearchResultItem {
   String? get ask_price => throw _privateConstructorUsedError;
   String? get negotiable => throw _privateConstructorUsedError;
   String? get boosted => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
+  String? get birthday => throw _privateConstructorUsedError;
+  String? get birthmonth => throw _privateConstructorUsedError;
+  String? get birthyear => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
+  String? get province => throw _privateConstructorUsedError;
+  String? get city => throw _privateConstructorUsedError;
+  String? get height => throw _privateConstructorUsedError;
+  String? get weight => throw _privateConstructorUsedError;
+  String? get body => throw _privateConstructorUsedError;
+  String? get appearance => throw _privateConstructorUsedError;
+  String? get complexion => throw _privateConstructorUsedError;
+  String? get maritial => throw _privateConstructorUsedError;
+  String? get education => throw _privateConstructorUsedError;
+  String? get career => throw _privateConstructorUsedError;
+  String? get religion => throw _privateConstructorUsedError;
+  String? get ethnicity => throw _privateConstructorUsedError;
+  String? get social_class => throw _privateConstructorUsedError;
+  String? get residency => throw _privateConstructorUsedError;
+  String? get family_values => throw _privateConstructorUsedError;
+  String? get smoking => throw _privateConstructorUsedError;
+  String? get drinking => throw _privateConstructorUsedError;
+  String? get diet => throw _privateConstructorUsedError;
+  String? get personality => throw _privateConstructorUsedError;
+  String? get next_step => throw _privateConstructorUsedError;
   String? get average_rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -91,6 +117,7 @@ abstract class $SearchResultItemCopyWith<$Res> {
       String? category,
       String? main_category,
       String? address,
+      String? googleplace,
       String? location,
       String? main_location,
       String? video,
@@ -133,6 +160,31 @@ abstract class $SearchResultItemCopyWith<$Res> {
       String? ask_price,
       String? negotiable,
       String? boosted,
+      String? gender,
+      String? birthday,
+      String? birthmonth,
+      String? birthyear,
+      String? country,
+      String? province,
+      String? city,
+      String? height,
+      String? weight,
+      String? body,
+      String? appearance,
+      String? complexion,
+      String? maritial,
+      String? education,
+      String? career,
+      String? religion,
+      String? ethnicity,
+      String? social_class,
+      String? residency,
+      String? family_values,
+      String? smoking,
+      String? drinking,
+      String? diet,
+      String? personality,
+      String? next_step,
       String? average_rating});
 }
 
@@ -156,6 +208,7 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
     Object? category = freezed,
     Object? main_category = freezed,
     Object? address = freezed,
+    Object? googleplace = freezed,
     Object? location = freezed,
     Object? main_location = freezed,
     Object? video = freezed,
@@ -198,6 +251,31 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
     Object? ask_price = freezed,
     Object? negotiable = freezed,
     Object? boosted = freezed,
+    Object? gender = freezed,
+    Object? birthday = freezed,
+    Object? birthmonth = freezed,
+    Object? birthyear = freezed,
+    Object? country = freezed,
+    Object? province = freezed,
+    Object? city = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? body = freezed,
+    Object? appearance = freezed,
+    Object? complexion = freezed,
+    Object? maritial = freezed,
+    Object? education = freezed,
+    Object? career = freezed,
+    Object? religion = freezed,
+    Object? ethnicity = freezed,
+    Object? social_class = freezed,
+    Object? residency = freezed,
+    Object? family_values = freezed,
+    Object? smoking = freezed,
+    Object? drinking = freezed,
+    Object? diet = freezed,
+    Object? personality = freezed,
+    Object? next_step = freezed,
     Object? average_rating = freezed,
   }) {
     return _then(_value.copyWith(
@@ -229,6 +307,10 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      googleplace: freezed == googleplace
+          ? _value.googleplace
+          : googleplace // ignore: cast_nullable_to_non_nullable
+              as String?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -397,6 +479,106 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
           ? _value.boosted
           : boosted // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthmonth: freezed == birthmonth
+          ? _value.birthmonth
+          : birthmonth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthyear: freezed == birthyear
+          ? _value.birthyear
+          : birthyear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as String?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appearance: freezed == appearance
+          ? _value.appearance
+          : appearance // ignore: cast_nullable_to_non_nullable
+              as String?,
+      complexion: freezed == complexion
+          ? _value.complexion
+          : complexion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      maritial: freezed == maritial
+          ? _value.maritial
+          : maritial // ignore: cast_nullable_to_non_nullable
+              as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as String?,
+      career: freezed == career
+          ? _value.career
+          : career // ignore: cast_nullable_to_non_nullable
+              as String?,
+      religion: freezed == religion
+          ? _value.religion
+          : religion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ethnicity: freezed == ethnicity
+          ? _value.ethnicity
+          : ethnicity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      social_class: freezed == social_class
+          ? _value.social_class
+          : social_class // ignore: cast_nullable_to_non_nullable
+              as String?,
+      residency: freezed == residency
+          ? _value.residency
+          : residency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      family_values: freezed == family_values
+          ? _value.family_values
+          : family_values // ignore: cast_nullable_to_non_nullable
+              as String?,
+      smoking: freezed == smoking
+          ? _value.smoking
+          : smoking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      drinking: freezed == drinking
+          ? _value.drinking
+          : drinking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      diet: freezed == diet
+          ? _value.diet
+          : diet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      personality: freezed == personality
+          ? _value.personality
+          : personality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next_step: freezed == next_step
+          ? _value.next_step
+          : next_step // ignore: cast_nullable_to_non_nullable
+              as String?,
       average_rating: freezed == average_rating
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
@@ -421,6 +603,7 @@ abstract class _$$_SearchResultItemCopyWith<$Res>
       String? category,
       String? main_category,
       String? address,
+      String? googleplace,
       String? location,
       String? main_location,
       String? video,
@@ -463,6 +646,31 @@ abstract class _$$_SearchResultItemCopyWith<$Res>
       String? ask_price,
       String? negotiable,
       String? boosted,
+      String? gender,
+      String? birthday,
+      String? birthmonth,
+      String? birthyear,
+      String? country,
+      String? province,
+      String? city,
+      String? height,
+      String? weight,
+      String? body,
+      String? appearance,
+      String? complexion,
+      String? maritial,
+      String? education,
+      String? career,
+      String? religion,
+      String? ethnicity,
+      String? social_class,
+      String? residency,
+      String? family_values,
+      String? smoking,
+      String? drinking,
+      String? diet,
+      String? personality,
+      String? next_step,
       String? average_rating});
 }
 
@@ -484,6 +692,7 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
     Object? category = freezed,
     Object? main_category = freezed,
     Object? address = freezed,
+    Object? googleplace = freezed,
     Object? location = freezed,
     Object? main_location = freezed,
     Object? video = freezed,
@@ -526,6 +735,31 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
     Object? ask_price = freezed,
     Object? negotiable = freezed,
     Object? boosted = freezed,
+    Object? gender = freezed,
+    Object? birthday = freezed,
+    Object? birthmonth = freezed,
+    Object? birthyear = freezed,
+    Object? country = freezed,
+    Object? province = freezed,
+    Object? city = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? body = freezed,
+    Object? appearance = freezed,
+    Object? complexion = freezed,
+    Object? maritial = freezed,
+    Object? education = freezed,
+    Object? career = freezed,
+    Object? religion = freezed,
+    Object? ethnicity = freezed,
+    Object? social_class = freezed,
+    Object? residency = freezed,
+    Object? family_values = freezed,
+    Object? smoking = freezed,
+    Object? drinking = freezed,
+    Object? diet = freezed,
+    Object? personality = freezed,
+    Object? next_step = freezed,
     Object? average_rating = freezed,
   }) {
     return _then(_$_SearchResultItem(
@@ -556,6 +790,10 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      googleplace: freezed == googleplace
+          ? _value.googleplace
+          : googleplace // ignore: cast_nullable_to_non_nullable
               as String?,
       location: freezed == location
           ? _value.location
@@ -725,6 +963,106 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
           ? _value.boosted
           : boosted // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthmonth: freezed == birthmonth
+          ? _value.birthmonth
+          : birthmonth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthyear: freezed == birthyear
+          ? _value.birthyear
+          : birthyear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as String?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appearance: freezed == appearance
+          ? _value.appearance
+          : appearance // ignore: cast_nullable_to_non_nullable
+              as String?,
+      complexion: freezed == complexion
+          ? _value.complexion
+          : complexion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      maritial: freezed == maritial
+          ? _value.maritial
+          : maritial // ignore: cast_nullable_to_non_nullable
+              as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as String?,
+      career: freezed == career
+          ? _value.career
+          : career // ignore: cast_nullable_to_non_nullable
+              as String?,
+      religion: freezed == religion
+          ? _value.religion
+          : religion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ethnicity: freezed == ethnicity
+          ? _value.ethnicity
+          : ethnicity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      social_class: freezed == social_class
+          ? _value.social_class
+          : social_class // ignore: cast_nullable_to_non_nullable
+              as String?,
+      residency: freezed == residency
+          ? _value.residency
+          : residency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      family_values: freezed == family_values
+          ? _value.family_values
+          : family_values // ignore: cast_nullable_to_non_nullable
+              as String?,
+      smoking: freezed == smoking
+          ? _value.smoking
+          : smoking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      drinking: freezed == drinking
+          ? _value.drinking
+          : drinking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      diet: freezed == diet
+          ? _value.diet
+          : diet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      personality: freezed == personality
+          ? _value.personality
+          : personality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next_step: freezed == next_step
+          ? _value.next_step
+          : next_step // ignore: cast_nullable_to_non_nullable
+              as String?,
       average_rating: freezed == average_rating
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
@@ -744,6 +1082,7 @@ class _$_SearchResultItem implements _SearchResultItem {
       this.category,
       this.main_category,
       this.address,
+      this.googleplace,
       this.location,
       this.main_location,
       this.video,
@@ -786,6 +1125,31 @@ class _$_SearchResultItem implements _SearchResultItem {
       this.ask_price,
       this.negotiable,
       this.boosted,
+      this.gender,
+      this.birthday,
+      this.birthmonth,
+      this.birthyear,
+      this.country,
+      this.province,
+      this.city,
+      this.height,
+      this.weight,
+      this.body,
+      this.appearance,
+      this.complexion,
+      this.maritial,
+      this.education,
+      this.career,
+      this.religion,
+      this.ethnicity,
+      this.social_class,
+      this.residency,
+      this.family_values,
+      this.smoking,
+      this.drinking,
+      this.diet,
+      this.personality,
+      this.next_step,
       this.average_rating});
 
   factory _$_SearchResultItem.fromJson(Map<String, dynamic> json) =>
@@ -805,6 +1169,8 @@ class _$_SearchResultItem implements _SearchResultItem {
   final String? main_category;
   @override
   final String? address;
+  @override
+  final String? googleplace;
   @override
   final String? location;
   @override
@@ -890,11 +1256,61 @@ class _$_SearchResultItem implements _SearchResultItem {
   @override
   final String? boosted;
   @override
+  final String? gender;
+  @override
+  final String? birthday;
+  @override
+  final String? birthmonth;
+  @override
+  final String? birthyear;
+  @override
+  final String? country;
+  @override
+  final String? province;
+  @override
+  final String? city;
+  @override
+  final String? height;
+  @override
+  final String? weight;
+  @override
+  final String? body;
+  @override
+  final String? appearance;
+  @override
+  final String? complexion;
+  @override
+  final String? maritial;
+  @override
+  final String? education;
+  @override
+  final String? career;
+  @override
+  final String? religion;
+  @override
+  final String? ethnicity;
+  @override
+  final String? social_class;
+  @override
+  final String? residency;
+  @override
+  final String? family_values;
+  @override
+  final String? smoking;
+  @override
+  final String? drinking;
+  @override
+  final String? diet;
+  @override
+  final String? personality;
+  @override
+  final String? next_step;
+  @override
   final String? average_rating;
 
   @override
   String toString() {
-    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, average_rating: $average_rating)';
+    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating)';
   }
 
   @override
@@ -912,6 +1328,8 @@ class _$_SearchResultItem implements _SearchResultItem {
             (identical(other.main_category, main_category) ||
                 other.main_category == main_category) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.googleplace, googleplace) ||
+                other.googleplace == googleplace) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.main_location, main_location) ||
@@ -983,8 +1401,42 @@ class _$_SearchResultItem implements _SearchResultItem {
             (identical(other.negotiable, negotiable) ||
                 other.negotiable == negotiable) &&
             (identical(other.boosted, boosted) || other.boosted == boosted) &&
-            (identical(other.average_rating, average_rating) ||
-                other.average_rating == average_rating));
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday) &&
+            (identical(other.birthmonth, birthmonth) ||
+                other.birthmonth == birthmonth) &&
+            (identical(other.birthyear, birthyear) ||
+                other.birthyear == birthyear) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.body, body) || other.body == body) &&
+            (identical(other.appearance, appearance) ||
+                other.appearance == appearance) &&
+            (identical(other.complexion, complexion) ||
+                other.complexion == complexion) &&
+            (identical(other.maritial, maritial) ||
+                other.maritial == maritial) &&
+            (identical(other.education, education) ||
+                other.education == education) &&
+            (identical(other.career, career) || other.career == career) &&
+            (identical(other.religion, religion) ||
+                other.religion == religion) &&
+            (identical(other.ethnicity, ethnicity) ||
+                other.ethnicity == ethnicity) &&
+            (identical(other.social_class, social_class) || other.social_class == social_class) &&
+            (identical(other.residency, residency) || other.residency == residency) &&
+            (identical(other.family_values, family_values) || other.family_values == family_values) &&
+            (identical(other.smoking, smoking) || other.smoking == smoking) &&
+            (identical(other.drinking, drinking) || other.drinking == drinking) &&
+            (identical(other.diet, diet) || other.diet == diet) &&
+            (identical(other.personality, personality) || other.personality == personality) &&
+            (identical(other.next_step, next_step) || other.next_step == next_step) &&
+            (identical(other.average_rating, average_rating) || other.average_rating == average_rating));
   }
 
   @JsonKey(ignore: true)
@@ -998,6 +1450,7 @@ class _$_SearchResultItem implements _SearchResultItem {
         category,
         main_category,
         address,
+        googleplace,
         location,
         main_location,
         video,
@@ -1040,6 +1493,31 @@ class _$_SearchResultItem implements _SearchResultItem {
         ask_price,
         negotiable,
         boosted,
+        gender,
+        birthday,
+        birthmonth,
+        birthyear,
+        country,
+        province,
+        city,
+        height,
+        weight,
+        body,
+        appearance,
+        complexion,
+        maritial,
+        education,
+        career,
+        religion,
+        ethnicity,
+        social_class,
+        residency,
+        family_values,
+        smoking,
+        drinking,
+        diet,
+        personality,
+        next_step,
         average_rating
       ]);
 
@@ -1066,6 +1544,7 @@ abstract class _SearchResultItem implements SearchResultItem {
       final String? category,
       final String? main_category,
       final String? address,
+      final String? googleplace,
       final String? location,
       final String? main_location,
       final String? video,
@@ -1108,6 +1587,31 @@ abstract class _SearchResultItem implements SearchResultItem {
       final String? ask_price,
       final String? negotiable,
       final String? boosted,
+      final String? gender,
+      final String? birthday,
+      final String? birthmonth,
+      final String? birthyear,
+      final String? country,
+      final String? province,
+      final String? city,
+      final String? height,
+      final String? weight,
+      final String? body,
+      final String? appearance,
+      final String? complexion,
+      final String? maritial,
+      final String? education,
+      final String? career,
+      final String? religion,
+      final String? ethnicity,
+      final String? social_class,
+      final String? residency,
+      final String? family_values,
+      final String? smoking,
+      final String? drinking,
+      final String? diet,
+      final String? personality,
+      final String? next_step,
       final String? average_rating}) = _$_SearchResultItem;
 
   factory _SearchResultItem.fromJson(Map<String, dynamic> json) =
@@ -1127,6 +1631,8 @@ abstract class _SearchResultItem implements SearchResultItem {
   String? get main_category;
   @override
   String? get address;
+  @override
+  String? get googleplace;
   @override
   String? get location;
   @override
@@ -1211,6 +1717,56 @@ abstract class _SearchResultItem implements SearchResultItem {
   String? get negotiable;
   @override
   String? get boosted;
+  @override
+  String? get gender;
+  @override
+  String? get birthday;
+  @override
+  String? get birthmonth;
+  @override
+  String? get birthyear;
+  @override
+  String? get country;
+  @override
+  String? get province;
+  @override
+  String? get city;
+  @override
+  String? get height;
+  @override
+  String? get weight;
+  @override
+  String? get body;
+  @override
+  String? get appearance;
+  @override
+  String? get complexion;
+  @override
+  String? get maritial;
+  @override
+  String? get education;
+  @override
+  String? get career;
+  @override
+  String? get religion;
+  @override
+  String? get ethnicity;
+  @override
+  String? get social_class;
+  @override
+  String? get residency;
+  @override
+  String? get family_values;
+  @override
+  String? get smoking;
+  @override
+  String? get drinking;
+  @override
+  String? get diet;
+  @override
+  String? get personality;
+  @override
+  String? get next_step;
   @override
   String? get average_rating;
   @override

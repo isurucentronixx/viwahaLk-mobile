@@ -222,7 +222,10 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                       children: [
                         const Text("Rating: "),
                         RatingBarIndicator(
-                          rating: 3.ceilToDouble(),
+                          rating: int.parse(vendor.average_rating != null
+                                  ? vendor.average_rating.toString()
+                                  : '0')
+                              .ceilToDouble(),
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
                             color: Colors.amber,

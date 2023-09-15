@@ -311,7 +311,9 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    amenities = getAmenites(widget.amenities);
+    // amenities = getAmenites(widget.amenities);
+    // print(widget.amenities);
+    // print(amenities);
   }
 
   @override

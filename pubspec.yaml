@@ -39,8 +39,8 @@ dependencies:
   expand_widget: ^3.1.1
   awesome_snackbar_content: ^0.1.1
   loading_overlay: ^0.3.0
-  flutter_sinhala: ^2.0.0
-  convert: ^3.1.1
+  easy_localization: ^3.0.3
+  country_flags: ^2.1.1
   
 
 dev_dependencies:
@@ -88,5 +88,6 @@ flutter:
   assets:
     - lib/assets/images/
     - lib/assets/images/form/
+    - assets/translations/
 
  

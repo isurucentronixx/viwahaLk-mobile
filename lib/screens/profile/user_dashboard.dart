@@ -730,7 +730,9 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     date: myListing[index].datetime != null
                         ? myListing[index].datetime!
                         : "",
-                    location: myListing[index].location!,
+                    location: myListing[index].location != null
+                        ? myListing[index].location!
+                        : "",
                   ),
                 ),
               ),

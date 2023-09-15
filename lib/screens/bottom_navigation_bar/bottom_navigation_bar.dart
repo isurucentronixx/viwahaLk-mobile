@@ -13,13 +13,15 @@ import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BottomBar extends StatefulWidget {
+class BottomBar extends ConsumerStatefulWidget {
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
-class _BottomBarState extends State<BottomBar>
+class _BottomBarState extends ConsumerState<BottomBar>
     with SingleTickerProviderStateMixin {
+// class _BottomBarState extends State<BottomBar>
+//     with SingleTickerProviderStateMixin {
   ScrollController scrollBottomBarController = ScrollController();
 
   @override
@@ -45,6 +47,7 @@ class _BottomBarState extends State<BottomBar>
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
+        
           setState(() {
             const AddListingPage(false);
           });

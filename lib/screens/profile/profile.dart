@@ -139,6 +139,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               ),
                             ),
                             onPressed: () {
+                              ref.read(mainImageNameProvider.notifier).state =
+                                  "";
+                              ref.read(imageNameGalleryProvider).clear();
+                              ref.read(mainImageProvider.notifier).state = "";
+                              ref.read(imageGalleryProvider).clear();
                               AutoRouter.of(context)
                                   .push(AddListingPage(isAppBar: true));
                             },
@@ -234,7 +239,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: "Message",
                         icon: Icons.mail_outline,
                         onPress: () {
-                          AutoRouter.of(context).push(MessagesPage(userId: user.id.toString()));
+                          AutoRouter.of(context)
+                              .push(MessagesPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
                         title: "Change Password",
@@ -279,13 +285,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         icon: Icons.reviews_outlined,
                         onPress: () {
                           // router.push(const ReviewsPage());
-                           AutoRouter.of(context).push(ReviewsPage(userId: user.id.toString()));
-                          
+                          AutoRouter.of(context)
+                              .push(ReviewsPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
                         title: "Post Your Ad",
                         icon: Icons.add_circle_outline,
                         onPress: () {
+                          ref.read(mainImageNameProvider.notifier).state = "";
+                          ref.read(imageNameGalleryProvider).clear();
+                          ref.read(mainImageProvider.notifier).state = "";
+                          ref.read(imageGalleryProvider).clear();
+                          print("ASDSADASDSADSD");
                           router.push(AddListingPage(isAppBar: true));
                         }),
                     const SizedBox(

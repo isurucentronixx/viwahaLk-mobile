@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
+import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
@@ -18,6 +19,11 @@ import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
+
+final mainImageProvider = StateProvider<String>((ref) => '');
+final mainImageNameProvider = StateProvider<String>((ref) => '');
+final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
+final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
 
 final addListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));

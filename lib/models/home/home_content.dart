@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:viwaha_lk/models/premium_vender/premium_vendors.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing.dart';
 import 'package:http/http.dart' as http;
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class HomeContent extends ConsumerStatefulWidget {
   const HomeContent({super.key});
@@ -25,9 +27,7 @@ class _HomeContentState extends ConsumerState<HomeContent> {
   List<String> items = ['Car', 'Photography'];
   List<String> filteredItems = [];
 
-
   final TextEditingController _searchController = TextEditingController();
-
 
   @override
   void initState() {
@@ -35,8 +35,6 @@ class _HomeContentState extends ConsumerState<HomeContent> {
     _searchController.addListener(_onSearchChanged);
     filteredItems.addAll(items);
     fetchSliderImages();
-
-    
   }
 
   List<String> sliderImageUrls = [];
@@ -57,8 +55,8 @@ class _HomeContentState extends ConsumerState<HomeContent> {
   }
 
   Future<void> fetchSliderImages() async {
-    final response = await http.get(
-        Uri.parse('https://viwahaapp.viwaha.lk/api/app/get_sliders/'));
+    final response = await http
+        .get(Uri.parse('https://viwahaapp.viwaha.lk/api/app/get_sliders/'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
@@ -160,7 +158,6 @@ class _HomeContentState extends ConsumerState<HomeContent> {
               ),
             ),
           ),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -171,21 +168,20 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                   child: Stack(
                     children: <Widget>[
                       Text(
-                        'Discover everything you need to plan your big day',
+                        LocaleKeys.home_main_title.tr(),
+                        // 'Discover everything you need to plan your big day',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.pink[300],
                         ),
                       ),
-                     
                     ],
                   ),
                 ),
               ),
             ],
-          ),     
-
+          ),
           const CardView(),
           const SizedBox(
             height: 16,
