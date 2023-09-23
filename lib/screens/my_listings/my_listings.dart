@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -24,6 +25,7 @@ import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 final myListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
@@ -154,10 +156,10 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                           widthFactor: 0.8,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              AutoRouter.of(context).push(const Login());
+                              AutoRouter.of(context).push(Login(onHome: false));
                             },
                             icon: const Icon(Icons.login),
-                            label: const Text('Sign In'),
+                            label:  Text(LocaleKeys.login.tr()),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),

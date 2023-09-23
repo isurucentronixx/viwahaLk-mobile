@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
@@ -68,9 +70,28 @@ final myListingProvider =
   return MyListingProviderNotifier(ref: ref);
 });
 
-final categoryListingProvider =
-    StateNotifierProvider<CategoryListingProviderNotifier, List<SearchResultItem>>(
-        (ref) {
+final categoryListingProvider = StateNotifierProvider<
+    CategoryListingProviderNotifier, List<SearchResultItem>>((ref) {
   return CategoryListingProviderNotifier(ref: ref);
 });
- 
+
+final localizationServiceProvider = Provider<LocalizationService>((ref) {
+  return LocalizationService();
+});
+
+class LocalizationService {
+  final EasyLocalization easyLocalization;
+
+  LocalizationService()
+      : easyLocalization = EasyLocalization(
+          supportedLocales: const [Locale('en'), Locale('si'), Locale('ta')],
+          path:
+              'assets/translations', // Change this to your translations folder
+          fallbackLocale: const Locale('en'), child: Container(),
+        );
+
+  void changeLocale(Locale locale, BuildContext context) {
+
+    context.setLocale(locale);
+  }
+}

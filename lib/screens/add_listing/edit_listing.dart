@@ -34,6 +34,11 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_select/awesome_select.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 final _dobController = TextEditingController();
 
@@ -564,12 +569,39 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     return items;
   }
 
+  Future<File> _fileFromImageUrl(String imgSrc) async {
+    final response = await http.get(Uri.parse(imgSrc));
+    final documentDirectory = await getApplicationDocumentsDirectory();
+    List<String> parts = imgSrc.split('/');
+    String filename = parts.last;
+    final file = File(join(documentDirectory.path, filename));
+    file.writeAsBytesSync(response.bodyBytes);
+
+    return file;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     final SearchResultItem? item = widget.item;
     List<String> stringAmenities =
         extractStringList(widget.item!.amenities.toString());
+
+    _fileFromImageUrl(ref
+            .read(homeControllerProvider)
+            .getTumbImage(widget.item!.thumb_images)
+            .first
+            .toString())
+        .then((value) =>
+            {ref.read(mainImageProvider.notifier).state = value.path});
+
+    List<String> imagePaths =
+        ref.read(homeControllerProvider).getTumbImage(widget.item!.images);
+
+    for (var i = 0; i < imagePaths.length; i++) {
+      _fileFromImageUrl(imagePaths[i]).then((value) =>
+          {ref.read(imageGalleryProvider).add(ImageObject(path: value.path))});
+    }
 
     _cat = item!.main_category ?? 'Select one';
     _gender = widget.item!.gender ?? 'Select one';
@@ -633,6 +665,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
 
     //To add exist amenities
     amenities.addAll(stringAmenities);
+
     super.initState();
   }
 
@@ -725,7 +758,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                   children: [
                     AddFieldMainWidget(
                         icon: Icons.info_outline,
-                        title: "General Information",
+                        title: LocaleKeys.general_info,
                         description: "General information about your self",
                         inputList: [
                           Padding(

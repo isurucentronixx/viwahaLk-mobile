@@ -181,9 +181,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     Login.name: (routeData) {
+      final args = routeData.argsAs<LoginArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i19.Login(),
+        child: _i19.Login(
+          args.onHome,
+          key: args.key,
+        ),
       );
     },
     Register.name: (routeData) {
@@ -662,16 +666,39 @@ class ChangePasswordPage extends _i36.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i19.Login]
-class Login extends _i36.PageRouteInfo<void> {
-  const Login({List<_i36.PageRouteInfo>? children})
-      : super(
+class Login extends _i36.PageRouteInfo<LoginArgs> {
+  Login({
+    required bool onHome,
+    _i37.Key? key,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           Login.name,
+          args: LoginArgs(
+            onHome: onHome,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'Login';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<LoginArgs> page = _i36.PageInfo<LoginArgs>(name);
+}
+
+class LoginArgs {
+  const LoginArgs({
+    required this.onHome,
+    this.key,
+  });
+
+  final bool onHome;
+
+  final _i37.Key? key;
+
+  @override
+  String toString() {
+    return 'LoginArgs{onHome: $onHome, key: $key}';
+  }
 }
 
 /// generated route for

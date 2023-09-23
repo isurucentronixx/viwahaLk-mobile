@@ -2,8 +2,10 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,7 @@ import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/popular_cities/popular_cities/popular_city_model.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class PopularCities extends ConsumerStatefulWidget {
   const PopularCities({super.key});
@@ -25,39 +28,39 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
   Widget build(BuildContext context) {
     var inputDateFormat = DateFormat('dd MMMM, yyyy');
     List<City> popularCities = [
-      const City(
+      City(
           id: "1",
-          name: "Colombo",
+          name: "colombo".tr(),
           image: "https://viwaha.lk/assets/img/city/Colombo.png",
           ratings: "0"),
-      const City(
+      City(
           id: "2",
-          name: "Kandy",
+          name: "kandy".tr(),
           image: "https://viwaha.lk/assets/img/city/Kandy.png",
           ratings: "0"),
-      const City(
+      City(
           id: "3",
-          name: "Galle",
+          name: "galle".tr(),
           image: "https://viwaha.lk/assets/img/city/Galle.png",
           ratings: "0"),
-      const City(
+      City(
           id: "4",
-          name: "Jaffna",
+          name: "jaffna".tr(),
           image: "https://viwaha.lk/assets/img/city/Jaffna.png",
           ratings: "0"),
-      const City(
+      City(
           id: "5",
-          name: "Kurunegala",
+          name: "kurunegala".tr(),
           image: "https://viwaha.lk/assets/img/city/Kurunegala.jpg",
           ratings: "0"),
-      const City(
+      City(
           id: "6",
-          name: "Anuradhapura",
+          name: "anuradapura".tr(),
           image: "https://viwaha.lk/assets/img/city/Anuradhapura.png",
           ratings: "0"),
-      const City(
+      City(
           id: "7",
-          name: "Badulla",
+          name: "badulla".tr(),
           image: "https://viwaha.lk/assets/img/city/Badulla.png",
           ratings: "0")
     ];
@@ -68,23 +71,31 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
         const SizedBox(
           height: 20,
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Popular Cities',
-            style: TextStyle(
+            LocaleKeys.popular_cities.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: 'Browse listings in popular places ',
-                style: TextStyle(
+                text: LocaleKeys.browse_listings_in.tr(),
+                style: const TextStyle(
                   color: Colors.black87,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              TextSpan(
+                text: LocaleKeys.popular_places.tr(),
+                style: const TextStyle(
+                  color: ViwahaColor.primary,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
                 ),
@@ -105,7 +116,6 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
           ),
           items: data.map((data) {
             final city = data;
-
             return GestureDetector(
               onTap: () {
                 ref.read(selectedSubLocationProvider.notifier).state =
@@ -202,7 +212,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Rating: "),
+                        Text("rating".tr()),
                         RatingBarIndicator(
                           rating:
                               int.parse(city.ratings.toString()).ceilToDouble(),

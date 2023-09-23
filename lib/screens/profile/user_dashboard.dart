@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,7 @@ import 'package:viwaha_lk/models/user_dashboard/user_reviews.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 @RoutePage()
 class UserDashboardPage extends ConsumerStatefulWidget {
@@ -102,12 +104,12 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           buildCard(
-                            "Listings",
+                            LocaleKeys.listings.tr(),
                             counts.listings.toString(),
                             () {},
                           ),
                           buildCard(
-                            "Messages",
+                            LocaleKeys.message.tr(),
                             counts.messages.toString(),
                             () {},
                           ),
@@ -121,12 +123,12 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           buildCard(
-                            "Reviews",
+                            LocaleKeys.reviews.tr(),
                             counts.messages.toString(),
                             () {},
                           ),
                           buildCard(
-                            "Referals",
+                            LocaleKeys.referals.tr(),
                             counts.referals.toString(),
                             () {},
                           ),
@@ -135,7 +137,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     ),
                     AddFieldMainWidget(
                       icon: Icons.message,
-                      title: "Messages",
+                      title: LocaleKeys.message.tr(),
                       description:
                           "Now you can communicate and exchange ideas with ease.",
                       inputList: [
@@ -160,7 +162,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     ),
                     AddFieldMainWidget(
                       icon: Icons.notification_add_rounded,
-                      title: "Notifications",
+                      title: LocaleKeys.notifications.tr(),
                       description:
                           "You'll stay updated and informed about all the latest happenings.",
                       inputList: [
@@ -188,7 +190,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     ),
                     AddFieldMainWidget(
                       icon: Icons.reviews_rounded,
-                      title: "Reviews",
+                      title: LocaleKeys.reviews.tr(),
                       description:
                           "You can read about others' experiences and share your own valuable feedback.",
                       inputList: [
@@ -265,7 +267,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                   ),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
-                  height: 107,
+                  height: 102,
                   child: Text(
                     count.toString(),
                     style: const TextStyle(
@@ -683,16 +685,16 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
               color:
                   ViwahaColor.primary, // Set the background color for the title
               padding: const EdgeInsets.all(16.0),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.list,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'My Listings',
-                    style: TextStyle(
+                    LocaleKeys.my_listings.tr(),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,

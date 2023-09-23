@@ -15,6 +15,22 @@ class $LibGen {
   $LibAssetsGen get assets => const $LibAssetsGen();
 }
 
+class $AssetsTranslationsGen {
+  const $AssetsTranslationsGen();
+
+  /// File path: assets/translations/en.json
+  String get en => 'assets/translations/en.json';
+
+  /// File path: assets/translations/si.json
+  String get si => 'assets/translations/si.json';
+
+  /// File path: assets/translations/ta.json
+  String get ta => 'assets/translations/ta.json';
+
+  /// List of all assets
+  List<String> get values => [en, si, ta];
+}
+
 class $LibAssetsGen {
   const $LibAssetsGen();
 
@@ -178,6 +194,7 @@ class $LibAssetsImagesFormGen {
 class Assets {
   Assets._();
 
+  static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
   static const $LibGen lib = $LibGen();
 }
 

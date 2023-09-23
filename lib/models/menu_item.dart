@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,6 +9,7 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class DrawerMenu extends ConsumerWidget {
   const DrawerMenu({super.key});
@@ -87,21 +89,21 @@ class DrawerMenu extends ConsumerWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.home),
-                  title: const Text('Home'),
+                  title: Text(LocaleKeys.home.tr()),
                   onTap: () async {
                     AutoRouter.of(context).push(const HomePage());
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.person),
-                  title: const Text('About Us'),
+                  title:  Text(LocaleKeys.about_us.tr()),
                   onTap: () async {
                     AutoRouter.of(context).push(const AboutUsPage());
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.contact_phone),
-                  title: const Text('Contact Us'),
+                  title:  Text(LocaleKeys.contact_us.tr()),
                   onTap: () {
                     AutoRouter.of(context).push(const ContactUsPage());
                   },
@@ -110,16 +112,16 @@ class DrawerMenu extends ConsumerWidget {
                 !ref.read(isloginProvider)
                     ? ListTile(
                         leading: const Icon(Icons.login),
-                        title: const Text('Login'),
+                        title:  Text(LocaleKeys.login.tr()),
                         onTap: () {
-                          AutoRouter.of(context).push(const Login());
+                          AutoRouter.of(context).push(Login(onHome: false));
                         },
                       )
                     : const SizedBox(),
                 ref.watch(isloginProvider)
                     ? ListTile(
                         leading: const Icon(Icons.logout),
-                        title: const Text('Logout'),
+                        title:  Text(LocaleKeys.logout.tr()),
                         onTap: () async {
                           SharedPreferences pref =
                               await SharedPreferences.getInstance();
@@ -130,7 +132,7 @@ class DrawerMenu extends ConsumerWidget {
                           pref.remove("email");
                           pref.remove("password");
                           await _googleSignIn.signOut();
-                          appRouter.push(const Login());
+                          appRouter.push(Login(onHome: false));
                           // Update the state of the app
                           // ...
                           // Then close the drawer

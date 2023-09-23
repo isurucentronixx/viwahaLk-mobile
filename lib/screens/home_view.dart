@@ -1,21 +1,16 @@
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:awesome_select/awesome_select.dart';
-import 'package:country_flags/country_flags.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sizer/sizer.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/home/home_content.dart';
+import 'package:viwaha_lk/screens/home/home_content.dart';
 import 'package:viwaha_lk/models/menu_item.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
+import 'package:viwaha_lk/screens/localizationBottomSheet.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 
@@ -36,7 +31,7 @@ class _HomePageState extends ConsumerState<HomePage>
   int selectedIndex = -1;
   String selectedPremium = "";
   String selectedPolicyNumber = "";
-  List<String> lngItem = ['en', 'si', 'ta'];
+  String selectedLng = "";
 
   @override
   void initState() {
@@ -56,26 +51,10 @@ class _HomePageState extends ConsumerState<HomePage>
     super.initState();
   }
 
-  void _handleRadioValueChange(int value) {
-    setState(() {
-      _radioValue = value;
-    });
-    print("first" + value.toString() + "radiovalue" + _radioValue.toString());
-  }
-
   void changePage(int newPage) {
     setState(() {
       currentPage = newPage;
     });
-  }
-
-  handleChange(String lng) {
-    print(lng);
-    setState(() async {
-       await context.setLocale(Locale(lng));
-    Navigator.pop(context);
-    });
-   
   }
 
   @override
@@ -85,7 +64,6 @@ class _HomePageState extends ConsumerState<HomePage>
   }
 
   int currentTab = 0;
-
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeContent();
 
@@ -96,35 +74,10 @@ class _HomePageState extends ConsumerState<HomePage>
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          actions: [
-            // SmartSelect<String>.single(
-            //   title: 'lang',
-            //   selectedValue: selectedLang,
-            //   choiceItems: langData,
-            //   onChange: (selected) {
-            //     setState(() {});
-            //   },
-            //   modalType: S2ModalType.bottomSheet,
-            //   tileBuilder: (context, state) {
-            //     return ListTile(
-            //       title: Text(
-            //         state.title.toString(),
-            //         style: const TextStyle(
-            //           color: Colors.grey,
-            //           fontSize: 18,
-            //           fontFamily: "verdana_regular",
-            //           fontWeight: FontWeight.w400,
-            //         ),
-            //       ),
-            //       subtitle: Text(selectedLang),
-            //       trailing: const Icon(Icons.keyboard_arrow_down),
-            //       onTap: state.showModal,
-            //     );
-            //   },
-            // ),
+          actions: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -133,95 +86,15 @@ class _HomePageState extends ConsumerState<HomePage>
                     child: Assets.lib.assets.images.logo.image(),
                   ),
                 ),
-                IconButton(
-                    onPressed: () async {
-                       await context.setLocale(Locale('si'));
-                      // showModalBottomSheet<void>(
-                      //     context: context,
-                      //     backgroundColor: Colors.white,
-                      //     shape: const RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.vertical(
-                      //         top: Radius.circular(25.0),
-                      //       ),
-                      //     ),
-                      //     builder: (BuildContext context) {
-                      //       return BackdropFilter(
-                      //         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      //         child: Container(
-                      //           height:
-                      //               MediaQuery.of(context).size.height * 0.35,
-                      //           decoration: const BoxDecoration(
-                      //               borderRadius: BorderRadius.only(
-                      //                   topLeft: Radius.circular(25),
-                      //                   topRight: Radius.circular(25)),
-                      //               color: Colors.white),
-                      //           padding: const EdgeInsets.symmetric(
-                      //               vertical: 18, horizontal: 16),
-                      //           child: Column(
-                      //             mainAxisAlignment: MainAxisAlignment.center,
-                      //             children: <Widget>[
-                      //               Padding(
-                      //                 padding: const EdgeInsets.all(8.0),
-                      //                 child: Row(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.spaceBetween,
-                      //                   children: [
-                      //                     const Text(
-                      //                       "Choose your preferred language",
-                      //                       style: TextStyle(
-                      //                           color: Colors.grey,
-                      //                           fontSize: 20,
-                      //                           fontWeight: FontWeight.w500),
-                      //                     ),
-                      //                     GestureDetector(
-                      //                       onTap: () =>
-                      //                           {Navigator.pop(context)},
-                      //                       child: const Icon(
-                      //                         Icons.close,
-                      //                         color: Colors.grey,
-                      //                       ),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //               Expanded(child: StatefulBuilder(builder:
-                      //                   (BuildContext context, setState) {
-                      //                 return Column(
-                      //                     mainAxisAlignment:
-                      //                         MainAxisAlignment.spaceBetween,
-                      //                     crossAxisAlignment:
-                      //                         CrossAxisAlignment.stretch,
-                      //                     children: [
-                      //                       ListView.builder(
-                      //                           physics: const ScrollPhysics(),
-                      //                           scrollDirection: Axis.vertical,
-                      //                           shrinkWrap: true,
-                      //                           itemCount: lngItem.length,
-                      //                           itemBuilder:
-                      //                               (BuildContext context,
-                      //                                   index) {
-                      //                             return GestureDetector(
-                      //                               onTap: () {
-                      //                                 handleChange(
-                      //                                     lngItem[index]
-                      //                                         .toString());
-                      //                               },
-                      //                               child: cardContent(
-                      //                                 lngItem[index].toString(),
-                      //                               ),
-                      //                             );
-                      //                           })
-                      //                     ]);
-                      //               })),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       );
-                      //     });
-                    },
-                    icon: const Icon(Icons.translate)),
+                currentPage == 0
+                    ? IconButton(
+                        onPressed: () {
+                          localizationBottomSheet(context, ref);
+                        },
+                        icon: const Icon(Icons.translate))
+                    : const SizedBox(),
               ],
-            ),
+            )
           ],
           title: Text(currentPage == 0
               ? "Home"
@@ -244,24 +117,27 @@ class _HomePageState extends ConsumerState<HomePage>
           child: currentScreen,
           bucket: bucket,
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            color: currentTab == 4 ? Colors.black54 : Colors.white,
+        floatingActionButton: Visibility(
+          visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+          child: FloatingActionButton(
+            child: Icon(
+              Icons.add,
+              color: currentTab == 4 ? Colors.black54 : Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                ref.read(mainImageNameProvider.notifier).state = "";
+                ref.read(imageNameGalleryProvider).clear();
+                ref.read(mainImageProvider.notifier).state = "";
+                ref.read(imageGalleryProvider).clear();
+                currentScreen = ref.watch(isloginProvider)
+                    ? const AddListingPage(false)
+                    : const Login(true);
+                currentTab = 4;
+                currentPage = 2;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              ref.read(mainImageNameProvider.notifier).state = "";
-              ref.read(imageNameGalleryProvider).clear();
-              ref.read(mainImageProvider.notifier).state = "";
-              ref.read(imageGalleryProvider).clear();
-              currentScreen = ref.watch(isloginProvider)
-                  ? const AddListingPage(false)
-                  : const Login();
-              currentTab = 4;
-              currentPage = 2;
-            });
-          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
@@ -346,7 +222,7 @@ class _HomePageState extends ConsumerState<HomePage>
                         setState(() {
                           currentScreen = ref.watch(isloginProvider)
                               ? const ProfilePage()
-                              : const Login();
+                              : const Login(true);
                           currentTab = 2;
                           currentPage = 3;
                         });
@@ -376,7 +252,7 @@ class _HomePageState extends ConsumerState<HomePage>
                         setState(() {
                           currentScreen = ref.watch(isloginProvider)
                               ? const FavListingPage(false)
-                              : const Login();
+                              : const Login(true);
                           currentTab = 3;
                           currentPage = 4;
                         });
@@ -408,43 +284,6 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
 
         // body: const HomeContent(),
-      ),
-    );
-  }
-
-  Widget cardContent(String lng) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(lng.toString(),
-              style: const TextStyle(color: Colors.grey, fontSize: 22)),
-          Text(
-            lng == 'en'
-                ? 'English'
-                : lng == 'si'
-                    ? 'සිංහල'
-                    : 'தமிழ்',
-            style: const TextStyle(color: Colors.grey, fontSize: 22),
-          ),
-          CountryFlag.fromCountryCode(
-            lng == 'en'
-                ? 'GB'
-                : lng == 'si'
-                    ? 'LK'
-                    : 'IN',
-            height: 35,
-            width: 35,
-            borderRadius: 0,
-          )
-        ],
       ),
     );
   }

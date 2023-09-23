@@ -97,8 +97,12 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.vendor?.id.toString() ??
                     widget.topListing!.id!.toString(),
                 const SearchResultItem()),
-            SingleItemAmenities(widget.vendor?.amenities.toString() ??
-                widget.topListing!.amenities.toString()),
+            // '${widget.vendor?.main_category.toString() ??
+            //             widget.topListing!.main_category!.toString()}' ==
+            //         "Proposal"
+            //     ? SingleItemProposal()
+            //     : SingleItemAmenities(widget.vendor?.amenities.toString() ??
+            //         widget.topListing!.amenities.toString()),
             SingleItemDescription(widget.vendor?.description.toString() ??
                 widget.topListing!.description.toString()),
             SingleItemContactInfo(

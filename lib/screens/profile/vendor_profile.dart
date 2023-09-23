@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
@@ -14,6 +15,7 @@ import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 @RoutePage()
 class VendorProfilePage extends ConsumerStatefulWidget {
@@ -154,7 +156,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
                           child: Text(
-                            'Total Listings ${vendor.listings_count}',
+                            '${LocaleKeys.total_listings.tr()} ${vendor.listings_count}',
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -168,7 +170,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                       children: [
                         AddFieldMainWidget(
                             icon: Icons.person_2_outlined,
-                            title: "Profile Details",
+                            title: LocaleKeys.profile_details.tr(),
                             description: "",
                             inputList: [
                               (vendor.phone != "null")
@@ -301,7 +303,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                             ]),
                         AddFieldMainWidget(
                             icon: Icons.follow_the_signs_outlined,
-                            title: "Follow Us",
+                            title: LocaleKeys.follow_us.tr(),
                             description: "",
                             inputList: [
                               ListTile(
@@ -340,16 +342,16 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
               color:
                   ViwahaColor.primary, // Set the background color for the title
               padding: const EdgeInsets.all(16.0),
-              child: const Row(
+              child:  Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.list,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'Our Listings',
-                    style: TextStyle(
+                    LocaleKeys.our_listings.tr(),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,

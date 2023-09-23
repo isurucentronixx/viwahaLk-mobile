@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_string_interpolations
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +19,7 @@ import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/services/functions.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, {super.key});
@@ -107,9 +109,9 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   color: Colors.white,
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'Overview',
-                  style: TextStyle(
+                Text(
+                  LocaleKeys.overview.tr(),
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
@@ -118,6 +120,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 widget.type == "myAd"
                     ? IconButton(
                         onPressed: () {
+                          ref.read(mainImageNameProvider.notifier).state = "";
+                          ref.read(imageNameGalleryProvider).clear();
+                          ref.read(mainImageProvider.notifier).state = "";
+                          ref.read(imageGalleryProvider).clear();
                           AutoRouter.of(context)
                               .push(EditListingPage(item: widget.item));
                         },
@@ -212,7 +218,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              'Ratings: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                              '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
@@ -234,7 +240,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       userId: widget.item!.user_id.toString()));
                 },
                 icon: const Icon(Icons.person),
-                label: const Text('Vendor Profile'),
+                label: Text(LocaleKeys.vendor_profile.tr()),
               ),
             ],
           ),
@@ -327,16 +333,62 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
             color:
                 ViwahaColor.primary, // Set the background color for the title
             padding: const EdgeInsets.all(16.0),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.list,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'Amenities',
-                  style: TextStyle(
+                  LocaleKeys.aminities.tr(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}
+
+class SingleItemProposal extends StatefulWidget {
+  const SingleItemProposal({super.key});
+  // final String amenities;
+  @override
+  State<SingleItemAmenities> createState() => _SingleItemAmenitiesState();
+}
+
+class _SingleItemProposalState extends State<SingleItemProposal> {
+  List<String> amenities = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  LocaleKeys.proposal_deatails.tr(),
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
@@ -375,16 +427,16 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
                   color: ViwahaColor
                       .primary, // Set the background color for the title
                   padding: const EdgeInsets.all(16.0),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.list,
                         color: Colors.white,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
-                        'Description',
-                        style: TextStyle(
+                        LocaleKeys.description.tr(),
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
@@ -433,16 +485,16 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
             color:
                 ViwahaColor.primary, // Set the background color for the title
             padding: const EdgeInsets.all(16.0),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.list,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'Contact Informations',
-                  style: TextStyle(
+                  LocaleKeys.contact_information.tr(),
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
@@ -456,7 +508,7 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
             children: [
               ListTile(
                 leading: const Icon(Icons.phone_android),
-                title: const Text('Contact Number'),
+                title: Text(LocaleKeys.contact_number.tr()),
                 subtitle: Text('${widget.contactNumber}'),
               ),
               widget.telephoneNumer.isEmpty ||
@@ -465,17 +517,17 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                   ? Container()
                   : ListTile(
                       leading: const Icon(Icons.phone),
-                      title: const Text('Telephone Number'),
+                      title: Text(LocaleKeys.tele_number.tr()),
                       subtitle: Text('${widget.telephoneNumer}'),
                     ),
               ListTile(
                 leading: const Icon(Icons.home),
-                title: const Text('Address'),
+                title: Text(LocaleKeys.address.tr()),
                 subtitle: Text('${widget.address}'),
               ),
               ListTile(
                 leading: const Icon(Icons.email),
-                title: const Text('Email'),
+                title: Text(LocaleKeys.email.tr()),
                 subtitle: Text('${widget.email}'),
               ),
               const SizedBox(height: 8),
@@ -597,16 +649,16 @@ class _SingleItemMapState extends State<SingleItemMap> {
             color:
                 ViwahaColor.primary, // Set the background color for the title
             padding: const EdgeInsets.all(16.0),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.list,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'Location',
-                  style: TextStyle(
+                  LocaleKeys.location.tr(),
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -13,31 +14,30 @@ class CardView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-    
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Popular Categories',
-            style: TextStyle(
+            'popular_categories'.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: 'Browse the most',
-                style: TextStyle(
+                text: 'browse_the_most'.tr(),
+                style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
               TextSpan(
-                text: ' desirable categories',
-                style: TextStyle(
+                text: 'desirable_categories'.tr(),
+                style: const TextStyle(
                   color: ViwahaColor.primary,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
@@ -55,97 +55,117 @@ class CardView extends ConsumerWidget {
           crossAxisCount: 3, // Number of columns in the grid
           children: [
             _buildCard(
-              'Venues',
+              'venues'.tr(),
               Assets.lib.assets.images.weddingVenues.image(),
               () async {
-                ref.read(selectedMainCategoryProvider.notifier).state = "Venues";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Venues'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Venues";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Venues'));
               },
             ),
-            _buildCard('Dressing', Assets.lib.assets.images.dressing.image(),
-                () {
-
-              ref.read(selectedMainCategoryProvider.notifier).state = "Dressing";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Dressing'));
+            _buildCard(
+                'dressing'.tr(), Assets.lib.assets.images.dressing.image(), () {
+              ref.read(selectedMainCategoryProvider.notifier).state =
+                  "Dressing";
+              AutoRouter.of(context)
+                  .push(CategoryListingPage(category: 'Dressing'));
             }),
             _buildCard(
-              'Jewelry',
+              'jewelry'.tr(),
               Assets.lib.assets.images.jewelry.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Jewelry";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Jewelry'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Jewelry";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Jewelry'));
               },
             ),
             _buildCard(
-              'Decorations',
+              'decorations'.tr(),
               Assets.lib.assets.images.decorations.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Decorations";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Decorations'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Decorations";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Decorations'));
               },
             ),
             _buildCard(
-              'Photography',
+              'photography'.tr(),
               Assets.lib.assets.images.photography.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Photography";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Photography'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Photography";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Photography'));
               },
             ),
             _buildCard(
-              'Entertainment',
+              'entertainment'.tr(),
               Assets.lib.assets.images.entertainment.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Entertainment";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Entertainment'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Entertainment";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Entertainment'));
               },
             ),
             _buildCard(
-              'Salon',
+              'salon'.tr(),
               Assets.lib.assets.images.makeup.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Salon'));
+                ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Salon'));
               },
             ),
             _buildCard(
-              'Food',
+              'food'.tr(),
               Assets.lib.assets.images.food.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Food";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Food'));
+                ref.read(selectedMainCategoryProvider.notifier).state = "Food";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Food'));
               },
             ),
             _buildCard(
-              'Honeymoon',
+              'honeymoon'.tr(),
               Assets.lib.assets.images.honeymoon.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Honeymoon";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Honeymoon'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Honeymoon";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Honeymoon'));
               },
             ),
             _buildCard(
-              'Wedding Car',
+              'wedding_car'.tr(),
               Assets.lib.assets.images.weddingCars.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Wedding Car";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Wedding Car'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Wedding Car";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Wedding Car'));
               },
             ),
             _buildCard(
-              'Music',
+              'music'.tr(),
               Assets.lib.assets.images.music.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Music";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Music'));
+                ref.read(selectedMainCategoryProvider.notifier).state = "Music";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Music'));
               },
             ),
             _buildCard(
-              'Others',
+              'others'.tr(),
               Assets.lib.assets.images.others.image(),
               () {
-                 ref.read(selectedMainCategoryProvider.notifier).state = "Others";
-                AutoRouter.of(context).push(CategoryListingPage(category: 'Others'));
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Others";
+                AutoRouter.of(context)
+                    .push(CategoryListingPage(category: 'Others'));
               },
             ),
             // Add more cards as needed
@@ -157,7 +177,7 @@ class CardView extends ConsumerWidget {
 
   Widget _buildCard(String title, imagePath, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(3.0),
       child: InkWell(
         onTap: onTap,
         child: Card(

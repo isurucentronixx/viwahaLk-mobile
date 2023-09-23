@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -11,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 import 'listingData.dart';
 
@@ -31,30 +33,30 @@ class TopListing extends ConsumerWidget {
 
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Exploring Top Listings',
-            style: TextStyle(
+            'exploring_top_listings'.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: 'Discover ',
-                style: TextStyle(
+                text: 'discover'.tr(),
+                style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
                 ),
               ),
               TextSpan(
-                text: ' top-rated local listing',
-                style: TextStyle(
+                text: LocaleKeys.top_rated_local_listing.tr(),
+                style: const TextStyle(
                   color: ViwahaColor.primary,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
@@ -224,7 +226,7 @@ class TopListing extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Rating: "),
+                              Text("rating".tr()),
                               RatingBarIndicator(
                                 rating: double.parse(
                                     wedding.average_rating != null

@@ -31,19 +31,6 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
 
   final TextEditingController _searchController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _searchController.addListener(_onSearchChanged);
-  //   filteredItems.addAll(items);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
     setState(() {
@@ -114,7 +101,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.type.toString(),
                         widget.item!.id.toString(),
                         widget.item),
-                    SingleItemAmenities(widget.item!.amenities.toString()),
+                    widget.item!.main_category == "Proposal"
+                        ? SingleItemProposal()
+                        : SingleItemAmenities(
+                            widget.item!.amenities.toString()),
                     SingleItemDescription(widget.item!.description.toString()),
                     SingleItemContactInfo(
                         widget.item!.phone.toString(),

@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_select/awesome_select.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -116,7 +117,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           child: SmartSelect<Location>.single(
                             modalFilterAuto: true,
                             modalFilter: true,
-                            title: 'Locations',
+                            title: 'all_location'.tr(),
                             selectedValue: _mainLocation,
                             choiceItems: locationsData,
                             onChange: (selected) {
@@ -185,7 +186,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<SubLocation>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'Sub Locations',
+                                  title: 'sub_location'.tr(),
                                   selectedValue: _subLocation,
                                   choiceItems: subLocationsData,
                                   onChange: (selected) {
@@ -234,7 +235,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           child: SmartSelect<Categories>.single(
                             modalFilterAuto: true,
                             modalFilter: true,
-                            title: 'Categories',
+                            title: 'all_category'.tr(),
                             selectedValue: _mainCat,
                             choiceItems: catData,
                             onChange: (selected) {
@@ -296,7 +297,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<SubCategories>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'Sub Categories',
+                                  title: 'sub_category'.tr(),
                                   selectedValue: _subCat,
                                   choiceItems: subCatData,
                                   onChange: (selected) {
@@ -353,7 +354,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           // Perform login logic here
                         },
                         icon: const Icon(Icons.search),
-                        label: const Text('Search Now'),
+                        label: const Text('search').tr(),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),

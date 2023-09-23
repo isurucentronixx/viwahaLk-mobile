@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
@@ -9,6 +10,7 @@ import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:intl/intl.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 import '../../appColor.dart';
 import '../../gen/assets.gen.dart';
@@ -109,16 +111,16 @@ class SingleItemLatest extends ConsumerWidget {
               color:
                   ViwahaColor.primary, // Set the background color for the title
               padding: const EdgeInsets.all(16.0),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.list,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'Latest',
-                    style: TextStyle(
+                    LocaleKeys.latest.tr(),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,

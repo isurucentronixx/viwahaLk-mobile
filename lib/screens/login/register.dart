@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, unused_field, avoid_print
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,6 +11,7 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 @RoutePage()
 class Register extends ConsumerStatefulWidget {
@@ -33,11 +35,9 @@ class _RegisterState extends ConsumerState<Register> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: ref.watch(isloginProvider)
-          ? AppBar(
-              title: const Text('Register'),
-            )
-          : null,
+      appBar: AppBar(
+        title: const Text('Register'),
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -211,10 +211,25 @@ class _RegisterState extends ConsumerState<Register> {
                     }
                   },
                   icon: const Icon(Icons.app_registration),
-                  label: const Text('Create an account'),
+                  label: Text(LocaleKeys.sign_up.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.8,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    AutoRouter.of(context).push(Login(onHome: false));
+                  },
+                  icon: const Icon(Icons.login),
+                  label: Text(LocaleKeys.sign_in.tr()),
+                  style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -231,7 +246,7 @@ class _RegisterState extends ConsumerState<Register> {
                   icon: SizedBox(
                       width: 20,
                       child: Assets.lib.assets.images.googleLogo.image()),
-                  label: const Text('Sign up with Google'),
+                  label: Text(LocaleKeys.sign_with_google.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,

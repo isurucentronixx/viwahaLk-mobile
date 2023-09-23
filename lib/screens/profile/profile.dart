@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 @RoutePage()
 class ProfilePage extends ConsumerStatefulWidget {
@@ -205,7 +207,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Main".toUpperCase(),
+                            LocaleKeys.main.tr().toUpperCase(),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 16),
                           ),
@@ -217,33 +219,33 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
                     /// -- MENU
                     ProfileMenuWidget(
-                        title: "Dashboard",
+                        title: LocaleKeys.dashboard.tr(),
                         icon: Icons.settings,
                         onPress: () {
                           router.push(
                               UserDashboardPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
-                        title: "My Profile",
+                        title: LocaleKeys.my_profile.tr(),
                         icon: Icons.person_outline_outlined,
                         onPress: () {
                           AutoRouter.of(context).push(const MyProfilePage());
                         }),
                     ProfileMenuWidget(
-                        title: "Edit Profile",
+                        title: LocaleKeys.edit_profile.tr(),
                         icon: Icons.edit_note,
                         onPress: () {
                           AutoRouter.of(context).push(const EditProfilePage());
                         }),
                     ProfileMenuWidget(
-                        title: "Message",
+                        title: LocaleKeys.message.tr(),
                         icon: Icons.mail_outline,
                         onPress: () {
                           AutoRouter.of(context)
                               .push(MessagesPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
-                        title: "Change Password",
+                        title: LocaleKeys.change_password.tr(),
                         icon: Icons.password,
                         onPress: () {
                           AutoRouter.of(context)
@@ -258,7 +260,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Listings".toUpperCase(),
+                            LocaleKeys.listings.tr().toUpperCase(),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 16),
                           ),
@@ -268,20 +270,20 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     const Divider(),
                     const SizedBox(height: 10),
                     ProfileMenuWidget(
-                        title: "My Listing",
+                        title: LocaleKeys.my_listings.tr(),
                         icon: Icons.notes,
                         onPress: () {
                           ref.refresh(myListingProvider);
                           router.push(const MyListingPage());
                         }),
                     ProfileMenuWidget(
-                        title: "My Favorite",
+                        title: LocaleKeys.my_favorite.tr(),
                         icon: Icons.favorite_border_outlined,
                         onPress: () {
                           router.push(FavListingPage(isAppBar: true));
                         }),
                     ProfileMenuWidget(
-                        title: "Reviews",
+                        title: LocaleKeys.reviews.tr(),
                         icon: Icons.reviews_outlined,
                         onPress: () {
                           // router.push(const ReviewsPage());
@@ -325,20 +327,21 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         pref.remove("email");
                         pref.remove("password");
                         await _googleSignIn.signOut();
-                        appRouter.push(const Login());
+                        appRouter.push(Login(onHome: false));
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.logout_outlined,
+                          const Icon(Icons.logout_outlined,
                               color: Colors
                                   .white), // Replace Icons.copy with your desired icon.
-                          SizedBox(
+                          const SizedBox(
                               width:
                                   8), // Add some space between the icon and the text.
                           Text(
-                            "LOGOUT",
-                            style: TextStyle(fontSize: 14, color: Colors.white),
+                            LocaleKeys.logout.tr(),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.white),
                           ),
                         ],
                       ),
@@ -353,10 +356,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 widthFactor: 0.8,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    AutoRouter.of(context).push(const Login());
+                    AutoRouter.of(context).push(Login(onHome: false));
                   },
                   icon: const Icon(Icons.login),
-                  label: const Text('Sign In'),
+                  label: Text(LocaleKeys.login.tr()),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),

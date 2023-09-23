@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/models/home/home_content.dart';
+import 'package:viwaha_lk/screens/home/home_content.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/bottom_navigation_bar/inherited_data_provider.dart';

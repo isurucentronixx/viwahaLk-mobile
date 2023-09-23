@@ -100,7 +100,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                           widthFactor: 0.8,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              AutoRouter.of(context).push(const Login());
+                              AutoRouter.of(context).push(Login(onHome: false));
                             },
                             icon: const Icon(Icons.login),
                             label: const Text('Sign In'),

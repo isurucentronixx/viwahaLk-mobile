@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -9,6 +10,7 @@ import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 @RoutePage()
 class MyProfilePage extends ConsumerStatefulWidget {
@@ -117,11 +119,11 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                       children: [
                         AddFieldMainWidget(
                             icon: Icons.person_2_outlined,
-                            title: "Profile Details",
+                            title: LocaleKeys.profile_details.tr(),
                             description: "",
                             inputList: [
                               ListTile(
-                                  title: const Text('Telephone Number',
+                                  title: Text(LocaleKeys.contact_number.tr(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
@@ -132,8 +134,8 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                           fontSize: 18),
                                       textAlign: TextAlign.start)),
                               ListTile(
-                                title: const Text('Whatsapp Number',
-                                    style: TextStyle(
+                                title: Text(LocaleKeys.tele_number.tr(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                     textAlign: TextAlign.start),
@@ -144,8 +146,8 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                     textAlign: TextAlign.start),
                               ),
                               ListTile(
-                                title: const Text('Email',
-                                    style: TextStyle(
+                                title: Text(LocaleKeys.email.tr(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                     textAlign: TextAlign.start),
@@ -156,8 +158,8 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                     textAlign: TextAlign.start),
                               ),
                               ListTile(
-                                title: const Text('Address',
-                                    style: TextStyle(
+                                title:  Text(LocaleKeys.address.tr(),
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                     textAlign: TextAlign.start),
@@ -194,7 +196,7 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                             ]),
                         AddFieldMainWidget(
                             icon: Icons.follow_the_signs_outlined,
-                            title: "Follow Us",
+                            title: LocaleKeys.follow_us.tr(),
                             description: "",
                             inputList: [
                               ListTile(
@@ -220,10 +222,10 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                 widthFactor: 0.8,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    AutoRouter.of(context).push(const Login());
+                    AutoRouter.of(context).push(Login(onHome: false));
                   },
                   icon: const Icon(Icons.login),
-                  label: const Text('Sign In'),
+                  label: Text(LocaleKeys.sign_in.tr()),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),

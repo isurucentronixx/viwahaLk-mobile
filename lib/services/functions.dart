@@ -37,6 +37,7 @@ class PostData {
           const AsyncValue.data("Unsuccessfuly published your listing.");
       ref.read(addListingViewStateProvider.notifier).state =
           const AsyncValue.data(null);
+      print(e);
       rethrow;
     }
   }

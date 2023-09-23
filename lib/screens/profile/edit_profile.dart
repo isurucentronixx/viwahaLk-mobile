@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,6 +32,7 @@ import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/services/functions.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 final userFisrtNameProvider = StateProvider<String>((ref) => '');
 final userLastNameProvider = StateProvider<String>((ref) => '');
@@ -166,7 +168,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         const SizedBox(height: 10),
                         AddFieldMainWidget(
                             icon: Icons.info_outline,
-                            title: "General Information",
+                            title: LocaleKeys.general_info.tr(),
                             description: "General information about your self",
                             inputList: [
                               Padding(
@@ -1062,7 +1064,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                 widthFactor: 0.8,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    AutoRouter.of(context).push(const Login());
+                    AutoRouter.of(context).push(Login(onHome: false));
                   },
                   icon: const Icon(Icons.login),
                   label: const Text('Sign In'),

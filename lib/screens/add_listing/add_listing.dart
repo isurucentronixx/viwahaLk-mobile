@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
@@ -33,7 +34,7 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_select/awesome_select.dart';
-
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 final proposerNameProvider = StateProvider<String>((ref) => '');
 final proposerDobProvider =
@@ -76,6 +77,7 @@ class AddListingPage extends ConsumerStatefulWidget {
 
 class _AddListingPageState extends ConsumerState<AddListingPage> {
   final picker = ImagePicker();
+  late XFile mainImg;
 
   Color _catColor = Colors.grey;
   Color _subCatColor = Colors.grey;
@@ -590,7 +592,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();   
+    super.initState();
   }
 
   @override
@@ -686,7 +688,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                   children: [
                     AddFieldMainWidget(
                         icon: Icons.info_outline,
-                        title: "General Information",
+                        title: LocaleKeys.general_info.tr(),
                         description: "General information about your self",
                         inputList: [
                           Padding(
@@ -835,7 +837,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat == 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.perm_contact_cal_sharp,
-                            title: "Basic Details",
+                            title: LocaleKeys.basic_details.tr(),
                             description:
                                 "Take the 1st step to your happy marriage",
                             inputList: [
@@ -1148,7 +1150,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         : const SizedBox(),
                     AddFieldMainWidget(
                         icon: Icons.location_searching_outlined,
-                        title: "Add Location",
+                        title: LocaleKeys.add_location.tr(),
                         description:
                             "Address information about your listing location",
                         inputList: [
@@ -1343,7 +1345,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat != 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.menu_book_outlined,
-                            title: "Full Details",
+                            title: LocaleKeys.full_details.tr(),
                             description:
                                 "Write full details information about listing",
                             inputList: [
@@ -2024,7 +2026,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat != 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.card_giftcard_outlined,
-                            title: "Amenities",
+                            title: LocaleKeys.aminities.tr(),
                             description:
                                 "Check full detail information aboutfacilities",
                             inputList: [
@@ -2292,7 +2294,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         : const SizedBox(),
                     AddFieldMainWidget(
                         icon: Icons.image_sharp,
-                        title: "Main Image ",
+                        title: LocaleKeys.main_img.tr(),
                         description:
                             "[Valid formats : jpg, jpeg, png][Max size : 5Mb] NOTE: If you upload image here, this will be thumbnail image",
                         inputList: [
@@ -2304,7 +2306,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 GestureDetector(
                                   onTap: () {
                                     File image;
-                                    picker
+                                    setState(() {
+                                      picker
                                         .pickImage(
                                             source: ImageSource.gallery,
                                             imageQuality: 50,
@@ -2320,8 +2323,13 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                       .read(mainImageProvider
                                                           .notifier)
                                                       .state = image.path,
+                                                  mainImg = value,
+                                                  
                                                 }
                                             });
+                                      
+                                    });
+                                    
                                   },
                                   child: Container(
                                     color: ViwahaColor.transparent,
@@ -2380,7 +2388,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         ]),
                     AddFieldMainWidget(
                         icon: Icons.image_search,
-                        title: "Add Gallery *",
+                        title: LocaleKeys.img_gallery.tr(),
                         description:
                             "NOTE: First uploaded image will be the thumbnail image ",
                         inputList: [
@@ -2500,7 +2508,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat == 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.document_scanner_outlined,
-                            title: "Proposal Details",
+                            title: LocaleKeys.proposal_deatails.tr(),
                             description:
                                 "Write full detail information about you",
                             inputList: [
@@ -3228,7 +3236,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat == 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.person_pin_rounded,
-                            title: "Social Media Links",
+                            title: LocaleKeys.social_media_links.tr(),
                             description: "Links for you social media profiles",
                             inputList: [
                                 Padding(
@@ -3424,7 +3432,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat != 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.video_camera_back_outlined,
-                            title: "Add Video",
+                            title: LocaleKeys.add_video.tr(),
                             description:
                                 "Copy and paste the youtube or facebook video link",
                             inputList: [
@@ -3480,7 +3488,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                     _cat != 'Proposal'
                         ? AddFieldMainWidget(
                             icon: Icons.share_arrival_time_outlined,
-                            title: "Opening Hours",
+                            title: LocaleKeys.opening_hours.tr(),
                             description:
                                 "Select full detail information about opening time",
                             inputList: [
@@ -3721,7 +3729,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                     color: _tuesdayOpenColor),
                                               ),
                                               child: SmartSelect<String>.single(
-                                                
                                                 title: 'Opening Time',
                                                 selectedValue: _tuesdayOpen,
                                                 choiceItems: timeData,
@@ -4457,6 +4464,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                           widthFactor: 0.8,
                           child: ElevatedButton.icon(
                             onPressed: () {
+                              // print(ref.read(imageNameGalleryProvider));
+
                               if (!_formKey.currentState!.validate()) {
                                 return;
                               } else if (_cat != 'Proposal') {
@@ -4622,7 +4631,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     "uniqueImageName11": "",
                                     "gallery_images":
                                         ref.read(imageNameGalleryProvider),
-                                    "file1": ref.read(mainImageNameProvider)
+                                    "file1": ref.read(mainImageProvider)
                                   };
 
                                   controller.addNewListing(newList);
@@ -4718,7 +4727,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     "email": ref.read(adEmailProvider),
                                     "gallery_images":
                                         ref.read(imageNameGalleryProvider),
-                                    "file1": ref.read(mainImageNameProvider)
+                                    "file1": ref.read(mainImageProvider)
                                   };
 
                                   controller.addNewListing(newList);

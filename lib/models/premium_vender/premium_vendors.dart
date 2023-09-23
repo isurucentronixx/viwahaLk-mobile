@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
@@ -38,22 +39,22 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
 
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Premium Vendors',
-            style: TextStyle(
+            'premium_vendors'.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: 'Discover top-rated Premium Vendors ',
-                style: TextStyle(
+                text: 'discover_top_rated_premium_vendors'.tr(),
+                style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 14.0,
                   fontWeight: FontWeight.normal,
@@ -220,7 +221,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Rating: "),
+                        Text("rating".tr()),
                         RatingBarIndicator(
                           rating: int.parse(vendor.average_rating != null
                                   ? vendor.average_rating.toString()
