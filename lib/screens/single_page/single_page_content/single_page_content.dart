@@ -137,7 +137,9 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           ),
           const SizedBox(height: 10),
           Text(
-            '${widget.title}',
+            widget.item!.main_category == "Proposal"
+                ? '${widget.item!.name}'
+                : '${widget.title}',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -359,10 +361,11 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
 }
 
 class SingleItemProposal extends StatefulWidget {
-  const SingleItemProposal({super.key});
-  // final String amenities;
+  final dynamic item;
+  const SingleItemProposal(this.item, {super.key});
+
   @override
-  State<SingleItemAmenities> createState() => _SingleItemAmenitiesState();
+  State<SingleItemProposal> createState() => _SingleItemProposalState();
 }
 
 class _SingleItemProposalState extends State<SingleItemProposal> {
@@ -398,6 +401,227 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
             ),
           ),
           const SizedBox(height: 10),
+          widget.item.gender.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Gender',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.gender.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.birthyear.toString() != ""
+              ? ListTile(
+                  title: const Text('Birth Day',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(
+                      '${widget.item.birthyear.toString()}-${widget.item.birthmonth.toString()}-${widget.item.birthday.toString()}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.height.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Height ',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.height.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.weight.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Weight',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.weight.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.body.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Body',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.body.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.appearance.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Appearance',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.appearance.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.complexion.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Complexion',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.complexion.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.maritial.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Maritial',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.maritial.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.education.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Education',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.education.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.career.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Career',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.career.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.religion.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Religion',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.religion.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.ethnicity.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Ethnicity',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.ethnicity.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.social_class.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Social Class',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.social_class.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.residency.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Residency',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.residency.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.family_values.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Family Values',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.family_values.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.smoking.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Smoking',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.smoking.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.drinking.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Drinking',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.drinking.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.diet.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Diet',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.diet.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.personality.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Personality',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.personality.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
+          widget.item.next_step.toString() != "Select one"
+              ? ListTile(
+                  title: const Text('Next Step',
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.start),
+                  subtitle: Text(widget.item.next_step.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 16),
+                      textAlign: TextAlign.start),
+                )
+              : const SizedBox(),
         ],
       ),
     );

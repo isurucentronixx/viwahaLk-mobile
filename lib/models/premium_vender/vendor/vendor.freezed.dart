@@ -21,62 +21,27 @@ Vendor _$VendorFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Vendor {
   String? get id => throw _privateConstructorUsedError;
-  String? get date => throw _privateConstructorUsedError;
-  String? get active_date => throw _privateConstructorUsedError;
-  String? get valid_date => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-  String? get firstname => throw _privateConstructorUsedError;
-  String? get lastname => throw _privateConstructorUsedError;
-  String? get username => throw _privateConstructorUsedError;
-  String? get nic => throw _privateConstructorUsedError;
-  String? get phonenumber => throw _privateConstructorUsedError;
-  String? get whatsappnumber => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
-  String? get active => throw _privateConstructorUsedError;
-  String? get edit => throw _privateConstructorUsedError; // String? super,
-  String? get inviteid => throw _privateConstructorUsedError;
-  String? get verifycode => throw _privateConstructorUsedError;
-  String? get verified => throw _privateConstructorUsedError;
-  String? get image => throw _privateConstructorUsedError;
-  String? get bank_name => throw _privateConstructorUsedError;
-  String? get branch_name => throw _privateConstructorUsedError;
-  String? get account_name => throw _privateConstructorUsedError;
-  String? get account_number => throw _privateConstructorUsedError;
-  String? get bank_swift_code => throw _privateConstructorUsedError;
-  String? get address => throw _privateConstructorUsedError;
-  String? get bank_receipt_image => throw _privateConstructorUsedError;
-  String? get view_bank_receipt => throw _privateConstructorUsedError;
-  String? get payment_type => throw _privateConstructorUsedError;
-  String? get website => throw _privateConstructorUsedError;
-  String? get company => throw _privateConstructorUsedError;
-  String? get designation => throw _privateConstructorUsedError;
-  String? get birthday => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
-  String? get country => throw _privateConstructorUsedError;
-  String? get facebook => throw _privateConstructorUsedError;
-  String? get instagram => throw _privateConstructorUsedError;
-  String? get twitter => throw _privateConstructorUsedError;
-  String? get linkedin => throw _privateConstructorUsedError;
-  String? get youtube => throw _privateConstructorUsedError;
-  String? get about => throw _privateConstructorUsedError;
-  String? get oauth_provider => throw _privateConstructorUsedError;
-  String? get oauth_uid => throw _privateConstructorUsedError;
-  String? get gender => throw _privateConstructorUsedError;
-  String? get unique_link => throw _privateConstructorUsedError;
-  String? get created => throw _privateConstructorUsedError;
-  String? get modified => throw _privateConstructorUsedError;
-  String? get token_de_platform => throw _privateConstructorUsedError;
   String? get datetime => throw _privateConstructorUsedError;
   String? get user_id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
   String? get main_category => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String? get googleplace => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
   String? get main_location => throw _privateConstructorUsedError;
   String? get video => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
   String? get whatsapp => throw _privateConstructorUsedError;
+  String? get website => throw _privateConstructorUsedError;
+  String? get designation => throw _privateConstructorUsedError;
+  String? get company => throw _privateConstructorUsedError;
+  String? get facebook => throw _privateConstructorUsedError;
+  String? get instagram => throw _privateConstructorUsedError;
+  String? get youtube => throw _privateConstructorUsedError;
+  String? get linkedin => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get amenities => throw _privateConstructorUsedError;
   String? get saturday_open_time => throw _privateConstructorUsedError;
@@ -98,11 +63,38 @@ mixin _$Vendor {
   String? get images => throw _privateConstructorUsedError;
   String? get thumb_images => throw _privateConstructorUsedError;
   String? get views => throw _privateConstructorUsedError;
+  String? get active => throw _privateConstructorUsedError;
   String? get premium => throw _privateConstructorUsedError;
+  String? get bank_receipt_image => throw _privateConstructorUsedError;
   String? get price => throw _privateConstructorUsedError;
   String? get ask_price => throw _privateConstructorUsedError;
   String? get negotiable => throw _privateConstructorUsedError;
   String? get boosted => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
+  String? get birthday => throw _privateConstructorUsedError;
+  String? get birthmonth => throw _privateConstructorUsedError;
+  String? get birthyear => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
+  String? get province => throw _privateConstructorUsedError;
+  String? get city => throw _privateConstructorUsedError;
+  String? get height => throw _privateConstructorUsedError;
+  String? get weight => throw _privateConstructorUsedError;
+  String? get body => throw _privateConstructorUsedError;
+  String? get appearance => throw _privateConstructorUsedError;
+  String? get complexion => throw _privateConstructorUsedError;
+  String? get maritial => throw _privateConstructorUsedError;
+  String? get education => throw _privateConstructorUsedError;
+  String? get career => throw _privateConstructorUsedError;
+  String? get religion => throw _privateConstructorUsedError;
+  String? get ethnicity => throw _privateConstructorUsedError;
+  String? get social_class => throw _privateConstructorUsedError;
+  String? get residency => throw _privateConstructorUsedError;
+  String? get family_values => throw _privateConstructorUsedError;
+  String? get smoking => throw _privateConstructorUsedError;
+  String? get drinking => throw _privateConstructorUsedError;
+  String? get diet => throw _privateConstructorUsedError;
+  String? get personality => throw _privateConstructorUsedError;
+  String? get next_step => throw _privateConstructorUsedError;
   String? get average_rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -117,62 +109,27 @@ abstract class $VendorCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? date,
-      String? active_date,
-      String? valid_date,
-      String? type,
-      String? firstname,
-      String? lastname,
-      String? username,
-      String? nic,
-      String? phonenumber,
-      String? whatsappnumber,
-      String? email,
-      String? password,
-      String? active,
-      String? edit,
-      String? inviteid,
-      String? verifycode,
-      String? verified,
-      String? image,
-      String? bank_name,
-      String? branch_name,
-      String? account_name,
-      String? account_number,
-      String? bank_swift_code,
-      String? address,
-      String? bank_receipt_image,
-      String? view_bank_receipt,
-      String? payment_type,
-      String? website,
-      String? company,
-      String? designation,
-      String? birthday,
-      String? phone,
-      String? country,
-      String? facebook,
-      String? instagram,
-      String? twitter,
-      String? linkedin,
-      String? youtube,
-      String? about,
-      String? oauth_provider,
-      String? oauth_uid,
-      String? gender,
-      String? unique_link,
-      String? created,
-      String? modified,
-      String? token_de_platform,
       String? datetime,
       String? user_id,
       String? title,
       String? category,
       String? main_category,
+      String? address,
+      String? googleplace,
       String? location,
       String? main_location,
       String? video,
       String? name,
+      String? email,
+      String? phone,
       String? whatsapp,
+      String? website,
+      String? designation,
+      String? company,
+      String? facebook,
+      String? instagram,
+      String? youtube,
+      String? linkedin,
       String? description,
       String? amenities,
       String? saturday_open_time,
@@ -194,11 +151,38 @@ abstract class $VendorCopyWith<$Res> {
       String? images,
       String? thumb_images,
       String? views,
+      String? active,
       String? premium,
+      String? bank_receipt_image,
       String? price,
       String? ask_price,
       String? negotiable,
       String? boosted,
+      String? gender,
+      String? birthday,
+      String? birthmonth,
+      String? birthyear,
+      String? country,
+      String? province,
+      String? city,
+      String? height,
+      String? weight,
+      String? body,
+      String? appearance,
+      String? complexion,
+      String? maritial,
+      String? education,
+      String? career,
+      String? religion,
+      String? ethnicity,
+      String? social_class,
+      String? residency,
+      String? family_values,
+      String? smoking,
+      String? drinking,
+      String? diet,
+      String? personality,
+      String? next_step,
       String? average_rating});
 }
 
@@ -216,62 +200,27 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
   @override
   $Res call({
     Object? id = freezed,
-    Object? date = freezed,
-    Object? active_date = freezed,
-    Object? valid_date = freezed,
-    Object? type = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? username = freezed,
-    Object? nic = freezed,
-    Object? phonenumber = freezed,
-    Object? whatsappnumber = freezed,
-    Object? email = freezed,
-    Object? password = freezed,
-    Object? active = freezed,
-    Object? edit = freezed,
-    Object? inviteid = freezed,
-    Object? verifycode = freezed,
-    Object? verified = freezed,
-    Object? image = freezed,
-    Object? bank_name = freezed,
-    Object? branch_name = freezed,
-    Object? account_name = freezed,
-    Object? account_number = freezed,
-    Object? bank_swift_code = freezed,
-    Object? address = freezed,
-    Object? bank_receipt_image = freezed,
-    Object? view_bank_receipt = freezed,
-    Object? payment_type = freezed,
-    Object? website = freezed,
-    Object? company = freezed,
-    Object? designation = freezed,
-    Object? birthday = freezed,
-    Object? phone = freezed,
-    Object? country = freezed,
-    Object? facebook = freezed,
-    Object? instagram = freezed,
-    Object? twitter = freezed,
-    Object? linkedin = freezed,
-    Object? youtube = freezed,
-    Object? about = freezed,
-    Object? oauth_provider = freezed,
-    Object? oauth_uid = freezed,
-    Object? gender = freezed,
-    Object? unique_link = freezed,
-    Object? created = freezed,
-    Object? modified = freezed,
-    Object? token_de_platform = freezed,
     Object? datetime = freezed,
     Object? user_id = freezed,
     Object? title = freezed,
     Object? category = freezed,
     Object? main_category = freezed,
+    Object? address = freezed,
+    Object? googleplace = freezed,
     Object? location = freezed,
     Object? main_location = freezed,
     Object? video = freezed,
     Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
     Object? whatsapp = freezed,
+    Object? website = freezed,
+    Object? designation = freezed,
+    Object? company = freezed,
+    Object? facebook = freezed,
+    Object? instagram = freezed,
+    Object? youtube = freezed,
+    Object? linkedin = freezed,
     Object? description = freezed,
     Object? amenities = freezed,
     Object? saturday_open_time = freezed,
@@ -293,201 +242,44 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
     Object? images = freezed,
     Object? thumb_images = freezed,
     Object? views = freezed,
+    Object? active = freezed,
     Object? premium = freezed,
+    Object? bank_receipt_image = freezed,
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
     Object? boosted = freezed,
+    Object? gender = freezed,
+    Object? birthday = freezed,
+    Object? birthmonth = freezed,
+    Object? birthyear = freezed,
+    Object? country = freezed,
+    Object? province = freezed,
+    Object? city = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? body = freezed,
+    Object? appearance = freezed,
+    Object? complexion = freezed,
+    Object? maritial = freezed,
+    Object? education = freezed,
+    Object? career = freezed,
+    Object? religion = freezed,
+    Object? ethnicity = freezed,
+    Object? social_class = freezed,
+    Object? residency = freezed,
+    Object? family_values = freezed,
+    Object? smoking = freezed,
+    Object? drinking = freezed,
+    Object? diet = freezed,
+    Object? personality = freezed,
+    Object? next_step = freezed,
     Object? average_rating = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      active_date: freezed == active_date
-          ? _value.active_date
-          : active_date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      valid_date: freezed == valid_date
-          ? _value.valid_date
-          : valid_date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      nic: freezed == nic
-          ? _value.nic
-          : nic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phonenumber: freezed == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      whatsappnumber: freezed == whatsappnumber
-          ? _value.whatsappnumber
-          : whatsappnumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
-      active: freezed == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as String?,
-      edit: freezed == edit
-          ? _value.edit
-          : edit // ignore: cast_nullable_to_non_nullable
-              as String?,
-      inviteid: freezed == inviteid
-          ? _value.inviteid
-          : inviteid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      verifycode: freezed == verifycode
-          ? _value.verifycode
-          : verifycode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      verified: freezed == verified
-          ? _value.verified
-          : verified // ignore: cast_nullable_to_non_nullable
-              as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_name: freezed == bank_name
-          ? _value.bank_name
-          : bank_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      branch_name: freezed == branch_name
-          ? _value.branch_name
-          : branch_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      account_name: freezed == account_name
-          ? _value.account_name
-          : account_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      account_number: freezed == account_number
-          ? _value.account_number
-          : account_number // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_swift_code: freezed == bank_swift_code
-          ? _value.bank_swift_code
-          : bank_swift_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_receipt_image: freezed == bank_receipt_image
-          ? _value.bank_receipt_image
-          : bank_receipt_image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      view_bank_receipt: freezed == view_bank_receipt
-          ? _value.view_bank_receipt
-          : view_bank_receipt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payment_type: freezed == payment_type
-          ? _value.payment_type
-          : payment_type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      website: freezed == website
-          ? _value.website
-          : website // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      designation: freezed == designation
-          ? _value.designation
-          : designation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthday: freezed == birthday
-          ? _value.birthday
-          : birthday // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as String?,
-      facebook: freezed == facebook
-          ? _value.facebook
-          : facebook // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instagram: freezed == instagram
-          ? _value.instagram
-          : instagram // ignore: cast_nullable_to_non_nullable
-              as String?,
-      twitter: freezed == twitter
-          ? _value.twitter
-          : twitter // ignore: cast_nullable_to_non_nullable
-              as String?,
-      linkedin: freezed == linkedin
-          ? _value.linkedin
-          : linkedin // ignore: cast_nullable_to_non_nullable
-              as String?,
-      youtube: freezed == youtube
-          ? _value.youtube
-          : youtube // ignore: cast_nullable_to_non_nullable
-              as String?,
-      about: freezed == about
-          ? _value.about
-          : about // ignore: cast_nullable_to_non_nullable
-              as String?,
-      oauth_provider: freezed == oauth_provider
-          ? _value.oauth_provider
-          : oauth_provider // ignore: cast_nullable_to_non_nullable
-              as String?,
-      oauth_uid: freezed == oauth_uid
-          ? _value.oauth_uid
-          : oauth_uid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
-      unique_link: freezed == unique_link
-          ? _value.unique_link
-          : unique_link // ignore: cast_nullable_to_non_nullable
-              as String?,
-      created: freezed == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String?,
-      modified: freezed == modified
-          ? _value.modified
-          : modified // ignore: cast_nullable_to_non_nullable
-              as String?,
-      token_de_platform: freezed == token_de_platform
-          ? _value.token_de_platform
-          : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
       datetime: freezed == datetime
           ? _value.datetime
@@ -509,6 +301,14 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.main_category
           : main_category // ignore: cast_nullable_to_non_nullable
               as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      googleplace: freezed == googleplace
+          ? _value.googleplace
+          : googleplace // ignore: cast_nullable_to_non_nullable
+              as String?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -525,9 +325,45 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
       whatsapp: freezed == whatsapp
           ? _value.whatsapp
           : whatsapp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      website: freezed == website
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      designation: freezed == designation
+          ? _value.designation
+          : designation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      company: freezed == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as String?,
+      facebook: freezed == facebook
+          ? _value.facebook
+          : facebook // ignore: cast_nullable_to_non_nullable
+              as String?,
+      instagram: freezed == instagram
+          ? _value.instagram
+          : instagram // ignore: cast_nullable_to_non_nullable
+              as String?,
+      youtube: freezed == youtube
+          ? _value.youtube
+          : youtube // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedin: freezed == linkedin
+          ? _value.linkedin
+          : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
           ? _value.description
@@ -613,9 +449,17 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.views
           : views // ignore: cast_nullable_to_non_nullable
               as String?,
+      active: freezed == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as String?,
       premium: freezed == premium
           ? _value.premium
           : premium // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bank_receipt_image: freezed == bank_receipt_image
+          ? _value.bank_receipt_image
+          : bank_receipt_image // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -633,6 +477,106 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.boosted
           : boosted // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthmonth: freezed == birthmonth
+          ? _value.birthmonth
+          : birthmonth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthyear: freezed == birthyear
+          ? _value.birthyear
+          : birthyear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as String?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appearance: freezed == appearance
+          ? _value.appearance
+          : appearance // ignore: cast_nullable_to_non_nullable
+              as String?,
+      complexion: freezed == complexion
+          ? _value.complexion
+          : complexion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      maritial: freezed == maritial
+          ? _value.maritial
+          : maritial // ignore: cast_nullable_to_non_nullable
+              as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as String?,
+      career: freezed == career
+          ? _value.career
+          : career // ignore: cast_nullable_to_non_nullable
+              as String?,
+      religion: freezed == religion
+          ? _value.religion
+          : religion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ethnicity: freezed == ethnicity
+          ? _value.ethnicity
+          : ethnicity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      social_class: freezed == social_class
+          ? _value.social_class
+          : social_class // ignore: cast_nullable_to_non_nullable
+              as String?,
+      residency: freezed == residency
+          ? _value.residency
+          : residency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      family_values: freezed == family_values
+          ? _value.family_values
+          : family_values // ignore: cast_nullable_to_non_nullable
+              as String?,
+      smoking: freezed == smoking
+          ? _value.smoking
+          : smoking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      drinking: freezed == drinking
+          ? _value.drinking
+          : drinking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      diet: freezed == diet
+          ? _value.diet
+          : diet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      personality: freezed == personality
+          ? _value.personality
+          : personality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next_step: freezed == next_step
+          ? _value.next_step
+          : next_step // ignore: cast_nullable_to_non_nullable
+              as String?,
       average_rating: freezed == average_rating
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
@@ -649,62 +593,27 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? date,
-      String? active_date,
-      String? valid_date,
-      String? type,
-      String? firstname,
-      String? lastname,
-      String? username,
-      String? nic,
-      String? phonenumber,
-      String? whatsappnumber,
-      String? email,
-      String? password,
-      String? active,
-      String? edit,
-      String? inviteid,
-      String? verifycode,
-      String? verified,
-      String? image,
-      String? bank_name,
-      String? branch_name,
-      String? account_name,
-      String? account_number,
-      String? bank_swift_code,
-      String? address,
-      String? bank_receipt_image,
-      String? view_bank_receipt,
-      String? payment_type,
-      String? website,
-      String? company,
-      String? designation,
-      String? birthday,
-      String? phone,
-      String? country,
-      String? facebook,
-      String? instagram,
-      String? twitter,
-      String? linkedin,
-      String? youtube,
-      String? about,
-      String? oauth_provider,
-      String? oauth_uid,
-      String? gender,
-      String? unique_link,
-      String? created,
-      String? modified,
-      String? token_de_platform,
       String? datetime,
       String? user_id,
       String? title,
       String? category,
       String? main_category,
+      String? address,
+      String? googleplace,
       String? location,
       String? main_location,
       String? video,
       String? name,
+      String? email,
+      String? phone,
       String? whatsapp,
+      String? website,
+      String? designation,
+      String? company,
+      String? facebook,
+      String? instagram,
+      String? youtube,
+      String? linkedin,
       String? description,
       String? amenities,
       String? saturday_open_time,
@@ -726,11 +635,38 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
       String? images,
       String? thumb_images,
       String? views,
+      String? active,
       String? premium,
+      String? bank_receipt_image,
       String? price,
       String? ask_price,
       String? negotiable,
       String? boosted,
+      String? gender,
+      String? birthday,
+      String? birthmonth,
+      String? birthyear,
+      String? country,
+      String? province,
+      String? city,
+      String? height,
+      String? weight,
+      String? body,
+      String? appearance,
+      String? complexion,
+      String? maritial,
+      String? education,
+      String? career,
+      String? religion,
+      String? ethnicity,
+      String? social_class,
+      String? residency,
+      String? family_values,
+      String? smoking,
+      String? drinking,
+      String? diet,
+      String? personality,
+      String? next_step,
       String? average_rating});
 }
 
@@ -745,62 +681,27 @@ class __$$_VendorCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? date = freezed,
-    Object? active_date = freezed,
-    Object? valid_date = freezed,
-    Object? type = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? username = freezed,
-    Object? nic = freezed,
-    Object? phonenumber = freezed,
-    Object? whatsappnumber = freezed,
-    Object? email = freezed,
-    Object? password = freezed,
-    Object? active = freezed,
-    Object? edit = freezed,
-    Object? inviteid = freezed,
-    Object? verifycode = freezed,
-    Object? verified = freezed,
-    Object? image = freezed,
-    Object? bank_name = freezed,
-    Object? branch_name = freezed,
-    Object? account_name = freezed,
-    Object? account_number = freezed,
-    Object? bank_swift_code = freezed,
-    Object? address = freezed,
-    Object? bank_receipt_image = freezed,
-    Object? view_bank_receipt = freezed,
-    Object? payment_type = freezed,
-    Object? website = freezed,
-    Object? company = freezed,
-    Object? designation = freezed,
-    Object? birthday = freezed,
-    Object? phone = freezed,
-    Object? country = freezed,
-    Object? facebook = freezed,
-    Object? instagram = freezed,
-    Object? twitter = freezed,
-    Object? linkedin = freezed,
-    Object? youtube = freezed,
-    Object? about = freezed,
-    Object? oauth_provider = freezed,
-    Object? oauth_uid = freezed,
-    Object? gender = freezed,
-    Object? unique_link = freezed,
-    Object? created = freezed,
-    Object? modified = freezed,
-    Object? token_de_platform = freezed,
     Object? datetime = freezed,
     Object? user_id = freezed,
     Object? title = freezed,
     Object? category = freezed,
     Object? main_category = freezed,
+    Object? address = freezed,
+    Object? googleplace = freezed,
     Object? location = freezed,
     Object? main_location = freezed,
     Object? video = freezed,
     Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
     Object? whatsapp = freezed,
+    Object? website = freezed,
+    Object? designation = freezed,
+    Object? company = freezed,
+    Object? facebook = freezed,
+    Object? instagram = freezed,
+    Object? youtube = freezed,
+    Object? linkedin = freezed,
     Object? description = freezed,
     Object? amenities = freezed,
     Object? saturday_open_time = freezed,
@@ -822,201 +723,44 @@ class __$$_VendorCopyWithImpl<$Res>
     Object? images = freezed,
     Object? thumb_images = freezed,
     Object? views = freezed,
+    Object? active = freezed,
     Object? premium = freezed,
+    Object? bank_receipt_image = freezed,
     Object? price = freezed,
     Object? ask_price = freezed,
     Object? negotiable = freezed,
     Object? boosted = freezed,
+    Object? gender = freezed,
+    Object? birthday = freezed,
+    Object? birthmonth = freezed,
+    Object? birthyear = freezed,
+    Object? country = freezed,
+    Object? province = freezed,
+    Object? city = freezed,
+    Object? height = freezed,
+    Object? weight = freezed,
+    Object? body = freezed,
+    Object? appearance = freezed,
+    Object? complexion = freezed,
+    Object? maritial = freezed,
+    Object? education = freezed,
+    Object? career = freezed,
+    Object? religion = freezed,
+    Object? ethnicity = freezed,
+    Object? social_class = freezed,
+    Object? residency = freezed,
+    Object? family_values = freezed,
+    Object? smoking = freezed,
+    Object? drinking = freezed,
+    Object? diet = freezed,
+    Object? personality = freezed,
+    Object? next_step = freezed,
     Object? average_rating = freezed,
   }) {
     return _then(_$_Vendor(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      active_date: freezed == active_date
-          ? _value.active_date
-          : active_date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      valid_date: freezed == valid_date
-          ? _value.valid_date
-          : valid_date // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      nic: freezed == nic
-          ? _value.nic
-          : nic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phonenumber: freezed == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      whatsappnumber: freezed == whatsappnumber
-          ? _value.whatsappnumber
-          : whatsappnumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
-      active: freezed == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as String?,
-      edit: freezed == edit
-          ? _value.edit
-          : edit // ignore: cast_nullable_to_non_nullable
-              as String?,
-      inviteid: freezed == inviteid
-          ? _value.inviteid
-          : inviteid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      verifycode: freezed == verifycode
-          ? _value.verifycode
-          : verifycode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      verified: freezed == verified
-          ? _value.verified
-          : verified // ignore: cast_nullable_to_non_nullable
-              as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_name: freezed == bank_name
-          ? _value.bank_name
-          : bank_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      branch_name: freezed == branch_name
-          ? _value.branch_name
-          : branch_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      account_name: freezed == account_name
-          ? _value.account_name
-          : account_name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      account_number: freezed == account_number
-          ? _value.account_number
-          : account_number // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_swift_code: freezed == bank_swift_code
-          ? _value.bank_swift_code
-          : bank_swift_code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bank_receipt_image: freezed == bank_receipt_image
-          ? _value.bank_receipt_image
-          : bank_receipt_image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      view_bank_receipt: freezed == view_bank_receipt
-          ? _value.view_bank_receipt
-          : view_bank_receipt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payment_type: freezed == payment_type
-          ? _value.payment_type
-          : payment_type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      website: freezed == website
-          ? _value.website
-          : website // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      designation: freezed == designation
-          ? _value.designation
-          : designation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthday: freezed == birthday
-          ? _value.birthday
-          : birthday // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as String?,
-      facebook: freezed == facebook
-          ? _value.facebook
-          : facebook // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instagram: freezed == instagram
-          ? _value.instagram
-          : instagram // ignore: cast_nullable_to_non_nullable
-              as String?,
-      twitter: freezed == twitter
-          ? _value.twitter
-          : twitter // ignore: cast_nullable_to_non_nullable
-              as String?,
-      linkedin: freezed == linkedin
-          ? _value.linkedin
-          : linkedin // ignore: cast_nullable_to_non_nullable
-              as String?,
-      youtube: freezed == youtube
-          ? _value.youtube
-          : youtube // ignore: cast_nullable_to_non_nullable
-              as String?,
-      about: freezed == about
-          ? _value.about
-          : about // ignore: cast_nullable_to_non_nullable
-              as String?,
-      oauth_provider: freezed == oauth_provider
-          ? _value.oauth_provider
-          : oauth_provider // ignore: cast_nullable_to_non_nullable
-              as String?,
-      oauth_uid: freezed == oauth_uid
-          ? _value.oauth_uid
-          : oauth_uid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
-      unique_link: freezed == unique_link
-          ? _value.unique_link
-          : unique_link // ignore: cast_nullable_to_non_nullable
-              as String?,
-      created: freezed == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String?,
-      modified: freezed == modified
-          ? _value.modified
-          : modified // ignore: cast_nullable_to_non_nullable
-              as String?,
-      token_de_platform: freezed == token_de_platform
-          ? _value.token_de_platform
-          : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
       datetime: freezed == datetime
           ? _value.datetime
@@ -1038,6 +782,14 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.main_category
           : main_category // ignore: cast_nullable_to_non_nullable
               as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      googleplace: freezed == googleplace
+          ? _value.googleplace
+          : googleplace // ignore: cast_nullable_to_non_nullable
+              as String?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -1054,9 +806,45 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
       whatsapp: freezed == whatsapp
           ? _value.whatsapp
           : whatsapp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      website: freezed == website
+          ? _value.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String?,
+      designation: freezed == designation
+          ? _value.designation
+          : designation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      company: freezed == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as String?,
+      facebook: freezed == facebook
+          ? _value.facebook
+          : facebook // ignore: cast_nullable_to_non_nullable
+              as String?,
+      instagram: freezed == instagram
+          ? _value.instagram
+          : instagram // ignore: cast_nullable_to_non_nullable
+              as String?,
+      youtube: freezed == youtube
+          ? _value.youtube
+          : youtube // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedin: freezed == linkedin
+          ? _value.linkedin
+          : linkedin // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
           ? _value.description
@@ -1142,9 +930,17 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.views
           : views // ignore: cast_nullable_to_non_nullable
               as String?,
+      active: freezed == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as String?,
       premium: freezed == premium
           ? _value.premium
           : premium // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bank_receipt_image: freezed == bank_receipt_image
+          ? _value.bank_receipt_image
+          : bank_receipt_image // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -1162,6 +958,106 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.boosted
           : boosted // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthday: freezed == birthday
+          ? _value.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthmonth: freezed == birthmonth
+          ? _value.birthmonth
+          : birthmonth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      birthyear: freezed == birthyear
+          ? _value.birthyear
+          : birthyear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
+      province: freezed == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String?,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      height: freezed == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as String?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appearance: freezed == appearance
+          ? _value.appearance
+          : appearance // ignore: cast_nullable_to_non_nullable
+              as String?,
+      complexion: freezed == complexion
+          ? _value.complexion
+          : complexion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      maritial: freezed == maritial
+          ? _value.maritial
+          : maritial // ignore: cast_nullable_to_non_nullable
+              as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as String?,
+      career: freezed == career
+          ? _value.career
+          : career // ignore: cast_nullable_to_non_nullable
+              as String?,
+      religion: freezed == religion
+          ? _value.religion
+          : religion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ethnicity: freezed == ethnicity
+          ? _value.ethnicity
+          : ethnicity // ignore: cast_nullable_to_non_nullable
+              as String?,
+      social_class: freezed == social_class
+          ? _value.social_class
+          : social_class // ignore: cast_nullable_to_non_nullable
+              as String?,
+      residency: freezed == residency
+          ? _value.residency
+          : residency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      family_values: freezed == family_values
+          ? _value.family_values
+          : family_values // ignore: cast_nullable_to_non_nullable
+              as String?,
+      smoking: freezed == smoking
+          ? _value.smoking
+          : smoking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      drinking: freezed == drinking
+          ? _value.drinking
+          : drinking // ignore: cast_nullable_to_non_nullable
+              as String?,
+      diet: freezed == diet
+          ? _value.diet
+          : diet // ignore: cast_nullable_to_non_nullable
+              as String?,
+      personality: freezed == personality
+          ? _value.personality
+          : personality // ignore: cast_nullable_to_non_nullable
+              as String?,
+      next_step: freezed == next_step
+          ? _value.next_step
+          : next_step // ignore: cast_nullable_to_non_nullable
+              as String?,
       average_rating: freezed == average_rating
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
@@ -1175,62 +1071,27 @@ class __$$_VendorCopyWithImpl<$Res>
 class _$_Vendor implements _Vendor {
   const _$_Vendor(
       {this.id,
-      this.date,
-      this.active_date,
-      this.valid_date,
-      this.type,
-      this.firstname,
-      this.lastname,
-      this.username,
-      this.nic,
-      this.phonenumber,
-      this.whatsappnumber,
-      this.email,
-      this.password,
-      this.active,
-      this.edit,
-      this.inviteid,
-      this.verifycode,
-      this.verified,
-      this.image,
-      this.bank_name,
-      this.branch_name,
-      this.account_name,
-      this.account_number,
-      this.bank_swift_code,
-      this.address,
-      this.bank_receipt_image,
-      this.view_bank_receipt,
-      this.payment_type,
-      this.website,
-      this.company,
-      this.designation,
-      this.birthday,
-      this.phone,
-      this.country,
-      this.facebook,
-      this.instagram,
-      this.twitter,
-      this.linkedin,
-      this.youtube,
-      this.about,
-      this.oauth_provider,
-      this.oauth_uid,
-      this.gender,
-      this.unique_link,
-      this.created,
-      this.modified,
-      this.token_de_platform,
       this.datetime,
       this.user_id,
       this.title,
       this.category,
       this.main_category,
+      this.address,
+      this.googleplace,
       this.location,
       this.main_location,
       this.video,
       this.name,
+      this.email,
+      this.phone,
       this.whatsapp,
+      this.website,
+      this.designation,
+      this.company,
+      this.facebook,
+      this.instagram,
+      this.youtube,
+      this.linkedin,
       this.description,
       this.amenities,
       this.saturday_open_time,
@@ -1252,11 +1113,38 @@ class _$_Vendor implements _Vendor {
       this.images,
       this.thumb_images,
       this.views,
+      this.active,
       this.premium,
+      this.bank_receipt_image,
       this.price,
       this.ask_price,
       this.negotiable,
       this.boosted,
+      this.gender,
+      this.birthday,
+      this.birthmonth,
+      this.birthyear,
+      this.country,
+      this.province,
+      this.city,
+      this.height,
+      this.weight,
+      this.body,
+      this.appearance,
+      this.complexion,
+      this.maritial,
+      this.education,
+      this.career,
+      this.religion,
+      this.ethnicity,
+      this.social_class,
+      this.residency,
+      this.family_values,
+      this.smoking,
+      this.drinking,
+      this.diet,
+      this.personality,
+      this.next_step,
       this.average_rating});
 
   factory _$_Vendor.fromJson(Map<String, dynamic> json) =>
@@ -1264,99 +1152,6 @@ class _$_Vendor implements _Vendor {
 
   @override
   final String? id;
-  @override
-  final String? date;
-  @override
-  final String? active_date;
-  @override
-  final String? valid_date;
-  @override
-  final String? type;
-  @override
-  final String? firstname;
-  @override
-  final String? lastname;
-  @override
-  final String? username;
-  @override
-  final String? nic;
-  @override
-  final String? phonenumber;
-  @override
-  final String? whatsappnumber;
-  @override
-  final String? email;
-  @override
-  final String? password;
-  @override
-  final String? active;
-  @override
-  final String? edit;
-// String? super,
-  @override
-  final String? inviteid;
-  @override
-  final String? verifycode;
-  @override
-  final String? verified;
-  @override
-  final String? image;
-  @override
-  final String? bank_name;
-  @override
-  final String? branch_name;
-  @override
-  final String? account_name;
-  @override
-  final String? account_number;
-  @override
-  final String? bank_swift_code;
-  @override
-  final String? address;
-  @override
-  final String? bank_receipt_image;
-  @override
-  final String? view_bank_receipt;
-  @override
-  final String? payment_type;
-  @override
-  final String? website;
-  @override
-  final String? company;
-  @override
-  final String? designation;
-  @override
-  final String? birthday;
-  @override
-  final String? phone;
-  @override
-  final String? country;
-  @override
-  final String? facebook;
-  @override
-  final String? instagram;
-  @override
-  final String? twitter;
-  @override
-  final String? linkedin;
-  @override
-  final String? youtube;
-  @override
-  final String? about;
-  @override
-  final String? oauth_provider;
-  @override
-  final String? oauth_uid;
-  @override
-  final String? gender;
-  @override
-  final String? unique_link;
-  @override
-  final String? created;
-  @override
-  final String? modified;
-  @override
-  final String? token_de_platform;
   @override
   final String? datetime;
   @override
@@ -1368,6 +1163,10 @@ class _$_Vendor implements _Vendor {
   @override
   final String? main_category;
   @override
+  final String? address;
+  @override
+  final String? googleplace;
+  @override
   final String? location;
   @override
   final String? main_location;
@@ -1376,7 +1175,25 @@ class _$_Vendor implements _Vendor {
   @override
   final String? name;
   @override
+  final String? email;
+  @override
+  final String? phone;
+  @override
   final String? whatsapp;
+  @override
+  final String? website;
+  @override
+  final String? designation;
+  @override
+  final String? company;
+  @override
+  final String? facebook;
+  @override
+  final String? instagram;
+  @override
+  final String? youtube;
+  @override
+  final String? linkedin;
   @override
   final String? description;
   @override
@@ -1420,7 +1237,11 @@ class _$_Vendor implements _Vendor {
   @override
   final String? views;
   @override
+  final String? active;
+  @override
   final String? premium;
+  @override
+  final String? bank_receipt_image;
   @override
   final String? price;
   @override
@@ -1430,11 +1251,61 @@ class _$_Vendor implements _Vendor {
   @override
   final String? boosted;
   @override
+  final String? gender;
+  @override
+  final String? birthday;
+  @override
+  final String? birthmonth;
+  @override
+  final String? birthyear;
+  @override
+  final String? country;
+  @override
+  final String? province;
+  @override
+  final String? city;
+  @override
+  final String? height;
+  @override
+  final String? weight;
+  @override
+  final String? body;
+  @override
+  final String? appearance;
+  @override
+  final String? complexion;
+  @override
+  final String? maritial;
+  @override
+  final String? education;
+  @override
+  final String? career;
+  @override
+  final String? religion;
+  @override
+  final String? ethnicity;
+  @override
+  final String? social_class;
+  @override
+  final String? residency;
+  @override
+  final String? family_values;
+  @override
+  final String? smoking;
+  @override
+  final String? drinking;
+  @override
+  final String? diet;
+  @override
+  final String? personality;
+  @override
+  final String? next_step;
+  @override
   final String? average_rating;
 
   @override
   String toString() {
-    return 'Vendor(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, password: $password, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, location: $location, main_location: $main_location, video: $video, name: $name, whatsapp: $whatsapp, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, premium: $premium, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, average_rating: $average_rating)';
+    return 'Vendor(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating)';
   }
 
   @override
@@ -1443,81 +1314,6 @@ class _$_Vendor implements _Vendor {
         (other.runtimeType == runtimeType &&
             other is _$_Vendor &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.active_date, active_date) ||
-                other.active_date == active_date) &&
-            (identical(other.valid_date, valid_date) ||
-                other.valid_date == valid_date) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.firstname, firstname) ||
-                other.firstname == firstname) &&
-            (identical(other.lastname, lastname) ||
-                other.lastname == lastname) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.nic, nic) || other.nic == nic) &&
-            (identical(other.phonenumber, phonenumber) ||
-                other.phonenumber == phonenumber) &&
-            (identical(other.whatsappnumber, whatsappnumber) ||
-                other.whatsappnumber == whatsappnumber) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.active, active) || other.active == active) &&
-            (identical(other.edit, edit) || other.edit == edit) &&
-            (identical(other.inviteid, inviteid) ||
-                other.inviteid == inviteid) &&
-            (identical(other.verifycode, verifycode) ||
-                other.verifycode == verifycode) &&
-            (identical(other.verified, verified) ||
-                other.verified == verified) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.bank_name, bank_name) ||
-                other.bank_name == bank_name) &&
-            (identical(other.branch_name, branch_name) ||
-                other.branch_name == branch_name) &&
-            (identical(other.account_name, account_name) ||
-                other.account_name == account_name) &&
-            (identical(other.account_number, account_number) ||
-                other.account_number == account_number) &&
-            (identical(other.bank_swift_code, bank_swift_code) ||
-                other.bank_swift_code == bank_swift_code) &&
-            (identical(other.address, address) || other.address == address) &&
-            (identical(other.bank_receipt_image, bank_receipt_image) ||
-                other.bank_receipt_image == bank_receipt_image) &&
-            (identical(other.view_bank_receipt, view_bank_receipt) ||
-                other.view_bank_receipt == view_bank_receipt) &&
-            (identical(other.payment_type, payment_type) ||
-                other.payment_type == payment_type) &&
-            (identical(other.website, website) || other.website == website) &&
-            (identical(other.company, company) || other.company == company) &&
-            (identical(other.designation, designation) ||
-                other.designation == designation) &&
-            (identical(other.birthday, birthday) ||
-                other.birthday == birthday) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.country, country) || other.country == country) &&
-            (identical(other.facebook, facebook) ||
-                other.facebook == facebook) &&
-            (identical(other.instagram, instagram) ||
-                other.instagram == instagram) &&
-            (identical(other.twitter, twitter) || other.twitter == twitter) &&
-            (identical(other.linkedin, linkedin) ||
-                other.linkedin == linkedin) &&
-            (identical(other.youtube, youtube) || other.youtube == youtube) &&
-            (identical(other.about, about) || other.about == about) &&
-            (identical(other.oauth_provider, oauth_provider) ||
-                other.oauth_provider == oauth_provider) &&
-            (identical(other.oauth_uid, oauth_uid) ||
-                other.oauth_uid == oauth_uid) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.unique_link, unique_link) ||
-                other.unique_link == unique_link) &&
-            (identical(other.created, created) || other.created == created) &&
-            (identical(other.modified, modified) ||
-                other.modified == modified) &&
-            (identical(other.token_de_platform, token_de_platform) ||
-                other.token_de_platform == token_de_platform) &&
             (identical(other.datetime, datetime) ||
                 other.datetime == datetime) &&
             (identical(other.user_id, user_id) || other.user_id == user_id) &&
@@ -1526,14 +1322,30 @@ class _$_Vendor implements _Vendor {
                 other.category == category) &&
             (identical(other.main_category, main_category) ||
                 other.main_category == main_category) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.googleplace, googleplace) ||
+                other.googleplace == googleplace) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.main_location, main_location) ||
                 other.main_location == main_location) &&
             (identical(other.video, video) || other.video == video) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.whatsapp, whatsapp) ||
                 other.whatsapp == whatsapp) &&
+            (identical(other.website, website) || other.website == website) &&
+            (identical(other.designation, designation) ||
+                other.designation == designation) &&
+            (identical(other.company, company) || other.company == company) &&
+            (identical(other.facebook, facebook) ||
+                other.facebook == facebook) &&
+            (identical(other.instagram, instagram) ||
+                other.instagram == instagram) &&
+            (identical(other.youtube, youtube) || other.youtube == youtube) &&
+            (identical(other.linkedin, linkedin) ||
+                other.linkedin == linkedin) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.amenities, amenities) ||
@@ -1550,24 +1362,75 @@ class _$_Vendor implements _Vendor {
                 other.monday_open_time == monday_open_time) &&
             (identical(other.monday_close_time, monday_close_time) ||
                 other.monday_close_time == monday_close_time) &&
-            (identical(other.tuesday_open_time, tuesday_open_time) || other.tuesday_open_time == tuesday_open_time) &&
-            (identical(other.tuesday_close_time, tuesday_close_time) || other.tuesday_close_time == tuesday_close_time) &&
-            (identical(other.wednesday_open_time, wednesday_open_time) || other.wednesday_open_time == wednesday_open_time) &&
-            (identical(other.wednesday_close_time, wednesday_close_time) || other.wednesday_close_time == wednesday_close_time) &&
-            (identical(other.thursday_open_time, thursday_open_time) || other.thursday_open_time == thursday_open_time) &&
-            (identical(other.thursday_close_time, thursday_close_time) || other.thursday_close_time == thursday_close_time) &&
-            (identical(other.friday_open_time, friday_open_time) || other.friday_open_time == friday_open_time) &&
-            (identical(other.friday_close_time, friday_close_time) || other.friday_close_time == friday_close_time) &&
-            (identical(other.always_open, always_open) || other.always_open == always_open) &&
-            (identical(other.open_holiday, open_holiday) || other.open_holiday == open_holiday) &&
+            (identical(other.tuesday_open_time, tuesday_open_time) ||
+                other.tuesday_open_time == tuesday_open_time) &&
+            (identical(other.tuesday_close_time, tuesday_close_time) ||
+                other.tuesday_close_time == tuesday_close_time) &&
+            (identical(other.wednesday_open_time, wednesday_open_time) ||
+                other.wednesday_open_time == wednesday_open_time) &&
+            (identical(other.wednesday_close_time, wednesday_close_time) ||
+                other.wednesday_close_time == wednesday_close_time) &&
+            (identical(other.thursday_open_time, thursday_open_time) ||
+                other.thursday_open_time == thursday_open_time) &&
+            (identical(other.thursday_close_time, thursday_close_time) ||
+                other.thursday_close_time == thursday_close_time) &&
+            (identical(other.friday_open_time, friday_open_time) ||
+                other.friday_open_time == friday_open_time) &&
+            (identical(other.friday_close_time, friday_close_time) ||
+                other.friday_close_time == friday_close_time) &&
+            (identical(other.always_open, always_open) ||
+                other.always_open == always_open) &&
+            (identical(other.open_holiday, open_holiday) ||
+                other.open_holiday == open_holiday) &&
             (identical(other.images, images) || other.images == images) &&
-            (identical(other.thumb_images, thumb_images) || other.thumb_images == thumb_images) &&
+            (identical(other.thumb_images, thumb_images) ||
+                other.thumb_images == thumb_images) &&
             (identical(other.views, views) || other.views == views) &&
+            (identical(other.active, active) || other.active == active) &&
             (identical(other.premium, premium) || other.premium == premium) &&
+            (identical(other.bank_receipt_image, bank_receipt_image) ||
+                other.bank_receipt_image == bank_receipt_image) &&
             (identical(other.price, price) || other.price == price) &&
-            (identical(other.ask_price, ask_price) || other.ask_price == ask_price) &&
-            (identical(other.negotiable, negotiable) || other.negotiable == negotiable) &&
+            (identical(other.ask_price, ask_price) ||
+                other.ask_price == ask_price) &&
+            (identical(other.negotiable, negotiable) ||
+                other.negotiable == negotiable) &&
             (identical(other.boosted, boosted) || other.boosted == boosted) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday) &&
+            (identical(other.birthmonth, birthmonth) ||
+                other.birthmonth == birthmonth) &&
+            (identical(other.birthyear, birthyear) ||
+                other.birthyear == birthyear) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.body, body) || other.body == body) &&
+            (identical(other.appearance, appearance) ||
+                other.appearance == appearance) &&
+            (identical(other.complexion, complexion) ||
+                other.complexion == complexion) &&
+            (identical(other.maritial, maritial) ||
+                other.maritial == maritial) &&
+            (identical(other.education, education) ||
+                other.education == education) &&
+            (identical(other.career, career) || other.career == career) &&
+            (identical(other.religion, religion) ||
+                other.religion == religion) &&
+            (identical(other.ethnicity, ethnicity) ||
+                other.ethnicity == ethnicity) &&
+            (identical(other.social_class, social_class) || other.social_class == social_class) &&
+            (identical(other.residency, residency) || other.residency == residency) &&
+            (identical(other.family_values, family_values) || other.family_values == family_values) &&
+            (identical(other.smoking, smoking) || other.smoking == smoking) &&
+            (identical(other.drinking, drinking) || other.drinking == drinking) &&
+            (identical(other.diet, diet) || other.diet == diet) &&
+            (identical(other.personality, personality) || other.personality == personality) &&
+            (identical(other.next_step, next_step) || other.next_step == next_step) &&
             (identical(other.average_rating, average_rating) || other.average_rating == average_rating));
   }
 
@@ -1576,62 +1439,27 @@ class _$_Vendor implements _Vendor {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
-        date,
-        active_date,
-        valid_date,
-        type,
-        firstname,
-        lastname,
-        username,
-        nic,
-        phonenumber,
-        whatsappnumber,
-        email,
-        password,
-        active,
-        edit,
-        inviteid,
-        verifycode,
-        verified,
-        image,
-        bank_name,
-        branch_name,
-        account_name,
-        account_number,
-        bank_swift_code,
-        address,
-        bank_receipt_image,
-        view_bank_receipt,
-        payment_type,
-        website,
-        company,
-        designation,
-        birthday,
-        phone,
-        country,
-        facebook,
-        instagram,
-        twitter,
-        linkedin,
-        youtube,
-        about,
-        oauth_provider,
-        oauth_uid,
-        gender,
-        unique_link,
-        created,
-        modified,
-        token_de_platform,
         datetime,
         user_id,
         title,
         category,
         main_category,
+        address,
+        googleplace,
         location,
         main_location,
         video,
         name,
+        email,
+        phone,
         whatsapp,
+        website,
+        designation,
+        company,
+        facebook,
+        instagram,
+        youtube,
+        linkedin,
         description,
         amenities,
         saturday_open_time,
@@ -1653,11 +1481,38 @@ class _$_Vendor implements _Vendor {
         images,
         thumb_images,
         views,
+        active,
         premium,
+        bank_receipt_image,
         price,
         ask_price,
         negotiable,
         boosted,
+        gender,
+        birthday,
+        birthmonth,
+        birthyear,
+        country,
+        province,
+        city,
+        height,
+        weight,
+        body,
+        appearance,
+        complexion,
+        maritial,
+        education,
+        career,
+        religion,
+        ethnicity,
+        social_class,
+        residency,
+        family_values,
+        smoking,
+        drinking,
+        diet,
+        personality,
+        next_step,
         average_rating
       ]);
 
@@ -1678,62 +1533,27 @@ class _$_Vendor implements _Vendor {
 abstract class _Vendor implements Vendor {
   const factory _Vendor(
       {final String? id,
-      final String? date,
-      final String? active_date,
-      final String? valid_date,
-      final String? type,
-      final String? firstname,
-      final String? lastname,
-      final String? username,
-      final String? nic,
-      final String? phonenumber,
-      final String? whatsappnumber,
-      final String? email,
-      final String? password,
-      final String? active,
-      final String? edit,
-      final String? inviteid,
-      final String? verifycode,
-      final String? verified,
-      final String? image,
-      final String? bank_name,
-      final String? branch_name,
-      final String? account_name,
-      final String? account_number,
-      final String? bank_swift_code,
-      final String? address,
-      final String? bank_receipt_image,
-      final String? view_bank_receipt,
-      final String? payment_type,
-      final String? website,
-      final String? company,
-      final String? designation,
-      final String? birthday,
-      final String? phone,
-      final String? country,
-      final String? facebook,
-      final String? instagram,
-      final String? twitter,
-      final String? linkedin,
-      final String? youtube,
-      final String? about,
-      final String? oauth_provider,
-      final String? oauth_uid,
-      final String? gender,
-      final String? unique_link,
-      final String? created,
-      final String? modified,
-      final String? token_de_platform,
       final String? datetime,
       final String? user_id,
       final String? title,
       final String? category,
       final String? main_category,
+      final String? address,
+      final String? googleplace,
       final String? location,
       final String? main_location,
       final String? video,
       final String? name,
+      final String? email,
+      final String? phone,
       final String? whatsapp,
+      final String? website,
+      final String? designation,
+      final String? company,
+      final String? facebook,
+      final String? instagram,
+      final String? youtube,
+      final String? linkedin,
       final String? description,
       final String? amenities,
       final String? saturday_open_time,
@@ -1755,109 +1575,44 @@ abstract class _Vendor implements Vendor {
       final String? images,
       final String? thumb_images,
       final String? views,
+      final String? active,
       final String? premium,
+      final String? bank_receipt_image,
       final String? price,
       final String? ask_price,
       final String? negotiable,
       final String? boosted,
+      final String? gender,
+      final String? birthday,
+      final String? birthmonth,
+      final String? birthyear,
+      final String? country,
+      final String? province,
+      final String? city,
+      final String? height,
+      final String? weight,
+      final String? body,
+      final String? appearance,
+      final String? complexion,
+      final String? maritial,
+      final String? education,
+      final String? career,
+      final String? religion,
+      final String? ethnicity,
+      final String? social_class,
+      final String? residency,
+      final String? family_values,
+      final String? smoking,
+      final String? drinking,
+      final String? diet,
+      final String? personality,
+      final String? next_step,
       final String? average_rating}) = _$_Vendor;
 
   factory _Vendor.fromJson(Map<String, dynamic> json) = _$_Vendor.fromJson;
 
   @override
   String? get id;
-  @override
-  String? get date;
-  @override
-  String? get active_date;
-  @override
-  String? get valid_date;
-  @override
-  String? get type;
-  @override
-  String? get firstname;
-  @override
-  String? get lastname;
-  @override
-  String? get username;
-  @override
-  String? get nic;
-  @override
-  String? get phonenumber;
-  @override
-  String? get whatsappnumber;
-  @override
-  String? get email;
-  @override
-  String? get password;
-  @override
-  String? get active;
-  @override
-  String? get edit;
-  @override // String? super,
-  String? get inviteid;
-  @override
-  String? get verifycode;
-  @override
-  String? get verified;
-  @override
-  String? get image;
-  @override
-  String? get bank_name;
-  @override
-  String? get branch_name;
-  @override
-  String? get account_name;
-  @override
-  String? get account_number;
-  @override
-  String? get bank_swift_code;
-  @override
-  String? get address;
-  @override
-  String? get bank_receipt_image;
-  @override
-  String? get view_bank_receipt;
-  @override
-  String? get payment_type;
-  @override
-  String? get website;
-  @override
-  String? get company;
-  @override
-  String? get designation;
-  @override
-  String? get birthday;
-  @override
-  String? get phone;
-  @override
-  String? get country;
-  @override
-  String? get facebook;
-  @override
-  String? get instagram;
-  @override
-  String? get twitter;
-  @override
-  String? get linkedin;
-  @override
-  String? get youtube;
-  @override
-  String? get about;
-  @override
-  String? get oauth_provider;
-  @override
-  String? get oauth_uid;
-  @override
-  String? get gender;
-  @override
-  String? get unique_link;
-  @override
-  String? get created;
-  @override
-  String? get modified;
-  @override
-  String? get token_de_platform;
   @override
   String? get datetime;
   @override
@@ -1869,6 +1624,10 @@ abstract class _Vendor implements Vendor {
   @override
   String? get main_category;
   @override
+  String? get address;
+  @override
+  String? get googleplace;
+  @override
   String? get location;
   @override
   String? get main_location;
@@ -1877,7 +1636,25 @@ abstract class _Vendor implements Vendor {
   @override
   String? get name;
   @override
+  String? get email;
+  @override
+  String? get phone;
+  @override
   String? get whatsapp;
+  @override
+  String? get website;
+  @override
+  String? get designation;
+  @override
+  String? get company;
+  @override
+  String? get facebook;
+  @override
+  String? get instagram;
+  @override
+  String? get youtube;
+  @override
+  String? get linkedin;
   @override
   String? get description;
   @override
@@ -1921,7 +1698,11 @@ abstract class _Vendor implements Vendor {
   @override
   String? get views;
   @override
+  String? get active;
+  @override
   String? get premium;
+  @override
+  String? get bank_receipt_image;
   @override
   String? get price;
   @override
@@ -1930,6 +1711,56 @@ abstract class _Vendor implements Vendor {
   String? get negotiable;
   @override
   String? get boosted;
+  @override
+  String? get gender;
+  @override
+  String? get birthday;
+  @override
+  String? get birthmonth;
+  @override
+  String? get birthyear;
+  @override
+  String? get country;
+  @override
+  String? get province;
+  @override
+  String? get city;
+  @override
+  String? get height;
+  @override
+  String? get weight;
+  @override
+  String? get body;
+  @override
+  String? get appearance;
+  @override
+  String? get complexion;
+  @override
+  String? get maritial;
+  @override
+  String? get education;
+  @override
+  String? get career;
+  @override
+  String? get religion;
+  @override
+  String? get ethnicity;
+  @override
+  String? get social_class;
+  @override
+  String? get residency;
+  @override
+  String? get family_values;
+  @override
+  String? get smoking;
+  @override
+  String? get drinking;
+  @override
+  String? get diet;
+  @override
+  String? get personality;
+  @override
+  String? get next_step;
   @override
   String? get average_rating;
   @override

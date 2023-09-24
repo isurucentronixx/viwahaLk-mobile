@@ -2308,28 +2308,25 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     File image;
                                     setState(() {
                                       picker
-                                        .pickImage(
-                                            source: ImageSource.gallery,
-                                            imageQuality: 50,
-                                            maxWidth: 800,
-                                            maxHeight: 800)
-                                        .then((value) => {
-                                              if (value != null)
-                                                {
-                                                  image = File(value.path),
-                                                  imageUpload(image, value.name,
-                                                      "main"),
-                                                  ref
-                                                      .read(mainImageProvider
-                                                          .notifier)
-                                                      .state = image.path,
-                                                  mainImg = value,
-                                                  
-                                                }
-                                            });
-                                      
+                                          .pickImage(
+                                              source: ImageSource.gallery,
+                                              imageQuality: 50,
+                                              maxWidth: 800,
+                                              maxHeight: 800)
+                                          .then((value) => {
+                                                if (value != null)
+                                                  {
+                                                    image = File(value.path),
+                                                    imageUpload(image,
+                                                        value.name, "main"),
+                                                    ref
+                                                        .read(mainImageProvider
+                                                            .notifier)
+                                                        .state = image.path,
+                                                    mainImg = value,
+                                                  }
+                                              });
                                     });
-                                    
                                   },
                                   child: Container(
                                     color: ViwahaColor.transparent,
@@ -4631,7 +4628,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     "uniqueImageName11": "",
                                     "gallery_images":
                                         ref.read(imageNameGalleryProvider),
-                                    "file1": ref.read(mainImageProvider)
+                                    "file1": ref.read(mainImageNameProvider)
                                   };
 
                                   controller.addNewListing(newList);
@@ -4727,7 +4724,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     "email": ref.read(adEmailProvider),
                                     "gallery_images":
                                         ref.read(imageNameGalleryProvider),
-                                    "file1": ref.read(mainImageProvider)
+                                    "file1": ref.read(mainImageNameProvider)
                                   };
 
                                   controller.addNewListing(newList);

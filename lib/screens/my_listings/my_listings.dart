@@ -132,6 +132,10 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                                 : 0,
                                         title:
                                             myListing[index].title.toString(),
+                                        name: myListing[index].name.toString(),
+                                        main_category: myListing[index]
+                                            .main_category
+                                            .toString(),
                                       ),
                                     )
                                 // SearchingCardItem(
@@ -159,7 +163,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                               AutoRouter.of(context).push(Login(onHome: false));
                             },
                             icon: const Icon(Icons.login),
-                            label:  Text(LocaleKeys.login.tr()),
+                            label: Text(LocaleKeys.login.tr()),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),

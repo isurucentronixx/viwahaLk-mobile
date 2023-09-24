@@ -30,6 +30,8 @@ class MyCardItem extends ConsumerStatefulWidget {
   final double starRating;
   final String location;
   final String date;
+  final String name;
+  final String main_category;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -38,6 +40,8 @@ class MyCardItem extends ConsumerStatefulWidget {
     required this.starRating,
     required this.location,
     required this.date,
+    required this.name,
+    required this.main_category,
   });
   @override
   _MyCardItemState createState() => _MyCardItemState();
@@ -174,7 +178,9 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                   SizedBox(
                     width: 170,
                     child: Text(
-                      widget.title.toUpperCase(),
+                      widget.main_category == "Proposal"
+                ? '${widget.name}'
+                : '${widget.title}',
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 20,

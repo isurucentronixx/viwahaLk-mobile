@@ -735,6 +735,9 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     location: myListing[index].location != null
                         ? myListing[index].location!
                         : "",
+                    name: myListing[index].name.toString(),
+                    main_category: myListing[index].main_category.toString(),
+                    id: myListing[index].id.toString(),
                   ),
                 ),
               ),
@@ -750,6 +753,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
 }
 
 class MyCardItem extends ConsumerWidget {
+  final String id;
   final String imagePath;
   final String title;
   final String description;
@@ -757,8 +761,11 @@ class MyCardItem extends ConsumerWidget {
   final String location;
   final String date;
   final String type;
+  final String name;
+  final String main_category;
 
   const MyCardItem({
+    required this.id,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -766,11 +773,20 @@ class MyCardItem extends ConsumerWidget {
     required this.location,
     required this.date,
     required this.type,
+    required this.name,
+    required this.main_category,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AutoRouter.of(context).push(SearchSingleView(
+            item: ref
+                .watch(myListingProvider)
+                .where((element) => id == element.id)
+                .first,
+            type: 'myAd'));
+      },
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -851,7 +867,7 @@ class MyCardItem extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    main_category == "Proposal" ? '${name}' : '${title}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
