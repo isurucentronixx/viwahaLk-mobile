@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -160,33 +161,69 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(100),
-                                          child: Image.network(
-                                            review.image != null
-                                                ? 'https://viwaha.lk/${review.image.toString()}'
-                                                : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                            fit: BoxFit.fill,
-                                            loadingBuilder:
-                                                (context, child, progress) {
-                                              if (progress == null) {
-                                                return SizedBox(
-                                                  width: 150,
-                                                  height: 150,
-                                                  child: child,
-                                                );
-                                              }
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            },
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Image.network(
+                                          child: 
+                                          CachedNetworkImage(
+                                            imageUrl: review.image.toString(),
+                                            fit: BoxFit.cover,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              height: 150,
+                                              width: 150,
+                                              decoration: BoxDecoration(
+                                                // borderRadius:
+                                                //     const BorderRadius.only(
+                                                //         topLeft:
+                                                //             Radius.circular(10),
+                                                //         topRight:
+                                                //             Radius.circular(
+                                                //                 10)),
+                                                color: Colors.black,
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) => Center(
+                                              child: Image.network(
                                                 'https://viwaha.lk/assets/img/logo/no_image.jpg',
                                                 fit: BoxFit.cover,
-                                              );
-                                            },
+                                              ),
+                                            ),
                                           ),
+                                          // Image.network(
+                                          //   review.image != null
+                                          //       ? 'https://viwaha.lk/${review.image.toString()}'
+                                          //       : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                          //   fit: BoxFit.fill,
+                                          //   loadingBuilder:
+                                          //       (context, child, progress) {
+                                          //     if (progress == null) {
+                                          //       return SizedBox(
+                                          //         width: 150,
+                                          //         height: 150,
+                                          //         child: child,
+                                          //       );
+                                          //     }
+                                          //     return const Center(
+                                          //       child:
+                                          //           CircularProgressIndicator(),
+                                          //     );
+                                          //   },
+                                          //   errorBuilder:
+                                          //       (context, error, stackTrace) {
+                                          //     return Image.network(
+                                          //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                          //       fit: BoxFit.cover,
+                                          //     );
+                                          //   },
+                                          // ),
                                         ),
                                       ),
                                     ),

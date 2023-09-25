@@ -91,10 +91,13 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                           allListing.length, // Total number of cards
                           (index) => SearchingCardItem(
                             id: allListing[index].id.toString(),
-                            imagePath: ref
-                                .read(homeControllerProvider)
-                                .getTumbImage(allListing[index].thumb_images)
-                                .first, // Replace with your image paths
+                            imagePath: allListing[index].image != null 
+                                ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                : ref
+                                    .read(homeControllerProvider)
+                                    .getTumbImage(
+                                        allListing[index].thumb_images)
+                                    .first, // Replace with your image paths
                             title: allListing[index].title.toString(),
                             description:
                                 allListing[index].description.toString(),

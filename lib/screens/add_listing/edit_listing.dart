@@ -694,7 +694,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
         ref.read(isLoadingMainImageProvider.notifier).state = true;
       }
 
-      final res = await controller.imageUpload(image, name);
+      final res = await controller.imageUpload(image, name, type);
       print(res);
       setState(() {
         if (type == "gallery") {

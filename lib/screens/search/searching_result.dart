@@ -59,11 +59,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                           searchingResult.length, // Total number of cards
                           (index) => SearchingCardItem(
                             id: searchingResult[index].id.toString(),
-                            imagePath: ref
-                                .read(homeControllerProvider)
-                                .getTumbImage(
-                                    searchingResult[index].thumb_images)
-                                .first, // Replace with your image paths
+                            imagePath: searchingResult[index]
+                                        .image != null 
+                                ? "https://viwaha.lk/${searchingResult[index].image.toString()}"
+                                : ref
+                                    .read(homeControllerProvider)
+                                    .getTumbImage(
+                                        searchingResult[index].thumb_images)
+                                    .first, // Replace with your image paths
                             title: searchingResult[index].title.toString(),
                             description:
                                 searchingResult[index].description.toString(),

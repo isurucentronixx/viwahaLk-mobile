@@ -104,10 +104,10 @@ class PostData {
     }
   }
 
-  Future imageUpload(File image, String name) async {
+  Future imageUpload(File image, String name, String type) async {
     var formData = FormData.fromMap({
       'userId': ref.watch(userProvider).user!.id,
-      'gallery_images':
+      type != 'main' ? 'gallery_images' : 'file1':
           await MultipartFile.fromFile(image.path, filename: name),
     });
     try {

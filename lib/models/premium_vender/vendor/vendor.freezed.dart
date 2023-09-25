@@ -60,6 +60,7 @@ mixin _$Vendor {
   String? get friday_close_time => throw _privateConstructorUsedError;
   String? get always_open => throw _privateConstructorUsedError;
   String? get open_holiday => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
   String? get images => throw _privateConstructorUsedError;
   String? get thumb_images => throw _privateConstructorUsedError;
   String? get views => throw _privateConstructorUsedError;
@@ -148,6 +149,7 @@ abstract class $VendorCopyWith<$Res> {
       String? friday_close_time,
       String? always_open,
       String? open_holiday,
+      String? image,
       String? images,
       String? thumb_images,
       String? views,
@@ -239,6 +241,7 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
     Object? friday_close_time = freezed,
     Object? always_open = freezed,
     Object? open_holiday = freezed,
+    Object? image = freezed,
     Object? images = freezed,
     Object? thumb_images = freezed,
     Object? views = freezed,
@@ -437,6 +440,10 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.open_holiday
           : open_holiday // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -632,6 +639,7 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
       String? friday_close_time,
       String? always_open,
       String? open_holiday,
+      String? image,
       String? images,
       String? thumb_images,
       String? views,
@@ -720,6 +728,7 @@ class __$$_VendorCopyWithImpl<$Res>
     Object? friday_close_time = freezed,
     Object? always_open = freezed,
     Object? open_holiday = freezed,
+    Object? image = freezed,
     Object? images = freezed,
     Object? thumb_images = freezed,
     Object? views = freezed,
@@ -918,6 +927,10 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.open_holiday
           : open_holiday // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -1110,6 +1123,7 @@ class _$_Vendor implements _Vendor {
       this.friday_close_time,
       this.always_open,
       this.open_holiday,
+      this.image,
       this.images,
       this.thumb_images,
       this.views,
@@ -1231,6 +1245,8 @@ class _$_Vendor implements _Vendor {
   @override
   final String? open_holiday;
   @override
+  final String? image;
+  @override
   final String? images;
   @override
   final String? thumb_images;
@@ -1305,7 +1321,7 @@ class _$_Vendor implements _Vendor {
 
   @override
   String toString() {
-    return 'Vendor(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating)';
+    return 'Vendor(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating)';
   }
 
   @override
@@ -1382,6 +1398,7 @@ class _$_Vendor implements _Vendor {
                 other.always_open == always_open) &&
             (identical(other.open_holiday, open_holiday) ||
                 other.open_holiday == open_holiday) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.images, images) || other.images == images) &&
             (identical(other.thumb_images, thumb_images) ||
                 other.thumb_images == thumb_images) &&
@@ -1478,6 +1495,7 @@ class _$_Vendor implements _Vendor {
         friday_close_time,
         always_open,
         open_holiday,
+        image,
         images,
         thumb_images,
         views,
@@ -1572,6 +1590,7 @@ abstract class _Vendor implements Vendor {
       final String? friday_close_time,
       final String? always_open,
       final String? open_holiday,
+      final String? image,
       final String? images,
       final String? thumb_images,
       final String? views,
@@ -1691,6 +1710,8 @@ abstract class _Vendor implements Vendor {
   String? get always_open;
   @override
   String? get open_holiday;
+  @override
+  String? get image;
   @override
   String? get images;
   @override

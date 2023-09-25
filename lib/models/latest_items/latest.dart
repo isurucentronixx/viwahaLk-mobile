@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,10 +33,12 @@ class SingleItemLatest extends ConsumerWidget {
       premiumVendorsList = ref.read(vendorsProvider);
       premiumVendorsList.forEach((e) {
         CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
+            imagePath: e.image != null
+                ? "https://viwaha.lk/${e.image.toString()}"
+                : ref
+                    .read(homeControllerProvider)
+                    .getTumbImage(e.thumb_images)
+                    .first,
             title: e.title,
             description: e.description,
             starRating:
@@ -49,13 +52,16 @@ class SingleItemLatest extends ConsumerWidget {
       topListingList = ref.read(topListingProvider);
       topListingList.forEach((e) {
         CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
+            imagePath: e.image != null
+                ? "https://viwaha.lk/${e.image.toString()}"
+                : ref
+                    .read(homeControllerProvider)
+                    .getTumbImage(e.thumb_images)
+                    .first,
             title: e.title,
             description: e.description,
-            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
+            starRating:
+                e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'topListing');
@@ -65,13 +71,16 @@ class SingleItemLatest extends ConsumerWidget {
       premiumVendorsList = ref.read(vendorsProvider);
       premiumVendorsList.forEach((e) {
         CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
+            imagePath: e.image != null
+                ? "https://viwaha.lk/${e.image.toString()}"
+                : ref
+                    .read(homeControllerProvider)
+                    .getTumbImage(e.thumb_images)
+                    .first,
             title: e.title,
             description: e.description,
-            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
+            starRating:
+                e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'vendor');
@@ -80,13 +89,16 @@ class SingleItemLatest extends ConsumerWidget {
       topListingList = ref.read(topListingProvider);
       topListingList.forEach((e) {
         CardModel cardModel = CardModel(
-            imagePath: ref
-                .read(homeControllerProvider)
-                .getTumbImage(e.thumb_images)
-                .first,
+            imagePath: e.image != null
+                ? "https://viwaha.lk/${e.image.toString()}"
+                : ref
+                    .read(homeControllerProvider)
+                    .getTumbImage(e.thumb_images)
+                    .first,
             title: e.title,
             description: e.description,
-            starRating: e.average_rating != null ? e.average_rating.toString() : '0',
+            starRating:
+                e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
             type: 'topListing');
@@ -146,9 +158,9 @@ class SingleItemLatest extends ConsumerWidget {
                     title: finalCardList[index].title!,
                     description: finalCardList[index].description!,
                     starRating: finalCardList[index].starRating != null
-                            ? double.parse(
-                                finalCardList[index].starRating.toString())
-                            : 0,
+                        ? double.parse(
+                            finalCardList[index].starRating.toString())
+                        : 0,
                     type: type,
                     date: finalCardList[index].date!,
                     location: finalCardList[index].location!,
@@ -223,35 +235,31 @@ class CardItem extends ConsumerWidget {
                 height: 500,
                 child: Stack(
                   children: [
-                    Image.network(
-                      imagePath,
+                    CachedNetworkImage(
+                      imageUrl: imagePath,
                       fit: BoxFit.cover,
-                      loadingBuilder: (context, child, progress) {
-                        if (progress == null) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              width: 400,
-                              height: 150,
-                              child: child,
-                            ),
-                          );
-                        }
-                        return const Center(
-                          child: CircularProgressIndicator(
-                              // value: progress.cumulativeBytesLoaded /
-                              //     progress.expectedTotalBytes!.toDouble(),
-                              ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: Image.network(
-                            'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 150,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: imageProvider,
                             fit: BoxFit.cover,
                           ),
-                        );
-                      },
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.network(
+                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     const Align(
                       alignment: Alignment.topLeft,

@@ -618,7 +618,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
         ref.read(isLoadingMainImageProvider.notifier).state = true;
       }
 
-      final res = await controller.imageUpload(image, name);
+      final res = await controller.imageUpload(image, name, type);
       setState(() {
         if (res['responseCode'].toString() == "1") {
           if (type == "gallery") {

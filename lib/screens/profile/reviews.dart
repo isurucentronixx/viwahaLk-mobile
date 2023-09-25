@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,36 +54,63 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                           width: 120,
                           height: 120,
                           child: SizedBox(
-                            child: Image.network(
-                              user!.image.toString(),
+                            child: CachedNetworkImage(
+                              imageUrl: user!.image.toString(),
                               fit: BoxFit.cover,
-                              loadingBuilder: (context, child, progress) {
-                                if (progress == null) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: SizedBox(
-                                      width: 120,
-                                      height: 120,
-                                      child: child,
-                                    ),
-                                  );
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                      // value: progress.cumulativeBytesLoaded /
-                                      //     progress.expectedTotalBytes!.toDouble(),
-                                      ),
-                                );
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(
-                                  child: Image.network(
-                                    'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                height: 120,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  // borderRadius: const BorderRadius.only(
+                                  //     topLeft: Radius.circular(10),
+                                  //     topRight: Radius.circular(10)),
+                                  color: Colors.black,
+                                  image: DecorationImage(
+                                    image: imageProvider,
                                     fit: BoxFit.cover,
                                   ),
-                                );
-                              },
+                                ),
+                              ),
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => Center(
+                                child: Image.network(
+                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
+                            // Image.network(
+                            //   user!.image.toString(),
+                            //   fit: BoxFit.cover,
+                            //   loadingBuilder: (context, child, progress) {
+                            //     if (progress == null) {
+                            //       return ClipRRect(
+                            //         borderRadius: BorderRadius.circular(100),
+                            //         child: SizedBox(
+                            //           width: 120,
+                            //           height: 120,
+                            //           child: child,
+                            //         ),
+                            //       );
+                            //     }
+                            //     return const Center(
+                            //       child: CircularProgressIndicator(
+                            //           // value: progress.cumulativeBytesLoaded /
+                            //           //     progress.expectedTotalBytes!.toDouble(),
+                            //           ),
+                            //     );
+                            //   },
+                            //   errorBuilder: (context, error, stackTrace) {
+                            //     return Center(
+                            //       child: Image.network(
+                            //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                            //         fit: BoxFit.cover,
+                            //       ),
+                            //     );
+                            //   },
+                            // ),
                           ),
                         ),
                       ],
@@ -99,7 +127,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                 widthFactor: 0.8,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    AutoRouter.of(context).push( Login(onHome: false));
+                    AutoRouter.of(context).push(Login(onHome: false));
                   },
                   icon: const Icon(Icons.login),
                   label: const Text('Sign In'),

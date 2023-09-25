@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -44,31 +45,55 @@ class _SliderState extends ConsumerState<SliderView> {
         aspectRatio: 16 / 9, // Aspect ratio of the images
       ),
       items: imagePaths.map((imagePath) {
-        return Image.network(
-          imagePath,
+        return CachedNetworkImage(
+          imageUrl: imagePath.toString(),
           fit: BoxFit.cover,
-          loadingBuilder: (context, child, progress) {
-            if (progress == null) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: SizedBox(
-                  child: child,
-                ),
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) {
-            return Center(
-              child: Image.network(
-                'https://viwaha.lk/assets/img/logo/no_image.jpg',
+          imageBuilder: (context, imageProvider) => Container(
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.black,
+              image: DecorationImage(
+                image: imageProvider,
                 fit: BoxFit.cover,
               ),
-            );
-          },
+            ),
+          ),
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Center(
+            child: Image.network(
+              'https://viwaha.lk/assets/img/logo/no_image.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
         );
+        // Image.network(
+        //   imagePath,
+        //   fit: BoxFit.cover,
+        //   loadingBuilder: (context, child, progress) {
+        //     if (progress == null) {
+        //       return ClipRRect(
+        //         borderRadius: BorderRadius.circular(10),
+        //         child: SizedBox(
+        //           child: child,
+        //         ),
+        //       );
+        //     }
+        //     return const Center(
+        //       child: CircularProgressIndicator(),
+        //     );
+        //   },
+        //   errorBuilder: (context, error, stackTrace) {
+        //     return Center(
+        //       child: Image.network(
+        //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
+        //         fit: BoxFit.cover,
+        //       ),
+        //     );
+        //   },
+        // );
       }).toList(),
     );
   }
@@ -315,13 +340,27 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
     return filteredTextList;
   }
 
+  aminitiesInitializing(String aminitiesStr) {
+    if (aminitiesStr != '') {
+      amenities = getAmenites(aminitiesStr);
+
+      if (amenities.first == '') {
+        String text = widget.amenities
+            .toString()
+            .substring(1, widget.amenities.length - 1);
+        amenities.addAll(
+            text.split(',').where((element) => element.isNotEmpty).toList());
+        amenities.removeWhere((element) => element.isEmpty);
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // amenities = getAmenites(widget.amenities);
-    // print(widget.amenities);
-    // print(amenities);
+
+    aminitiesInitializing(widget.amenities);
   }
 
   @override
@@ -354,6 +393,20 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
             ),
           ),
           const SizedBox(height: 10),
+          SizedBox(
+            height: 300,
+            child: ListView.builder(
+                // physics: const NeverScrollableScrollPhysics(),
+                itemCount: amenities.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                      leading: const Icon(
+                        Icons.check_box_outlined,
+                        color: ViwahaColor.primary,
+                      ),
+                      title: Text(amenities[index].toString()));
+                }),
+          ),
         ],
       ),
     );

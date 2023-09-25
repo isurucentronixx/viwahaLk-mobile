@@ -48,6 +48,7 @@ class Vendor with _$Vendor {
     String? friday_close_time,
     String? always_open,
     String? open_holiday,
+    String? image,
     String? images,
     String? thumb_images,
     String? views,

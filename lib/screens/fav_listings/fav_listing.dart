@@ -75,18 +75,22 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                               favListing.length, // Total number of cards
                               (index) => SearchingCardItem(
                                 id: favListing[index].id.toString(),
-                                imagePath: ref
-                                    .read(homeControllerProvider)
-                                    .getTumbImage(
-                                        favListing[index].thumb_images)
-                                    .first, // Replace with your image paths
+                                imagePath: favListing[index].image != null 
+                                    ? "https://viwaha.lk/${favListing[index].image.toString()}"
+                                    : ref
+                                        .read(homeControllerProvider)
+                                        .getTumbImage(
+                                            favListing[index].thumb_images)
+                                        .first, // Replace with your image paths
                                 title: favListing[index].title.toString(),
                                 description:
                                     favListing[index].description.toString(),
-                                starRating: favListing[index].average_rating != null
-                            ? double.parse(
-                                favListing[index].average_rating.toString())
-                            : 0,
+                                starRating:
+                                    favListing[index].average_rating != null
+                                        ? double.parse(favListing[index]
+                                            .average_rating
+                                            .toString())
+                                        : 0,
                                 location: favListing[index].location.toString(),
                                 date: favListing[index].datetime.toString(),
                                 type: 'fav',

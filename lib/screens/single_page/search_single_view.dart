@@ -67,6 +67,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
       color: Colors.white,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

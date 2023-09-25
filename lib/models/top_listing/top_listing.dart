@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -77,10 +78,16 @@ class TopListing extends ConsumerWidget {
                 children: List.generate(data.length, // Total number of cards
                     (index) {
                   final wedding = data[index];
-                  String thumbImg = ref
-                      .read(homeControllerProvider)
-                      .getTumbImage(wedding.thumb_images)
-                      .first;
+                  String thumbImg = wedding.image != null
+                      ? "https://viwaha.lk/${wedding.image.toString()}"
+                      : ref
+                          .read(homeControllerProvider)
+                          .getTumbImage(wedding.thumb_images)
+                          .first;
+                  // ref
+                  //     .read(homeControllerProvider)
+                  //     .getTumbImage(wedding.thumb_images)
+                  //     .first;
                   return GestureDetector(
                     onTap: () {
                       AutoRouter.of(context)
@@ -98,36 +105,64 @@ class TopListing extends ConsumerWidget {
                             height: 185,
                             child: Stack(
                               children: [
-                                Image.network(
-                                  thumbImg,
+                                CachedNetworkImage(
+                                  imageUrl: thumbImg,
                                   fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, progress) {
-                                    if (progress == null) {
-                                      return ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: SizedBox(
-                                          width: 200,
-                                          height: 200,
-                                          child: child,
-                                        ),
-                                      );
-                                    }
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                          // value: progress.cumulativeBytesLoaded /
-                                          //     progress.expectedTotalBytes!.toDouble(),
-                                          ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                      child: Image.network(
-                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    height: 200,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                      color: Colors.black,
+                                      image: DecorationImage(
+                                        image: imageProvider,
                                         fit: BoxFit.cover,
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  ),
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Center(
+                                    child: Image.network(
+                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
+
+                                // Image.network(
+                                //   thumbImg,
+                                //   fit: BoxFit.cover,
+                                //   loadingBuilder: (context, child, progress) {
+                                //     if (progress == null) {
+                                //       return ClipRRect(
+                                //         borderRadius: BorderRadius.circular(10),
+                                //         child: SizedBox(
+                                //           width: 200,
+                                //           height: 200,
+                                //           child: child,
+                                //         ),
+                                //       );
+                                //     }
+                                //     return const Center(
+                                //       child: CircularProgressIndicator(
+                                //           // value: progress.cumulativeBytesLoaded /
+                                //           //     progress.expectedTotalBytes!.toDouble(),
+                                //           ),
+                                //     );
+                                //   },
+                                //   errorBuilder: (context, error, stackTrace) {
+                                //     return Center(
+                                //       child: Image.network(
+                                //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                //         fit: BoxFit.cover,
+                                //       ),
+                                //     );
+                                //   },
+                                // ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   height:

@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -56,7 +57,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     imageUpload(File image, String name, String type) async {
       ref.read(isLoadingBillImgProvider.notifier).state = true;
 
-      final res = await controller.imageUpload(image, name);
+      final res = await controller.imageUpload(image, name, type);
       setState(() {
         if (res['responseCode'].toString() == "1") {
           ref.read(premiumBillNameProvider.notifier).state =
@@ -89,40 +90,29 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                 height: 500,
                 child: Stack(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                        widget.imagePath,
-                        fit: BoxFit.fill,
-                        loadingBuilder: (context, child, progress) {
-                          if (progress == null) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: SizedBox(
-                                width: 400,
-                                child: child,
-                              ),
-                            );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(
-                                // value: progress.cumulativeBytesLoaded /
-                                //     progress.expectedTotalBytes!.toDouble(),
-                                ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              width: 400,
-                              child: Image.network(
-                                'https://viwaha.lk/assets/img/logo/color-logo.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          );
-                        },
+                    CachedNetworkImage(
+                      imageUrl: widget.imagePath,
+                      fit: BoxFit.cover,
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.network(
+                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Container(
@@ -179,8 +169,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     width: 170,
                     child: Text(
                       widget.main_category == "Proposal"
-                ? '${widget.name}'
-                : '${widget.title}',
+                          ? '${widget.name}'
+                          : '${widget.title}',
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 20,

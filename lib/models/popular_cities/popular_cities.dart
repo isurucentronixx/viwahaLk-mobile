@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -143,35 +144,31 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                       height: 225,
                       child: Stack(
                         children: [
-                          Image.network(
-                            city.image.toString(),
+                          CachedNetworkImage(
+                            imageUrl: city.image.toString(),
                             fit: BoxFit.cover,
-                            loadingBuilder: (context, child, progress) {
-                              if (progress == null) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: SizedBox(
-                                    width: 280,
-                                    height: 225,
-                                    child: child,
-                                  ),
-                                );
-                              }
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                    // value: progress.cumulativeBytesLoaded /
-                                    //     progress.expectedTotalBytes!.toDouble(),
-                                    ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return Center(
-                                child: Image.network(
-                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 280,
+                              width: 225,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                color: Colors.black,
+                                image: DecorationImage(
+                                  image: imageProvider,
                                   fit: BoxFit.cover,
                                 ),
-                              );
-                            },
+                              ),
+                            ),
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Center(
+                              child: Image.network(
+                                'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),

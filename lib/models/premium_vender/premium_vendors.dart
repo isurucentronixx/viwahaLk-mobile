@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import 'package:viwaha_lk/models/premium_vender/feedback.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
-class PremiumVendors extends ConsumerStatefulWidget { 
+class PremiumVendors extends ConsumerStatefulWidget {
   const PremiumVendors({super.key});
 
   @override
@@ -77,10 +78,12 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
           ),
           items: data.map((data) {
             final vendor = data;
-            String thumbImg = ref
-                .read(homeControllerProvider)
-                .getTumbImage(vendor.thumb_images)
-                .first;
+            String thumbImg = vendor.image == null
+                ? ref
+                    .read(homeControllerProvider)
+                    .getTumbImage(vendor.thumb_images)
+                    .first
+                : "https://viwaha.lk/${vendor.image.toString()}";
             return GestureDetector(
               onTap: () {
                 AutoRouter.of(context)
@@ -98,36 +101,62 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                       height: 225,
                       child: Stack(
                         children: [
-                          Image.network(
-                            thumbImg,
+                          CachedNetworkImage(
+                            imageUrl: thumbImg,
                             fit: BoxFit.cover,
-                            loadingBuilder: (context, child, progress) {
-                              if (progress == null) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: SizedBox(
-                                    width: 280,
-                                    height: 225,
-                                    child: child,
-                                  ),
-                                );
-                              }
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                    // value: progress.cumulativeBytesLoaded /
-                                    //     progress.expectedTotalBytes!.toDouble(),
-                                    ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return Center(
-                                child: Image.network(
-                                  'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 225,
+                              width: 280,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                color: Colors.black,
+                                image: DecorationImage(
+                                  image: imageProvider,
                                   fit: BoxFit.cover,
                                 ),
-                              );
-                            },
+                              ),
+                            ),
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Center(
+                              child: Image.network(
+                                'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
+                          // Image.network(
+                          //   thumbImg,
+                          //   fit: BoxFit.cover,
+                          //   loadingBuilder: (context, child, progress) {
+                          //     if (progress == null) {
+                          //       return ClipRRect(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //         child: SizedBox(
+                          //           width: 280,
+                          //           height: 225,
+                          //           child: child,
+                          //         ),
+                          //       );
+                          //     }
+                          //     return const Center(
+                          //       child: CircularProgressIndicator(
+                          //           // value: progress.cumulativeBytesLoaded /
+                          //           //     progress.expectedTotalBytes!.toDouble(),
+                          //           ),
+                          //     );
+                          //   },
+                          //   errorBuilder: (context, error, stackTrace) {
+                          //     return Center(
+                          //       child: Image.network(
+                          //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          //         fit: BoxFit.cover,
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.75,

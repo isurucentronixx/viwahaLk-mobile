@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,35 +53,32 @@ class DrawerMenu extends ConsumerWidget {
                             width: 120,
                             height: 120,
                             child: SizedBox(
-                              child: Image.network(
-                                user!.image.toString(),
+                              child: CachedNetworkImage(
+                                imageUrl: user!.image.toString(),
                                 fit: BoxFit.cover,
-                                loadingBuilder: (context, child, progress) {
-                                  if (progress == null) {
-                                    return ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: SizedBox(
-                                        width: 120,
-                                        height: 120,
-                                        child: child,
-                                      ),
-                                    );
-                                  }
-                                  return const Center(
-                                    child: CircularProgressIndicator(
-                                        // value: progress.cumulativeBytesLoaded /
-                                        //     progress.expectedTotalBytes!.toDouble(),
-                                        ),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Center(
-                                    child: Image.network(
-                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  height: 120,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10)),
+                                    color: Colors.black,
+                                    image: DecorationImage(
+                                      image: imageProvider,
                                       fit: BoxFit.cover,
                                     ),
-                                  );
-                                },
+                                  ),
+                                ),
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) => Center(
+                                  child: Image.network(
+                                    'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -96,14 +94,14 @@ class DrawerMenu extends ConsumerWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.person),
-                  title:  Text(LocaleKeys.about_us.tr()),
+                  title: Text(LocaleKeys.about_us.tr()),
                   onTap: () async {
                     AutoRouter.of(context).push(const AboutUsPage());
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.contact_phone),
-                  title:  Text(LocaleKeys.contact_us.tr()),
+                  title: Text(LocaleKeys.contact_us.tr()),
                   onTap: () {
                     AutoRouter.of(context).push(const ContactUsPage());
                   },
@@ -112,7 +110,7 @@ class DrawerMenu extends ConsumerWidget {
                 !ref.read(isloginProvider)
                     ? ListTile(
                         leading: const Icon(Icons.login),
-                        title:  Text(LocaleKeys.login.tr()),
+                        title: Text(LocaleKeys.login.tr()),
                         onTap: () {
                           AutoRouter.of(context).push(Login(onHome: false));
                         },
@@ -121,7 +119,7 @@ class DrawerMenu extends ConsumerWidget {
                 ref.watch(isloginProvider)
                     ? ListTile(
                         leading: const Icon(Icons.logout),
-                        title:  Text(LocaleKeys.logout.tr()),
+                        title: Text(LocaleKeys.logout.tr()),
                         onTap: () async {
                           SharedPreferences pref =
                               await SharedPreferences.getInstance();
