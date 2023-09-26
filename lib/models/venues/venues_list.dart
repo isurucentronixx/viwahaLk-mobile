@@ -82,7 +82,7 @@ class _VenusesViewListState extends State<VenusesViewList> {
                   title: 'Card $index',
                   description: 'Description for Card $index',
                   starRating:
-                      4.5, location: '', date: '', // Replace with the appropriate star rating value
+                      4.5, location: '', date: '', id: '', // Replace with the appropriate star rating value
                 ),
               ),
             ),
@@ -94,6 +94,7 @@ class _VenusesViewListState extends State<VenusesViewList> {
 }
 
 class CardItem extends StatelessWidget {
+  final String id;
   final String imagePath;
   final String title;
   final String description;
@@ -102,6 +103,7 @@ class CardItem extends StatelessWidget {
   final String date;
 
   const CardItem({
+    required this.id,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -135,11 +137,11 @@ class CardItem extends StatelessWidget {
                 ),
                 child: Stack(
                   children: [
-                    const Align(
+                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding:const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id),
                       ),
                     ),
                     Align(

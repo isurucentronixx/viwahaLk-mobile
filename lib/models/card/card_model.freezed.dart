@@ -20,6 +20,7 @@ CardModel _$CardModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CardModel {
+  String? get id => throw _privateConstructorUsedError;
   String? get imagePath => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ abstract class $CardModelCopyWith<$Res> {
       _$CardModelCopyWithImpl<$Res, CardModel>;
   @useResult
   $Res call(
-      {String? imagePath,
+      {String? id,
+      String? imagePath,
       String? title,
       String? description,
       String? starRating,
@@ -64,6 +66,7 @@ class _$CardModelCopyWithImpl<$Res, $Val extends CardModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? imagePath = freezed,
     Object? title = freezed,
     Object? description = freezed,
@@ -74,6 +77,10 @@ class _$CardModelCopyWithImpl<$Res, $Val extends CardModel>
     Object? type = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -118,7 +125,8 @@ abstract class _$$_CardModelCopyWith<$Res> implements $CardModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? imagePath,
+      {String? id,
+      String? imagePath,
       String? title,
       String? description,
       String? starRating,
@@ -139,6 +147,7 @@ class __$$_CardModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? imagePath = freezed,
     Object? title = freezed,
     Object? description = freezed,
@@ -149,6 +158,10 @@ class __$$_CardModelCopyWithImpl<$Res>
     Object? type = freezed,
   }) {
     return _then(_$_CardModel(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -189,7 +202,8 @@ class __$$_CardModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CardModel implements _CardModel {
   const _$_CardModel(
-      {this.imagePath,
+      {this.id,
+      this.imagePath,
       this.title,
       this.description,
       this.starRating,
@@ -201,6 +215,8 @@ class _$_CardModel implements _CardModel {
   factory _$_CardModel.fromJson(Map<String, dynamic> json) =>
       _$$_CardModelFromJson(json);
 
+  @override
+  final String? id;
   @override
   final String? imagePath;
   @override
@@ -220,7 +236,7 @@ class _$_CardModel implements _CardModel {
 
   @override
   String toString() {
-    return 'CardModel(imagePath: $imagePath, title: $title, description: $description, starRating: $starRating, location: $location, mainLocation: $mainLocation, date: $date, type: $type)';
+    return 'CardModel(id: $id, imagePath: $imagePath, title: $title, description: $description, starRating: $starRating, location: $location, mainLocation: $mainLocation, date: $date, type: $type)';
   }
 
   @override
@@ -228,6 +244,7 @@ class _$_CardModel implements _CardModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CardModel &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
             (identical(other.title, title) || other.title == title) &&
@@ -245,8 +262,8 @@ class _$_CardModel implements _CardModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, imagePath, title, description,
-      starRating, location, mainLocation, date, type);
+  int get hashCode => Object.hash(runtimeType, id, imagePath, title,
+      description, starRating, location, mainLocation, date, type);
 
   @JsonKey(ignore: true)
   @override
@@ -264,7 +281,8 @@ class _$_CardModel implements _CardModel {
 
 abstract class _CardModel implements CardModel {
   const factory _CardModel(
-      {final String? imagePath,
+      {final String? id,
+      final String? imagePath,
       final String? title,
       final String? description,
       final String? starRating,
@@ -276,6 +294,8 @@ abstract class _CardModel implements CardModel {
   factory _CardModel.fromJson(Map<String, dynamic> json) =
       _$_CardModel.fromJson;
 
+  @override
+  String? get id;
   @override
   String? get imagePath;
   @override

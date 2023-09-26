@@ -36,6 +36,7 @@ class ContactUsPage extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
@@ -79,6 +80,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
@@ -122,6 +124,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
@@ -165,6 +168,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,

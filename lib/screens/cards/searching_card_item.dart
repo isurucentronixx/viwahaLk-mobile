@@ -147,11 +147,11 @@ class SearchingCardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id),
                       ),
                     ),
                     (date != "null")

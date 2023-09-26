@@ -315,6 +315,7 @@ class VendorTeamSection extends StatelessWidget {
                     const SizedBox(height: 100),
                     Expanded(
                       child: TextFormField(
+                        focusNode: FocusNode(canRequestFocus: false),
                         // name: 'title',
                         decoration: const InputDecoration(
                           hintText: 'Start your search',
@@ -324,6 +325,7 @@ class VendorTeamSection extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
+                        focusNode: FocusNode(canRequestFocus: false),
                         // name: 'location',
                         decoration: const InputDecoration(
                           hintText: 'Where',

@@ -104,6 +104,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -157,6 +158,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -209,6 +211,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.black,

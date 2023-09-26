@@ -426,6 +426,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                         : "",
                     location: vendorListing[index].location!,
                     listing: vendorListing[index],
+                    id: vendorListing[index].id.toString(),
                   ),
                 ),
               ),
@@ -441,6 +442,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
 }
 
 class MyCardItem extends ConsumerWidget {
+  final String id;
   final String imagePath;
   final String title;
   final String description;
@@ -451,6 +453,7 @@ class MyCardItem extends ConsumerWidget {
   final SearchResultItem listing;
 
   const MyCardItem({
+    required this.id,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -533,11 +536,11 @@ class MyCardItem extends ConsumerWidget {
                     //     );
                     //   },
                     // ),
-                    const Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id),
                       ),
                     ),
                     Align(

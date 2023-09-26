@@ -7,6 +7,7 @@ part of 'card_model.dart';
 // **************************************************************************
 
 _$_CardModel _$$_CardModelFromJson(Map<String, dynamic> json) => _$_CardModel(
+      id: json['id'] as String?,
       imagePath: json['imagePath'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -19,6 +20,7 @@ _$_CardModel _$$_CardModelFromJson(Map<String, dynamic> json) => _$_CardModel(
 
 Map<String, dynamic> _$$_CardModelToJson(_$_CardModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'imagePath': instance.imagePath,
       'title': instance.title,
       'description': instance.description,

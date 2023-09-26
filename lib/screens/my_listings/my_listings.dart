@@ -120,7 +120,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                             : ref
                                                 .read(homeControllerProvider)
                                                 .getTumbImage(myListing[index]
-                                                    .thumb_images)
+                                                    .images)
                                                 .first,
                                         location: myListing[index]
                                             .location

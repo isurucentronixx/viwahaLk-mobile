@@ -98,6 +98,7 @@ class _LoginState extends ConsumerState<Login> {
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: TextFormField(
+                    focusNode: FocusNode(canRequestFocus: false),
                     // controller: usernameController,
                     decoration: const InputDecoration(
                       labelText: 'Username',
@@ -117,6 +118,7 @@ class _LoginState extends ConsumerState<Login> {
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: TextFormField(
+                    focusNode: FocusNode(canRequestFocus: false),
                     // controller: passwordController,
                     obscureText: obscureText,
                     decoration: InputDecoration(

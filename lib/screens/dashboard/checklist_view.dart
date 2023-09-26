@@ -52,6 +52,8 @@ class ToDoList extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         TextFormField(
+                                          focusNode:
+                                              FocusNode(canRequestFocus: false),
                                           decoration: const InputDecoration(
                                             labelText: 'Task',
                                             hintText: 'Write task here',
@@ -84,6 +86,8 @@ class ToDoList extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 16.0),
                                         TextFormField(
+                                          focusNode:
+                                              FocusNode(canRequestFocus: false),
                                           decoration: const InputDecoration(
                                             labelText: 'Task Date',
                                             hintText: 'Task Date',

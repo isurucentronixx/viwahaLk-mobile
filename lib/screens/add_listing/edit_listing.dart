@@ -565,7 +565,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     // Remove the square brackets and split the string by commas
     String content = input.substring(1, input.length - 1);
     List<String> items = content.split(', ');
-
     return items;
   }
 
@@ -586,22 +585,41 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     final SearchResultItem? item = widget.item;
     List<String> stringAmenities =
         extractStringList(widget.item!.amenities.toString());
-
-    _fileFromImageUrl(ref
-            .read(homeControllerProvider)
-            .getTumbImage(widget.item!.thumb_images)
-            .first
-            .toString())
-        .then((value) =>
-            {ref.read(mainImageProvider.notifier).state = value.path});
+    if (widget.item!.image != null) {
+      _fileFromImageUrl(widget.item!.image != null
+              ? "https://viwaha.lk/${widget.item!.image.toString()}"
+              : ref
+                  .read(homeControllerProvider)
+                  .getTumbImage(widget.item!.thumb_images)
+                  .first
+                  .toString())
+          .then((value) => {
+                ref.read(mainImageProvider.notifier).state = value.path,
+                ref.read(mainImageNameProvider.notifier).state =
+                    widget.item!.image != null
+                        ? widget.item!.image.toString()
+                        : ref
+                            .read(homeControllerProvider)
+                            .getTumbImage(widget.item!.thumb_images)
+                            .first
+                            .toString()
+                            .substring(18)
+              });
+    }
 
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.item!.images);
 
-    for (var i = 0; i < imagePaths.length; i++) {
-      _fileFromImageUrl(imagePaths[i]).then((value) =>
+    //loading gallery images
+    imagePaths.forEach((element) async {
+      await _fileFromImageUrl(element).then((value) =>
           {ref.read(imageGalleryProvider).add(ImageObject(path: value.path))});
-    }
+    });
+    imagePaths.forEach((element) async {
+      ref.read(imageNameGalleryProvider).add(element.substring(18));
+    });
+    print(ref.read(imageNameGalleryProvider));
+    print(ref.read(mainImageNameProvider));
 
     _cat = item!.main_category ?? 'Select one';
     _gender = widget.item!.gender ?? 'Select one';
@@ -697,12 +715,17 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
       final res = await controller.imageUpload(image, name, type);
       print(res);
       setState(() {
-        if (type == "gallery") {
-          ref.read(imageNameGalleryProvider).add(name);
-          ref.read(isLoadingGalleryProvider.notifier).state = false;
-        } else {
-          ref.read(mainImageNameProvider.notifier).state = name;
-          ref.read(isLoadingMainImageProvider.notifier).state = false;
+        if (res['responseCode'].toString() == "1") {
+          if (type == "gallery") {
+            ref.read(imageNameGalleryProvider).add(res['imageUrl'].toString());
+            ref.read(isLoadingGalleryProvider.notifier).state = false;
+          } else {
+            ref.read(mainImageNameProvider.notifier).state =
+                res['imageUrl'].toString();
+            ref.read(isLoadingMainImageProvider.notifier).state = false;
+          }
+          print(ref.read(imageNameGalleryProvider));
+          print(ref.read(mainImageNameProvider));
         }
       });
     }
@@ -851,6 +874,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -914,6 +939,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1007,6 +1034,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     controller: _dobController,
                                     // initialValue:  '2018/7/7',
                                     onTap: () async {
@@ -1072,6 +1101,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1127,6 +1158,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1182,6 +1215,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1327,6 +1362,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1379,6 +1416,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1443,6 +1482,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1523,6 +1564,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1572,6 +1615,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1622,6 +1667,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1672,6 +1719,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1722,6 +1771,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1774,6 +1825,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1824,6 +1877,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1874,6 +1929,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1922,6 +1979,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1970,6 +2029,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2018,6 +2079,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2066,6 +2129,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -2440,7 +2505,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         child: const Center(
                                             child: CircularProgressIndicator()),
                                       )
-                                    : ref.watch(mainImageProvider).isEmpty
+                                    : ref.watch(mainImageProvider) == ""
                                         ? Container(
                                             width: 150,
                                             height: 150,
@@ -2454,21 +2519,51 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                                 .lib.assets.images.colorLogo
                                                 .image(),
                                           )
-                                        : Container(
-                                            width: 150,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: Image.file(File(
-                                                            ref.watch(
-                                                                mainImageProvider)))
-                                                        .image),
-                                                border: Border.all(
-                                                    color: ViwahaColor.primary),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
+                                        : Stack(
+                                            children: [
+                                              Container(
+                                                width: 150,
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.fill,
+                                                        image: Image.file(File(
+                                                                ref.watch(
+                                                                    mainImageProvider)))
+                                                            .image),
+                                                    border: Border.all(
+                                                        color: ViwahaColor
+                                                            .primary),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                10))),
+                                              ),
+                                              Positioned(
+                                                top: 0,
+                                                right: 5,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      ref
+                                                          .watch(
+                                                              mainImageProvider
+                                                                  .notifier)
+                                                          .state = "";
+                                                      ref
+                                                          .watch(
+                                                              mainImageNameProvider
+                                                                  .notifier)
+                                                          .state = "";
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.remove_circle,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           )
                               ],
                             ),
@@ -2565,26 +2660,64 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                                           const EdgeInsets.only(
                                                               top: 5,
                                                               bottom: 5),
-                                                      child: Container(
-                                                        width: 130,
-                                                        height: 130,
-                                                        decoration: BoxDecoration(
-                                                            image: DecorationImage(
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                                image: Image.file(File(ref
-                                                                        .watch(imageGalleryProvider)[
+                                                      child: Stack(children: [
+                                                        Container(
+                                                          width: 130,
+                                                          height: 130,
+                                                          decoration: BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  fit: BoxFit
+                                                                      .fill,
+                                                                  image: Image.file(File(ref
+                                                                          .watch(imageGalleryProvider)[
+                                                                              index]
+                                                                          .path
+                                                                          .toString()))
+                                                                      .image),
+                                                              border: Border.all(
+                                                                  color: ViwahaColor
+                                                                      .primary),
+                                                              borderRadius:
+                                                                  const BorderRadius.all(
+                                                                      Radius.circular(10))),
+                                                        ),
+                                                        Positioned(
+                                                          top: 0,
+                                                          right: 20,
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                ref.read(imageNameGalleryProvider).removeWhere((element) =>
+                                                                    element
+                                                                        .substring(
+                                                                            16) ==
+                                                                    ref
+                                                                        .read(imageGalleryProvider)[
                                                                             index]
-                                                                        .path
-                                                                        .toString()))
-                                                                    .image),
-                                                            border: Border.all(
-                                                                color: ViwahaColor
-                                                                    .primary),
-                                                            borderRadius:
-                                                                const BorderRadius.all(
-                                                                    Radius.circular(10))),
-                                                      ),
+                                                                        .path!
+                                                                        .toString()
+                                                                        .substring(
+                                                                            42));
+                                                                ref
+                                                                    .read(
+                                                                        imageGalleryProvider)
+                                                                    .removeAt(
+                                                                        index);
+                                                              });
+                                                              print(ref.read(
+                                                                  imageGalleryProvider));
+                                                              print(ref.read(
+                                                                  imageNameGalleryProvider));
+                                                            },
+                                                            child: const Icon(
+                                                              Icons
+                                                                  .remove_circle,
+                                                              color: Colors.red,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ]),
                                                     );
                                                   }),
                                             ),
@@ -2603,6 +2736,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3328,6 +3463,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -3393,6 +3530,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3443,6 +3582,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3493,6 +3634,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3543,6 +3686,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    focusNode:
+                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -4545,8 +4690,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 return;
                               } else if (_cat != 'Proposal') {
                                 if (askPrice == false ||
-                                    ref.watch(imageGalleryProvider).isEmpty ||
-                                    ref.watch(mainImageProvider) == '') {
+                                    ref.watch(imageGalleryProvider).isEmpty) {
                                   setState(() {
                                     _askPriceColor = Colors.red;
                                     _galleryImgColor = Colors.red;
@@ -4568,7 +4712,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     margin: EdgeInsets.only(
                                         bottom:
                                             MediaQuery.of(context).size.height -
-                                                250,
+                                                170,
                                         left: 50,
                                         right: 50),
                                   );
@@ -4726,8 +4870,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       newList, widget.item!.id);
                                 }
                               } else {
-                                if (ref.watch(imageGalleryProvider).isEmpty ||
-                                    ref.watch(mainImageProvider) == '') {
+                                if (ref.watch(imageGalleryProvider).isEmpty) {
                                   setState(() {
                                     _galleryImgColor = Colors.red;
                                     _thumbImgColor = Colors.red;
@@ -4748,7 +4891,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     margin: EdgeInsets.only(
                                         bottom:
                                             MediaQuery.of(context).size.height -
-                                                250,
+                                                170,
                                         left: 50,
                                         right: 50),
                                   );
@@ -4895,6 +5038,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       newList, widget.item!.id);
                                 }
                               }
+                              print(ref.read(imageNameGalleryProvider));
+                              // print(ref.read(mainImageNameProvider));
 
                               // PostData.addNewListing(newList);
                             },

@@ -7,6 +7,7 @@ part 'card_model.g.dart';
 @freezed
 class CardModel with _$CardModel{
   const factory CardModel({
+    String? id,
     String? imagePath,
     String? title,
     String? description,

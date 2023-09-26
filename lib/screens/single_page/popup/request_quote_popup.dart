@@ -74,6 +74,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -119,6 +120,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -164,6 +166,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -210,6 +213,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           keyboardType: TextInputType.number,
                           style: const TextStyle(
                             fontSize: 18,
@@ -313,9 +317,9 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                     width: double.infinity, // Full width
                     child: ElevatedButton(
                       onPressed: () {
-                         ref
-                                .read(singleListingViewStateProvider.notifier)
-                                .state = const AsyncValue.loading();
+                        ref
+                            .read(singleListingViewStateProvider.notifier)
+                            .state = const AsyncValue.loading();
                         var formDetails = {
                           "user_id": userId,
                           "listing_id": listingId,

@@ -74,6 +74,7 @@ showReviewForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -119,6 +120,7 @@ showReviewForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,

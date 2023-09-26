@@ -875,40 +875,35 @@ class MyCardItem extends ConsumerWidget {
                 child: Stack(
                   children: [
                     CachedNetworkImage(
-                                            imageUrl: imagePath.toString(),
-                                            fit: BoxFit.cover,
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              height: 150,
-                                              width: 400,
-                                              decoration: BoxDecoration(
-                                                // borderRadius:
-                                                //     const BorderRadius.only(
-                                                //         topLeft:
-                                                //             Radius.circular(10),
-                                                //         topRight:
-                                                //             Radius.circular(
-                                                //                 10)),
-                                                color: Colors.black,
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            placeholder: (context, url) =>
-                                                const Center(
-                                                    child:
-                                                        CircularProgressIndicator()),
-                                            errorWidget:
-                                                (context, url, error) => Center(
-                                              child: Image.network(
-                                                'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
+                      imageUrl: imagePath.toString(),
+                      fit: BoxFit.cover,
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 150,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          // borderRadius:
+                          //     const BorderRadius.only(
+                          //         topLeft:
+                          //             Radius.circular(10),
+                          //         topRight:
+                          //             Radius.circular(
+                          //                 10)),
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.network(
+                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                     // Image.network(
                     //   imagePath,
                     //   fit: BoxFit.cover,
@@ -939,11 +934,11 @@ class MyCardItem extends ConsumerWidget {
                     //     );
                     //   },
                     // ),
-                    const Align(
+                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding:const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id),
                       ),
                     ),
                     Align(

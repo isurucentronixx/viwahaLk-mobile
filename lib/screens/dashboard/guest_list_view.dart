@@ -50,41 +50,57 @@ class GuestListView extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'First Name',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Last Name',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Group Name',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Phone Number',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Email ID',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'No. of Guest',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Address',
                                         ),
                                       ),
                                       TextFormField(
+                                        focusNode:
+                                            FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
                                           labelText: 'Comment',
                                         ),

@@ -125,6 +125,27 @@ class PostData {
     }
   }
 
+  Future profileImageUpload(File image, String name) async {
+    var formData = FormData.fromMap({
+      'userId': ref.watch(userProvider).user!.id,
+      'image': await MultipartFile.fromFile(image.path, filename: name),
+    });
+    try {
+      final res = await _dioClient.post(
+        options: Options(
+          headers: {'Content-Type': 'multipart/form-data'},
+        ),
+        'https://viwahaapp.viwaha.lk/api/user/update_profile_image',
+        data: formData,
+      );
+      if (res.statusCode == 200) {
+        return res.data;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future deleteMyListing(id) async {
     try {
       final res = await _dioClient.post(
@@ -241,6 +262,22 @@ class PostData {
           const AsyncValue.data("Requesting failed.");
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data(null);
+      rethrow;
+    }
+  }
+
+  Future addFavorite(id) async {
+    try {
+      final res = await _dioClient.post(
+          'https://viwahaapp.viwaha.lk/api/listings/add_rem_fav_listings',
+          data: {
+            "listing_id": "1535",
+            "id": "565",
+          });
+      if (res.statusCode == 200) {
+        return res.data;
+      }
+    } catch (e) {
       rethrow;
     }
   }

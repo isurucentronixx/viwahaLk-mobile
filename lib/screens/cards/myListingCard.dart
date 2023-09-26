@@ -124,11 +124,11 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
                       ),
                     ),
-                    const Align(
+                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding:const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(widget.id),
                       ),
                     ),
                     Align(

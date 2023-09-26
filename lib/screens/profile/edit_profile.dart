@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,7 +10,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -61,12 +65,23 @@ class EditProfilePage extends ConsumerStatefulWidget {
 }
 
 class _EditProfilePageState extends ConsumerState<EditProfilePage> {
+  String userImg = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final picker = ImagePicker();
     final user = ref.watch(userProvider).user;
     final controller = ref.watch(postControllerProvider);
     final state = ref.watch(profileViewStateProvider);
     final router = AppRouter();
+    userImg = user!.image.toString();
+
     ref.listen<AsyncValue>(profileViewStateProvider, (_, state) {
       state.whenData((items) {
         final snackBar = SnackBar(
@@ -137,7 +152,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: CachedNetworkImage(
-                                      imageUrl: user!.image.toString(),
+                                      imageUrl: userImg,
                                       fit: BoxFit.cover,
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
@@ -194,6 +209,99 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                 ),
                               ),
                             ),
+                            Positioned(
+                              top: 120,
+                              right: 0,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  SharedPreferences pref =
+                                      await SharedPreferences.getInstance();
+                                  final appRouter =
+                                      ref.watch(appRouterProvider);
+                                  setState(() {
+                                    File image;
+                                    setState(() {
+                                      picker
+                                          .pickImage(
+                                              source: ImageSource.gallery,
+                                              imageQuality: 50,
+                                              maxWidth: 800,
+                                              maxHeight: 800)
+                                          .then((value) => {
+                                                if (value != null)
+                                                  {
+                                                    image = File(value.path),
+                                                    controller
+                                                        .profileImageUpload(
+                                                          image,
+                                                          value.name,
+                                                        )
+                                                        .then((value) async => {
+                                                              await ref
+                                                                  .read(
+                                                                      loginControllerProvider)
+                                                                  .fetchUser(
+                                                                      username: pref
+                                                                          .getString(
+                                                                              "email")
+                                                                          .toString(),
+                                                                      password: pref
+                                                                          .getString(
+                                                                              "password")
+                                                                          .toString())
+                                                                  .then(
+                                                                      (value) async {
+                                                                ref
+                                                                    .read(userProvider
+                                                                        .notifier)
+                                                                    .state = value;
+                                                                ref
+                                                                    .read(isloginProvider
+                                                                        .notifier)
+                                                                    .state = true;
+                                                                final snackBar =
+                                                                    SnackBar(
+                                                                  elevation: 0,
+                                                                  behavior:
+                                                                      SnackBarBehavior
+                                                                          .floating,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  content:
+                                                                      AwesomeSnackbarContent(
+                                                                    title:
+                                                                        'Successfully Updated!',
+                                                                    message:
+                                                                        "Your profile picture has been updated!",
+                                                                    inMaterialBanner:
+                                                                        true,
+                                                                    contentType:
+                                                                        ContentType
+                                                                            .success,
+                                                                    color: ViwahaColor
+                                                                        .primary,
+                                                                  ),
+                                                                );
+                                                                ScaffoldMessenger
+                                                                    .of(context)
+                                                                  ..hideCurrentSnackBar()
+                                                                  ..showSnackBar(
+                                                                      snackBar);
+                                                              }),
+                                                            })
+                                                  }
+                                              });
+                                    });
+                                  });
+                                },
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  color: ViwahaColor.primary,
+                                  size: 35,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 10),
@@ -205,6 +313,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   initialValue: user.firstname.toString(),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -252,6 +361,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -299,6 +409,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -346,6 +457,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -394,6 +506,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -441,6 +554,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -488,6 +602,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -536,6 +651,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -583,6 +699,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -636,6 +753,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -683,6 +801,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -730,6 +849,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -777,6 +897,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -824,6 +945,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -872,6 +994,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -926,6 +1049,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  focusNode: FocusNode(canRequestFocus: false),
                                   initialValue: user.about.toString(),
                                   keyboardType: TextInputType.multiline,
                                   maxLines: 4,
@@ -1008,7 +1132,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                         ref.watch(userEmailProvider).isNotEmpty
                                             ? ref.watch(userEmailProvider)
                                             : user.email,
-                                    "image": user.image,
+                                    "image": userImg,
                                     "address": ref
                                             .watch(userAddressProvider)
                                             .isNotEmpty

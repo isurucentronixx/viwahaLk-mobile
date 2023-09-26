@@ -58,13 +58,11 @@ class DrawerMenu extends ConsumerWidget {
                                 fit: BoxFit.cover,
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
-                                  height: 120,
-                                  width: 120,
                                   decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
-                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                    ),
                                     image: DecorationImage(
                                       image: imageProvider,
                                       fit: BoxFit.cover,

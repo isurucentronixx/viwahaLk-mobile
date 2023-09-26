@@ -164,6 +164,7 @@ class SingleItemLatest extends ConsumerWidget {
                     type: type,
                     date: finalCardList[index].date!,
                     location: finalCardList[index].location!,
+                    id: finalCardList[index].id.toString(),
                   ),
                 ),
               ),
@@ -179,6 +180,7 @@ class SingleItemLatest extends ConsumerWidget {
 }
 
 class CardItem extends ConsumerWidget {
+  final String id;
   final String imagePath;
   final String title;
   final String description;
@@ -188,6 +190,7 @@ class CardItem extends ConsumerWidget {
   final String type;
 
   const CardItem({
+    required this.id,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -261,11 +264,11 @@ class CardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FavoriteIcon(),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id),
                       ),
                     ),
                     Align(

@@ -18,7 +18,7 @@ class Endpoints {
 
   static const String getAllListing = "search/get_listings_list";
 
-  static const String getFavListing = "listings/get_fav_listings?id=";
+  static const String getFavListing = "listings/get_fav_listings?id="; 
 
   static const String getMyListing = "listings/get_my_listings?userId=";
 
