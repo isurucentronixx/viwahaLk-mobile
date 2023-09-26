@@ -53,6 +53,7 @@ class User with _$User{
     String? created,
     String? modified,
     String? token_de_platform,
+    String? membership,   
    
   }) = _User;
 

@@ -97,6 +97,7 @@ mixin _$Vendor {
   String? get personality => throw _privateConstructorUsedError;
   String? get next_step => throw _privateConstructorUsedError;
   String? get average_rating => throw _privateConstructorUsedError;
+  String? get is_favourite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -185,7 +186,8 @@ abstract class $VendorCopyWith<$Res> {
       String? diet,
       String? personality,
       String? next_step,
-      String? average_rating});
+      String? average_rating,
+      String? is_favourite});
 }
 
 /// @nodoc
@@ -278,6 +280,7 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
     Object? personality = freezed,
     Object? next_step = freezed,
     Object? average_rating = freezed,
+    Object? is_favourite = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -588,6 +591,10 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
               as String?,
+      is_favourite: freezed == is_favourite
+          ? _value.is_favourite
+          : is_favourite // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -675,7 +682,8 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
       String? diet,
       String? personality,
       String? next_step,
-      String? average_rating});
+      String? average_rating,
+      String? is_favourite});
 }
 
 /// @nodoc
@@ -765,6 +773,7 @@ class __$$_VendorCopyWithImpl<$Res>
     Object? personality = freezed,
     Object? next_step = freezed,
     Object? average_rating = freezed,
+    Object? is_favourite = freezed,
   }) {
     return _then(_$_Vendor(
       id: freezed == id
@@ -1075,6 +1084,10 @@ class __$$_VendorCopyWithImpl<$Res>
           ? _value.average_rating
           : average_rating // ignore: cast_nullable_to_non_nullable
               as String?,
+      is_favourite: freezed == is_favourite
+          ? _value.is_favourite
+          : is_favourite // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1159,7 +1172,8 @@ class _$_Vendor implements _Vendor {
       this.diet,
       this.personality,
       this.next_step,
-      this.average_rating});
+      this.average_rating,
+      this.is_favourite});
 
   factory _$_Vendor.fromJson(Map<String, dynamic> json) =>
       _$$_VendorFromJson(json);
@@ -1318,10 +1332,12 @@ class _$_Vendor implements _Vendor {
   final String? next_step;
   @override
   final String? average_rating;
+  @override
+  final String? is_favourite;
 
   @override
   String toString() {
-    return 'Vendor(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating)';
+    return 'Vendor(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating, is_favourite: $is_favourite)';
   }
 
   @override
@@ -1448,7 +1464,8 @@ class _$_Vendor implements _Vendor {
             (identical(other.diet, diet) || other.diet == diet) &&
             (identical(other.personality, personality) || other.personality == personality) &&
             (identical(other.next_step, next_step) || other.next_step == next_step) &&
-            (identical(other.average_rating, average_rating) || other.average_rating == average_rating));
+            (identical(other.average_rating, average_rating) || other.average_rating == average_rating) &&
+            (identical(other.is_favourite, is_favourite) || other.is_favourite == is_favourite));
   }
 
   @JsonKey(ignore: true)
@@ -1531,7 +1548,8 @@ class _$_Vendor implements _Vendor {
         diet,
         personality,
         next_step,
-        average_rating
+        average_rating,
+        is_favourite
       ]);
 
   @JsonKey(ignore: true)
@@ -1626,7 +1644,8 @@ abstract class _Vendor implements Vendor {
       final String? diet,
       final String? personality,
       final String? next_step,
-      final String? average_rating}) = _$_Vendor;
+      final String? average_rating,
+      final String? is_favourite}) = _$_Vendor;
 
   factory _Vendor.fromJson(Map<String, dynamic> json) = _$_Vendor.fromJson;
 
@@ -1784,6 +1803,8 @@ abstract class _Vendor implements Vendor {
   String? get next_step;
   @override
   String? get average_rating;
+  @override
+  String? get is_favourite;
   @override
   @JsonKey(ignore: true)
   _$$_VendorCopyWith<_$_Vendor> get copyWith =>

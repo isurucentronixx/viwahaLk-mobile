@@ -8,7 +8,7 @@ part 'top_listing.g.dart';
 @freezed
 class TopListing with _$TopListing {
   const factory TopListing({
-     String? id,
+    String? id,
     String? datetime,
     String? user_id,
     String? title,
@@ -85,6 +85,7 @@ class TopListing with _$TopListing {
     String? personality,
     String? next_step,
     String? average_rating,
+    String? is_favourite,
   }) = _TopListing;
 
   factory TopListing.fromJson(Map<String, dynamic> json) =>

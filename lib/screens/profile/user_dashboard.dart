@@ -815,6 +815,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                     name: myListing[index].name.toString(),
                     main_category: myListing[index].main_category.toString(),
                     id: myListing[index].id.toString(),
+                    isFav: myListing[index].is_favourite.toString(),
                   ),
                 ),
               ),
@@ -840,6 +841,7 @@ class MyCardItem extends ConsumerWidget {
   final String type;
   final String name;
   final String main_category;
+  final String isFav;
 
   const MyCardItem({
     required this.id,
@@ -852,6 +854,7 @@ class MyCardItem extends ConsumerWidget {
     required this.type,
     required this.name,
     required this.main_category,
+    required this.isFav,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -934,11 +937,11 @@ class MyCardItem extends ConsumerWidget {
                     //     );
                     //   },
                     // ),
-                     Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding:const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(id),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id, isFav != "0" ? true : false),
                       ),
                     ),
                     Align(

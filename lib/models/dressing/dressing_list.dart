@@ -126,7 +126,7 @@ class CardItem extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: FavoriteIcon(''),
+                      child: FavoriteIcon('',true),
                     ),
                   ),
                   Align(

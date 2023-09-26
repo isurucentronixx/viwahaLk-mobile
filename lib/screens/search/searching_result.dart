@@ -59,8 +59,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                           searchingResult.length, // Total number of cards
                           (index) => SearchingCardItem(
                             id: searchingResult[index].id.toString(),
-                            imagePath: searchingResult[index]
-                                        .image != null 
+                            imagePath: searchingResult[index].image != null
                                 ? "https://viwaha.lk/${searchingResult[index].image.toString()}"
                                 : ref
                                     .read(homeControllerProvider)
@@ -80,6 +79,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                 searchingResult[index].location.toString(),
                             date: searchingResult[index].datetime.toString(),
                             type: '',
+                            isFav:
+                                searchingResult[index].is_favourite.toString(),
                             // Replace with the appropriate star rating value
                           ),
                         ),

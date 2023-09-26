@@ -53,6 +53,7 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       created: json['created'] as String?,
       modified: json['modified'] as String?,
       token_de_platform: json['token_de_platform'] as String?,
+      membership: json['membership'] as String?,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -102,4 +103,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'created': instance.created,
       'modified': instance.modified,
       'token_de_platform': instance.token_de_platform,
+      'membership': instance.membership,
     };

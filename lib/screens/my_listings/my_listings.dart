@@ -115,12 +115,13 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                         description: myListing[index]
                                             .description
                                             .toString(),
-                                        imagePath: myListing[index].image != null 
+                                        imagePath: myListing[index].image !=
+                                                null
                                             ? "https://viwaha.lk/${myListing[index].image.toString()}"
                                             : ref
                                                 .read(homeControllerProvider)
-                                                .getTumbImage(myListing[index]
-                                                    .images)
+                                                .getTumbImage(
+                                                    myListing[index].images)
                                                 .first,
                                         location: myListing[index]
                                             .location
@@ -137,6 +138,9 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                         name: myListing[index].name.toString(),
                                         main_category: myListing[index]
                                             .main_category
+                                            .toString(),
+                                        isFav: myListing[index]
+                                            .is_favourite
                                             .toString(),
                                       ),
                                     )

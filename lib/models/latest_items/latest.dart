@@ -165,6 +165,7 @@ class SingleItemLatest extends ConsumerWidget {
                     date: finalCardList[index].date!,
                     location: finalCardList[index].location!,
                     id: finalCardList[index].id.toString(),
+                    isFav: finalCardList[index].isFav.toString(),
                   ),
                 ),
               ),
@@ -188,6 +189,7 @@ class CardItem extends ConsumerWidget {
   final String location;
   final String date;
   final String type;
+  final String isFav;
 
   const CardItem({
     required this.id,
@@ -198,6 +200,7 @@ class CardItem extends ConsumerWidget {
     required this.location,
     required this.date,
     required this.type,
+    required this.isFav,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -268,7 +271,7 @@ class CardItem extends ConsumerWidget {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(id),
+                        child: FavoriteIcon(id, isFav != "0" ? true : false),
                       ),
                     ),
                     Align(

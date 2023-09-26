@@ -271,8 +271,8 @@ class PostData {
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/listings/add_rem_fav_listings',
           data: {
-            "listing_id": "1535",
-            "id": "565",
+            "listing_id": id.toString(),
+            "id": ref.read(userProvider).user!.id.toString(),
           });
       if (res.statusCode == 200) {
         return res.data;

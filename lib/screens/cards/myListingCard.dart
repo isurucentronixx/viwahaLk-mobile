@@ -33,6 +33,7 @@ class MyCardItem extends ConsumerStatefulWidget {
   final String date;
   final String name;
   final String main_category;
+  final String isFav;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -43,6 +44,7 @@ class MyCardItem extends ConsumerStatefulWidget {
     required this.date,
     required this.name,
     required this.main_category,
+    required this.isFav,
   });
   @override
   _MyCardItemState createState() => _MyCardItemState();
@@ -124,11 +126,12 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                             const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
                       ),
                     ),
-                     Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding:const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(widget.id),
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(
+                            widget.id, widget.isFav != "0" ? true : false),
                       ),
                     ),
                     Align(

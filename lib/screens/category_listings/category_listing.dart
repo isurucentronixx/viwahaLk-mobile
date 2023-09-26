@@ -107,7 +107,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                 : 0,
                             location: allListing[index].location.toString(),
                             date: allListing[index].datetime.toString(),
-                            type: 'cat',
+                            type: 'cat', isFav: allListing[index].is_favourite.toString(),
                             // Replace with the appropriate star rating value
                           ),
                         ),

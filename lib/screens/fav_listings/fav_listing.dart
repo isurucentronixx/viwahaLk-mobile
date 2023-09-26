@@ -40,6 +40,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
     initState() {
       // at the beginning, all users are shown
       super.initState();
+      ref.refresh(favListingProvider);
     }
 
     return Scaffold(
@@ -75,7 +76,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                               favListing.length, // Total number of cards
                               (index) => SearchingCardItem(
                                 id: favListing[index].id.toString(),
-                                imagePath: favListing[index].image != null 
+                                imagePath: favListing[index].image != null
                                     ? "https://viwaha.lk/${favListing[index].image.toString()}"
                                     : ref
                                         .read(homeControllerProvider)
@@ -93,7 +94,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                                         : 0,
                                 location: favListing[index].location.toString(),
                                 date: favListing[index].datetime.toString(),
-                                type: 'fav',
+                                type: 'fav', isFav: favListing[index].is_favourite.toString(),
                                 // Replace with the appropriate star rating value
                               ),
                             ),

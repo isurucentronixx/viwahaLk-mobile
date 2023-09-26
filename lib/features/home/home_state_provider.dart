@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
@@ -34,7 +35,12 @@ class TopListingNotifier extends StateNotifier<List<TopListing>> {
   }
 
   Future fetchTopListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchTopWeddingList().then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchTopWeddingList(ref.read(isloginProvider)
+            ? ref.read(userProvider).user!.id.toString()
+            : '')
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       state = value;
       // Setting isLoading to `false`.
@@ -51,7 +57,10 @@ class MainSliderImageNotifier extends StateNotifier<List<MainSlider>> {
   }
 
   Future fetchSliderImage({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchSliderImagesList().then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchSliderImagesList()
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       state = value;
     });
@@ -131,7 +140,9 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 
   Future fetchAllListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchAllListing().then((value) {
+    await ref.read(homeControllerProvider).fetchAllListing(ref.read(isloginProvider)
+            ? ref.read(userProvider).user!.id.toString()
+            : '').then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;

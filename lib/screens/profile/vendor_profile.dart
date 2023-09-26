@@ -540,7 +540,8 @@ class MyCardItem extends ConsumerWidget {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(id),
+                        child: FavoriteIcon(
+                            id, listing.is_favourite != "0" ? true : false),
                       ),
                     ),
                     Align(

@@ -85,6 +85,7 @@ class Vendor with _$Vendor {
     String? personality,
     String? next_step,
     String? average_rating,
+    String? is_favourite,    
   }) = _Vendor;
 
   factory Vendor.fromJson(Map<String, dynamic> json) => _$VendorFromJson(json);

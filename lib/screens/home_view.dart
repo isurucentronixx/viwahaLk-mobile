@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/screens/home/home_content.dart';
 import 'package:viwaha_lk/models/menu_item.dart';
@@ -156,6 +157,11 @@ class _HomePageState extends ConsumerState<HomePage>
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
+                          if (ref.watch(isloginProvider)) {
+                            ref.refresh(topListingProvider);
+                            ref.refresh(vendorsProvider);
+                          }
+
                           currentScreen = const HomeContent();
                           currentTab = 0;
                           currentPage = 0;
@@ -183,6 +189,11 @@ class _HomePageState extends ConsumerState<HomePage>
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
+                        if (ref.watch(isloginProvider)) {
+                          ref.refresh(allListingProvider);
+                        }
+                        
+
                         setState(() {
                           currentScreen = const AllListingPage();
                           currentTab = 1;
@@ -219,6 +230,11 @@ class _HomePageState extends ConsumerState<HomePage>
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
+                        if (ref.watch(isloginProvider)) {
+                          ref.refresh(myListingProvider);
+                          ref.refresh(favListingProvider);
+                        }
+
                         setState(() {
                           currentScreen = ref.watch(isloginProvider)
                               ? const ProfilePage()
@@ -250,6 +266,10 @@ class _HomePageState extends ConsumerState<HomePage>
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
+                          if (ref.watch(isloginProvider)) {
+                            ref.refresh(favListingProvider);
+                          }
+
                           currentScreen = ref.watch(isloginProvider)
                               ? const FavListingPage(false)
                               : const Login(true);

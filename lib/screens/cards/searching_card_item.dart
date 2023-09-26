@@ -19,6 +19,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String location;
   final String date;
   final String type;
+  final String isFav;
 
   const SearchingCardItem({
     required this.id,
@@ -29,6 +30,7 @@ class SearchingCardItem extends ConsumerWidget {
     required this.location,
     required this.date,
     required this.type,
+    required this.isFav,
   });
 
   @override
@@ -151,7 +153,7 @@ class SearchingCardItem extends ConsumerWidget {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(id),
+                        child: FavoriteIcon(id, isFav != "0" ? true : false),
                       ),
                     ),
                     (date != "null")
@@ -172,7 +174,7 @@ class SearchingCardItem extends ConsumerWidget {
                                               horizontal: 8.0, vertical: 4.0),
                                           child: Text(
                                             Jiffy.parse(date).format(
-                                                pattern: 'do MMMM  yyyy'),
+                                                pattern: 'do MMM  yyyy'),
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),

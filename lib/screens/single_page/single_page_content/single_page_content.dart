@@ -457,7 +457,7 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
           widget.item.gender.toString() != "Select one"
               ? ListTile(
                   title: const Text('Gender',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18), 
                       textAlign: TextAlign.start),
                   subtitle: Text(widget.item.gender.toString(),
                       style: const TextStyle(

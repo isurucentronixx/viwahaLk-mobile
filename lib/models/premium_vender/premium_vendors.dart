@@ -11,7 +11,7 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-import 'package:viwaha_lk/models/premium_vender/feedback.dart';
+import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
@@ -171,11 +171,12 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               ),
                             ),
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: FavoriteIcon(),
+                              padding: const EdgeInsets.all(8.0),
+                              child: FavoriteIcon(vendor.id!,
+                                  vendor.is_favourite != "0" ? true : false),
                             ),
                           ),
                           Align(

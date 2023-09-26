@@ -19,10 +19,10 @@ class HomeService {
     }
   }
 
-  Future fetchTopWeddingListApiRequest() async {
+  Future fetchTopWeddingListApiRequest(String userId) async {
     try {
-      final res =
-          await _dioClient.get(Endpoints.baseUrl + Endpoints.getTopListUrl);
+      final res = await _dioClient
+          .get(Endpoints.baseUrl + Endpoints.getTopListUrl + userId);
 
       return res.data;
     } catch (e) {
@@ -34,8 +34,8 @@ class HomeService {
     try {
       final res = await _dioClient
           .get(Endpoints.baseUrl + Endpoints.getMainSliderImages);
-    
-        return res.data;
+
+      return res.data;
     } catch (e) {
       rethrow;
     }
@@ -73,10 +73,10 @@ class HomeService {
     }
   }
 
-  Future fetchAllListingApiRequest() async {
+  Future fetchAllListingApiRequest(String userId) async {
     try {
       final res =
-          await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing);
+          await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing +userId);
       return res.data;
     } catch (e) {
       rethrow;

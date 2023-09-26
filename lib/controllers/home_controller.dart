@@ -62,9 +62,9 @@ class HomeController {
     }
   }
 
-  Future<List<TopListing>> fetchTopWeddingList() async {
+  Future<List<TopListing>> fetchTopWeddingList(String userId) async {
     try {
-      final res = await homeService.fetchTopWeddingListApiRequest();
+      final res = await homeService.fetchTopWeddingListApiRequest(userId);
       final topListing =
           (res as List).map((e) => TopListing.fromJson(e)).toList();
       return topListing;
@@ -130,9 +130,9 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchAllListing() async {
+  Future<List<SearchResultItem>> fetchAllListing(String userId) async {
     try {
-      final res = await homeService.fetchAllListingApiRequest();
+      final res = await homeService.fetchAllListingApiRequest(userId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

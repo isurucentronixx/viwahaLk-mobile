@@ -29,6 +29,7 @@ mixin _$CardModel {
   String? get mainLocation => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
+  String? get isFav => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +51,8 @@ abstract class $CardModelCopyWith<$Res> {
       String? location,
       String? mainLocation,
       String? date,
-      String? type});
+      String? type,
+      String? isFav});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$CardModelCopyWithImpl<$Res, $Val extends CardModel>
     Object? mainLocation = freezed,
     Object? date = freezed,
     Object? type = freezed,
+    Object? isFav = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -113,6 +116,10 @@ class _$CardModelCopyWithImpl<$Res, $Val extends CardModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFav: freezed == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -133,7 +140,8 @@ abstract class _$$_CardModelCopyWith<$Res> implements $CardModelCopyWith<$Res> {
       String? location,
       String? mainLocation,
       String? date,
-      String? type});
+      String? type,
+      String? isFav});
 }
 
 /// @nodoc
@@ -156,6 +164,7 @@ class __$$_CardModelCopyWithImpl<$Res>
     Object? mainLocation = freezed,
     Object? date = freezed,
     Object? type = freezed,
+    Object? isFav = freezed,
   }) {
     return _then(_$_CardModel(
       id: freezed == id
@@ -194,6 +203,10 @@ class __$$_CardModelCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFav: freezed == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -210,7 +223,8 @@ class _$_CardModel implements _CardModel {
       this.location,
       this.mainLocation,
       this.date,
-      this.type});
+      this.type,
+      this.isFav});
 
   factory _$_CardModel.fromJson(Map<String, dynamic> json) =>
       _$$_CardModelFromJson(json);
@@ -233,10 +247,12 @@ class _$_CardModel implements _CardModel {
   final String? date;
   @override
   final String? type;
+  @override
+  final String? isFav;
 
   @override
   String toString() {
-    return 'CardModel(id: $id, imagePath: $imagePath, title: $title, description: $description, starRating: $starRating, location: $location, mainLocation: $mainLocation, date: $date, type: $type)';
+    return 'CardModel(id: $id, imagePath: $imagePath, title: $title, description: $description, starRating: $starRating, location: $location, mainLocation: $mainLocation, date: $date, type: $type, isFav: $isFav)';
   }
 
   @override
@@ -257,13 +273,14 @@ class _$_CardModel implements _CardModel {
             (identical(other.mainLocation, mainLocation) ||
                 other.mainLocation == mainLocation) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.isFav, isFav) || other.isFav == isFav));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, imagePath, title,
-      description, starRating, location, mainLocation, date, type);
+      description, starRating, location, mainLocation, date, type, isFav);
 
   @JsonKey(ignore: true)
   @override
@@ -289,7 +306,8 @@ abstract class _CardModel implements CardModel {
       final String? location,
       final String? mainLocation,
       final String? date,
-      final String? type}) = _$_CardModel;
+      final String? type,
+      final String? isFav}) = _$_CardModel;
 
   factory _CardModel.fromJson(Map<String, dynamic> json) =
       _$_CardModel.fromJson;
@@ -312,6 +330,8 @@ abstract class _CardModel implements CardModel {
   String? get date;
   @override
   String? get type;
+  @override
+  String? get isFav;
   @override
   @JsonKey(ignore: true)
   _$$_CardModelCopyWith<_$_CardModel> get copyWith =>

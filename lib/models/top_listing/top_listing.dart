@@ -182,7 +182,11 @@ class TopListing extends ConsumerWidget {
                                   alignment: Alignment.topLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: FavoriteIcon(wedding.id!),
+                                    child: FavoriteIcon(
+                                        wedding.id!,
+                                        wedding.is_favourite != "0"
+                                            ? true
+                                            : false),
                                   ),
                                 ),
                                 Align(

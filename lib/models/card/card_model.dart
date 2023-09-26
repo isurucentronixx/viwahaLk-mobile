@@ -16,6 +16,7 @@ class CardModel with _$CardModel{
     String? mainLocation,
     String? date,
     String? type,
+    String? isFav,
    
   }) = _CardModel;
 

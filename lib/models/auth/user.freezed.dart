@@ -66,6 +66,7 @@ mixin _$User {
   String? get created => throw _privateConstructorUsedError;
   String? get modified => throw _privateConstructorUsedError;
   String? get token_de_platform => throw _privateConstructorUsedError;
+  String? get membership => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -123,7 +124,8 @@ abstract class $UserCopyWith<$Res> {
       String? unique_link,
       String? created,
       String? modified,
-      String? token_de_platform});
+      String? token_de_platform,
+      String? membership});
 }
 
 /// @nodoc
@@ -185,6 +187,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? created = freezed,
     Object? modified = freezed,
     Object? token_de_platform = freezed,
+    Object? membership = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -371,6 +374,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token_de_platform
           : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
+      membership: freezed == membership
+          ? _value.membership
+          : membership // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -427,7 +434,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? unique_link,
       String? created,
       String? modified,
-      String? token_de_platform});
+      String? token_de_platform,
+      String? membership});
 }
 
 /// @nodoc
@@ -485,6 +493,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? created = freezed,
     Object? modified = freezed,
     Object? token_de_platform = freezed,
+    Object? membership = freezed,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -671,6 +680,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token_de_platform
           : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
+      membership: freezed == membership
+          ? _value.membership
+          : membership // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -724,7 +737,8 @@ class _$_User implements _User {
       this.unique_link,
       this.created,
       this.modified,
-      this.token_de_platform});
+      this.token_de_platform,
+      this.membership});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -820,10 +834,12 @@ class _$_User implements _User {
   final String? modified;
   @override
   final String? token_de_platform;
+  @override
+  final String? membership;
 
   @override
   String toString() {
-    return 'User(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform)';
+    return 'User(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, membership: $membership)';
   }
 
   @override
@@ -904,7 +920,9 @@ class _$_User implements _User {
             (identical(other.modified, modified) ||
                 other.modified == modified) &&
             (identical(other.token_de_platform, token_de_platform) ||
-                other.token_de_platform == token_de_platform));
+                other.token_de_platform == token_de_platform) &&
+            (identical(other.membership, membership) ||
+                other.membership == membership));
   }
 
   @JsonKey(ignore: true)
@@ -956,7 +974,8 @@ class _$_User implements _User {
         unique_link,
         created,
         modified,
-        token_de_platform
+        token_de_platform,
+        membership
       ]);
 
   @JsonKey(ignore: true)
@@ -1020,7 +1039,8 @@ abstract class _User implements User {
       final String? unique_link,
       final String? created,
       final String? modified,
-      final String? token_de_platform}) = _$_User;
+      final String? token_de_platform,
+      final String? membership}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -1116,6 +1136,8 @@ abstract class _User implements User {
   String? get modified;
   @override
   String? get token_de_platform;
+  @override
+  String? get membership;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
