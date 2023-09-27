@@ -2,7 +2,7 @@ class Endpoints {
   // base url
   static const String baseUrl = "https://viwahaapp.viwaha.lk/api/";
 
-  static const String getVendorListUrl = "vendors/get_top_wedding_vendors";
+  static const String getVendorListUrl = "vendors/get_top_wedding_vendors?id=";
 
   static const String loginUrl = "auth/login";
 

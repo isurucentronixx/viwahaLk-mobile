@@ -80,9 +80,12 @@ class _SingleViewState extends ConsumerState<SingleView> {
           children: [
             const SizedBox(height: 20),
             SliderView(
-                widget.vendor?.images.toString() ??
-                    widget.topListing!.images.toString(),
-                widget.type.toString()),
+              widget.vendor?.images.toString() ??
+                  widget.topListing!.images.toString(),
+              widget.type.toString(),
+              widget.vendor?.main_category.toString() ??
+                  widget.topListing!.main_category.toString(),
+            ),
             const SizedBox(height: 20),
             SingleItemOverview(
                 widget.vendor?.datetime.toString() ??
@@ -100,19 +103,28 @@ class _SingleViewState extends ConsumerState<SingleView> {
             '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' ==
                     "Proposal"
                 ? SingleItemProposal(widget.vendor ?? widget.topListing)
-                : SingleItemAmenities(widget.vendor?.amenities.toString() ??
-                    widget.topListing!.amenities.toString()),
-            SingleItemDescription(widget.vendor?.description.toString() ??
-                widget.topListing!.description.toString()),
+                : '${widget.vendor?.amenities.toString() ?? widget.topListing!.amenities!.toString()}' !=
+                        ""
+                    ? SingleItemAmenities(widget.vendor?.amenities.toString() ??
+                        widget.topListing!.amenities.toString())
+                    : const SizedBox(),
+            SingleItemDescription(
+                widget.vendor?.description.toString() ??
+                    widget.topListing!.description.toString(),
+                widget.vendor?.main_category.toString() ??
+                    widget.topListing!.main_category.toString()),
             SingleItemContactInfo(
-                widget.vendor?.phone.toString() ??
-                    widget.topListing!.phone.toString(),
-                widget.vendor?.phone.toString() ??
-                    widget.topListing!.phone.toString(),
-                widget.vendor?.address.toString() ??
-                    widget.topListing!.address.toString(),
-                widget.vendor?.email.toString() ??
-                    widget.topListing!.email.toString()),
+              widget.vendor?.main_category.toString() ??
+                  widget.topListing!.main_category.toString(),
+              widget.vendor?.phone.toString() ??
+                  widget.topListing!.phone.toString(),
+              widget.vendor?.phone.toString() ??
+                  widget.topListing!.phone.toString(),
+              widget.vendor?.address.toString() ??
+                  widget.topListing!.address.toString(),
+              widget.vendor?.email.toString() ??
+                  widget.topListing!.email.toString(),
+            ),
             SingleItemMap(widget.vendor?.address.toString() ??
                 widget.topListing!.address.toString()),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing')

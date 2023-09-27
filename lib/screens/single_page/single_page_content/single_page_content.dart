@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -23,9 +24,10 @@ import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class SliderView extends ConsumerStatefulWidget {
-  const SliderView(this.images, this.type, {super.key});
+  const SliderView(this.images, this.type, this.mainCategory, {super.key});
   final String images;
   final String type;
+  final String mainCategory;
   @override
   _SliderState createState() => _SliderState();
 }
@@ -33,8 +35,14 @@ class SliderView extends ConsumerStatefulWidget {
 class _SliderState extends ConsumerState<SliderView> {
   @override
   Widget build(BuildContext context) {
+    String isMembership = ref.read(userProvider).user!.membership.toString();
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.images);
+    if (widget.mainCategory == "Proposal") {
+      if (isMembership != "1") {
+        imagePaths.length = 1;
+      }
+    }
     return CarouselSlider(
       options: CarouselOptions(
         height: 400, // Set the desired height of the slider
@@ -69,31 +77,7 @@ class _SliderState extends ConsumerState<SliderView> {
             ),
           ),
         );
-        // Image.network(
-        //   imagePath,
-        //   fit: BoxFit.cover,
-        //   loadingBuilder: (context, child, progress) {
-        //     if (progress == null) {
-        //       return ClipRRect(
-        //         borderRadius: BorderRadius.circular(10),
-        //         child: SizedBox(
-        //           child: child,
-        //         ),
-        //       );
-        //     }
-        //     return const Center(
-        //       child: CircularProgressIndicator(),
-        //     );
-        //   },
-        //   errorBuilder: (context, error, stackTrace) {
-        //     return Center(
-        //       child: Image.network(
-        //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-        //         fit: BoxFit.cover,
-        //       ),
-        //     );
-        //   },
-        // );
+      
       }).toList(),
     );
   }
@@ -116,6 +100,18 @@ class SingleItemOverview extends ConsumerStatefulWidget {
 }
 
 class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
+  String isMembership(String text) {
+    int end = text.length > 2 ? 2 : 0;
+    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String visiblePart = text.substring(0, end);
+    String hiddenPart =
+        text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
+    String remainingPart = text.substring(text.length);
+    String modifiedText = visiblePart + hiddenPart + remainingPart;
+
+    return isMembership == "1" ? text : modifiedText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -163,7 +159,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           const SizedBox(height: 10),
           Text(
             widget.item!.main_category == "Proposal"
-                ? '${widget.item!.name}'
+                ? isMembership(widget.item!.name!)
                 : '${widget.title}',
             style: const TextStyle(
               fontSize: 20,
@@ -457,7 +453,7 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
           widget.item.gender.toString() != "Select one"
               ? ListTile(
                   title: const Text('Gender',
-                      style: TextStyle(fontSize: 18), 
+                      style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
                   subtitle: Text(widget.item.gender.toString(),
                       style: const TextStyle(
@@ -681,14 +677,27 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
   }
 }
 
-class SingleItemDescription extends StatefulWidget {
-  const SingleItemDescription(this.description, {super.key});
+class SingleItemDescription extends ConsumerStatefulWidget {
+  const SingleItemDescription(this.description, this.mainCategory, {super.key});
   final String description;
+  final String mainCategory;
   @override
-  State<SingleItemDescription> createState() => _SingleItemDescriptionState();
+  _SingleItemDescriptionState createState() => _SingleItemDescriptionState();
 }
 
-class _SingleItemDescriptionState extends State<SingleItemDescription> {
+class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
+  String isMembership(String text) {
+    int end = text.length > 2 ? 2 : 0;
+    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String visiblePart = text.substring(0, end);
+    String hiddenPart =
+        text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
+    String remainingPart = text.substring(text.length);
+    String modifiedText = visiblePart + hiddenPart + remainingPart;
+
+    return isMembership == "1" ? text : modifiedText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return widget.description.isEmpty ||
@@ -724,7 +733,9 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
                 ),
                 const SizedBox(height: 10),
                 ExpandText(
-                  '${widget.description}',
+                  widget.mainCategory == "Proposal"
+                      ? isMembership(widget.description)
+                      : widget.description,
                   // style: GoogleFonts.lato(),
                   // TextStyle(
                   //   color: Colors.amber,
@@ -738,21 +749,35 @@ class _SingleItemDescriptionState extends State<SingleItemDescription> {
   }
 }
 
-class SingleItemContactInfo extends StatefulWidget {
-  const SingleItemContactInfo(
-      this.contactNumber, this.telephoneNumer, this.address, this.email,
+class SingleItemContactInfo extends ConsumerStatefulWidget {
+  const SingleItemContactInfo(this.mainCategory, this.contactNumber,
+      this.telephoneNumer, this.address, this.email,
       {super.key});
+  final String mainCategory;
   final String contactNumber;
   final String telephoneNumer;
   final String address;
   final String email;
   @override
-  State<SingleItemContactInfo> createState() => _SingleItemContactInfoState();
+  _SingleItemContactInfoState createState() => _SingleItemContactInfoState();
 }
 
-class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
+class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
+  String isMembership(String text) {
+    int end = text.length > 2 ? 2 : 0;
+    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String visiblePart = text.substring(0, end);
+    String hiddenPart =
+        text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
+    String remainingPart = text.substring(text.length);
+    String modifiedText = visiblePart + hiddenPart + remainingPart;
+
+    return isMembership == "1" ? text : modifiedText;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.mainCategory);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -786,7 +811,9 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
               ListTile(
                 leading: const Icon(Icons.phone_android),
                 title: Text(LocaleKeys.contact_number.tr()),
-                subtitle: Text('${widget.contactNumber}'),
+                subtitle: Text(widget.mainCategory == "Proposal"
+                    ? isMembership(widget.contactNumber)
+                    : widget.contactNumber),
               ),
               widget.telephoneNumer.isEmpty ||
                       widget.telephoneNumer == 'null' ||
@@ -795,17 +822,23 @@ class _SingleItemContactInfoState extends State<SingleItemContactInfo> {
                   : ListTile(
                       leading: const Icon(Icons.phone),
                       title: Text(LocaleKeys.tele_number.tr()),
-                      subtitle: Text('${widget.telephoneNumer}'),
+                      subtitle: Text(widget.mainCategory == "Proposal"
+                          ? isMembership(widget.telephoneNumer)
+                          : widget.telephoneNumer),
                     ),
               ListTile(
                 leading: const Icon(Icons.home),
                 title: Text(LocaleKeys.address.tr()),
-                subtitle: Text('${widget.address}'),
+                subtitle: Text(widget.mainCategory == "Proposal"
+                    ? isMembership(widget.address)
+                    : widget.address),
               ),
               ListTile(
                 leading: const Icon(Icons.email),
                 title: Text(LocaleKeys.email.tr()),
-                subtitle: Text('${widget.email}'),
+                subtitle: Text(widget.mainCategory == "Proposal"
+                    ? isMembership(widget.email)
+                    : widget.email),
               ),
               const SizedBox(height: 8),
               Center(

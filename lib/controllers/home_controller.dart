@@ -49,9 +49,9 @@ class HomeController {
 
   HomeController(this.homeService);
 
-  Future<List<Vendor>> fetchVendorList() async {
+  Future<List<Vendor>> fetchVendorList(userId) async {
     try {
-      final res = await homeService.fetchVendorListApiRequest();
+      final res = await homeService.fetchVendorListApiRequest(userId);
 
       final vendor = (res as List).map((e) => Vendor.fromJson(e)).toList();
       return vendor;
@@ -116,10 +116,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchSearchResultList(
-      String location, String category, String keyword) async {
+      String location, String category, String keyword, String userId) async {
     try {
       final res = await homeService.fetchSearchResultListApiRequest(
-          location, category, keyword);
+          location, category, keyword, userId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -169,9 +169,9 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchCategoryListing(String category) async {
+  Future<List<SearchResultItem>> fetchCategoryListing(String userId,String category) async {
     try {
-      final res = await homeService.fetchCategoryListingApiRequest(category);
+      final res = await homeService.fetchCategoryListingApiRequest(userId,category);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

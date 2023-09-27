@@ -40,6 +40,7 @@ final proposerNameProvider = StateProvider<String>((ref) => '');
 final proposerDobProvider =
     StateProvider<DateTime>((ref) => DateTime(1996, 08, 22));
 final premiumBillProvider = StateProvider<String>((ref) => '');
+final membershipBillProvider = StateProvider<String>((ref) => '');
 
 final premiumBillNameProvider = StateProvider<String>((ref) => '');
 final adTitleProvider = StateProvider<String>((ref) => '');
@@ -782,9 +783,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
-                                    
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -847,8 +845,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -939,8 +935,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     controller: _dobController,
                                     onTap: () async {
                                       DateTime? pickedDate =
@@ -1005,8 +999,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1059,8 +1051,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1113,8 +1103,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1259,8 +1247,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1310,8 +1296,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1369,8 +1353,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1451,8 +1433,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1505,8 +1485,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1559,8 +1537,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1613,8 +1589,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1664,8 +1638,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1714,8 +1686,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1765,8 +1735,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1814,8 +1782,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1863,8 +1829,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1912,8 +1876,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1961,8 +1923,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2010,8 +1970,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -3221,8 +3179,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -3284,8 +3240,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3333,8 +3287,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3382,8 +3334,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3431,8 +3381,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3489,8 +3437,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
-                                    focusNode:
-                                        FocusNode(canRequestFocus: false),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3604,7 +3550,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       ],
                                       onChange: (selected) {
                                         setState(() {
-                                          _openInHollyday = selected.value;
+                                        _openInHollyday = selected.value;
                                         });
                                       },
                                       modalType: S2ModalType.bottomSheet,

@@ -18,7 +18,12 @@ class VendorNotifier extends StateNotifier<List<Vendor>> {
   }
 
   Future fetchVendors({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchVendorList().then((value) {
+    await ref
+        .read(homeControllerProvider)
+        .fetchVendorList(ref.read(isloginProvider)
+            ? ref.read(userProvider).user!.id
+            : '')
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       state = value;
       // Setting isLoading to `false`.
@@ -119,7 +124,13 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
 
     await ref
         .read(homeControllerProvider)
-        .fetchSearchResultList(location, category, keyword)
+        .fetchSearchResultList(
+            location,
+            category,
+            keyword,
+            ref.read(isloginProvider)
+                ? '${ref.read(userProvider).user!.id.toString()}'
+                : '')
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -140,9 +151,12 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 
   Future fetchAllListing({required Ref ref}) async {
-    await ref.read(homeControllerProvider).fetchAllListing(ref.read(isloginProvider)
+    await ref
+        .read(homeControllerProvider)
+        .fetchAllListing(ref.read(isloginProvider)
             ? ref.read(userProvider).user!.id.toString()
-            : '').then((value) {
+            : '')
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
@@ -212,7 +226,11 @@ class CategoryListingProviderNotifier
     String category = ref.watch(selectedMainCategoryProvider);
     await ref
         .read(homeControllerProvider)
-        .fetchCategoryListing(category)
+        .fetchCategoryListing(
+            ref.read(isloginProvider)
+                ? ref.read(userProvider).user!.id.toString()
+                : '',
+            category)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {

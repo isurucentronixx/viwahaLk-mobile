@@ -33,6 +33,7 @@ class SingleItemLatest extends ConsumerWidget {
       premiumVendorsList = ref.read(vendorsProvider);
       premiumVendorsList.forEach((e) {
         CardModel cardModel = CardModel(
+            id: e.id,
             imagePath: e.image != null
                 ? "https://viwaha.lk/${e.image.toString()}"
                 : ref
@@ -52,6 +53,7 @@ class SingleItemLatest extends ConsumerWidget {
       topListingList = ref.read(topListingProvider);
       topListingList.forEach((e) {
         CardModel cardModel = CardModel(
+            id: e.id,
             imagePath: e.image != null
                 ? "https://viwaha.lk/${e.image.toString()}"
                 : ref
@@ -71,6 +73,7 @@ class SingleItemLatest extends ConsumerWidget {
       premiumVendorsList = ref.read(vendorsProvider);
       premiumVendorsList.forEach((e) {
         CardModel cardModel = CardModel(
+            id: e.id,
             imagePath: e.image != null
                 ? "https://viwaha.lk/${e.image.toString()}"
                 : ref
@@ -89,6 +92,7 @@ class SingleItemLatest extends ConsumerWidget {
       topListingList = ref.read(topListingProvider);
       topListingList.forEach((e) {
         CardModel cardModel = CardModel(
+            id: e.id,
             imagePath: e.image != null
                 ? "https://viwaha.lk/${e.image.toString()}"
                 : ref

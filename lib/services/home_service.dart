@@ -9,10 +9,10 @@ class HomeService {
 
   HomeService(this._dioClient);
 
-  Future fetchVendorListApiRequest() async {
+  Future fetchVendorListApiRequest(userId) async {
     try {
-      final res =
-          await _dioClient.get(Endpoints.baseUrl + Endpoints.getVendorListUrl);
+      final res = await _dioClient.get(
+          Endpoints.baseUrl + Endpoints.getVendorListUrl + userId.toString());
       return res.data;
     } catch (e) {
       rethrow;
@@ -63,10 +63,10 @@ class HomeService {
   }
 
   Future fetchSearchResultListApiRequest(
-      String location, String category, String keyword) async {
+      String location, String category, String keyword, String userId) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing}?location=$location&category=$category&keyword=$keyword');
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/location=$location&category=$category&keyword=$keyword');
       return res.data;
     } catch (e) {
       rethrow;
@@ -75,8 +75,8 @@ class HomeService {
 
   Future fetchAllListingApiRequest(String userId) async {
     try {
-      final res =
-          await _dioClient.get(Endpoints.baseUrl + Endpoints.getAllListing +userId);
+      final res = await _dioClient
+          .get(Endpoints.baseUrl + Endpoints.getAllListing + userId);
       return res.data;
     } catch (e) {
       rethrow;
@@ -86,7 +86,8 @@ class HomeService {
   Future fetchFavListingApiRequest({required Ref ref}) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl}${Endpoints.getFavListing}${ref.watch(userProvider).user!.id}');
+          '${Endpoints.baseUrl}${Endpoints.getFavListing}' +
+              ref.watch(userProvider).user!.id.toString());
       return res.data;
     } catch (e) {
       rethrow;
@@ -103,10 +104,10 @@ class HomeService {
     }
   }
 
-  Future fetchCategoryListingApiRequest(String category) async {
+  Future fetchCategoryListingApiRequest(String userId, String category) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing}?location=&category=$category&keyword=');
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/location=&category=$category&keyword=');
       return res.data;
     } catch (e) {
       rethrow;
