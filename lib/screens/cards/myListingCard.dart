@@ -70,7 +70,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     }
 
     return GestureDetector(
-      onTap: () {
+      onTap: () {        
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
                 .watch(myListingProvider)

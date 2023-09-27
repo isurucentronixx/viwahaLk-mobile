@@ -49,7 +49,7 @@ class _LoginState extends ConsumerState<Login> {
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
             title: ref.read(isloginProvider)
-                ? 'Loging Successful'
+                ? 'Login Successful'
                 : 'Login Failed!',
             message: items,
             inMaterialBanner: true,
@@ -270,9 +270,12 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 
     ref.read(userProvider.notifier).state = res;
     ref.read(isloginProvider.notifier).state = true;
+
     // ignore: use_build_context_synchronously
     AutoRouter.of(context).push(const HomePage());
-  } else {}
+  } else {
+
+  }
 }
 
 class GoogleSignInApi {

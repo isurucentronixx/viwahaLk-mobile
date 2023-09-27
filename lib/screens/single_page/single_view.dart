@@ -97,9 +97,10 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.vendor?.views.toString() ??
                     widget.topListing!.views!.toString(),
                 widget.type.toString(),
-                widget.vendor?.id.toString() ??
+                widget.vendor?.id.toString() ?? 
                     widget.topListing!.id!.toString(),
-                const SearchResultItem()),
+                widget.vendor ?? 
+                    widget.topListing),
             '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' ==
                     "Proposal"
                 ? SingleItemProposal(widget.vendor ?? widget.topListing)

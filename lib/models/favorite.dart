@@ -13,7 +13,7 @@ import '../appColor.dart';
 class FavoriteIcon extends ConsumerStatefulWidget {
   final String listingId;
   final bool isFav;
-  const FavoriteIcon(this.listingId, this.isFav, {super.key}); 
+  const FavoriteIcon(this.listingId, this.isFav, {super.key});
 
   @override
   _FavoriteIconState createState() => _FavoriteIconState();
@@ -43,7 +43,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
 
             controller.addFavorite(widget.listingId).then((value) => {
                   print('ADDED......'),
-                  ref.refresh(favListingProvider),
+                  
                   (ScaffoldMessenger.of(context))
                     ..hideCurrentSnackBar()
                     ..showSnackBar(SnackBar(

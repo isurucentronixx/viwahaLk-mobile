@@ -35,10 +35,10 @@ class SliderView extends ConsumerStatefulWidget {
 class _SliderState extends ConsumerState<SliderView> {
   @override
   Widget build(BuildContext context) {
-    String isMembership = ref.read(userProvider).user!.membership.toString();
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.images);
     if (widget.mainCategory == "Proposal") {
+      String isMembership = ref.read(userProvider).user!.membership.toString();
       if (isMembership != "1") {
         imagePaths.length = 1;
       }
@@ -77,7 +77,6 @@ class _SliderState extends ConsumerState<SliderView> {
             ),
           ),
         );
-      
       }).toList(),
     );
   }
@@ -93,7 +92,7 @@ class SingleItemOverview extends ConsumerStatefulWidget {
   final String views;
   final String type;
   final String id;
-  final SearchResultItem? item;
+  final dynamic item;
 
   @override
   _SingleItemOverviewState createState() => _SingleItemOverviewState();

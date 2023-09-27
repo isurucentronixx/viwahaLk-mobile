@@ -46,7 +46,8 @@ class SingleItemLatest extends ConsumerWidget {
                 e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
-            type: 'vendor');
+            type: 'vendor',
+            isFav: e.is_favourite.toString());
         cardList.add(cardModel);
       });
     } else if (type == "topListing") {
@@ -66,7 +67,8 @@ class SingleItemLatest extends ConsumerWidget {
                 e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
-            type: 'topListing');
+            type: 'topListing',
+            isFav: e.is_favourite.toString());
         cardList.add(cardModel);
       });
     } else {
@@ -86,7 +88,8 @@ class SingleItemLatest extends ConsumerWidget {
                 e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
-            type: 'vendor');
+            type: 'vendor',
+            isFav: e.is_favourite.toString());
         cardList.add(cardModel);
       });
       topListingList = ref.read(topListingProvider);
@@ -105,7 +108,8 @@ class SingleItemLatest extends ConsumerWidget {
                 e.average_rating != null ? e.average_rating.toString() : '0',
             location: e.location,
             date: e.datetime,
-            type: 'topListing');
+            type: 'topListing',
+            isFav: e.is_favourite.toString());
         cardList.add(cardModel);
       });
     }
@@ -275,7 +279,7 @@ class CardItem extends ConsumerWidget {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FavoriteIcon(id, isFav != "0" ? true : false),
+                        child: FavoriteIcon(id, isFav == "1" ? true : false),
                       ),
                     ),
                     Align(

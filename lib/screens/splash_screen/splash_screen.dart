@@ -51,7 +51,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     var currentPhone =
         pref.containsKey("email") ? pref.getString("email").toString() : null;
 
-    if (currentPhone != null) {
+    if (currentPhone != null) { 
       await ref
           .read(loginControllerProvider)
           .fetchUser(

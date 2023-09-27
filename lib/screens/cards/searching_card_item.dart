@@ -40,6 +40,7 @@ class SearchingCardItem extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
+    
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
                 .watch(type == "myAd"

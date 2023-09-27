@@ -274,13 +274,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: LocaleKeys.my_listings.tr(),
                         icon: Icons.notes,
                         onPress: () {
-                          ref.refresh(myListingProvider);
+                          // ref.refresh(myListingProvider);
+                          // ref.refresh(vendorsProvider);
+                          // ref.refresh(topListingProvider);
                           router.push(const MyListingPage());
                         }),
                     ProfileMenuWidget(
                         title: LocaleKeys.my_favorite.tr(),
                         icon: Icons.favorite_border_outlined,
                         onPress: () {
+                          ref.refresh(favListingProvider);
                           router.push(FavListingPage(isAppBar: true));
                         }),
                     ProfileMenuWidget(

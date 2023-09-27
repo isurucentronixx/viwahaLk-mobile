@@ -124,7 +124,7 @@ class TopListing extends ConsumerWidget {
                                     ),
                                   ),
                                   placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
+                                      Center(child: const CircularProgressIndicator()),
                                   errorWidget: (context, url, error) => Center(
                                     child: Image.network(
                                       'https://viwaha.lk/assets/img/logo/no_image.jpg',
