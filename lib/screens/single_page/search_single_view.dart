@@ -194,10 +194,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                                                                     border: Border.all(
                                                                         color: ViwahaColor
                                                                             .primary),
-                                                                    borderRadius: const BorderRadius
+                                                                    borderRadius:
+                                                                        const BorderRadius
                                                                             .all(
-                                                                        Radius.circular(
-                                                                            10))),
+                                                                            Radius.circular(10))),
                                                                 child: Assets
                                                                     .lib
                                                                     .assets
@@ -217,10 +217,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                                                                     border: Border.all(
                                                                         color: ViwahaColor
                                                                             .primary),
-                                                                    borderRadius: const BorderRadius
+                                                                    borderRadius:
+                                                                        const BorderRadius
                                                                             .all(
-                                                                        Radius.circular(
-                                                                            10))),
+                                                                            Radius.circular(10))),
                                                               )
                                                       ],
                                                     ),
@@ -293,11 +293,11 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                               )
                             : const SizedBox()
                         : const SizedBox(),
+                    const SizedBox(height: 20),
                     SliderView(
                         widget.item!.images.toString(),
                         widget.type.toString(),
                         widget.item!.main_category.toString()),
-                    const SizedBox(height: 20),
                     SingleItemOverview(
                         widget.item!.datetime.toString(),
                         widget.item!.location.toString(),

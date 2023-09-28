@@ -92,7 +92,7 @@ class _HomePageState extends ConsumerState<HomePage>
                         onPressed: () {
                           localizationBottomSheet(context, ref);
                         },
-                        icon: const Icon(Icons.translate))
+                        icon: const Icon(Icons.language))
                     : const SizedBox(),
               ],
             )
@@ -192,7 +192,6 @@ class _HomePageState extends ConsumerState<HomePage>
                         if (ref.watch(isloginProvider)) {
                           ref.refresh(allListingProvider);
                         }
-                        
 
                         setState(() {
                           currentScreen = const AllListingPage();

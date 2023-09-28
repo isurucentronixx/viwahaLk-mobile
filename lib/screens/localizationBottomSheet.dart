@@ -62,6 +62,9 @@ localizationBottomSheet(BuildContext context, WidgetRef ref) {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,6 +97,7 @@ localizationBottomSheet(BuildContext context, WidgetRef ref) {
 
 Widget cardContent(String lng) {
   return Container(
+    height: 40,
     margin: const EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
     decoration: BoxDecoration(
@@ -101,11 +105,11 @@ Widget cardContent(String lng) {
       borderRadius: BorderRadius.circular(10),
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(lng.toString(),
-            style: const TextStyle(color: Colors.grey, fontSize: 16)),
+        // Text(lng.toString(),
+        //     style: const TextStyle(color: Colors.grey, fontSize: 16)),
         Text(
           lng == 'en'
               ? 'English'
@@ -114,16 +118,16 @@ Widget cardContent(String lng) {
                   : 'தமிழ்',
           style: const TextStyle(color: Colors.grey, fontSize: 16),
         ),
-        CountryFlag.fromCountryCode(
-          lng == 'en'
-              ? 'GB'
-              : lng == 'si'
-                  ? 'LK'
-                  : 'IN',
-          height: 35,
-          width: 35,
-          borderRadius: 25,
-        )
+        // CountryFlag.fromCountryCode(
+        //   lng == 'en'
+        //       ? 'GB'
+        //       : lng == 'si'
+        //           ? 'LK'
+        //           : 'IN',
+        //   height: 35,
+        //   width: 35,
+        //   borderRadius: 25,
+        // )
       ],
     ),
   );

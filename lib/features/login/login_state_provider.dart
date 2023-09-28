@@ -53,7 +53,7 @@ class LoginNotifier extends StateNotifier<UserModel> {
           appRouter.push(const HomePage());
         } else {
           ref.read(loginViewStateProvider.notifier).state = const AsyncValue
-                  .data(
+              .data(
               "Invalid credentials or Unable to login for some other reason. Please try again...");
           ref.read(loginViewStateProvider.notifier).state =
               const AsyncValue.data(null);
