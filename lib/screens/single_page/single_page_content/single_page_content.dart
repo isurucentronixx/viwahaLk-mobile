@@ -58,7 +58,6 @@ class _SliderState extends ConsumerState<SliderView> {
           fit: BoxFit.cover,
           imageBuilder: (context, imageProvider) => Container(
             height: 200,
-            width: 200,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.black,
