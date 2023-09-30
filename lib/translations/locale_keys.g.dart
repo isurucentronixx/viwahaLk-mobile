@@ -96,5 +96,6 @@ abstract class  LocaleKeys {
   static const add_your_listing = 'add_your_listing';
   static const notifications = 'notifications';
   static const referals = 'referals';
+  static const video = 'video';
 
 }

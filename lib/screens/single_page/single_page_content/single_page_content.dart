@@ -4,10 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -15,13 +13,12 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
-import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -747,6 +744,83 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
   }
 }
 
+class SingleItemVideo extends ConsumerStatefulWidget {
+  const SingleItemVideo(this.link, {super.key});
+  final String link;
+  @override
+  _SingleItemVideoState createState() => _SingleItemVideoState();
+}
+
+class _SingleItemVideoState extends ConsumerState<SingleItemVideo> {
+  late final WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {},
+          // onNavigationRequest: (NavigationRequest request) {
+          //   if (request.url.startsWith('https://www.youtube.com/')) {
+          //     return NavigationDecision.prevent;
+          //   }
+          //   return NavigationDecision.navigate;
+          // },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.link));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  LocaleKeys.video.tr(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: SizedBox(
+              height: 250,
+              child: WebViewWidget(controller: controller),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SingleItemContactInfo extends ConsumerStatefulWidget {
   const SingleItemContactInfo(this.mainCategory, this.contactNumber,
       this.telephoneNumer, this.address, this.email,
@@ -938,7 +1012,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
     String address = widget.address;
 
     const apiKey =
-        'AIzaSyCQthDZlGXOe_-wTKiPUmLd9MVaisTCz-M'; // Replace with your Google API key
+        'AIzaSyD856KsYNpA6N-1dTKmwOl_TnnEk7NrTYc'; // Replace with your Google API key
     final encodedAddress = Uri.encodeComponent(address);
 
     final url = 'https://maps.googleapis.com/maps/api/staticmap?'

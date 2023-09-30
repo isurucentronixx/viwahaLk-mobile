@@ -4478,7 +4478,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     _fridayOpen == 'Select one' ||
                                     _saturedayOpen == 'Select one' ||
                                     _sundayOpen == 'Select one' ||
-                                    askPrice == false ||
                                     ref.watch(imageGalleryProvider).isEmpty) {
                                   setState(() {
                                     _catColor = Colors.red;

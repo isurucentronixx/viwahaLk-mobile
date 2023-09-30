@@ -97,10 +97,9 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.vendor?.views.toString() ??
                     widget.topListing!.views!.toString(),
                 widget.type.toString(),
-                widget.vendor?.id.toString() ?? 
+                widget.vendor?.id.toString() ??
                     widget.topListing!.id!.toString(),
-                widget.vendor ?? 
-                    widget.topListing),
+                widget.vendor ?? widget.topListing),
             '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' ==
                     "Proposal"
                 ? SingleItemProposal(widget.vendor ?? widget.topListing)
@@ -114,6 +113,14 @@ class _SingleViewState extends ConsumerState<SingleView> {
                     widget.topListing!.description.toString(),
                 widget.vendor?.main_category.toString() ??
                     widget.topListing!.main_category.toString()),
+            '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' !=
+                    "Proposal"
+                ? '${widget.vendor?.video.toString() ?? widget.topListing!.video!.toString()}' !=
+                        ""
+                    ? SingleItemVideo(widget.vendor?.video.toString() ??
+                        widget.topListing!.video!.toString())
+                    : const SizedBox()
+                : const SizedBox(),
             SingleItemContactInfo(
               widget.vendor?.main_category.toString() ??
                   widget.topListing!.main_category.toString(),

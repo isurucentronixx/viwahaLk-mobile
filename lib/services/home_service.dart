@@ -66,7 +66,7 @@ class HomeService {
       String location, String category, String keyword, String userId) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/location=$location&category=$category&keyword=$keyword');
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&location=$location&category=$category&keyword=$keyword');
       return res.data;
     } catch (e) {
       rethrow;

@@ -78,7 +78,7 @@ class TopListing extends ConsumerWidget {
                 children: List.generate(data.length, // Total number of cards
                     (index) {
                   final wedding = data[index];
-                  String thumbImg = wedding.image != null
+                  String thumbImg = wedding.image != ""
                       ? "https://viwaha.lk/${wedding.image.toString()}"
                       : ref
                           .read(homeControllerProvider)
