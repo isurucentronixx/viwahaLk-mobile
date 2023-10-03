@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:jiffy/jiffy.dart';
@@ -19,6 +20,12 @@ import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:video_player/video_player.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -673,9 +680,12 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
 }
 
 class SingleItemDescription extends ConsumerStatefulWidget {
-  const SingleItemDescription(this.description, this.mainCategory, {super.key});
+  const SingleItemDescription(
+      this.description, this.mainCategory, this.videoLink,
+      {super.key});
   final String description;
   final String mainCategory;
+  final String videoLink;
   @override
   _SingleItemDescriptionState createState() => _SingleItemDescriptionState();
 }
@@ -738,88 +748,123 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                   // ),
                   textAlign: TextAlign.center,
                 ),
+                widget.videoLink != ""
+                    ? Center(
+                        child: ElevatedButton.icon(
+                          onPressed: () async {
+                            await launchUrl(Uri.parse(widget.videoLink),
+                                mode: LaunchMode.externalApplication);
+                          },
+                          icon: const Icon(Icons.play_circle),
+                          label: const Text('Watch clip'),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           );
   }
 }
 
-class SingleItemVideo extends ConsumerStatefulWidget {
-  const SingleItemVideo(this.link, {super.key});
-  final String link;
-  @override
-  _SingleItemVideoState createState() => _SingleItemVideoState();
-}
+// class SingleItemVideo extends ConsumerStatefulWidget {
+//   const SingleItemVideo(this.link, {super.key});
+//   final String link;
+//   @override
+//   _SingleItemVideoState createState() => _SingleItemVideoState();
+// }
 
-class _SingleItemVideoState extends ConsumerState<SingleItemVideo> {
-  late final WebViewController controller;
+// class _SingleItemVideoState extends ConsumerState<SingleItemVideo> {
+//   // var loadingPercentage = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          // onNavigationRequest: (NavigationRequest request) {
-          //   if (request.url.startsWith('https://www.youtube.com/')) {
-          //     return NavigationDecision.prevent;
-          //   }
-          //   return NavigationDecision.navigate;
-          // },
-        ),
-      )
-      ..loadRequest(Uri.parse(widget.link));
-  }
+//   // late final WebViewController controller;
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color:
-                ViwahaColor.primary, // Set the background color for the title
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.list,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  LocaleKeys.video.tr(),
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Center(
-            child: SizedBox(
-              height: 250,
-              child: WebViewWidget(controller: controller),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   // @override
+//   // void initState() {
+//   //   super.initState();
+//   //   controller = WebViewController()
+//   //     ..setNavigationDelegate(NavigationDelegate(
+//   //       onPageStarted: (url) {
+//   //         setState(() {
+//   //           loadingPercentage = 0;
+//   //         });
+//   //       },
+//   //       onProgress: (progress) {
+//   //         setState(() {
+//   //           loadingPercentage = progress;
+//   //         });
+//   //       },
+//   //       onPageFinished: (url) {
+//   //         setState(() {
+//   //           loadingPercentage = 100;
+//   //         });
+//   //       },
+//   //     ))
+//   //     ..setJavaScriptMode(JavaScriptMode.unrestricted)
+//   //     ..loadRequest(
+//   //       Uri.parse(
+//   //           'https://www.facebook.com/100089485622674/videos/691245782444851'),
+//   //     );
+//   // }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(20.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             color:
+//                 ViwahaColor.primary, // Set the background color for the title
+//             padding: const EdgeInsets.all(16.0),
+//             child: Row(
+//               children: [
+//                 const Icon(
+//                   Icons.list,
+//                   color: Colors.white,
+//                 ),
+//                 const SizedBox(width: 8),
+//                 Text(
+//                   LocaleKeys.video.tr(),
+//                   style: const TextStyle(
+//                     fontSize: 22,
+//                     fontWeight: FontWeight.w400,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           const SizedBox(height: 10),
+//           ElevatedButton(
+//             onPressed: () async {
+//               await launchUrl(Uri.parse(widget.link),
+//                   mode: LaunchMode.externalApplication);
+//             },
+//             child: Text('Show Flutter homepage'),
+//           ),
+
+//           // SizedBox(
+//           //   height: MediaQuery.of(context).size.height * 0.5,
+//           //   child: Stack(
+//           //     children: [
+//           //       Expanded(
+//           //         child: WebViewWidget(
+//           //           controller: controller,
+//           //         ),
+//           //       ),
+//           //       if (loadingPercentage < 100)
+//           //         LinearProgressIndicator(
+//           //           value: loadingPercentage / 100.0,
+//           //         ),
+//           //     ],
+//           //   ),
+//           // ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class SingleItemContactInfo extends ConsumerStatefulWidget {
   const SingleItemContactInfo(this.mainCategory, this.contactNumber,
