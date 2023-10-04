@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class NoListingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
+    return const Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -49,6 +49,7 @@ dependencies:
   flutter_widget_from_html: ^0.10.5
   flutter_inappwebview: ^5.7.2+3
   flutter_file_downloader: ^1.1.4
+  search_page: ^2.3.0
   
 
 dev_dependencies:
