@@ -40,7 +40,6 @@ class SearchingCardItem extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-    
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
                 .watch(type == "myAd"
@@ -210,7 +209,7 @@ class SearchingCardItem extends ConsumerWidget {
                           ? (location != "")
                               ? Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 8.0, bottom: 8.0),
+                                      top: 0.0, bottom: 0.0),
                                   child: Row(
                                     children: [
                                       const Icon(
@@ -234,27 +233,32 @@ class SearchingCardItem extends ConsumerWidget {
                               : Container()
                           : Container()
                       : Container(),
-                  (location != "null")
-                      ? (location != null)
-                          ? (location != "")
-                              ? Text(
-                                  description
-                                      .toString()
-                                      .replaceAll('\r\n', " "),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 12),
-                                )
-                              : Container()
-                          : Container()
-                      : Container(),
-                  const SizedBox(height: 8),
+                  // (location != "null")
+                  //     ? (location != null)
+                  //         ? (location != "")
+                  //             ? Text(
+                  //                 description
+                  //                     .toString()
+                  //                     .replaceAll('\r\n', " "),
+                  //                 overflow: TextOverflow.ellipsis,
+                  //                 style: const TextStyle(fontSize: 12),
+                  //               )
+                  //             : Container()
+                  //         : Container()
+                  //     : Container(),
+                  const SizedBox(height: 4),
                   (starRating != "null")
                       ? (starRating != null)
                           ? (starRating != "")
                               ? Row(
                                   children: [
-                                    const Icon(Icons.star,
-                                        color: Colors.yellow),
+                                    starRating.toString() != '0.0'
+                                        ? const Icon(Icons.star,
+                                            color: Colors.yellow)
+                                        : const Icon(Icons.star_border_outlined,
+                                            color: Colors.yellow),
+                                    // const Icon(Icons.star,
+                                    //     color: Colors.yellow),
                                     const SizedBox(width: 4),
                                     Text(
                                         '${(double.parse(starRating.toString())).roundToDouble()}'),

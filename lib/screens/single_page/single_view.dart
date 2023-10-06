@@ -74,7 +74,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
         ],
         title: Text(widget.vendor?.title ?? widget.topListing!.title!),
       ),
-      drawer: const DrawerMenu(),
+      // drawer: const DrawerMenu(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -112,7 +112,8 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.vendor?.description.toString() ??
                     widget.topListing!.description.toString(),
                 widget.vendor?.main_category.toString() ??
-                    widget.topListing!.main_category.toString(),widget.vendor?.video.toString() ??
+                    widget.topListing!.main_category.toString(),
+                widget.vendor?.video.toString() ??
                     widget.topListing!.video.toString()),
             // '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' !=
             //         "Proposal"

@@ -8,6 +8,7 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -20,6 +21,7 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
+
 @RoutePage()
 class FavListingPage extends ConsumerStatefulWidget {
   final bool isAppBar;
@@ -30,18 +32,15 @@ class FavListingPage extends ConsumerStatefulWidget {
 
 class _FavListingPageState extends ConsumerState<FavListingPage> {
   @override
-  Widget build(BuildContext context) {
-    var favListing;
-    // final favListing = ref.watch(favListingProvider);
-    favListing =
-        ref.watch(isloginProvider) ? ref.watch(favListingProvider) : null;
+  initState() {
+    super.initState();
+  }
 
-    @override
-    initState() {
-      // at the beginning, all users are shown
-      super.initState();
-      ref.refresh(favListingProvider);
-    }
+  @override
+  Widget build(BuildContext context) {
+    List<SearchResultItem> favListing;
+    // final favListing = ref.watch(favListingProvider);
+    favListing = ref.watch(favListingProvider);
 
     return Scaffold(
         appBar: widget.isAppBar
@@ -66,58 +65,43 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
         body: Container(
           padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: ref.watch(isloginProvider)
-                    ? favListing.isNotEmpty
-                        ? GridView.count(
-                            crossAxisCount: 2, // Number of columns
-                            children: List.generate(
-                              favListing.length, // Total number of cards
-                              (index) => SearchingCardItem(
-                                id: favListing[index].id.toString(),
-                                imagePath: favListing[index].image != null
-                                    ? "https://viwaha.lk/${favListing[index].image.toString()}"
-                                    : ref
-                                        .read(homeControllerProvider)
-                                        .getTumbImage(
-                                            favListing[index].thumb_images)
-                                        .first, // Replace with your image paths
-                                title: favListing[index].title.toString(),
-                                description:
-                                    favListing[index].description.toString(),
-                                starRating:
-                                    favListing[index].average_rating != null
-                                        ? double.parse(favListing[index]
-                                            .average_rating
-                                            .toString())
-                                        : 0,
-                                location: favListing[index].location.toString(),
-                                date: favListing[index].datetime.toString(),
-                                type: 'fav', isFav: favListing[index].is_favourite.toString(),
-                                // Replace with the appropriate star rating value
-                              ),
-                            ),
-                          )
-                        : NoListingPage()
-                    : Center(
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              AutoRouter.of(context).push(Login(onHome: false));
-                            },
-                            icon: const Icon(Icons.login),
-                            label: const Text('Sign In'),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
+              ref.watch(isSearchingProvider)
+                  ? const Center(child: CircularProgressIndicator())
+                  : favListing.isEmpty
+                      ? const Center(child: NoListingPage())
+                      : Expanded(
+                          child: GridView.count(
+                          crossAxisCount: 2, // Number of columns
+                          children: List.generate(
+                            favListing.length, // Total number of cards
+                            (index) => SearchingCardItem(
+                              id: favListing[index].id.toString(),
+                              imagePath: favListing[index].image != null
+                                  ? "https://viwaha.lk/${favListing[index].image.toString()}"
+                                  : ref
+                                      .read(homeControllerProvider)
+                                      .getTumbImage(
+                                          favListing[index].thumb_images)
+                                      .first, // Replace with your image paths
+                              title: favListing[index].title.toString(),
+                              description:
+                                  favListing[index].description.toString(),
+                              starRating:
+                                  favListing[index].average_rating != null
+                                      ? double.parse(favListing[index]
+                                          .average_rating
+                                          .toString())
+                                      : 0,
+                              location: favListing[index].location.toString(),
+                              date: favListing[index].datetime.toString(),
+                              type: 'fav',
+                              isFav: favListing[index].is_favourite.toString(),
+                              // Replace with the appropriate star rating value
                             ),
                           ),
-                        ),
-                      ),
-              ),
+                        ))
             ],
           ),
         ));

@@ -777,6 +777,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AddFieldMainWidget(
@@ -2535,7 +2536,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                         inputList: [
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Row(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 GestureDetector(
@@ -2572,113 +2573,90 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                   ),
                                 ),
                                 ref.watch(isLoadingGalleryProvider)
-                                    ? Container(
-                                        width: 150,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: ViwahaColor.primary),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                        child: const Center(
-                                            child: CircularProgressIndicator()),
-                                      )
+                                    ? const Center(
+                                        child: Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: CircularProgressIndicator(),
+                                      ))
                                     : ref.watch(imageGalleryProvider).isEmpty
-                                        ? Container(
-                                            width: 150,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: ViwahaColor.primary),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
-                                            child: Assets
-                                                .lib.assets.images.colorLogo
-                                                .image(),
-                                          )
+                                        ? const SizedBox()
                                         : SizedBox(
-                                            width: 150,
-                                            height: 150,
-                                            child: SingleChildScrollView(
-                                              child: ListView.builder(
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  itemCount: ref
-                                                      .watch(
-                                                          imageGalleryProvider)
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 5,
-                                                              bottom: 5),
-                                                      child: Stack(children: [
-                                                        Container(
-                                                          width: 130,
-                                                          height: 130,
-                                                          decoration: BoxDecoration(
-                                                              image: DecorationImage(
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                  image: Image.file(File(ref
-                                                                          .watch(imageGalleryProvider)[
-                                                                              index]
-                                                                          .path
-                                                                          .toString()))
-                                                                      .image),
-                                                              border: Border.all(
-                                                                  color: ViwahaColor
-                                                                      .primary),
-                                                              borderRadius:
-                                                                  const BorderRadius.all(
-                                                                      Radius.circular(10))),
-                                                        ),
-                                                        Positioned(
-                                                          top: 0,
-                                                          right: 20,
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                ref.read(imageNameGalleryProvider).removeWhere((element) =>
-                                                                    element
-                                                                        .substring(
-                                                                            16) ==
-                                                                    ref
-                                                                        .read(imageGalleryProvider)[
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 100,
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemCount: ref
+                                                    .watch(imageGalleryProvider)
+                                                    .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5, bottom: 5),
+                                                    child: Stack(children: [
+                                                      Container(
+                                                        width: 100,
+                                                        height: 100,
+                                                        decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                                image: Image.file(File(ref
+                                                                        .watch(imageGalleryProvider)[
                                                                             index]
-                                                                        .path!
-                                                                        .toString()
-                                                                        .substring(
-                                                                            42));
-                                                                ref
-                                                                    .read(
-                                                                        imageGalleryProvider)
-                                                                    .removeAt(
-                                                                        index);
-                                                              });
-                                                              print(ref.read(
-                                                                  imageGalleryProvider));
-                                                              print(ref.read(
-                                                                  imageNameGalleryProvider));
-                                                            },
-                                                            child: const Icon(
-                                                              Icons
-                                                                  .remove_circle,
-                                                              color: Colors.red,
-                                                            ),
+                                                                        .path
+                                                                        .toString()))
+                                                                    .image),
+                                                            border: Border.all(
+                                                                color: ViwahaColor
+                                                                    .primary),
+                                                            borderRadius:
+                                                                const BorderRadius.all(
+                                                                    Radius.circular(10))),
+                                                      ),
+                                                      Positioned(
+                                                        top: 0,
+                                                        right: 20,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              ref.read(imageNameGalleryProvider).removeWhere((element) =>
+                                                                  element
+                                                                      .substring(
+                                                                          16) ==
+                                                                  ref
+                                                                      .read(imageGalleryProvider)[
+                                                                          index]
+                                                                      .path!
+                                                                      .toString()
+                                                                      .substring(
+                                                                          42));
+                                                              ref
+                                                                  .read(
+                                                                      imageGalleryProvider)
+                                                                  .removeAt(
+                                                                      index);
+                                                            });
+                                                            print(ref.read(
+                                                                imageGalleryProvider));
+                                                            print(ref.read(
+                                                                imageNameGalleryProvider));
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.remove_circle,
+                                                            color: Colors.red,
                                                           ),
                                                         ),
-                                                      ]),
-                                                    );
-                                                  }),
-                                            ),
+                                                      ),
+                                                    ]),
+                                                  );
+                                                }),
                                           )
                               ],
                             ),

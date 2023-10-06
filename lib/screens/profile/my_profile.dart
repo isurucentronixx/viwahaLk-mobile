@@ -92,9 +92,11 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                         child: CircularProgressIndicator()),
                                     errorWidget: (context, url, error) =>
                                         Center(
-                                      child: Image.network(
-                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                        fit: BoxFit.cover,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Assets
+                                            .lib.assets.images.noProfile
+                                            .image(),
                                       ),
                                     ),
                                   ),

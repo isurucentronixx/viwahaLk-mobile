@@ -8,6 +8,7 @@ import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
+import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 class VendorNotifier extends StateNotifier<List<Vendor>> {
@@ -20,9 +21,8 @@ class VendorNotifier extends StateNotifier<List<Vendor>> {
   Future fetchVendors({required Ref ref}) async {
     await ref
         .read(homeControllerProvider)
-        .fetchVendorList(ref.read(isloginProvider)
-            ? ref.read(userProvider).user!.id
-            : '')
+        .fetchVendorList(
+            ref.read(isloginProvider) ? ref.read(userProvider).user!.id : '')
         .then((value) {
       // Setting current `state` to the fetched list of products.
       state = value;
@@ -135,6 +135,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.
@@ -160,6 +161,7 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
+         ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.
@@ -181,8 +183,10 @@ class FavListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
         .fetchFavListing(ref: ref)
         .then((value) {
       // Setting current `state` to the fetched list of products.
+
       if (mounted) {
         state = value;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.
@@ -206,6 +210,7 @@ class MyListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.
@@ -235,6 +240,7 @@ class CategoryListingProviderNotifier
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.

@@ -26,7 +26,6 @@ Future<void> main() async {
 
 // assuing this is the root widget of your App
 class App extends ConsumerWidget {
-  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

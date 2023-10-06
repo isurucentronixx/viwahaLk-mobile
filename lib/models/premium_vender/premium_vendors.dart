@@ -92,7 +92,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(color: Colors.yellow),
+                  side: const BorderSide(color: Colors.yellow, width: 1.5),
                 ),
                 child: Column(
                   children: [
@@ -251,14 +251,19 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("rating".tr()),
+                        Text(
+                          "rating".tr(),
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                         RatingBarIndicator(
                           rating: int.parse(vendor.average_rating != null
                                   ? vendor.average_rating.toString()
                                   : '0')
                               .ceilToDouble(),
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
+                          itemBuilder: (context, index) => Icon(
+                            vendor.average_rating != null
+                                ? Icons.star
+                                : Icons.star_border_outlined,
                             color: Colors.amber,
                           ),
                           itemCount: 5,

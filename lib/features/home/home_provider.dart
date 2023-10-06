@@ -12,6 +12,8 @@ import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
+
+final isSearchingProvider = StateProvider<bool>((ref) => false);
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });

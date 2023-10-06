@@ -64,7 +64,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
+          content: AwesomeSnackbarContent( 
             title: 'Welcome back!',
             message:
                 "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
@@ -113,7 +113,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             backgroundColor: Colors.grey[300],
           ),
           // Fading Logo
-          FadeTransition(
+          FadeTransition( 
             opacity: _animation,
             child: Container(
               alignment: Alignment.center,

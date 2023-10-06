@@ -28,8 +28,8 @@ class PostData {
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly published your listing.");
-      ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(addListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
@@ -50,8 +50,8 @@ class PostData {
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly updated your listing.");
-      ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(addListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {

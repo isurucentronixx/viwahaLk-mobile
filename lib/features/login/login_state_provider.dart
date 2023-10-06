@@ -36,7 +36,7 @@ class LoginNotifier extends StateNotifier<UserModel> {
           .then((value) async {
         // Setting current `state` to the fetched list of products.
         state = value;
-
+ 
         // Setting isLoading to `false`.
         ref.read(isLoadingLoginProvider.notifier).state = false;
         if (int.parse(state.responseCode.toString()) == 1) {
@@ -48,8 +48,8 @@ class LoginNotifier extends StateNotifier<UserModel> {
           ref.read(isloginProvider.notifier).state = true;
           ref.read(loginViewStateProvider.notifier).state = AsyncValue.data(
               "Hi ${state.user!.firstname.toString()}, Welcome to the Viwaha mobile app. let's make your celebrations great.");
-          ref.read(loginViewStateProvider.notifier).state =
-              const AsyncValue.data(null);
+          // ref.read(loginViewStateProvider.notifier).state =
+          //     const AsyncValue.data(null);
           appRouter.push(const HomePage());
         } else {
           ref.read(loginViewStateProvider.notifier).state = const AsyncValue

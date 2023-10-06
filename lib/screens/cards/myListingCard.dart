@@ -70,7 +70,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     }
 
     return GestureDetector(
-      onTap: () {        
+      onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
                 .watch(myListingProvider)
@@ -457,7 +457,9 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.star, color: Colors.yellow),
+                  widget.starRating.toString() != '0.0'
+                      ? const Icon(Icons.star, color: Colors.yellow)
+                      : const Icon(Icons.star_border, color: Colors.yellow),
                   const SizedBox(width: 4),
                   Text(widget.starRating.toString()),
                 ],

@@ -685,6 +685,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AddFieldMainWidget(
@@ -2392,7 +2393,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         inputList: [
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Row(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 GestureDetector(
@@ -2429,75 +2430,53 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 ref.watch(isLoadingGalleryProvider)
-                                    ? Container(
-                                        width: 150,
-                                        height: 150,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: _galleryImgColor),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                        child: const Center(
-                                            child: CircularProgressIndicator()),
-                                      )
+                                    ? const Center(
+                                        child: Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: CircularProgressIndicator(),
+                                      ))
                                     : ref.watch(imageGalleryProvider).isEmpty
-                                        ? Container(
-                                            width: 150,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: _thumbImgColor),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
-                                            child: Assets
-                                                .lib.assets.images.colorLogo
-                                                .image(),
-                                          )
+                                        ? const SizedBox()
                                         : SizedBox(
-                                            width: 150,
-                                            height: 150,
-                                            child: SingleChildScrollView(
-                                              child: ListView.builder(
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  itemCount: ref
-                                                      .watch(
-                                                          imageGalleryProvider)
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 5,
-                                                              bottom: 5),
-                                                      child: Container(
-                                                        width: 130,
-                                                        height: 130,
-                                                        decoration: BoxDecoration(
-                                                            image: DecorationImage(
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                                image: Image.file(File(ref
-                                                                        .watch(imageGalleryProvider)[
-                                                                            index]
-                                                                        .path
-                                                                        .toString()))
-                                                                    .image),
-                                                            border: Border.all(
-                                                                color: ViwahaColor
-                                                                    .primary),
-                                                            borderRadius:
-                                                                const BorderRadius.all(
-                                                                    Radius.circular(10))),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 100,
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemCount: ref
+                                                    .watch(imageGalleryProvider)
+                                                    .length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: Image.file(File(ref
+                                                                      .watch(imageGalleryProvider)[
+                                                                          index]
+                                                                      .path
+                                                                      .toString()))
+                                                                  .image),
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10))),
+                                                    ),
+                                                  );
+                                                }),
                                           )
                               ],
                             ),
@@ -3550,7 +3529,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       ],
                                       onChange: (selected) {
                                         setState(() {
-                                        _openInHollyday = selected.value;
+                                          _openInHollyday = selected.value;
                                         });
                                       },
                                       modalType: S2ModalType.bottomSheet,

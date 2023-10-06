@@ -12,6 +12,7 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
+import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/profile/profile_widget.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
@@ -89,9 +90,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     );
                                   },
                                   errorBuilder: (context, error, stackTrace) {
-                                    return Image.network(
-                                      'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                      fit: BoxFit.cover,
+                                    return Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Assets
+                                            .lib.assets.images.noProfile
+                                            .image(),
+                                      ),
                                     );
                                   },
                                 ),
@@ -120,7 +125,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     const SizedBox(height: 10),
                     Text('Hi,', style: Theme.of(context).textTheme.headline4),
                     Text(
-                        '${user.firstname} ${user.lastname != "" ? user.lastname != null ? user.lastname : "" : ""}',
+                        '${user.firstname.toString()[0].toUpperCase()}${user.firstname.toString().substring(1).toLowerCase()} ${user.lastname != "" ? user.lastname != null ? user.lastname.toString()[0].toUpperCase() + user.lastname.toString().substring(1).toLowerCase() : "" : ""}',
                         style: Theme.of(context).textTheme.bodyText2),
                     const SizedBox(height: 20),
 
@@ -283,7 +288,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         title: LocaleKeys.my_favorite.tr(),
                         icon: Icons.favorite_border_outlined,
                         onPress: () {
-                          ref.refresh(favListingProvider);
+                          setState(() {
+                            ref.read(isSearchingProvider.notifier).state = true;
+                          });
+                          
+                          ref.refresh(favListingProvider); 
                           router.push(FavListingPage(isAppBar: true));
                         }),
                     ProfileMenuWidget(

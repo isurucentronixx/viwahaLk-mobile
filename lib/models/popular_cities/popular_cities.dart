@@ -63,7 +63,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
           id: "7",
           name: "badulla".tr(),
           image: "https://viwaha.lk/assets/img/city/Badulla.png",
-          ratings: "0")
+          ratings: "3")
     ];
     final data = popularCities;
 
@@ -135,7 +135,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(color: Colors.yellow),
+                  side: BorderSide(color: ViwahaColor.primary.withOpacity(0.3)),
                 ),
                 child: Column(
                   children: [
@@ -209,12 +209,17 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("rating".tr()),
+                        Text(
+                          "rating".tr(),
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                         RatingBarIndicator(
                           rating:
                               int.parse(city.ratings.toString()).ceilToDouble(),
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
+                          itemBuilder: (context, index) => Icon(
+                            city.ratings.toString() != "0"
+                                ? Icons.star
+                                : Icons.star_border_outlined,
                             color: Colors.amber,
                           ),
                           itemCount: 5,

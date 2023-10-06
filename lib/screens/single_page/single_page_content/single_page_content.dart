@@ -41,7 +41,7 @@ class _SliderState extends ConsumerState<SliderView> {
   Widget build(BuildContext context) {
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.images);
-    if (widget.mainCategory == "Proposal") {
+    if (widget.mainCategory == "Proposal") { 
       String isMembership = ref.read(userProvider).user!.membership.toString();
       if (isMembership != "1") {
         imagePaths.length = 1;
@@ -237,10 +237,15 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                            ),
+                            widget.item!.average_rating != null
+                                ? const Icon(Icons.star, color: Colors.yellow)
+                                : const Icon(Icons.star_border,
+                                    color: Colors.yellow),
+                            // const Icon(
+
+                            //   Icons.star,
+                            //   color: Colors.yellow,
+                            // ),
                             const SizedBox(width: 4),
                             Text(
                               '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',

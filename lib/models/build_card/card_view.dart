@@ -3,8 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 class CardView extends ConsumerWidget {
@@ -58,6 +60,7 @@ class CardView extends ConsumerWidget {
               'venues'.tr(),
               Assets.lib.assets.images.weddingVenues.image(),
               () async {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Venues";
                 AutoRouter.of(context)
@@ -66,8 +69,10 @@ class CardView extends ConsumerWidget {
             ),
             _buildCard(
                 'dressing'.tr(), Assets.lib.assets.images.dressing.image(), () {
+                  ref.read(isSearchingProvider.notifier).state = true;
               ref.read(selectedMainCategoryProvider.notifier).state =
                   "Dressing";
+                  
               AutoRouter.of(context)
                   .push(CategoryListingPage(category: 'Dressing'));
             }),
@@ -75,6 +80,7 @@ class CardView extends ConsumerWidget {
               'jewelry'.tr(),
               Assets.lib.assets.images.jewelry.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Jewelry";
                 AutoRouter.of(context)
@@ -85,6 +91,7 @@ class CardView extends ConsumerWidget {
               'decorations'.tr(),
               Assets.lib.assets.images.decorations.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Decorations";
                 AutoRouter.of(context)
@@ -95,6 +102,7 @@ class CardView extends ConsumerWidget {
               'photography'.tr(),
               Assets.lib.assets.images.photography.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Photography";
                 AutoRouter.of(context)
@@ -105,6 +113,7 @@ class CardView extends ConsumerWidget {
               'entertainment'.tr(),
               Assets.lib.assets.images.entertainment.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Entertainment";
                 AutoRouter.of(context)
@@ -115,6 +124,7 @@ class CardView extends ConsumerWidget {
               'salon'.tr(),
               Assets.lib.assets.images.makeup.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
                 AutoRouter.of(context)
                     .push(CategoryListingPage(category: 'Salon'));
@@ -124,6 +134,7 @@ class CardView extends ConsumerWidget {
               'food'.tr(),
               Assets.lib.assets.images.food.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Food";
                 AutoRouter.of(context)
                     .push(CategoryListingPage(category: 'Food'));
@@ -133,6 +144,7 @@ class CardView extends ConsumerWidget {
               'honeymoon'.tr(),
               Assets.lib.assets.images.honeymoon.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Honeymoon";
                 AutoRouter.of(context)
@@ -143,6 +155,7 @@ class CardView extends ConsumerWidget {
               'wedding_car'.tr(),
               Assets.lib.assets.images.weddingCars.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Wedding Car";
                 AutoRouter.of(context)
@@ -153,6 +166,7 @@ class CardView extends ConsumerWidget {
               'music'.tr(),
               Assets.lib.assets.images.music.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Music";
                 AutoRouter.of(context)
                     .push(CategoryListingPage(category: 'Music'));
@@ -162,6 +176,7 @@ class CardView extends ConsumerWidget {
               'others'.tr(),
               Assets.lib.assets.images.others.image(),
               () {
+                ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Others";
                 AutoRouter.of(context)

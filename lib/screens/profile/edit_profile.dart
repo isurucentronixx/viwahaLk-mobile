@@ -134,172 +134,157 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Stack(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SizedBox(
-                              width: 150,
-                              height: 150,
-                              child: SizedBox(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: ViwahaColor
-                                          .primary, // Set your desired border color here
-                                      width: 4, // Set the desired border width
-                                    ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: CachedNetworkImage(
-                                      imageUrl: userImg,
-                                      fit: BoxFit.cover,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        height: 150,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          color: Colors.black,
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  width: 150,
+                                  height: 150,
+                                  child: SizedBox(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: ViwahaColor
+                                              .primary, // Set your desired border color here
+                                          width:
+                                              4, // Set the desired border width
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: CachedNetworkImage(
+                                          imageUrl: userImg,
+                                          fit: BoxFit.cover,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            height: 150,
+                                            width: 150,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10)),
+                                              color: Colors.black,
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              child: Assets
+                                                  .lib.assets.images.noProfile
+                                                  .image(),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      placeholder: (context, url) =>
-                                          const Center(
-                                              child:
-                                                  CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) =>
-                                          Center(
-                                        child: Image.network(
-                                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
                                     ),
-                                    // Image.network(
-                                    //   user!.image.toString(),
-                                    //   fit: BoxFit.cover,
-                                    //   loadingBuilder:
-                                    //       (context, child, progress) {
-                                    //     if (progress == null) {
-                                    //       return SizedBox(
-                                    //         width: 150,
-                                    //         height: 150,
-                                    //         child: child,
-                                    //       );
-                                    //     }
-                                    //     return const Center(
-                                    //       child: CircularProgressIndicator(),
-                                    //     );
-                                    //   },
-                                    //   errorBuilder:
-                                    //       (context, error, stackTrace) {
-                                    //     return Image.network(
-                                    //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                    //       fit: BoxFit.cover,
-                                    //     );
-                                    //   },
-                                    // ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                            Positioned(
-                              top: 120,
-                              right: 0,
-                              child: GestureDetector(
-                                onTap: () async {
-                                  SharedPreferences pref =
-                                      await SharedPreferences.getInstance();
-                                  final appRouter =
-                                      ref.watch(appRouterProvider);
+                            GestureDetector(
+                              onTap: () async {
+                                SharedPreferences pref =
+                                    await SharedPreferences.getInstance();
+                                setState(() {
+                                  File image;
                                   setState(() {
-                                    File image;
-                                    setState(() {
-                                      picker
-                                          .pickImage(
-                                              source: ImageSource.gallery,
-                                              imageQuality: 50,
-                                              maxWidth: 800,
-                                              maxHeight: 800)
-                                          .then((value) => {
-                                                if (value != null)
-                                                  {
-                                                    image = File(value.path),
-                                                    controller
-                                                        .profileImageUpload(
-                                                          image,
-                                                          value.name,
-                                                        )
-                                                        .then((value) async => {
-                                                              await ref
-                                                                  .read(
-                                                                      loginControllerProvider)
-                                                                  .fetchUser(
-                                                                      username: pref
-                                                                          .getString(
-                                                                              "email")
-                                                                          .toString(),
-                                                                      password: pref
-                                                                          .getString(
-                                                                              "password")
-                                                                          .toString())
-                                                                  .then(
-                                                                      (value) async {
-                                                                ref
-                                                                    .read(userProvider
-                                                                        .notifier)
-                                                                    .state = value;
-                                                                ref
-                                                                    .read(isloginProvider
-                                                                        .notifier)
-                                                                    .state = true;
-                                                                final snackBar =
-                                                                    SnackBar(
-                                                                  elevation: 0,
-                                                                  behavior:
-                                                                      SnackBarBehavior
-                                                                          .floating,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  content:
-                                                                      AwesomeSnackbarContent(
-                                                                    title:
-                                                                        'Successfully Updated!',
-                                                                    message:
-                                                                        "Your profile picture has been updated!",
-                                                                    inMaterialBanner:
-                                                                        true,
-                                                                    contentType:
-                                                                        ContentType
-                                                                            .success,
-                                                                    color: ViwahaColor
-                                                                        .primary,
-                                                                  ),
-                                                                );
-                                                                ScaffoldMessenger
-                                                                    .of(context)
-                                                                  ..hideCurrentSnackBar()
-                                                                  ..showSnackBar(
-                                                                      snackBar);
-                                                              }),
-                                                            })
-                                                  }
-                                              });
-                                    });
+                                    picker
+                                        .pickImage(
+                                            source: ImageSource.gallery,
+                                            imageQuality: 50,
+                                            maxWidth: 800,
+                                            maxHeight: 800)
+                                        .then((value) => {
+                                              if (value != null)
+                                                {
+                                                  image = File(value.path),
+                                                  controller
+                                                      .profileImageUpload(
+                                                        image,
+                                                        value.name,
+                                                      )
+                                                      .then((value) async => {
+                                                            await ref
+                                                                .read(
+                                                                    loginControllerProvider)
+                                                                .fetchUser(
+                                                                    username: pref
+                                                                        .getString(
+                                                                            "email")
+                                                                        .toString(),
+                                                                    password: pref
+                                                                        .getString(
+                                                                            "password")
+                                                                        .toString())
+                                                                .then(
+                                                                    (value) async {
+                                                              ref
+                                                                  .read(userProvider
+                                                                      .notifier)
+                                                                  .state = value;
+                                                              ref
+                                                                  .read(isloginProvider
+                                                                      .notifier)
+                                                                  .state = true;
+                                                              final snackBar =
+                                                                  SnackBar(
+                                                                elevation: 0,
+                                                                behavior:
+                                                                    SnackBarBehavior
+                                                                        .floating,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                content:
+                                                                    AwesomeSnackbarContent(
+                                                                  title:
+                                                                      'Successfully Updated!',
+                                                                  message:
+                                                                      "Your profile picture has been updated!",
+                                                                  inMaterialBanner:
+                                                                      true,
+                                                                  contentType:
+                                                                      ContentType
+                                                                          .success,
+                                                                  color: ViwahaColor
+                                                                      .primary,
+                                                                ),
+                                                              );
+                                                              ScaffoldMessenger
+                                                                  .of(context)
+                                                                ..hideCurrentSnackBar()
+                                                                ..showSnackBar(
+                                                                    snackBar);
+                                                            }),
+                                                          })
+                                                }
+                                            });
                                   });
-                                },
-                                child: const Icon(
-                                  Icons.camera_alt,
-                                  color: ViwahaColor.primary,
-                                  size: 35,
-                                ),
+                                });
+                              },
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: ViwahaColor.primary,
+                                size: 35,
                               ),
                             ),
                           ],

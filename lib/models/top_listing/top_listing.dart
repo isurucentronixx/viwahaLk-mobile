@@ -96,13 +96,14 @@ class TopListing extends ConsumerWidget {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: const BorderSide(color: Colors.yellow),
+                        side: BorderSide(
+                            color: ViwahaColor.primary.withOpacity(0.3)),
                       ),
                       child: Column(
                         children: [
                           SizedBox(
                             width: 200,
-                            height: 185,
+                            height: 150,
                             child: Stack(
                               children: [
                                 CachedNetworkImage(
@@ -123,8 +124,8 @@ class TopListing extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                  placeholder: (context, url) =>
-                                      Center(child: const CircularProgressIndicator()),
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
                                   errorWidget: (context, url, error) => Center(
                                     child: Image.network(
                                       'https://viwaha.lk/assets/img/logo/no_image.jpg',
@@ -132,37 +133,6 @@ class TopListing extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-
-                                // Image.network(
-                                //   thumbImg,
-                                //   fit: BoxFit.cover,
-                                //   loadingBuilder: (context, child, progress) {
-                                //     if (progress == null) {
-                                //       return ClipRRect(
-                                //         borderRadius: BorderRadius.circular(10),
-                                //         child: SizedBox(
-                                //           width: 200,
-                                //           height: 200,
-                                //           child: child,
-                                //         ),
-                                //       );
-                                //     }
-                                //     return const Center(
-                                //       child: CircularProgressIndicator(
-                                //           // value: progress.cumulativeBytesLoaded /
-                                //           //     progress.expectedTotalBytes!.toDouble(),
-                                //           ),
-                                //     );
-                                //   },
-                                //   errorBuilder: (context, error, stackTrace) {
-                                //     return Center(
-                                //       child: Image.network(
-                                //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                //         fit: BoxFit.cover,
-                                //       ),
-                                //     );
-                                //   },
-                                // ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   height:
@@ -222,15 +192,6 @@ class TopListing extends ConsumerWidget {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
-                                        wedding.title!,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
                                       Align(
                                         alignment: Alignment.bottomLeft,
                                         child: Container(
@@ -265,14 +226,42 @@ class TopListing extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("rating".tr()),
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: SizedBox(
+                                  width: 120,
+                                  child: Center(
+                                    child: Text(
+                                      wedding.title!,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          // const SizedBox(height: 4),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "rating".tr(),
+                                style: const TextStyle(color: Colors.grey),
+                              ),
                               RatingBarIndicator(
                                 rating: double.parse(
                                     wedding.average_rating != null
                                         ? wedding.average_rating.toString()
                                         : '0'),
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
+                                itemBuilder: (context, index) => Icon(
+                                  wedding.average_rating != null
+                                      ? Icons.star
+                                      : Icons.star_border_outlined,
                                   color: Colors.amber,
                                 ),
                                 itemCount: 5,

@@ -62,7 +62,7 @@ localizationBottomSheet(BuildContext context, WidgetRef ref) {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Expanded(

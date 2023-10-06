@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -16,6 +17,7 @@ import 'package:viwaha_lk/models/menu_item.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
+import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
@@ -29,6 +31,19 @@ class CategoryListingPage extends ConsumerStatefulWidget {
 }
 
 class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
+  List<SearchResultItem>? filtered;
+
+  final FocusNode _texrFocusNode = FocusNode();
+  // ignore: unnecessary_nullable_for_final_variable_declarations
+  final TextEditingController? _textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    _texrFocusNode.dispose();
+    _textEditingController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final allListing = ref.watch(categoryListingProvider);
@@ -67,52 +82,123 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(color: Colors.grey),
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     TextField(
-                      // controller: _searchController,
-                      decoration: InputDecoration(
+                      controller: _textEditingController,
+                      focusNode: _texrFocusNode,
+                      onChanged: (value) {
+                        setState(() {
+                          filtered = allListing
+                              .where((element) => element.name
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(value.toString().toLowerCase()))
+                              .toList();
+                          if (_textEditingController!.text.isNotEmpty &&
+                              filtered!.isEmpty) {
+                            print('itemsListSearch Length ${filtered!.length}');
+                          }
+                        });
+                      },
+                      decoration: const InputDecoration(
                         labelText: 'Search',
                         prefixIcon: Icon(Icons.search),
                         border: InputBorder.none,
                       ),
-                      // onChanged: (value) => _runFilter(value),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 15),
-            Expanded(
-                child: allListing.isNotEmpty
-                    ? GridView.count(
-                        crossAxisCount: 2, // Number of columns
-                        children: List.generate(
-                          allListing.length, // Total number of cards
-                          (index) => SearchingCardItem(
-                            id: allListing[index].id.toString(),
-                            imagePath: allListing[index].image != null 
-                                ? "https://viwaha.lk/${allListing[index].image.toString()}"
-                                : ref
-                                    .read(homeControllerProvider)
-                                    .getTumbImage(
-                                        allListing[index].thumb_images)
-                                    .first, // Replace with your image paths
-                            title: allListing[index].title.toString(),
-                            description:
-                                allListing[index].description.toString(),
-                            starRating: allListing[index].average_rating != null
-                                ? double.parse(
-                                    allListing[index].average_rating.toString())
-                                : 0,
-                            location: allListing[index].location.toString(),
-                            date: allListing[index].datetime.toString(),
-                            type: 'cat', isFav: allListing[index].is_favourite.toString(),
-                            // Replace with the appropriate star rating value
-                          ),
-                        ),
-                      )
-                    : NoListingPage()),
+            _textEditingController!.text.isNotEmpty && filtered!.isEmpty
+                ? const Center(
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Opacity(
+                          opacity: 0.5,
+                          child: Icon(Icons.comments_disabled_outlined,
+                              size: 50, color: Colors.grey)),
+                      Text(
+                        "No listings were found",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                    ],
+                  ))
+                : ref.watch(isSearchingProvider)
+                    ? const Center(child: CircularProgressIndicator())
+                    : allListing.isEmpty
+                        ? const Center(child: NoListingPage())
+                        : Expanded(
+                            child: GridView.count(
+                            crossAxisCount: 2, // Number of columns
+                            children: List.generate(
+                              _textEditingController!.text.isNotEmpty
+                                  ? filtered!.length
+                                  : allListing.length, // Total number of cards
+                              (index) => SearchingCardItem(
+                                id: _textEditingController!.text.isNotEmpty
+                                    ? filtered![index].id.toString()
+                                    : allListing[index].id.toString(),
+                                imagePath: (_textEditingController!
+                                                .text.isNotEmpty
+                                            ? filtered![index].image
+                                            : allListing[index].image) !=
+                                        null
+                                    ? "https://viwaha.lk/${_textEditingController!.text.isNotEmpty ? filtered![index].image.toString() : allListing[index].image.toString()}"
+                                    : ref
+                                        .read(homeControllerProvider)
+                                        .getTumbImage(_textEditingController!
+                                                .text.isNotEmpty
+                                            ? filtered![index].thumb_images
+                                            : allListing[index].thumb_images)
+                                        .first,
+                                // Replace with your image paths
+                                title: _textEditingController!.text.isNotEmpty
+                                    ? filtered![index].title.toString()
+                                    : allListing[index].title.toString(),
+                                description: _textEditingController!
+                                        .text.isNotEmpty
+                                    ? filtered![index].description.toString()
+                                    : allListing[index].description.toString(),
+                                starRating: (_textEditingController!
+                                                .text.isNotEmpty
+                                            ? filtered![index].average_rating
+                                            : allListing[index]
+                                                .average_rating) !=
+                                        null
+                                    ? double.parse(
+                                        _textEditingController!.text.isNotEmpty
+                                            ? filtered![index]
+                                                .average_rating
+                                                .toString()
+                                            : allListing[index]
+                                                .average_rating
+                                                .toString())
+                                    : 0,
+                                location:
+                                    _textEditingController!.text.isNotEmpty
+                                        ? filtered![index].location.toString()
+                                        : allListing[index].location.toString(),
+                                date: _textEditingController!.text.isNotEmpty
+                                    ? filtered![index].datetime.toString()
+                                    : allListing[index].datetime.toString(),
+                                type: 'cat',
+                                isFav: _textEditingController!.text.isNotEmpty
+                                    ? filtered![index].is_favourite.toString()
+                                    : allListing[index].is_favourite.toString(),
+                                // Replace with the appropriate star rating value
+                              ),
+                            ),
+                          )),
           ],
         ));
   }

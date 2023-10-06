@@ -96,7 +96,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
               ? widget.item!.name.toString()
               : widget.item!.title.toString()),
         ),
-        drawer: const DrawerMenu(),
+        // drawer: const DrawerMenu(),
         body: ref.watch(isDeletingListProvider)
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
@@ -312,8 +312,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                             ? SingleItemAmenities(
                                 widget.item!.amenities.toString())
                             : const SizedBox(),
-                    SingleItemDescription(widget.item!.description.toString(),
-                        widget.item!.main_category.toString(),widget.item!.video.toString()),
+                    SingleItemDescription(
+                        widget.item!.description.toString(),
+                        widget.item!.main_category.toString(),
+                        widget.item!.video.toString()),
                     // widget.item!.main_category != "Proposal"
                     //     ? SingleItemVideo(widget.item!.video.toString())
                     //     : const SizedBox(),

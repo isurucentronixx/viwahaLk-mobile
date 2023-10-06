@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
@@ -19,6 +20,7 @@ import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
+import 'package:http/http.dart' as http;
 
 final mainImageProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');
@@ -127,7 +129,7 @@ class HomeController {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
       rethrow;
-    }
+    } 
   }
 
   Future<List<SearchResultItem>> fetchAllListing(String userId) async {
@@ -161,6 +163,8 @@ class HomeController {
       final res = await homeService.fetchMyListingApiRequest(ref: ref);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+     
+
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -169,9 +173,11 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchCategoryListing(String userId,String category) async {
+  Future<List<SearchResultItem>> fetchCategoryListing(
+      String userId, String category) async {
     try {
-      final res = await homeService.fetchCategoryListingApiRequest(userId,category);
+      final res =
+          await homeService.fetchCategoryListingApiRequest(userId, category);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -273,5 +279,170 @@ class HomeController {
     }
 
     return filteredTextList;
+  }
+}
+
+class GetAllBranchModel {
+  bool? success;
+  List<Data>? data;
+
+  GetAllBranchModel({this.success, this.data});
+
+  GetAllBranchModel.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
+  String? id;
+  String? countryName;
+  List<Cities>? cities;
+
+  Data({this.id, this.countryName, this.cities});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    countryName = json['country_name'];
+    if (json['cities'] != null) {
+      cities = <Cities>[];
+      json['cities'].forEach((v) {
+        cities!.add(new Cities.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['country_name'] = this.countryName;
+    if (this.cities != null) {
+      data['cities'] = this.cities!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Cities {
+  String? id;
+  String? name;
+  List<Facilities>? facilities;
+
+  Cities({this.id, this.name, this.facilities});
+
+  Cities.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    if (json['facilities'] != null) {
+      facilities = <Facilities>[];
+      json['facilities'].forEach((v) {
+        facilities!.add(new Facilities.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    if (this.facilities != null) {
+      data['facilities'] = this.facilities!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Facilities {
+  int? id;
+  String? branchName;
+  bool? status;
+  String? region;
+  String? country;
+  String? address1;
+  String? address2;
+  String? city;
+  String? state;
+  String? zipcode;
+  String? telephone;
+  String? fax;
+  String? email;
+  String? createdAt;
+  int? createdBy;
+  String? updatedAt;
+  int? updatedBy;
+
+  Facilities(
+      {this.id,
+      this.branchName,
+      this.status,
+      this.region,
+      this.country,
+      this.address1,
+      this.address2,
+      this.city,
+      this.state,
+      this.zipcode,
+      this.telephone,
+      this.fax,
+      this.email,
+      this.createdAt,
+      this.createdBy,
+      this.updatedAt,
+      this.updatedBy});
+
+  Facilities.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    branchName = json['branch_name'];
+    status = json['status'];
+    region = json['region'];
+    country = json['country'];
+    address1 = json['address_1'];
+    address2 = json['address_2'];
+    city = json['city'];
+    state = json['state'];
+    zipcode = json['zipcode'];
+    telephone = json['telephone'];
+    fax = json['fax'];
+    email = json['email'];
+    createdAt = json['created_at'];
+    createdBy = json['created_by'];
+    updatedAt = json['updated_at'];
+    updatedBy = json['updated_by'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['branch_name'] = this.branchName;
+    data['status'] = this.status;
+    data['region'] = this.region;
+    data['country'] = this.country;
+    data['address_1'] = this.address1;
+    data['address_2'] = this.address2;
+    data['city'] = this.city;
+    data['state'] = this.state;
+    data['zipcode'] = this.zipcode;
+    data['telephone'] = this.telephone;
+    data['fax'] = this.fax;
+    data['email'] = this.email;
+    data['created_at'] = this.createdAt;
+    data['created_by'] = this.createdBy;
+    data['updated_at'] = this.updatedAt;
+    data['updated_by'] = this.updatedBy;
+    return data;
   }
 }

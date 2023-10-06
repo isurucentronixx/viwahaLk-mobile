@@ -111,7 +111,7 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
                     ),
                   ),
                 )
-              : NoListingPage()
+              : const NoListingPage()
           : const Center(
               child: CircularProgressIndicator(),
             ),

@@ -12,7 +12,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const apiKey =
-        'AIzaSyCQthDZlGXOe_-wTKiPUmLd9MVaisTCz-M'; // Replace with your Google API key
+        'AIzaSyD856KsYNpA6N-1dTKmwOl_TnnEk7NrTYc'; // Replace with your Google API key
     final encodedAddress =
         Uri.encodeComponent("1313 high-level, road, Colombo, Sri Lanka");
 
@@ -50,6 +50,7 @@ class AboutUsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Image(
+                    width: 100,
                     image: Assets.lib.assets.images.colorLogo.image().image),
               ),
               const Padding(
@@ -64,7 +65,7 @@ class AboutUsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               const Text("We look forward to welcoming you!",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -72,7 +73,7 @@ class AboutUsPage extends StatelessWidget {
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: ViwahaColor.primary),

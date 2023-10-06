@@ -14,6 +14,7 @@ import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 
 final isActivatedProvider = StateProvider<bool>((ref) => false);
 final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
@@ -349,6 +350,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                       widthFactor: 1,
                       child: ElevatedButton.icon(
                         onPressed: () {
+                          setState(() {
+                            ref.read(isSearchingProvider.notifier).state = true;
+                          });
+
                           AutoRouter.of(context)
                               .push(const SearchingResultsPage());
                           // Perform login logic here

@@ -43,7 +43,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
 
             controller.addFavorite(widget.listingId).then((value) => {
                   print('ADDED......'),
-                  
+                  ref.refresh(favListingProvider),
                   (ScaffoldMessenger.of(context))
                     ..hideCurrentSnackBar()
                     ..showSnackBar(SnackBar(
@@ -81,10 +81,15 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
             ));
         }
       },
-      child: Icon(
-        Icons.favorite,
-        color: isFavorite ? ViwahaColor.primary : Colors.white,
-      ),
+      child: isFavorite
+          ? const Icon(
+              Icons.favorite,
+              color: ViwahaColor.primary,
+            )
+          : const Icon(
+              Icons.favorite_border,
+              color: Colors.white,
+            ),
     );
   }
 }

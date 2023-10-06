@@ -87,18 +87,18 @@ class _HomePageState extends ConsumerState<HomePage>
                     child: Assets.lib.assets.images.logo.image(),
                   ),
                 ),
-                currentPage == 0
-                    ? IconButton(
-                        onPressed: () {
-                          localizationBottomSheet(context, ref);
-                        },
-                        icon: const Icon(Icons.language))
-                    : const SizedBox(),
+                // currentPage == 0
+                //     ? IconButton(
+                //         onPressed: () {
+                //           localizationBottomSheet(context, ref);
+                //         },
+                //         icon: const Icon(Icons.language))
+                //     : const SizedBox(),
               ],
             )
           ],
           title: Text(currentPage == 0
-              ? "Home"
+              ? ""
               : currentPage == 1
                   ? "All Listings"
                   : currentPage == 2
@@ -189,11 +189,13 @@ class _HomePageState extends ConsumerState<HomePage>
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
+                        
                         if (ref.watch(isloginProvider)) {
                           ref.refresh(allListingProvider);
                         }
 
                         setState(() {
+                          ref.read(isSearchingProvider.notifier).state = true;
                           currentScreen = const AllListingPage();
                           currentTab = 1;
                           currentPage = 1;
@@ -257,7 +259,7 @@ class _HomePageState extends ConsumerState<HomePage>
                                   ? Colors.black54
                                   : Colors.white,
                             ),
-                          ),
+                          ), 
                         ],
                       ),
                     ),
@@ -265,6 +267,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
+                          ref.read(isSearchingProvider.notifier).state = true;
                           if (ref.watch(isloginProvider)) {
                             ref.refresh(favListingProvider);
                           }

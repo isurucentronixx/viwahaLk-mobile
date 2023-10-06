@@ -46,6 +46,9 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
     final state = ref.watch(myListingViewStateProvider);
     // List<SearchResultItem> myListing;
     // final favListing = ref.watch(favListingProvider);
+    Future getData() async {
+      return await ref.watch(myListingProvider);
+    }
 
     @override
     initState() {
@@ -95,90 +98,55 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
             title: const Text("My Listings"),
           ),
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 15),
-              Expanded(
-                child: ref.watch(isloginProvider)
-                    ? myListing.isNotEmpty
-                        ? GridView.count(
-                            crossAxisCount: 1,
-                            scrollDirection: Axis.vertical,
-                            children: List.generate(
-                                myListing.length,
-                                (index) => Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: MyCardItem(
-                                        id: myListing[index].id.toString(),
-                                        date: myListing[index]
-                                            .datetime
-                                            .toString(),
-                                        description: myListing[index]
-                                            .description
-                                            .toString(),
-                                        imagePath: myListing[index].image !=
-                                                null
-                                            ? "https://viwaha.lk/${myListing[index].image.toString()}"
-                                            : ref
-                                                .read(homeControllerProvider)
-                                                .getTumbImage(
-                                                    myListing[index].images)
-                                                .first,
-                                        location: myListing[index]
-                                            .location
-                                            .toString(),
-                                        starRating:
-                                            myListing[index].average_rating !=
-                                                    null
-                                                ? double.parse(myListing[index]
-                                                    .average_rating
-                                                    .toString())
-                                                : 0,
-                                        title:
-                                            myListing[index].title.toString(),
-                                        name: myListing[index].name.toString(),
-                                        main_category: myListing[index]
-                                            .main_category
-                                            .toString(),
-                                        isFav: myListing[index]
-                                            .is_favourite
-                                            .toString(),
-                                      ),
-                                    )
-                                // SearchingCardItem(
-                                //   id: myListing[index].id.toString(),
-                                //   imagePath: ref
-                                //       .read(homeControllerProvider)
-                                //       .getTumbImage(myListing[index].thumb_images)
-                                //       .first, // Replace with your image paths
-                                //   title: myListing[index].title.toString(),
-                                //   description: myListing[index].description.toString(),
-                                //   starRating: 4.5,
-                                //   location: myListing[index].location.toString(),
-                                //   date: myListing[index].datetime.toString(),
-                                //   type: 'myAd',
-                                //   // Replace with the appropriate star rating value
-                                // ),
-                                ),
-                          )
-                        : NoListingPage()
-                    : Center(
-                        child: FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              AutoRouter.of(context).push(Login(onHome: false));
-                            },
-                            icon: const Icon(Icons.login),
-                            label: Text(LocaleKeys.login.tr()),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-              ),
+              ref.watch(isSearchingProvider)
+                  ? const Center(child: CircularProgressIndicator())
+                  : myListing.isEmpty
+                      ? const Center(child: NoListingPage())
+                      : Expanded(
+                          child: GridView.count(
+                          crossAxisCount: 1,
+                          scrollDirection: Axis.vertical,
+                          children: List.generate(
+                              myListing.length,
+                              (index) => Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: MyCardItem(
+                                      id: myListing[index].id.toString(),
+                                      date:
+                                          myListing[index].datetime.toString(),
+                                      description: myListing[index]
+                                          .description
+                                          .toString(),
+                                      imagePath: myListing[index].image != null
+                                          ? "https://viwaha.lk/${myListing[index].image.toString()}"
+                                          : ref
+                                              .read(homeControllerProvider)
+                                              .getTumbImage(
+                                                  myListing[index].images)
+                                              .first,
+                                      location:
+                                          myListing[index].location.toString(),
+                                      starRating:
+                                          myListing[index].average_rating !=
+                                                  null
+                                              ? double.parse(myListing[index]
+                                                  .average_rating
+                                                  .toString())
+                                              : 0,
+                                      title: myListing[index].title.toString(),
+                                      name: myListing[index].name.toString(),
+                                      main_category: myListing[index]
+                                          .main_category
+                                          .toString(),
+                                      isFav: myListing[index]
+                                          .is_favourite
+                                          .toString(),
+                                    ),
+                                  )),
+                        ))
             ],
           )),
     );

@@ -611,7 +611,9 @@ class MyCardItem extends ConsumerWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.yellow),
+                      starRating.toString() != '0.0'
+                          ? const Icon(Icons.star, color: Colors.yellow)
+                          : const Icon(Icons.star_border, color: Colors.yellow),
                       const SizedBox(width: 4),
                       Text(
                           '${(double.parse(starRating != null ? starRating.toString() : '0')).roundToDouble()}'),

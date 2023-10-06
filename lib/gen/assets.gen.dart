@@ -124,6 +124,10 @@ class $LibAssetsImagesGen {
   AssetGenImage get logoDark =>
       const AssetGenImage('lib/assets/images/logo_dark.png');
 
+  /// File path: lib/assets/images/no-profile.png
+  AssetGenImage get noProfile =>
+      const AssetGenImage('lib/assets/images/no-profile.png');
+
   /// File path: lib/assets/images/profile.jpg
   AssetGenImage get profile =>
       const AssetGenImage('lib/assets/images/profile.jpg');
@@ -168,6 +172,7 @@ class $LibAssetsImagesGen {
         logoNav,
         logo,
         logoDark,
+        noProfile,
         profile,
         slider1,
         slider2,
