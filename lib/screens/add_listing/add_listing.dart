@@ -2361,25 +2361,59 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(10))),
-                                            child: Assets
-                                                .lib.assets.images.colorLogo
-                                                .image(),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Assets
+                                                  .lib.assets.images.colorLogo
+                                                  .image(),
+                                            ),
                                           )
-                                        : Container(
-                                            width: 150,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: Image.file(File(
-                                                            ref.watch(
-                                                                mainImageProvider)))
-                                                        .image),
-                                                border: Border.all(
-                                                    color: ViwahaColor.primary),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
+                                        : Stack(
+                                            children: [
+                                              Container(
+                                                width: 150,
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.fill,
+                                                        image: Image.file(File(
+                                                                ref.watch(
+                                                                    mainImageProvider)))
+                                                            .image),
+                                                    border: Border.all(
+                                                        color: ViwahaColor
+                                                            .primary),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                10))),
+                                              ),
+                                              Positioned(
+                                                top: 0,
+                                                right: 5,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      ref
+                                                          .watch(
+                                                              mainImageProvider
+                                                                  .notifier)
+                                                          .state = "";
+                                                      ref
+                                                          .watch(
+                                                              mainImageNameProvider
+                                                                  .notifier)
+                                                          .state = "";
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.remove_circle,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           )
                               ],
                             ),
@@ -2455,25 +2489,65 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(5),
-                                                    child: Container(
-                                                      width: 100,
-                                                      height: 100,
-                                                      decoration: BoxDecoration(
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.fill,
-                                                              image: Image.file(File(ref
-                                                                      .watch(imageGalleryProvider)[
-                                                                          index]
-                                                                      .path
-                                                                      .toString()))
-                                                                  .image),
-                                                          border: Border.all(
-                                                              color: ViwahaColor
-                                                                  .primary),
-                                                          borderRadius:
-                                                              const BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10))),
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          width: 100,
+                                                          height: 100,
+                                                          decoration: BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  fit: BoxFit
+                                                                      .fill,
+                                                                  image: Image.file(File(ref
+                                                                          .watch(imageGalleryProvider)[
+                                                                              index]
+                                                                          .path
+                                                                          .toString()))
+                                                                      .image),
+                                                              border: Border.all(
+                                                                  color: ViwahaColor
+                                                                      .primary),
+                                                              borderRadius:
+                                                                  const BorderRadius.all(
+                                                                      Radius.circular(10))),
+                                                        ),
+                                                        Positioned(
+                                                          top: 0,
+                                                          right: 0,
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                ref.read(imageNameGalleryProvider).removeWhere((element) =>
+                                                                    element
+                                                                        .substring(
+                                                                            16) ==
+                                                                    ref
+                                                                        .read(imageGalleryProvider)[
+                                                                            index]
+                                                                        .path!
+                                                                        .toString()
+                                                                        .substring(
+                                                                            42));
+                                                                ref
+                                                                    .read(
+                                                                        imageGalleryProvider)
+                                                                    .removeAt(
+                                                                        index);
+                                                              });
+                                                              print(ref.read(
+                                                                  imageGalleryProvider));
+                                                              print(ref.read(
+                                                                  imageNameGalleryProvider));
+                                                            },
+                                                            child: const Icon(
+                                                              Icons
+                                                                  .remove_circle,
+                                                              color: Colors.red,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   );
                                                 }),
