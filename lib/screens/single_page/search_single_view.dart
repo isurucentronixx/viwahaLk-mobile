@@ -316,9 +316,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.description.toString(),
                         widget.item!.main_category.toString(),
                         widget.item!.video.toString()),
-                    // widget.item!.main_category != "Proposal"
-                    //     ? SingleItemVideo(widget.item!.video.toString())
-                    //     : const SizedBox(),
+                   
                     SingleItemContactInfo(
                       widget.item!.main_category.toString(),
                       widget.item!.phone.toString(),
@@ -326,6 +324,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.item!.address.toString(),
                       widget.item!.email.toString(),
                     ),
+                    SingleItemOpeningHours(widget.item!),
                     SingleItemMap(widget.item!.address.toString()),
                     const SingleItemLatest('topListing')
                   ],

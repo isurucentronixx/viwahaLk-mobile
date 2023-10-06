@@ -115,14 +115,6 @@ class _SingleViewState extends ConsumerState<SingleView> {
                     widget.topListing!.main_category.toString(),
                 widget.vendor?.video.toString() ??
                     widget.topListing!.video.toString()),
-            // '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' !=
-            //         "Proposal"
-            //     ? '${widget.vendor?.video.toString() ?? widget.topListing!.video!.toString()}' !=
-            //             ""
-            //         ? SingleItemVideo(widget.vendor?.video.toString() ??
-            //             widget.topListing!.video!.toString())
-            //         : const SizedBox()
-            //     : const SizedBox(),
             SingleItemContactInfo(
               widget.vendor?.main_category.toString() ??
                   widget.topListing!.main_category.toString(),
@@ -135,6 +127,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
               widget.vendor?.email.toString() ??
                   widget.topListing!.email.toString(),
             ),
+            SingleItemOpeningHours(widget.vendor ?? widget.topListing),
             SingleItemMap(widget.vendor?.address.toString() ??
                 widget.topListing!.address.toString()),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing')

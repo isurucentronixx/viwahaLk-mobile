@@ -34,7 +34,7 @@ class _SliderState extends ConsumerState<SliderView> {
   Widget build(BuildContext context) {
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.images);
-    if (widget.mainCategory == "Proposal") { 
+    if (widget.mainCategory == "Proposal") {
       String isMembership = ref.read(userProvider).user!.membership.toString();
       if (isMembership != "1") {
         imagePaths.length = 1;
@@ -764,105 +764,137 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
   }
 }
 
-// class SingleItemVideo extends ConsumerStatefulWidget {
-//   const SingleItemVideo(this.link, {super.key});
-//   final String link;
-//   @override
-//   _SingleItemVideoState createState() => _SingleItemVideoState();
-// }
+class SingleItemOpeningHours extends ConsumerStatefulWidget {
+  const SingleItemOpeningHours(this.item, {super.key});
+  final dynamic item;
+  @override
+  _SingleItemOpeningHoursState createState() => _SingleItemOpeningHoursState();
+}
 
-// class _SingleItemVideoState extends ConsumerState<SingleItemVideo> {
-//   // var loadingPercentage = 0;
+class _SingleItemOpeningHoursState
+    extends ConsumerState<SingleItemOpeningHours> {
+  @override
+  Widget build(BuildContext context) {
+    Widget openTimeWidget(String date, String openTime, String closeTime) {
+      return openTime != "" || closeTime != ""
+          ? SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('$date'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '$openTime - $closeTime',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  )
+                ],
+              ),
+            )
+          : const SizedBox();
+    }
 
-//   // late final WebViewController controller;
-
-//   // @override
-//   // void initState() {
-//   //   super.initState();
-//   //   controller = WebViewController()
-//   //     ..setNavigationDelegate(NavigationDelegate(
-//   //       onPageStarted: (url) {
-//   //         setState(() {
-//   //           loadingPercentage = 0;
-//   //         });
-//   //       },
-//   //       onProgress: (progress) {
-//   //         setState(() {
-//   //           loadingPercentage = progress;
-//   //         });
-//   //       },
-//   //       onPageFinished: (url) {
-//   //         setState(() {
-//   //           loadingPercentage = 100;
-//   //         });
-//   //       },
-//   //     ))
-//   //     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-//   //     ..loadRequest(
-//   //       Uri.parse(
-//   //           'https://www.facebook.com/100089485622674/videos/691245782444851'),
-//   //     );
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(20.0),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             color:
-//                 ViwahaColor.primary, // Set the background color for the title
-//             padding: const EdgeInsets.all(16.0),
-//             child: Row(
-//               children: [
-//                 const Icon(
-//                   Icons.list,
-//                   color: Colors.white,
-//                 ),
-//                 const SizedBox(width: 8),
-//                 Text(
-//                   LocaleKeys.video.tr(),
-//                   style: const TextStyle(
-//                     fontSize: 22,
-//                     fontWeight: FontWeight.w400,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           const SizedBox(height: 10),
-//           ElevatedButton(
-//             onPressed: () async {
-//               await launchUrl(Uri.parse(widget.link),
-//                   mode: LaunchMode.externalApplication);
-//             },
-//             child: Text('Show Flutter homepage'),
-//           ),
-
-//           // SizedBox(
-//           //   height: MediaQuery.of(context).size.height * 0.5,
-//           //   child: Stack(
-//           //     children: [
-//           //       Expanded(
-//           //         child: WebViewWidget(
-//           //           controller: controller,
-//           //         ),
-//           //       ),
-//           //       if (loadingPercentage < 100)
-//           //         LinearProgressIndicator(
-//           //           value: loadingPercentage / 100.0,
-//           //         ),
-//           //     ],
-//           //   ),
-//           // ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  LocaleKeys.opening_hours.tr(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              openTimeWidget('Monday', widget.item.monday_open_time.toString(),
+                  widget.item.monday_open_time.toString()),
+              openTimeWidget(
+                  'Tuesday',
+                  widget.item.tuesday_open_time.toString(),
+                  widget.item.tuesday_close_time.toString()),
+              openTimeWidget(
+                  'Wednesday',
+                  widget.item.wednesday_open_time.toString(),
+                  widget.item.wednesday_open_time.toString()),
+              openTimeWidget(
+                  'Thursday',
+                  widget.item.thursday_open_time.toString(),
+                  widget.item.thursday_open_time.toString()),
+              openTimeWidget('Friday', widget.item.friday_open_time.toString(),
+                  widget.item.friday_open_time.toString()),
+              openTimeWidget(
+                  'Saturday',
+                  widget.item.saturday_close_time.toString(),
+                  widget.item.saturday_close_time.toString()),
+              openTimeWidget('Sunday', widget.item.sunday_open_time.toString(),
+                  widget.item.sunday_open_time.toString()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Always Open'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: widget.item.always_open.toString() == "Yes"
+                        ? const Icon(
+                            Icons.check_rounded,
+                            color: Colors.green,
+                          )
+                        : const Icon(Icons.close_rounded, color: Colors.red),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Open in Holidays'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: widget.item.open_holiday.toString() == "Yes"
+                        ? const Icon(
+                            Icons.check_rounded,
+                            color: Colors.green,
+                          )
+                        : const Icon(Icons.close_rounded, color: Colors.red),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class SingleItemContactInfo extends ConsumerStatefulWidget {
   const SingleItemContactInfo(this.mainCategory, this.contactNumber,
