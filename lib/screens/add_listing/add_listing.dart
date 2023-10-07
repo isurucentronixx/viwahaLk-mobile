@@ -4515,8 +4515,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                           widthFactor: 0.8,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              // print(ref.read(imageNameGalleryProvider));
-
                               if (!_formKey.currentState!.validate()) {
                                 return;
                               } else if (_cat != 'Proposal') {
@@ -4524,26 +4522,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     _subCat == 'Select one' ||
                                     _location == 'Select one' ||
                                     _subLocation == 'Select one' ||
-                                    _mondayOpen == 'Select one' ||
-                                    _tuesdayOpen == 'Select one' ||
-                                    _wednesdayOpen == 'Select one' ||
-                                    _thursdayOpen == 'Select one' ||
-                                    _fridayOpen == 'Select one' ||
-                                    _saturedayOpen == 'Select one' ||
-                                    _sundayOpen == 'Select one' ||
                                     ref.watch(imageGalleryProvider).isEmpty) {
                                   setState(() {
                                     _catColor = Colors.red;
                                     _subCatColor = Colors.red;
                                     _locationColor = Colors.red;
                                     _subLocationColor = Colors.red;
-                                    _mondayOpenColor = Colors.red;
-                                    _tuesdayOpenColor = Colors.red;
-                                    _wednesdayOpenColor = Colors.red;
-                                    _thursdayOpenColor = Colors.red;
-                                    _fridayOpenColor = Colors.red;
-                                    _saturedayOpenColor = Colors.red;
-                                    _sundayOpenColor = Colors.red;
                                     _askPriceColor = Colors.red;
                                     _galleryImgColor = Colors.red;
                                     _thumbImgColor = Colors.red;
@@ -4572,6 +4556,49 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
+                                } else if (_alwaysOpen != 'Yes') {
+                                  if (_mondayOpen == 'Select one' ||
+                                      _tuesdayOpen == 'Select one' ||
+                                      _wednesdayOpen == 'Select one' ||
+                                      _thursdayOpen == 'Select one' ||
+                                      _fridayOpen == 'Select one' ||
+                                      _saturedayOpen == 'Select one' ||
+                                      _sundayOpen == 'Select one') {
+                                    setState(() {
+                                      _mondayOpenColor = Colors.red;
+                                      _tuesdayOpenColor = Colors.red;
+                                      _wednesdayOpenColor = Colors.red;
+                                      _thursdayOpenColor = Colors.red;
+                                      _fridayOpenColor = Colors.red;
+                                      _saturedayOpenColor = Colors.red;
+                                      _sundayOpenColor = Colors.red;
+                                    });
+                                    SnackBar snackBar = SnackBar(
+                                      content: const Text(
+                                          'Please make sure to fill in all the required fields.',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white)),
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Colors.red, width: 1),
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                      backgroundColor: ViwahaColor.primary,
+                                      dismissDirection: DismissDirection.up,
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              250,
+                                          left: 50,
+                                          right: 50),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  }
                                 } else {
                                   _formKey.currentState!.save();
                                   Map<String, Object?> newList;
