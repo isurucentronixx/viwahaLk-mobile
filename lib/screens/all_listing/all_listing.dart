@@ -50,6 +50,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     final allListing = ref.watch(allListingProvider);

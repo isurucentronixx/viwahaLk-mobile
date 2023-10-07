@@ -206,7 +206,7 @@ showReportingForm(BuildContext context, WidgetRef ref,
                         Navigator.pop(context);
                         controller.reportListing(formDetails);
                       },
-                      child: const Text('Add Review'),
+                      child: const Text('Submit'),
                     ),
                   ),
                 ),

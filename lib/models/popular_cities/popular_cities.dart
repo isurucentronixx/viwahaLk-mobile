@@ -140,7 +140,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                 child: Column(
                   children: [
                     SizedBox(
-                      width: 280,
+                      // width: 280,
                       height: 225,
                       child: Stack(
                         children: [
@@ -149,7 +149,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                             fit: BoxFit.cover,
                             imageBuilder: (context, imageProvider) => Container(
                               height: 280,
-                              width: 225,
+                              // width: 225,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),

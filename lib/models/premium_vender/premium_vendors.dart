@@ -23,6 +23,27 @@ class PremiumVendors extends ConsumerStatefulWidget {
 }
 
 class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
+  String timeAgoSinceDate(String date) {
+    final now = DateTime.now();
+    final difference = now.difference(DateTime.parse(date));
+
+    if (difference.inSeconds < 60) {
+      return 'few seconds ago';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
+    } else if (difference.inDays < 30) {
+      return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
+    } else if (difference.inDays < 365) {
+      final months = (difference.inDays / 30).floor();
+      return '$months ${months == 1 ? 'month' : 'months'} ago';
+    } else {
+      final years = (difference.inDays / 365).floor();
+      return '$years ${years == 1 ? 'year' : 'years'} ago';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var inputDateFormat = DateFormat('dd MMMM, yyyy');
@@ -192,10 +213,11 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0, vertical: 4.0),
                                   child: Text(
-                                    inputDateFormat
-                                        .format(DateFormat("yyyy-MM-dd")
-                                            .parse(vendor.datetime!))
-                                        .toString(),
+                                    timeAgoSinceDate(vendor.datetime!),
+                                    // inputDateFormat
+                                    //     .format(DateFormat("yyyy-MM-dd")
+                                    //         .parse(vendor.datetime!))
+                                    //     .toString(),
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),

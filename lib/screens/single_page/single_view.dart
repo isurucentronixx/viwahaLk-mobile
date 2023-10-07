@@ -56,6 +56,25 @@ class _SingleViewState extends ConsumerState<SingleView> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(singleListingViewStateProvider, (_, state) {
+      state.whenData((items) {
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Status!',
+            message: items,
+            inMaterialBanner: true,
+            contentType: ContentType.success,
+            color: ViwahaColor.primary,
+          ),
+        );
+        (items == null ? null : ScaffoldMessenger.of(context))!
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
+      });
+    });
     return Scaffold(
       appBar: AppBar(
         actions: [
