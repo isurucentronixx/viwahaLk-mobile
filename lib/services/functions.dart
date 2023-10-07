@@ -152,15 +152,15 @@ class PostData {
           'https://viwahaapp.viwaha.lk/api/listings/delete?listing_id=${id}');
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly deleted your listing.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Unsuccessfuly.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -171,15 +171,15 @@ class PostData {
           'https://viwahaapp.viwaha.lk/api/listings/request_boost?listing_id=${id}');
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfuly boosted your listing.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Unsuccessfuly.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -195,35 +195,36 @@ class PostData {
       ref.refresh(premiumBillNameProvider);
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requested premium your listing.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const HomePage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requesting failed.");
-      ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(myListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }
 
   Future requestQuote(quote) async {
     try {
+      ref.read(singleListingViewStateProvider.notifier).state =
+          const AsyncValue.loading();
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/profile/post_message',
           data: quote);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Your request has been sent.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+    
       return res.data;
     } catch (e) {
       // ref.read(isDeletingListProvider.notifier).state = false;
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requesting failed.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(singleListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -235,15 +236,15 @@ class PostData {
           data: review);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Your review has been published.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(singleListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       return res.data;
     } catch (e) {
       // ref.read(isDeletingListProvider.notifier).state = false;
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requesting failed.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(singleListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -254,14 +255,15 @@ class PostData {
           .post('https://viwahaapp.viwaha.lk/api/listings/report', data: data);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Successfully submited report listing.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
-      return res.data;
+      // ref.read(singleListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
+          
+      return res.data; 
     } catch (e) {
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requesting failed.");
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data(null);
+      // ref.read(singleListingViewStateProvider.notifier).state =
+      //     const AsyncValue.data(null);
       rethrow;
     }
   }

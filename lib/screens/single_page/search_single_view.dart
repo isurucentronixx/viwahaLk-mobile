@@ -322,7 +322,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.item!.phone.toString(),
                       widget.item!.whatsapp.toString(),
                       widget.item!.address.toString(),
-                      widget.item!.email.toString(),
+                      widget.item!.email.toString(),widget.item!.facebook.toString(),widget.item!.whatsapp.toString(),widget.item!.instagram.toString(),widget.item!.linkedin.toString(),
                     ),
                     SingleItemOpeningHours(widget.item!),
                     SingleItemMap(widget.item!.address.toString()),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -179,7 +180,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                             focusColor: Colors.white,
                             //add prefix icon
                             prefixIcon: const Icon(
-                              Icons.mail_outline_rounded,
+                              Icons.phone,
                               color: Colors.grey,
                             ),
                             border: OutlineInputBorder(
@@ -227,7 +228,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                             focusColor: Colors.white,
                             //add prefix icon
                             prefixIcon: const Icon(
-                              Icons.mail_outline_rounded,
+                              Icons.people_alt_outlined,
                               color: Colors.grey,
                             ),
                             border: OutlineInputBorder(
@@ -294,7 +295,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                               fontFamily: "verdana_regular",
                               fontWeight: FontWeight.w400,
                             ),
-                            labelText: 'Review',
+                            labelText: 'Message',
                             labelStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
@@ -332,6 +333,24 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                         };
                         Navigator.pop(context);
                         controller.requestQuote(formDetails);
+                        // .then((value) => {
+                        //       (ScaffoldMessenger.of(context))
+                        //         ..hideCurrentSnackBar()
+                        //         ..showSnackBar(SnackBar(
+                        //           elevation: 0,
+                        //           behavior: SnackBarBehavior.floating,
+                        //           backgroundColor: Colors.transparent,
+                        //           content: AwesomeSnackbarContent(
+                        //             title: 'Success!',
+                        //             message: value['responseMessage'],
+                        //             inMaterialBanner: true,
+
+                        //             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                        //             contentType: ContentType.success,
+                        //             color: ViwahaColor.primary,
+                        //           ),
+                        //         )),
+                        //     });
                       },
                       child: const Text('Submit'),
                     ),

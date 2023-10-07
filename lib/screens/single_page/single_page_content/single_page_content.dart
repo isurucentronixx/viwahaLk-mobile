@@ -281,28 +281,44 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       },
                       child: const Text('Request Quote'),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        showReviewForm(context, ref,
-                            listingId: widget.item!.id.toString(),
-                            userId: widget.item!.user_id.toString());
-                      },
-                      child: const Text('Add Review'),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        showReportingForm(context, ref,
-                            listingId: widget.item!.id.toString(),
-                            userId: widget.item!.user_id.toString());
-                      },
-                      child: const Text('Report'),
-                    ),
+                    ref.watch(isloginProvider)
+                        ? const SizedBox(
+                            width: 10,
+                          )
+                        : const SizedBox(),
+                    ref.watch(isloginProvider)
+                        ? ElevatedButton(
+                            onPressed: () {
+                              showReviewForm(context, ref,
+                                  listingId: widget.item!.id.toString(),
+                                  userId: ref
+                                      .read(userProvider)
+                                      .user!
+                                      .id
+                                      .toString());
+                            },
+                            child: const Text('Add Review'),
+                          )
+                        : const SizedBox(),
+                    ref.watch(isloginProvider)
+                        ? const SizedBox(
+                            width: 10,
+                          )
+                        : const SizedBox(),
+                    ref.watch(isloginProvider)
+                        ? ElevatedButton(
+                            onPressed: () {
+                              showReportingForm(context, ref,
+                                  listingId: widget.item!.id.toString(),
+                                  userId: ref
+                                      .read(userProvider)
+                                      .user!
+                                      .id
+                                      .toString());
+                            },
+                            child: const Text('Report'),
+                          )
+                        : const SizedBox(),
                   ],
                 )
               : const SizedBox(),
@@ -389,11 +405,13 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
             ),
           ),
           const SizedBox(height: 10),
-          SizedBox(
-            height: 300,
+          Container(
+            constraints: const BoxConstraints(maxHeight: 300),
             child: ListView.builder(
                 // physics: const NeverScrollableScrollPhysics(),
                 itemCount: amenities.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                       leading: const Icon(
@@ -830,28 +848,40 @@ class _SingleItemOpeningHoursState
           Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              openTimeWidget('Monday', widget.item.monday_open_time.toString(),
-                  widget.item.monday_open_time.toString()),
-              openTimeWidget(
-                  'Tuesday',
-                  widget.item.tuesday_open_time.toString(),
-                  widget.item.tuesday_close_time.toString()),
-              openTimeWidget(
-                  'Wednesday',
-                  widget.item.wednesday_open_time.toString(),
-                  widget.item.wednesday_open_time.toString()),
-              openTimeWidget(
-                  'Thursday',
-                  widget.item.thursday_open_time.toString(),
-                  widget.item.thursday_open_time.toString()),
-              openTimeWidget('Friday', widget.item.friday_open_time.toString(),
-                  widget.item.friday_open_time.toString()),
-              openTimeWidget(
-                  'Saturday',
-                  widget.item.saturday_close_time.toString(),
-                  widget.item.saturday_close_time.toString()),
-              openTimeWidget('Sunday', widget.item.sunday_open_time.toString(),
-                  widget.item.sunday_open_time.toString()),
+              widget.item.open_holiday.toString() == 'Yes'
+                  ? Stack(
+                      children: [
+                        openTimeWidget(
+                            'Monday',
+                            widget.item.monday_open_time.toString(),
+                            widget.item.monday_open_time.toString()),
+                        openTimeWidget(
+                            'Tuesday',
+                            widget.item.tuesday_open_time.toString(),
+                            widget.item.tuesday_close_time.toString()),
+                        openTimeWidget(
+                            'Wednesday',
+                            widget.item.wednesday_open_time.toString(),
+                            widget.item.wednesday_open_time.toString()),
+                        openTimeWidget(
+                            'Thursday',
+                            widget.item.thursday_open_time.toString(),
+                            widget.item.thursday_open_time.toString()),
+                        openTimeWidget(
+                            'Friday',
+                            widget.item.friday_open_time.toString(),
+                            widget.item.friday_open_time.toString()),
+                        openTimeWidget(
+                            'Saturday',
+                            widget.item.saturday_close_time.toString(),
+                            widget.item.saturday_close_time.toString()),
+                        openTimeWidget(
+                            'Sunday',
+                            widget.item.sunday_open_time.toString(),
+                            widget.item.sunday_open_time.toString()),
+                      ],
+                    )
+                  : const SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -897,14 +927,26 @@ class _SingleItemOpeningHoursState
 }
 
 class SingleItemContactInfo extends ConsumerStatefulWidget {
-  const SingleItemContactInfo(this.mainCategory, this.contactNumber,
-      this.telephoneNumer, this.address, this.email,
+  const SingleItemContactInfo(
+      this.mainCategory,
+      this.contactNumber,
+      this.telephoneNumer,
+      this.address,
+      this.email,
+      this.facebook,
+      this.whatsapp,
+      this.instagram,
+      this.linkedin,
       {super.key});
   final String mainCategory;
   final String contactNumber;
   final String telephoneNumer;
   final String address;
   final String email;
+  final String facebook;
+  final String whatsapp;
+  final String instagram;
+  final String linkedin;
   @override
   _SingleItemContactInfoState createState() => _SingleItemContactInfoState();
 }
@@ -924,7 +966,8 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.mainCategory);
+    int whatsappIndexOf0 = widget.whatsapp.trim().indexOf("0");
+    print(whatsappIndexOf0);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -955,16 +998,22 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
           const SizedBox(height: 8),
           Column(
             children: [
-              ListTile(
-                leading: const Icon(Icons.phone_android),
-                title: Text(LocaleKeys.contact_number.tr()),
-                subtitle: Text(widget.mainCategory == "Proposal"
-                    ? isMembership(widget.contactNumber)
-                    : widget.contactNumber),
-              ),
+              widget.contactNumber.isEmpty ||
+                      widget.contactNumber == 'null' ||
+                      widget.contactNumber == 'Null' ||
+                      widget.contactNumber == ""
+                  ? Container()
+                  : ListTile(
+                      leading: const Icon(Icons.phone_android),
+                      title: Text(LocaleKeys.contact_number.tr()),
+                      subtitle: Text(widget.mainCategory == "Proposal"
+                          ? isMembership(widget.contactNumber)
+                          : widget.contactNumber),
+                    ),
               widget.telephoneNumer.isEmpty ||
                       widget.telephoneNumer == 'null' ||
-                      widget.telephoneNumer == 'Null'
+                      widget.telephoneNumer == 'Null' ||
+                      widget.telephoneNumer == ""
                   ? Container()
                   : ListTile(
                       leading: const Icon(Icons.phone),
@@ -973,94 +1022,158 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                           ? isMembership(widget.telephoneNumer)
                           : widget.telephoneNumer),
                     ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: Text(LocaleKeys.address.tr()),
-                subtitle: Text(widget.mainCategory == "Proposal"
-                    ? isMembership(widget.address)
-                    : widget.address),
-              ),
-              ListTile(
-                leading: const Icon(Icons.email),
-                title: Text(LocaleKeys.email.tr()),
-                subtitle: Text(widget.mainCategory == "Proposal"
-                    ? isMembership(widget.email)
-                    : widget.email),
-              ),
+              widget.address.isEmpty ||
+                      widget.address == 'null' ||
+                      widget.address == 'Null' ||
+                      widget.address == ""
+                  ? Container()
+                  : ListTile(
+                      leading: const Icon(Icons.home),
+                      title: Text(LocaleKeys.address.tr()),
+                      subtitle: Text(widget.mainCategory == "Proposal"
+                          ? isMembership(widget.address)
+                          : widget.address),
+                    ),
+              widget.email.isEmpty ||
+                      widget.email == 'null' ||
+                      widget.email == 'Null' ||
+                      widget.email == ""
+                  ? Container()
+                  : ListTile(
+                      leading: const Icon(Icons.email),
+                      title: Text(LocaleKeys.email.tr()),
+                      subtitle: Text(widget.mainCategory == "Proposal"
+                          ? isMembership(widget.email)
+                          : widget.email),
+                    ),
               const SizedBox(height: 8),
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to resize the button
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff25d366),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: IconButton(
-                            iconSize: 30,
-                            icon: const FaIcon(FontAwesomeIcons.whatsapp),
-                            color: Colors.white,
-                            onPressed: () {
-                              launchUrl(Uri.parse(
-                                  "whatsapp://send?phone='${widget.contactNumber}'&text=Hi, This Message from Viwaha App"));
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to resize the button
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff4267B2),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: IconButton(
-                            iconSize: 30,
-                            icon: const FaIcon(FontAwesomeIcons.facebookF),
-                            color: Colors.white,
-                            onPressed: () {
-                              launchUrl(Uri.parse("https://www.facebook.com/"));
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Transform.scale(
-                      scale: 0.8, // Adjust this value to resize the button
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff1DA1F2),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: IconButton(
-                              iconSize: 30,
-                              icon: const FaIcon(FontAwesomeIcons.twitter),
-                              color: Colors.white,
-                              onPressed: () {
-                                launchUrl(
-                                    Uri.parse("https://www.twitter.com/"));
-                              },
+                    widget.whatsapp.isEmpty ||
+                            widget.whatsapp == 'null' ||
+                            widget.whatsapp == 'Null' ||
+                            widget.whatsapp == ""
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Transform.scale(
+                              scale:
+                                  0.8, // Adjust this value to resize the button
+                              child: Container(
+                                width: 65,
+                                height: 65,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff25d366),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: IconButton(
+                                  iconSize: 30,
+                                  icon: const FaIcon(FontAwesomeIcons.whatsapp),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    launchUrl(Uri.parse(
+                                        "whatsapp://send?phone=+94'${widget.whatsapp.substring(whatsappIndexOf0)}'&text=Hi, This Message from Viwaha App"));
+                                  },
+                                ),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                    widget.facebook.isEmpty ||
+                            widget.facebook == 'null' ||
+                            widget.facebook == 'Null' ||
+                            widget.facebook == ""
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: Transform.scale(
+                              scale:
+                                  0.8, // Adjust this value to resize the button
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff4267B2),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: IconButton(
+                                  iconSize: 30,
+                                  icon:
+                                      const FaIcon(FontAwesomeIcons.facebookF),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    launchUrl(
+                                        Uri.parse(
+                                            'fb://facewebmodal/f?href=${widget.facebook}'),
+                                        mode: LaunchMode.platformDefault);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                    widget.instagram.isEmpty ||
+                            widget.instagram == 'null' ||
+                            widget.instagram == 'Null' ||
+                            widget.instagram == ""
+                        ? Container()
+                        : Transform.scale(
+                            scale:
+                                0.8, // Adjust this value to resize the button
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff1DA1F2),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 30,
+                                    icon: const FaIcon(
+                                        FontAwesomeIcons.instagram),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      launchUrl(Uri.parse(
+                                          widget.instagram.toString()));
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                    widget.linkedin.isEmpty ||
+                            widget.linkedin == 'null' ||
+                            widget.linkedin == 'Null' ||
+                            widget.linkedin == ""
+                        ? Container()
+                        : Transform.scale(
+                            scale:
+                                0.8, // Adjust this value to resize the button
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff1DA1F2),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 30,
+                                    icon:
+                                        const FaIcon(FontAwesomeIcons.linkedin),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      launchUrl(Uri.parse(
+                                          widget.linkedin.toString()));
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                   ],
                 ),
               )
