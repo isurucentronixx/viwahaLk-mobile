@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
@@ -159,6 +160,35 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 10),
+          GestureDetector(
+            onTap: () {
+              Share.share('https://viwaha.lk/listing?id=${widget.id}');
+            },
+            child: Container(
+              width: 75,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.green, width: 1)),
+              child: const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.share_sharp,
+                        color: Colors.green,
+                        size: 20,
+                      ),
+                      Text(
+                        "Share",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ]),
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -762,7 +792,7 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                   //   color: Colors.amber,
                   //   fontFamily: 'Noto Serif Sinhala',
                   // ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
                 widget.videoLink != ""
                     ? Center(
@@ -1003,24 +1033,34 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       widget.contactNumber == 'Null' ||
                       widget.contactNumber == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.phone_android),
-                      title: Text(LocaleKeys.contact_number.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.contactNumber)
-                          : widget.contactNumber),
+                  : GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("tel:${widget.contactNumber}"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.phone_android),
+                        title: Text(LocaleKeys.contact_number.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.contactNumber)
+                            : widget.contactNumber),
+                      ),
                     ),
               widget.telephoneNumer.isEmpty ||
                       widget.telephoneNumer == 'null' ||
                       widget.telephoneNumer == 'Null' ||
                       widget.telephoneNumer == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.phone),
-                      title: Text(LocaleKeys.tele_number.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.telephoneNumer)
-                          : widget.telephoneNumer),
+                  : GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("tel:${widget.telephoneNumer}"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.phone),
+                        title: Text(LocaleKeys.tele_number.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.telephoneNumer)
+                            : widget.telephoneNumer),
+                      ),
                     ),
               widget.address.isEmpty ||
                       widget.address == 'null' ||
@@ -1039,12 +1079,19 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       widget.email == 'Null' ||
                       widget.email == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.email),
-                      title: Text(LocaleKeys.email.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.email)
-                          : widget.email),
+                  : GestureDetector(
+                      onTap: () {
+                        print(widget.email.replaceAll(' ', ''));
+                        launchUrl(Uri.parse(
+                            "mailto:${widget.email.replaceAll(' ', '')}?subject=subject&body=body"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.email),
+                        title: Text(LocaleKeys.email.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.email)
+                            : widget.email),
+                      ),
                     ),
               const SizedBox(height: 8),
               Center(

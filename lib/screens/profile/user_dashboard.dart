@@ -750,83 +750,87 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
 
   Widget myListigs() {
     List<SearchResultItem> myListing = ref.watch(myListingProvider);
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        height: 400, // Set the desired height for the horizontal list view
-        child: Column(
-          children: [
-            Container(
-              color:
-                  ViwahaColor.primary, // Set the background color for the title
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
+    return myListing.isNotEmpty
+        ? Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              height:
+                  400, // Set the desired height for the horizontal list view
+              child: Column(
                 children: [
-                  const Icon(
-                    Icons.list,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    LocaleKeys.my_listings.tr(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
+                  Container(
+                    color: ViwahaColor
+                        .primary, // Set the background color for the title
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.list,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          LocaleKeys.my_listings.tr(),
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 1,
+                      scrollDirection: Axis
+                          .horizontal, // Set the scroll direction to horizontal
+                      children: List.generate(
+                        myListing.length, // Total number of cards
+                        (index) => MyCardItem(
+                          imagePath: myListing[index].image != null
+                              ? "https://viwaha.lk/${myListing[index].image.toString()}"
+                              : ref
+                                  .read(homeControllerProvider)
+                                  .getTumbImage(myListing[index].thumb_images)
+                                  .first,
+                          title: myListing[index].title != null
+                              ? myListing[index].title!
+                              : "",
+                          description: myListing[index].description != null
+                              ? myListing[index].description!
+                              : "",
+                          starRating: myListing[index].average_rating != null
+                              ? double.parse(
+                                  myListing[index].average_rating.toString())
+                              : 0,
+                          type: "myAd",
+                          date: myListing[index].datetime != null
+                              ? myListing[index].datetime!
+                              : "",
+                          location: myListing[index].location != null
+                              ? myListing[index].location!
+                              : "",
+                          name: myListing[index].name.toString(),
+                          main_category:
+                              myListing[index].main_category.toString(),
+                          id: myListing[index].id.toString(),
+                          isFav: myListing[index].is_favourite.toString(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 1,
-                scrollDirection:
-                    Axis.horizontal, // Set the scroll direction to horizontal
-                children: List.generate(
-                  myListing.length, // Total number of cards
-                  (index) => MyCardItem(
-                    imagePath: myListing[index].image != null
-                        ? "https://viwaha.lk/${myListing[index].image.toString()}"
-                        : ref
-                            .read(homeControllerProvider)
-                            .getTumbImage(myListing[index].thumb_images)
-                            .first,
-                    title: myListing[index].title != null
-                        ? myListing[index].title!
-                        : "",
-                    description: myListing[index].description != null
-                        ? myListing[index].description!
-                        : "",
-                    starRating: myListing[index].average_rating != null
-                        ? double.parse(
-                            myListing[index].average_rating.toString())
-                        : 0,
-                    type: "myAd",
-                    date: myListing[index].datetime != null
-                        ? myListing[index].datetime!
-                        : "",
-                    location: myListing[index].location != null
-                        ? myListing[index].location!
-                        : "",
-                    name: myListing[index].name.toString(),
-                    main_category: myListing[index].main_category.toString(),
-                    id: myListing[index].id.toString(),
-                    isFav: myListing[index].is_favourite.toString(),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const SizedBox();
   }
 }
 
