@@ -26,7 +26,7 @@ class SingleItemLatest extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<Vendor> premiumVendorsList = [];
     List<TopListing> topListingList = [];
-    List<CardModel> cardList = [];
+    List<CardModel> cardList = []; 
     final data = ref.watch(vendorsProvider);
     // final data = ref.watch(topListingProvider);
     if (type == "vendor") {

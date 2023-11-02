@@ -283,12 +283,12 @@ class TopListing extends ConsumerWidget {
                                 itemBuilder: (context, index) => Icon(
                                   wedding.average_rating != null
                                       ? Icons.star
-                                      : Icons.star_border_outlined,
+                                      : Icons.star,
                                   color: Colors.amber,
                                 ),
                                 itemCount: 5,
                                 itemSize: 20.0,
-                                unratedColor: Colors.amber.withAlpha(50),
+                                unratedColor: Colors.grey.withAlpha(50),
                               ),
                             ],
                           ),

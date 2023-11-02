@@ -219,12 +219,12 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                           itemBuilder: (context, index) => Icon(
                             city.ratings.toString() != "0"
                                 ? Icons.star
-                                : Icons.star_border_outlined,
+                                : Icons.star,
                             color: Colors.amber,
                           ),
                           itemCount: 5,
                           itemSize: 20.0,
-                          unratedColor: Colors.amber.withAlpha(50),
+                          unratedColor: Colors.grey.withAlpha(50),
                         ),
                       ],
                     ),

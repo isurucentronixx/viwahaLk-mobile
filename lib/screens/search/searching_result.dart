@@ -8,6 +8,7 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -51,9 +52,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
+                  child: GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).push(const HomePage());
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      child: Assets.lib.assets.images.logo.image(),
+                    ),
                   ),
                 ),
               ],

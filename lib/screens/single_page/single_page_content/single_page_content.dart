@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,6 +23,7 @@ import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -1241,6 +1245,39 @@ class SingleItemMap extends StatefulWidget {
 }
 
 class _SingleItemMapState extends State<SingleItemMap> {
+  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  Set<Marker> markers = Set();
+
+  @override
+  void initState() {
+    setState(() {
+      _goToTheAddress();
+    });
+
+    super.initState();
+  }
+
+  Future<void> _goToTheAddress() async {
+    List<Location> locations = await locationFromAddress(widget.address);
+    final GoogleMapController controller = await _controller.future;
+
+    Marker resultMarker = Marker(
+      markerId: const MarkerId("marker"),
+      infoWindow: InfoWindow(
+        title: widget.address.toString(),
+      ),
+      position: LatLng(locations.first.latitude, locations.first.longitude),
+    );
+
+    await controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(locations.first.latitude, locations.first.longitude),
+            zoom: 10)));
+    setState(() {
+      markers.add(resultMarker);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // https://maps.googleapis.com/maps/api/staticmap?size=512x512&maptype=roadmap\&markers=size:mid|color:red|89%2F10%2C%20Lady%20Gordons%20%20Drive%2C%20Kandy%2C%20Sri%20Lanka&key=AIzaSyCQthDZlGXOe_-wTKiPUmLd9MVaisTCz-M
@@ -1286,7 +1323,21 @@ class _SingleItemMapState extends State<SingleItemMap> {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            child: Image.network(url),
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Flexible(
+              child: GoogleMap(
+                  mapType: MapType.normal,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  initialCameraPosition:
+                      const CameraPosition(target: LatLng(0.0, 0.0)),
+                  markers: markers,
+                  zoomControlsEnabled: true,
+                  tiltGesturesEnabled: false),
+            ),
+
+            // Image.network(url),
           ),
         ],
       ),

@@ -241,6 +241,21 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                   ),
                                 ),
                                 const SizedBox(height: 4),
+                                Row(children: [
+                                  const Icon(
+                                    Icons.location_pin,
+                                    size: 16,
+                                    color: Colors.white70,
+                                  ),
+                                  Text(
+                                    vendor.location.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ]),
+                                const SizedBox(height: 4),
                                 Align(
                                   alignment: Alignment.bottomLeft,
                                   child: Container(
@@ -285,12 +300,12 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                           itemBuilder: (context, index) => Icon(
                             vendor.average_rating != null
                                 ? Icons.star
-                                : Icons.star_border_outlined,
+                                : Icons.star,
                             color: Colors.amber,
                           ),
                           itemCount: 5,
                           itemSize: 20.0,
-                          unratedColor: Colors.amber.withAlpha(50),
+                          unratedColor: Colors.grey.withAlpha(50),
                         ),
                       ],
                     ),

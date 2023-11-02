@@ -161,7 +161,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                 Icon(Icons.add, color: Colors.white),
                                 SizedBox(width: 8),
                                 Text(
-                                  "POST YOUR ADD",
+                                  "POST YOUR LISTING",
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.white),
                                 ),
@@ -291,8 +291,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           setState(() {
                             ref.read(isSearchingProvider.notifier).state = true;
                           });
-                          
-                          ref.refresh(favListingProvider); 
+
+                          ref.refresh(favListingProvider);
                           router.push(FavListingPage(isAppBar: true));
                         }),
                     ProfileMenuWidget(
@@ -304,7 +304,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               .push(ReviewsPage(userId: user.id.toString()));
                         }),
                     ProfileMenuWidget(
-                        title: "Post Your Ad",
+                        title: "Post Your Listing",
                         icon: Icons.add_circle_outline,
                         onPress: () {
                           ref.read(mainImageNameProvider.notifier).state = "";

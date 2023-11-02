@@ -77,9 +77,14 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                    onTap:() {
+                      AutoRouter.of(context).push(const HomePage());
+                    },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],

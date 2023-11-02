@@ -15,6 +15,7 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
@@ -762,9 +763,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 100,
-                        child: Assets.lib.assets.images.logo.image(),
+                      child: GestureDetector(
+                        onTap: () {
+                          AutoRouter.of(context).push(const HomePage());
+                        },
+                        child: SizedBox(
+                          width: 100,
+                          child: Assets.lib.assets.images.logo.image(),
+                        ),
                       ),
                     ),
                   ],

@@ -114,6 +114,18 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                     AutoRouter.of(context).push(const HomePage());
                   },
                 ),
+                ref.read(isloginProvider) ? const Divider() : const SizedBox(),
+                ref.read(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.dashboard),
+                        title: const Text("Dashboard",
+                            style: TextStyle(color: Colors.grey)),
+                        onTap: () {
+                          AutoRouter.of(context).push(
+                              UserDashboardPage(userId: user!.id.toString()));
+                        },
+                      )
+                    : const SizedBox(),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.person),
@@ -167,6 +179,55 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       )
                     : Container(),
                 const Divider(),
+                ref.watch(isloginProvider)
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                ref.read(mainImageNameProvider.notifier).state =
+                                    "";
+                                ref.read(imageNameGalleryProvider).clear();
+                                ref.read(mainImageProvider.notifier).state = "";
+                                ref.read(imageGalleryProvider).clear();
+                                AutoRouter.of(context)
+                                    .push(AddListingPage(isAppBar: true));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: ViwahaColor.primary,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border:
+                                        Border.all(color: ViwahaColor.primary)),
+                                child: const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(6.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(Icons.add, color: Colors.white),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          "POST YOUR LISTING",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
