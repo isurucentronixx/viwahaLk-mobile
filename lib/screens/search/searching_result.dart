@@ -219,6 +219,30 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                                 : searchingResult[index]
                                                     .is_favourite
                                                     .toString(),
+                                        isPremium: _textEditingController!
+                                                .text.isNotEmpty
+                                            ? filtered![index]
+                                                        .premium
+                                                        .toString() !=
+                                                    "1"
+                                                ? false
+                                                : true
+                                            : searchingResult[index]
+                                                        .premium
+                                                        .toString() !=
+                                                    "1"
+                                                ? false
+                                                : true,
+                                        boostedDate:
+                                            _textEditingController!
+                                                    .text.isNotEmpty
+                                                ? filtered![index]
+                                                    .boosted
+                                                    .toString()
+                                                : searchingResult[index]
+                                                    .boosted
+                                                    .toString(),
+
                                         // Replace with the appropriate star rating value
                                       ),
                                     ),

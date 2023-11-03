@@ -613,7 +613,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
             value: e.location_en.toString(), title: e.location_en.toString()))
         .toList();
 
-    imageUpload(File image, String name, String type) async {
+    imageUpload(XFile image, String name, String type) async {
       if (type == "gallery") {
         ref.read(isLoadingGalleryProvider.notifier).state = true;
       } else {
@@ -2313,7 +2313,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    XFile image;
                                     setState(() {
                                       picker
                                           .pickImage(
@@ -2324,7 +2324,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                           .then((value) => {
                                                 if (value != null)
                                                   {
-                                                    image = File(value.path),
+                                                    image = XFile(value.path),
                                                     imageUpload(image,
                                                         value.name, "main"),
                                                     ref
@@ -2438,26 +2438,44 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    // File image;
+                                    List<XFile> images = [];
                                     picker
-                                        .pickImage(
-                                            source: ImageSource.gallery,
+                                        .pickMultiImage(
+                                            // source: ImageSource.gallery,
                                             imageQuality: 50,
                                             maxWidth: 800,
                                             maxHeight: 800)
                                         .then((value) => {
                                               if (value != null)
                                                 {
-                                                  image = File(value.path),
-                                                  imageUpload(image, value.name,
-                                                      "gallery"),
-                                                  setState(() {
-                                                    ref
-                                                        .read(
-                                                            imageGalleryProvider)
-                                                        .add(ImageObject(
-                                                            path: value.path));
-                                                  })
+                                                  images.addAll(value),
+                                                  // ignore: avoid_function_literals_in_foreach_calls
+                                                  images.forEach((image) {
+                                                    imageUpload(image,
+                                                        image.name, "gallery");
+                                                    setState(() {
+                                                      ref
+                                                          .read(
+                                                              imageGalleryProvider)
+                                                          .add(ImageObject(
+                                                              path:
+                                                                  image.path));
+                                                    });
+                                                  }),
+                                                  // print(value)
+                                                  // image = File(value.path),
+                                                  // imageUpload(image, value.name,
+                                                  //     "gallery"),
+                                                  // setState(() {
+                                                  //   ref
+                                                  //       .read(
+                                                  //           imageGalleryProvider)
+                                                  //       .add(ImageObject(
+                                                  //           path: value.path));
+                                                  // })
+                                                  print("images"),
+                                                  print(images),
                                                 }
                                             });
                                   },

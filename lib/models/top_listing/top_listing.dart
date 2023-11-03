@@ -21,7 +21,7 @@ class TopListing extends ConsumerWidget {
   const TopListing({super.key});
 
   String timeAgoSinceDate(String date) {
-    final now = DateTime.now();
+    final now = DateTime.now(); 
     final difference = now.difference(DateTime.parse(date));
 
     if (difference.inSeconds < 60) {
@@ -124,7 +124,7 @@ class TopListing extends ConsumerWidget {
                         children: [
                           SizedBox(
                             width: 200,
-                            height: 150,
+                            height: 130,
                             child: Stack(
                               children: [
                                 CachedNetworkImage(
@@ -239,6 +239,27 @@ class TopListing extends ConsumerWidget {
                                     ],
                                   ),
                                 ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          ViwahaColor.primary.withOpacity(0.7),
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10)),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 4.0),
+                                      child: Text(
+                                        "TOP",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -267,30 +288,49 @@ class TopListing extends ConsumerWidget {
                               ),
                             ],
                           ),
-                          // const SizedBox(height: 4),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "rating".tr(),
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                              RatingBarIndicator(
-                                rating: double.parse(
-                                    wedding.average_rating != null
-                                        ? wedding.average_rating.toString()
-                                        : '0'),
-                                itemBuilder: (context, index) => Icon(
-                                  wedding.average_rating != null
-                                      ? Icons.star
-                                      : Icons.star,
-                                  color: Colors.amber,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.location_pin,
+                                  size: 16,
+                                  color: ViwahaColor.primary,
                                 ),
-                                itemCount: 5,
-                                itemSize: 20.0,
-                                unratedColor: Colors.grey.withAlpha(50),
-                              ),
-                            ],
+                                Text(
+                                  wedding.location.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
+                          // const SizedBox(height: 4),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "rating".tr(),
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                                RatingBarIndicator(
+                                  rating: double.parse(
+                                      wedding.average_rating != null
+                                          ? wedding.average_rating.toString()
+                                          : '0'),
+                                  itemBuilder: (context, index) => Icon(
+                                    wedding.average_rating != null
+                                        ? Icons.star
+                                        : Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 20.0,
+                                  unratedColor: Colors.grey.withAlpha(50),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

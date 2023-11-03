@@ -706,7 +706,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
             value: e.location_en.toString(), title: e.location_en.toString()))
         .toList();
 
-    imageUpload(File image, String name, String type) async {
+    imageUpload(XFile image, String name, String type) async {
       if (type == "gallery") {
         ref.read(isLoadingGalleryProvider.notifier).state = true;
       } else {
@@ -2429,7 +2429,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    XFile image;
                                     picker
                                         .pickImage(
                                             source: ImageSource.gallery,
@@ -2439,7 +2439,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .then((value) => {
                                               if (value != null)
                                                 {
-                                                  image = File(value.path),
+                                                  image = XFile(value.path),
                                                   imageUpload(image, value.name,
                                                       "main"),
                                                   ref
@@ -2547,7 +2547,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    XFile image;
                                     picker
                                         .pickImage(
                                             source: ImageSource.gallery,
@@ -2557,7 +2557,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                         .then((value) => {
                                               if (value != null)
                                                 {
-                                                  image = File(value.path),
+                                                  image = XFile(value.path),
                                                   imageUpload(image, value.name,
                                                       "gallery"),
                                                   setState(() {

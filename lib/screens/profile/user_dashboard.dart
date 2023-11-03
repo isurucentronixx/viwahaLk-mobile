@@ -876,14 +876,14 @@ class MyCardItem extends ConsumerWidget {
                 .first,
             type: 'myAd'));
       },
-      child: Container(
+      child: SizedBox(
         height: 100,
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: 200,
                   height: 500,
                   child: Stack(
@@ -984,7 +984,7 @@ class MyCardItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      main_category == "Proposal" ? '${name}' : '${title}',
+                      main_category == "Proposal" ? name : title,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

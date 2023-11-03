@@ -45,6 +45,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: EditListingPage.page, path: "/editListingPage"),
         AutoRoute(page: UserDashboardPage.page, path: "/userDashboardPage"),
         AutoRoute(page: VendorProfilePage.page, path: "/vendorProfilePage"),
+        AutoRoute(page: FilterPage.page, path: "/filterPage"),
 
         // AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
       ];

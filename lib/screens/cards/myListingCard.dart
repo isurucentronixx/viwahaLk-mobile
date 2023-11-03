@@ -77,7 +77,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     final controller = ref.watch(postControllerProvider);
     final picker = ImagePicker();
 
-    imageUpload(File image, String name, String type) async {
+    imageUpload(XFile image, String name, String type) async {
       ref.read(isLoadingBillImgProvider.notifier).state = true;
 
       final res = await controller.imageUpload(image, name, type);
@@ -268,7 +268,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              File image;
+                                              XFile image;
                                               picker
                                                   .pickImage(
                                                       source:
@@ -279,7 +279,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                   .then((value) => {
                                                         if (value != null)
                                                           {
-                                                            image = File(
+                                                            image = XFile(
                                                                 value.path),
                                                             stfSetState(
                                                               () {

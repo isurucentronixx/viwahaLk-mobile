@@ -41,7 +41,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
             isFavorite = !isFavorite;
 
             controller.addFavorite(widget.listingId).then((value) => {
-                  print('ADDED......'), 
+                  print('ADDED......'),
                   ref.refresh(favListingProvider),
                   (ScaffoldMessenger.of(context))
                     ..hideCurrentSnackBar()

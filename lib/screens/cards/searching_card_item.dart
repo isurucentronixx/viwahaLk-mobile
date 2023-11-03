@@ -20,6 +20,8 @@ class SearchingCardItem extends ConsumerWidget {
   final String date;
   final String type;
   final String isFav;
+  final bool isPremium;
+  final String boostedDate;
 
   const SearchingCardItem({
     required this.id,
@@ -31,6 +33,8 @@ class SearchingCardItem extends ConsumerWidget {
     required this.date,
     required this.type,
     required this.isFav,
+    required this.isPremium,
+    required this.boostedDate,
   });
 
   String timeAgoSinceDate(String date) {
@@ -56,8 +60,9 @@ class SearchingCardItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var vendorData;
-    var topListingData;
+    DateTime dt1 =
+        boostedDate != "null" ? DateTime.parse(boostedDate) : DateTime.now();
+    DateTime dt2 = DateTime.now();
 
     return GestureDetector(
       onTap: () {
@@ -120,6 +125,50 @@ class SearchingCardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
+                    isPremium
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.amber.withOpacity(0.9),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10)),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  "PREMIUM",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                    dt1.compareTo(dt2) > 0
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ViwahaColor.primary.withOpacity(0.8),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10)),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  "TOP",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     // Image.network(
                     //   (imagePath == "null")
                     //       ? "https://viwaha.lk/assets/img/logo/no_image.jpg"

@@ -50,7 +50,6 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final allListing = ref.watch(allListingProvider);
@@ -195,12 +194,29 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                             : allListing[index]
                                                 .is_favourite
                                                 .toString(),
+                                    isPremium: _textEditingController!
+                                            .text.isNotEmpty
+                                        ? filtered![index].premium.toString() !=
+                                                "1"
+                                            ? false
+                                            : true
+                                        : allListing[index]
+                                                    .premium
+                                                    .toString() !=
+                                                "1"
+                                            ? false
+                                            : true,
+                                    boostedDate: _textEditingController!
+                                            .text.isNotEmpty
+                                        ? filtered![index].boosted.toString()
+                                        : allListing[index]
+                                            .boosted
+                                            .toString(),
                                     // Replace with the appropriate star rating value
                                   ),
                                 ),
                               ),
                             )
-
             ],
           )),
     );

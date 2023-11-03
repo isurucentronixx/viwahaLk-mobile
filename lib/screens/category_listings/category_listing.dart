@@ -65,7 +65,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap:() {
+                    onTap: () {
                       AutoRouter.of(context).push(const HomePage());
                     },
                     child: SizedBox(
@@ -201,6 +201,20 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                 isFav: _textEditingController!.text.isNotEmpty
                                     ? filtered![index].is_favourite.toString()
                                     : allListing[index].is_favourite.toString(),
+                                isPremium: _textEditingController!
+                                        .text.isNotEmpty
+                                    ? filtered![index].premium.toString() != "1"
+                                        ? false
+                                        : true
+                                    : allListing[index].premium.toString() !=
+                                            "1"
+                                        ? false
+                                        : true,
+                                boostedDate:
+                                    _textEditingController!.text.isNotEmpty
+                                        ? filtered![index].boosted.toString()
+                                        : allListing[index].boosted.toString(),
+
                                 // Replace with the appropriate star rating value
                               ),
                             ),

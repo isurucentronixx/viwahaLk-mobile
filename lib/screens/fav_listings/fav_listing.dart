@@ -102,6 +102,12 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                               date: favListing[index].datetime.toString(),
                               type: 'fav',
                               isFav: favListing[index].is_favourite.toString(),
+                              isPremium:
+                                  favListing[index].premium.toString() != "1"
+                                      ? false
+                                      : true,
+                              boostedDate: favListing[index].boosted.toString(),
+
                               // Replace with the appropriate star rating value
                             ),
                           ),

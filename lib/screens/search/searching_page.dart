@@ -92,6 +92,32 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
         appBar: AppBar(
           title: const Text('Search'),
           centerTitle: true,
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const FilterPage());
+                  },
+                  child: const Icon(Icons.filter_alt),
+                ),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            setState(() {
+              ref.read(isSearchingProvider.notifier).state = true;
+            });
+            AutoRouter.of(context).push(const SearchingResultsPage());
+          },
+          label: const Text('search').tr(),
+          icon: const Icon(Icons.search),
         ),
         body: Column(children: [
           Expanded(
@@ -114,7 +140,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: SmartSelect<Location>.single(
                             modalFilterAuto: true,
                             modalFilter: true,
@@ -180,10 +206,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             },
                           ),
                         ),
-                        const SizedBox(height: 10.0),
+                        // const SizedBox(height: 5.0),
                         ref.watch(isLocationActivatedProvider)
                             ? Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: SmartSelect<SubLocation>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
@@ -230,9 +256,9 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 ),
                               )
                             : const SizedBox(),
-                        const SizedBox(height: 10.0),
+                        // const SizedBox(height: 5.0),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: SmartSelect<Categories>.single(
                             modalFilterAuto: true,
                             modalFilter: true,
@@ -291,10 +317,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             },
                           ),
                         ),
-                        const SizedBox(height: 10.0),
+                        // const SizedBox(height: 5.0),
                         ref.watch(isActivatedProvider)
                             ? Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: SmartSelect<SubCategories>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
@@ -340,32 +366,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 ),
                               )
                             : const SizedBox(),
-                        const SizedBox(height: 10.0),
+                        // const SizedBox(height: 5.0),
                       ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: FractionallySizedBox(
-                      widthFactor: 1,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            ref.read(isSearchingProvider.notifier).state = true;
-                          });
-
-                          AutoRouter.of(context)
-                              .push(const SearchingResultsPage());
-                          // Perform login logic here
-                        },
-                        icon: const Icon(Icons.search),
-                        label: const Text('search').tr(),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ],

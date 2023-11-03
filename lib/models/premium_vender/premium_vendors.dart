@@ -250,33 +250,50 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                   Text(
                                     vendor.location.toString(),
                                     style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 14.0,
-                                    ),
+                                        color: Colors.white70,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ]),
                                 const SizedBox(height: 4),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.4),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 4.0),
-                                      child: Text(
-                                        vendor.category!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.4),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 4.0),
+                                    child: Text(
+                                      vendor.category!,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 8),
                               ],
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.amber.withOpacity(0.8),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10)),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  "PREMIUM",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ),
                         ],

@@ -18,10 +18,12 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
+import 'package:viwaha_lk/models/top_listing/listingData.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
+import 'package:viwaha_lk/screens/single_page/single_page_content/inner_fav.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -167,34 +169,130 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             ),
           ),
           const SizedBox(height: 10),
-          GestureDetector(
-            onTap: () {
-              Share.share('https://viwaha.lk/listing?id=${widget.id}');
-            },
-            child: Container(
-              width: 75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.green, width: 1)),
-              child: const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.share_sharp,
-                        color: Colors.green,
-                        size: 20,
-                      ),
-                      Text(
-                        "Share",
-                        style: TextStyle(color: Colors.green),
-                      ),
-                    ]),
-              ),
-            ),
+          Row(
+            children: [
+              const SizedBox(width: 8),
+              Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: ViwahaColor.primary, width: 1)),
+                  child: Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.item!.category.toString(),
+                              style:
+                                  const TextStyle(color: ViwahaColor.primary),
+                            )
+                          ]))),
+              const SizedBox(width: 10),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: ViwahaColor.primary),
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: InnerFavoriteIcon(widget.id,
+                      widget.item!.is_favourite != "0" ? true : false),
+                ),
+              )
+            ],
           ),
+          const SizedBox(height: 10),
+          Wrap(
+            children: [
+              widget.item!.premium.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(120, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.amber,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(Icons.workspace_premium),
+                      label: const Text(
+                        "Premium",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  : const SizedBox(),
+              SizedBox(width: widget.item!.verified.toString() != "0" ? 8 : 0),
+              widget.item!.verified.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.lightBlueAccent),
+                        fixedSize: Size(110, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.white,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(
+                        Icons.shield_outlined,
+                        color: Colors.lightBlueAccent,
+                      ),
+                      label: const Text(
+                        "Verified",
+                        style: TextStyle(color: Colors.lightBlueAccent),
+                      ),
+                    )
+                  : const SizedBox(),
+              SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
+              widget.item!.member.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.amber),
+                        fixedSize: Size(110, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.white,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(
+                        Icons.stars_rounded,
+                        color: Colors.amber,
+                      ),
+                      label: const Text(
+                        "Member",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
+          const SizedBox(height: 10),
+          widget.item!.main_category != "Proposal"
+              ? widget.item.price != "0"
+                  ? Container(
+                      height: 35,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: ViwahaColor.primary,
+                          borderRadius: BorderRadius.circular(30),
+                          border:
+                              Border.all(color: ViwahaColor.primary, width: 1)),
+                      child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Up to RS. ${widget.item.price}",
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              ])))
+                  : const SizedBox()
+              : const SizedBox(),
           const SizedBox(height: 10),
           (widget.date != "null")
               ? (widget.date != null)
@@ -242,6 +340,46 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                         )
                       : const SizedBox()
                   : const SizedBox()
+              : const SizedBox(),
+          SizedBox(height: widget.item.ask_price == "1" ? 8 : 0),
+          widget.item.ask_price == "1"
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.check_box_outlined,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Ask Price",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        // color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
+          SizedBox(height: widget.item.negotiable == "1" ? 8 : 0),
+          widget.item.negotiable == "1"
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.check_box_outlined,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Negotiable",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        // color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
               : const SizedBox(),
           const SizedBox(height: 8),
           (widget.views != "null")
@@ -298,6 +436,16 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 },
                 icon: const Icon(Icons.person),
                 label: Text(LocaleKeys.vendor_profile.tr()),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Share.share('https://viwaha.lk/listing?id=${widget.id}');
+                },
+                icon: const Icon(Icons.share_sharp),
+                label: const Text("Share"),
               ),
             ],
           ),
@@ -1245,7 +1393,8 @@ class SingleItemMap extends StatefulWidget {
 }
 
 class _SingleItemMapState extends State<SingleItemMap> {
-  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   Set<Marker> markers = Set();
 
   @override
@@ -1272,7 +1421,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target: LatLng(locations.first.latitude, locations.first.longitude),
-            zoom: 10)));
+            zoom: 16)));
     setState(() {
       markers.add(resultMarker);
     });
@@ -1280,20 +1429,6 @@ class _SingleItemMapState extends State<SingleItemMap> {
 
   @override
   Widget build(BuildContext context) {
-    // https://maps.googleapis.com/maps/api/staticmap?size=512x512&maptype=roadmap\&markers=size:mid|color:red|89%2F10%2C%20Lady%20Gordons%20%20Drive%2C%20Kandy%2C%20Sri%20Lanka&key=AIzaSyCQthDZlGXOe_-wTKiPUmLd9MVaisTCz-M
-    String address = widget.address;
-
-    const apiKey =
-        'AIzaSyD856KsYNpA6N-1dTKmwOl_TnnEk7NrTYc'; // Replace with your Google API key
-    final encodedAddress = Uri.encodeComponent(address);
-
-    final url = 'https://maps.googleapis.com/maps/api/staticmap?'
-        'size=600x400'
-        '&zoom=17'
-        '&maptype=roadmap\&'
-        'markers=size:mid|color:red|$encodedAddress'
-        '&key=$apiKey';
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(

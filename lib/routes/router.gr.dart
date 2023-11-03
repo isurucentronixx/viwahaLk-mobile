@@ -8,12 +8,12 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i36;
-import 'package:flutter/material.dart' as _i37;
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart' as _i39;
-import 'package:viwaha_lk/models/search/search_result_item.dart' as _i38;
+import 'package:auto_route/auto_route.dart' as _i37;
+import 'package:flutter/material.dart' as _i38;
+import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart' as _i40;
+import 'package:viwaha_lk/models/search/search_result_item.dart' as _i39;
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart'
-    as _i40;
+    as _i41;
 import 'package:viwaha_lk/models/venues/single_venues.dart' as _i1;
 import 'package:viwaha_lk/screens/about_us_view.dart' as _i2;
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart' as _i3;
@@ -44,33 +44,34 @@ import 'package:viwaha_lk/screens/profile/profile.dart' as _i26;
 import 'package:viwaha_lk/screens/profile/user_dashboard.dart' as _i28;
 import 'package:viwaha_lk/screens/profile/vendor_profile.dart' as _i29;
 import 'package:viwaha_lk/screens/reviews/reviews.dart' as _i27;
-import 'package:viwaha_lk/screens/search/searching_page.dart' as _i30;
-import 'package:viwaha_lk/screens/search/searching_result.dart' as _i31;
-import 'package:viwaha_lk/screens/single_page/search_single_view.dart' as _i32;
-import 'package:viwaha_lk/screens/single_page/single_view.dart' as _i33;
-import 'package:viwaha_lk/screens/splash_screen/splash_screen.dart' as _i34;
-import 'package:viwaha_lk/screens/venues_screen.dart' as _i35;
+import 'package:viwaha_lk/screens/search/filter_page.dart' as _i30;
+import 'package:viwaha_lk/screens/search/searching_page.dart' as _i31;
+import 'package:viwaha_lk/screens/search/searching_result.dart' as _i32;
+import 'package:viwaha_lk/screens/single_page/search_single_view.dart' as _i33;
+import 'package:viwaha_lk/screens/single_page/single_view.dart' as _i34;
+import 'package:viwaha_lk/screens/splash_screen/splash_screen.dart' as _i35;
+import 'package:viwaha_lk/screens/venues_screen.dart' as _i36;
 
-abstract class $AppRouter extends _i36.RootStackRouter {
+abstract class $AppRouter extends _i37.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i36.PageFactory> pagesMap = {
+  final Map<String, _i37.PageFactory> pagesMap = {
     VenusesSingleView.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.VenusesSingleView(),
       );
     },
     AboutUsPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i2.AboutUsPage(),
       );
     },
     AddListingPage.name: (routeData) {
       final args = routeData.argsAs<AddListingPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.AddListingPage(
           args.isAppBar,
@@ -80,7 +81,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
     },
     EditListingPage.name: (routeData) {
       final args = routeData.argsAs<EditListingPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.EditListingPage(
           args.item,
@@ -89,14 +90,14 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     AllListingPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i5.AllListingPage(),
       );
     },
     CategoryListingPage.name: (routeData) {
       final args = routeData.argsAs<CategoryListingPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.CategoryListingPage(
           args.category,
@@ -105,62 +106,62 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     ComingSoonPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.ComingSoonPage(),
       );
     },
     ContactUsPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.ContactUsPage(),
       );
     },
     CoupleDashboardToDoList.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i9.CoupleDashboardToDoList(),
       );
     },
     ToDoList.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i10.ToDoList(),
       );
     },
     CoupleDashboard.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i11.CoupleDashboard(),
       );
     },
     CoupleInfoSection.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i12.CoupleInfoSection(),
       );
     },
     CoupleDashboardGuestList.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i13.CoupleDashboardGuestList(),
       );
     },
     GuestListView.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i14.GuestListView(),
       );
     },
     DressingRoute.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i15.DressingScreen(),
       );
     },
     FavListingPage.name: (routeData) {
       final args = routeData.argsAs<FavListingPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i16.FavListingPage(
           args.isAppBar,
@@ -169,20 +170,20 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     HomePage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i17.HomePage(),
       );
     },
     ChangePasswordPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i18.ChangePasswordPage(),
       );
     },
     Login.name: (routeData) {
       final args = routeData.argsAs<LoginArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i19.Login(
           args.onHome,
@@ -191,20 +192,20 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     Register.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i20.Register(),
       );
     },
     LoginOld.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i21.LoginOld(),
       );
     },
     MessagesPage.name: (routeData) {
       final args = routeData.argsAs<MessagesPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i22.MessagesPage(
           args.userId,
@@ -213,32 +214,32 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     MyListingPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i23.MyListingPage(),
       );
     },
     EditProfilePage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i24.EditProfilePage(),
       );
     },
     MyProfilePage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i25.MyProfilePage(),
       );
     },
     ProfilePage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i26.ProfilePage(),
       );
     },
     ReviewsPage.name: (routeData) {
       final args = routeData.argsAs<ReviewsPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i27.ReviewsPage(
           args.userId,
@@ -248,7 +249,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
     },
     UserDashboardPage.name: (routeData) {
       final args = routeData.argsAs<UserDashboardPageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i28.UserDashboardPage(
           args.userId,
@@ -258,7 +259,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
     },
     VendorProfilePage.name: (routeData) {
       final args = routeData.argsAs<VendorProfilePageArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i29.VendorProfilePage(
           args.userId,
@@ -266,23 +267,29 @@ abstract class $AppRouter extends _i36.RootStackRouter {
         ),
       );
     },
-    SearchingPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+    FilterPage.name: (routeData) {
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i30.SearchingPage(),
+        child: const _i30.FilterPage(),
+      );
+    },
+    SearchingPage.name: (routeData) {
+      return _i37.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i31.SearchingPage(),
       );
     },
     SearchingResultsPage.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i31.SearchingResultsPage(),
+        child: const _i32.SearchingResultsPage(),
       );
     },
     SearchSingleView.name: (routeData) {
       final args = routeData.argsAs<SearchSingleViewArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i32.SearchSingleView(
+        child: _i33.SearchSingleView(
           args.item,
           args.type,
           key: args.key,
@@ -291,9 +298,9 @@ abstract class $AppRouter extends _i36.RootStackRouter {
     },
     SingleView.name: (routeData) {
       final args = routeData.argsAs<SingleViewArgs>();
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i33.SingleView(
+        child: _i34.SingleView(
           args.vendor,
           args.topListing,
           key: args.key,
@@ -302,15 +309,15 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     SplashRoute.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i34.SplashScreen(),
+        child: const _i35.SplashScreen(),
       );
     },
     VenuesRoute.name: (routeData) {
-      return _i36.AutoRoutePage<dynamic>(
+      return _i37.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i35.VenuesScreen(),
+        child: const _i36.VenuesScreen(),
       );
     },
   };
@@ -318,8 +325,8 @@ abstract class $AppRouter extends _i36.RootStackRouter {
 
 /// generated route for
 /// [_i1.VenusesSingleView]
-class VenusesSingleView extends _i36.PageRouteInfo<void> {
-  const VenusesSingleView({List<_i36.PageRouteInfo>? children})
+class VenusesSingleView extends _i37.PageRouteInfo<void> {
+  const VenusesSingleView({List<_i37.PageRouteInfo>? children})
       : super(
           VenusesSingleView.name,
           initialChildren: children,
@@ -327,13 +334,13 @@ class VenusesSingleView extends _i36.PageRouteInfo<void> {
 
   static const String name = 'VenusesSingleView';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.AboutUsPage]
-class AboutUsPage extends _i36.PageRouteInfo<void> {
-  const AboutUsPage({List<_i36.PageRouteInfo>? children})
+class AboutUsPage extends _i37.PageRouteInfo<void> {
+  const AboutUsPage({List<_i37.PageRouteInfo>? children})
       : super(
           AboutUsPage.name,
           initialChildren: children,
@@ -341,16 +348,16 @@ class AboutUsPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'AboutUsPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.AddListingPage]
-class AddListingPage extends _i36.PageRouteInfo<AddListingPageArgs> {
+class AddListingPage extends _i37.PageRouteInfo<AddListingPageArgs> {
   AddListingPage({
     required bool isAppBar,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           AddListingPage.name,
           args: AddListingPageArgs(
@@ -362,8 +369,8 @@ class AddListingPage extends _i36.PageRouteInfo<AddListingPageArgs> {
 
   static const String name = 'AddListingPage';
 
-  static const _i36.PageInfo<AddListingPageArgs> page =
-      _i36.PageInfo<AddListingPageArgs>(name);
+  static const _i37.PageInfo<AddListingPageArgs> page =
+      _i37.PageInfo<AddListingPageArgs>(name);
 }
 
 class AddListingPageArgs {
@@ -374,7 +381,7 @@ class AddListingPageArgs {
 
   final bool isAppBar;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -384,11 +391,11 @@ class AddListingPageArgs {
 
 /// generated route for
 /// [_i4.EditListingPage]
-class EditListingPage extends _i36.PageRouteInfo<EditListingPageArgs> {
+class EditListingPage extends _i37.PageRouteInfo<EditListingPageArgs> {
   EditListingPage({
-    required _i38.SearchResultItem? item,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    required _i39.SearchResultItem? item,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           EditListingPage.name,
           args: EditListingPageArgs(
@@ -400,8 +407,8 @@ class EditListingPage extends _i36.PageRouteInfo<EditListingPageArgs> {
 
   static const String name = 'EditListingPage';
 
-  static const _i36.PageInfo<EditListingPageArgs> page =
-      _i36.PageInfo<EditListingPageArgs>(name);
+  static const _i37.PageInfo<EditListingPageArgs> page =
+      _i37.PageInfo<EditListingPageArgs>(name);
 }
 
 class EditListingPageArgs {
@@ -410,9 +417,9 @@ class EditListingPageArgs {
     this.key,
   });
 
-  final _i38.SearchResultItem? item;
+  final _i39.SearchResultItem? item;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -422,8 +429,8 @@ class EditListingPageArgs {
 
 /// generated route for
 /// [_i5.AllListingPage]
-class AllListingPage extends _i36.PageRouteInfo<void> {
-  const AllListingPage({List<_i36.PageRouteInfo>? children})
+class AllListingPage extends _i37.PageRouteInfo<void> {
+  const AllListingPage({List<_i37.PageRouteInfo>? children})
       : super(
           AllListingPage.name,
           initialChildren: children,
@@ -431,16 +438,16 @@ class AllListingPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'AllListingPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i6.CategoryListingPage]
-class CategoryListingPage extends _i36.PageRouteInfo<CategoryListingPageArgs> {
+class CategoryListingPage extends _i37.PageRouteInfo<CategoryListingPageArgs> {
   CategoryListingPage({
     required String category,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           CategoryListingPage.name,
           args: CategoryListingPageArgs(
@@ -452,8 +459,8 @@ class CategoryListingPage extends _i36.PageRouteInfo<CategoryListingPageArgs> {
 
   static const String name = 'CategoryListingPage';
 
-  static const _i36.PageInfo<CategoryListingPageArgs> page =
-      _i36.PageInfo<CategoryListingPageArgs>(name);
+  static const _i37.PageInfo<CategoryListingPageArgs> page =
+      _i37.PageInfo<CategoryListingPageArgs>(name);
 }
 
 class CategoryListingPageArgs {
@@ -464,7 +471,7 @@ class CategoryListingPageArgs {
 
   final String category;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -474,8 +481,8 @@ class CategoryListingPageArgs {
 
 /// generated route for
 /// [_i7.ComingSoonPage]
-class ComingSoonPage extends _i36.PageRouteInfo<void> {
-  const ComingSoonPage({List<_i36.PageRouteInfo>? children})
+class ComingSoonPage extends _i37.PageRouteInfo<void> {
+  const ComingSoonPage({List<_i37.PageRouteInfo>? children})
       : super(
           ComingSoonPage.name,
           initialChildren: children,
@@ -483,13 +490,13 @@ class ComingSoonPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'ComingSoonPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.ContactUsPage]
-class ContactUsPage extends _i36.PageRouteInfo<void> {
-  const ContactUsPage({List<_i36.PageRouteInfo>? children})
+class ContactUsPage extends _i37.PageRouteInfo<void> {
+  const ContactUsPage({List<_i37.PageRouteInfo>? children})
       : super(
           ContactUsPage.name,
           initialChildren: children,
@@ -497,13 +504,13 @@ class ContactUsPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'ContactUsPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.CoupleDashboardToDoList]
-class CoupleDashboardToDoList extends _i36.PageRouteInfo<void> {
-  const CoupleDashboardToDoList({List<_i36.PageRouteInfo>? children})
+class CoupleDashboardToDoList extends _i37.PageRouteInfo<void> {
+  const CoupleDashboardToDoList({List<_i37.PageRouteInfo>? children})
       : super(
           CoupleDashboardToDoList.name,
           initialChildren: children,
@@ -511,13 +518,13 @@ class CoupleDashboardToDoList extends _i36.PageRouteInfo<void> {
 
   static const String name = 'CoupleDashboardToDoList';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i10.ToDoList]
-class ToDoList extends _i36.PageRouteInfo<void> {
-  const ToDoList({List<_i36.PageRouteInfo>? children})
+class ToDoList extends _i37.PageRouteInfo<void> {
+  const ToDoList({List<_i37.PageRouteInfo>? children})
       : super(
           ToDoList.name,
           initialChildren: children,
@@ -525,13 +532,13 @@ class ToDoList extends _i36.PageRouteInfo<void> {
 
   static const String name = 'ToDoList';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i11.CoupleDashboard]
-class CoupleDashboard extends _i36.PageRouteInfo<void> {
-  const CoupleDashboard({List<_i36.PageRouteInfo>? children})
+class CoupleDashboard extends _i37.PageRouteInfo<void> {
+  const CoupleDashboard({List<_i37.PageRouteInfo>? children})
       : super(
           CoupleDashboard.name,
           initialChildren: children,
@@ -539,13 +546,13 @@ class CoupleDashboard extends _i36.PageRouteInfo<void> {
 
   static const String name = 'CoupleDashboard';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i12.CoupleInfoSection]
-class CoupleInfoSection extends _i36.PageRouteInfo<void> {
-  const CoupleInfoSection({List<_i36.PageRouteInfo>? children})
+class CoupleInfoSection extends _i37.PageRouteInfo<void> {
+  const CoupleInfoSection({List<_i37.PageRouteInfo>? children})
       : super(
           CoupleInfoSection.name,
           initialChildren: children,
@@ -553,13 +560,13 @@ class CoupleInfoSection extends _i36.PageRouteInfo<void> {
 
   static const String name = 'CoupleInfoSection';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i13.CoupleDashboardGuestList]
-class CoupleDashboardGuestList extends _i36.PageRouteInfo<void> {
-  const CoupleDashboardGuestList({List<_i36.PageRouteInfo>? children})
+class CoupleDashboardGuestList extends _i37.PageRouteInfo<void> {
+  const CoupleDashboardGuestList({List<_i37.PageRouteInfo>? children})
       : super(
           CoupleDashboardGuestList.name,
           initialChildren: children,
@@ -567,13 +574,13 @@ class CoupleDashboardGuestList extends _i36.PageRouteInfo<void> {
 
   static const String name = 'CoupleDashboardGuestList';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i14.GuestListView]
-class GuestListView extends _i36.PageRouteInfo<void> {
-  const GuestListView({List<_i36.PageRouteInfo>? children})
+class GuestListView extends _i37.PageRouteInfo<void> {
+  const GuestListView({List<_i37.PageRouteInfo>? children})
       : super(
           GuestListView.name,
           initialChildren: children,
@@ -581,13 +588,13 @@ class GuestListView extends _i36.PageRouteInfo<void> {
 
   static const String name = 'GuestListView';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i15.DressingScreen]
-class DressingRoute extends _i36.PageRouteInfo<void> {
-  const DressingRoute({List<_i36.PageRouteInfo>? children})
+class DressingRoute extends _i37.PageRouteInfo<void> {
+  const DressingRoute({List<_i37.PageRouteInfo>? children})
       : super(
           DressingRoute.name,
           initialChildren: children,
@@ -595,16 +602,16 @@ class DressingRoute extends _i36.PageRouteInfo<void> {
 
   static const String name = 'DressingRoute';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i16.FavListingPage]
-class FavListingPage extends _i36.PageRouteInfo<FavListingPageArgs> {
+class FavListingPage extends _i37.PageRouteInfo<FavListingPageArgs> {
   FavListingPage({
     required bool isAppBar,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           FavListingPage.name,
           args: FavListingPageArgs(
@@ -616,8 +623,8 @@ class FavListingPage extends _i36.PageRouteInfo<FavListingPageArgs> {
 
   static const String name = 'FavListingPage';
 
-  static const _i36.PageInfo<FavListingPageArgs> page =
-      _i36.PageInfo<FavListingPageArgs>(name);
+  static const _i37.PageInfo<FavListingPageArgs> page =
+      _i37.PageInfo<FavListingPageArgs>(name);
 }
 
 class FavListingPageArgs {
@@ -628,7 +635,7 @@ class FavListingPageArgs {
 
   final bool isAppBar;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -638,8 +645,8 @@ class FavListingPageArgs {
 
 /// generated route for
 /// [_i17.HomePage]
-class HomePage extends _i36.PageRouteInfo<void> {
-  const HomePage({List<_i36.PageRouteInfo>? children})
+class HomePage extends _i37.PageRouteInfo<void> {
+  const HomePage({List<_i37.PageRouteInfo>? children})
       : super(
           HomePage.name,
           initialChildren: children,
@@ -647,13 +654,13 @@ class HomePage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'HomePage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i18.ChangePasswordPage]
-class ChangePasswordPage extends _i36.PageRouteInfo<void> {
-  const ChangePasswordPage({List<_i36.PageRouteInfo>? children})
+class ChangePasswordPage extends _i37.PageRouteInfo<void> {
+  const ChangePasswordPage({List<_i37.PageRouteInfo>? children})
       : super(
           ChangePasswordPage.name,
           initialChildren: children,
@@ -661,16 +668,16 @@ class ChangePasswordPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'ChangePasswordPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i19.Login]
-class Login extends _i36.PageRouteInfo<LoginArgs> {
+class Login extends _i37.PageRouteInfo<LoginArgs> {
   Login({
     required bool onHome,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           Login.name,
           args: LoginArgs(
@@ -682,7 +689,7 @@ class Login extends _i36.PageRouteInfo<LoginArgs> {
 
   static const String name = 'Login';
 
-  static const _i36.PageInfo<LoginArgs> page = _i36.PageInfo<LoginArgs>(name);
+  static const _i37.PageInfo<LoginArgs> page = _i37.PageInfo<LoginArgs>(name);
 }
 
 class LoginArgs {
@@ -693,7 +700,7 @@ class LoginArgs {
 
   final bool onHome;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -703,8 +710,8 @@ class LoginArgs {
 
 /// generated route for
 /// [_i20.Register]
-class Register extends _i36.PageRouteInfo<void> {
-  const Register({List<_i36.PageRouteInfo>? children})
+class Register extends _i37.PageRouteInfo<void> {
+  const Register({List<_i37.PageRouteInfo>? children})
       : super(
           Register.name,
           initialChildren: children,
@@ -712,13 +719,13 @@ class Register extends _i36.PageRouteInfo<void> {
 
   static const String name = 'Register';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i21.LoginOld]
-class LoginOld extends _i36.PageRouteInfo<void> {
-  const LoginOld({List<_i36.PageRouteInfo>? children})
+class LoginOld extends _i37.PageRouteInfo<void> {
+  const LoginOld({List<_i37.PageRouteInfo>? children})
       : super(
           LoginOld.name,
           initialChildren: children,
@@ -726,16 +733,16 @@ class LoginOld extends _i36.PageRouteInfo<void> {
 
   static const String name = 'LoginOld';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i22.MessagesPage]
-class MessagesPage extends _i36.PageRouteInfo<MessagesPageArgs> {
+class MessagesPage extends _i37.PageRouteInfo<MessagesPageArgs> {
   MessagesPage({
     required String userId,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           MessagesPage.name,
           args: MessagesPageArgs(
@@ -747,8 +754,8 @@ class MessagesPage extends _i36.PageRouteInfo<MessagesPageArgs> {
 
   static const String name = 'MessagesPage';
 
-  static const _i36.PageInfo<MessagesPageArgs> page =
-      _i36.PageInfo<MessagesPageArgs>(name);
+  static const _i37.PageInfo<MessagesPageArgs> page =
+      _i37.PageInfo<MessagesPageArgs>(name);
 }
 
 class MessagesPageArgs {
@@ -759,7 +766,7 @@ class MessagesPageArgs {
 
   final String userId;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -769,8 +776,8 @@ class MessagesPageArgs {
 
 /// generated route for
 /// [_i23.MyListingPage]
-class MyListingPage extends _i36.PageRouteInfo<void> {
-  const MyListingPage({List<_i36.PageRouteInfo>? children})
+class MyListingPage extends _i37.PageRouteInfo<void> {
+  const MyListingPage({List<_i37.PageRouteInfo>? children})
       : super(
           MyListingPage.name,
           initialChildren: children,
@@ -778,13 +785,13 @@ class MyListingPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'MyListingPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i24.EditProfilePage]
-class EditProfilePage extends _i36.PageRouteInfo<void> {
-  const EditProfilePage({List<_i36.PageRouteInfo>? children})
+class EditProfilePage extends _i37.PageRouteInfo<void> {
+  const EditProfilePage({List<_i37.PageRouteInfo>? children})
       : super(
           EditProfilePage.name,
           initialChildren: children,
@@ -792,13 +799,13 @@ class EditProfilePage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'EditProfilePage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i25.MyProfilePage]
-class MyProfilePage extends _i36.PageRouteInfo<void> {
-  const MyProfilePage({List<_i36.PageRouteInfo>? children})
+class MyProfilePage extends _i37.PageRouteInfo<void> {
+  const MyProfilePage({List<_i37.PageRouteInfo>? children})
       : super(
           MyProfilePage.name,
           initialChildren: children,
@@ -806,13 +813,13 @@ class MyProfilePage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'MyProfilePage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i26.ProfilePage]
-class ProfilePage extends _i36.PageRouteInfo<void> {
-  const ProfilePage({List<_i36.PageRouteInfo>? children})
+class ProfilePage extends _i37.PageRouteInfo<void> {
+  const ProfilePage({List<_i37.PageRouteInfo>? children})
       : super(
           ProfilePage.name,
           initialChildren: children,
@@ -820,16 +827,16 @@ class ProfilePage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'ProfilePage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i27.ReviewsPage]
-class ReviewsPage extends _i36.PageRouteInfo<ReviewsPageArgs> {
+class ReviewsPage extends _i37.PageRouteInfo<ReviewsPageArgs> {
   ReviewsPage({
     required String userId,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           ReviewsPage.name,
           args: ReviewsPageArgs(
@@ -841,8 +848,8 @@ class ReviewsPage extends _i36.PageRouteInfo<ReviewsPageArgs> {
 
   static const String name = 'ReviewsPage';
 
-  static const _i36.PageInfo<ReviewsPageArgs> page =
-      _i36.PageInfo<ReviewsPageArgs>(name);
+  static const _i37.PageInfo<ReviewsPageArgs> page =
+      _i37.PageInfo<ReviewsPageArgs>(name);
 }
 
 class ReviewsPageArgs {
@@ -853,7 +860,7 @@ class ReviewsPageArgs {
 
   final String userId;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -863,11 +870,11 @@ class ReviewsPageArgs {
 
 /// generated route for
 /// [_i28.UserDashboardPage]
-class UserDashboardPage extends _i36.PageRouteInfo<UserDashboardPageArgs> {
+class UserDashboardPage extends _i37.PageRouteInfo<UserDashboardPageArgs> {
   UserDashboardPage({
     required String userId,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           UserDashboardPage.name,
           args: UserDashboardPageArgs(
@@ -879,8 +886,8 @@ class UserDashboardPage extends _i36.PageRouteInfo<UserDashboardPageArgs> {
 
   static const String name = 'UserDashboardPage';
 
-  static const _i36.PageInfo<UserDashboardPageArgs> page =
-      _i36.PageInfo<UserDashboardPageArgs>(name);
+  static const _i37.PageInfo<UserDashboardPageArgs> page =
+      _i37.PageInfo<UserDashboardPageArgs>(name);
 }
 
 class UserDashboardPageArgs {
@@ -891,7 +898,7 @@ class UserDashboardPageArgs {
 
   final String userId;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -901,11 +908,11 @@ class UserDashboardPageArgs {
 
 /// generated route for
 /// [_i29.VendorProfilePage]
-class VendorProfilePage extends _i36.PageRouteInfo<VendorProfilePageArgs> {
+class VendorProfilePage extends _i37.PageRouteInfo<VendorProfilePageArgs> {
   VendorProfilePage({
     required String userId,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           VendorProfilePage.name,
           args: VendorProfilePageArgs(
@@ -917,8 +924,8 @@ class VendorProfilePage extends _i36.PageRouteInfo<VendorProfilePageArgs> {
 
   static const String name = 'VendorProfilePage';
 
-  static const _i36.PageInfo<VendorProfilePageArgs> page =
-      _i36.PageInfo<VendorProfilePageArgs>(name);
+  static const _i37.PageInfo<VendorProfilePageArgs> page =
+      _i37.PageInfo<VendorProfilePageArgs>(name);
 }
 
 class VendorProfilePageArgs {
@@ -929,7 +936,7 @@ class VendorProfilePageArgs {
 
   final String userId;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -938,9 +945,23 @@ class VendorProfilePageArgs {
 }
 
 /// generated route for
-/// [_i30.SearchingPage]
-class SearchingPage extends _i36.PageRouteInfo<void> {
-  const SearchingPage({List<_i36.PageRouteInfo>? children})
+/// [_i30.FilterPage]
+class FilterPage extends _i37.PageRouteInfo<void> {
+  const FilterPage({List<_i37.PageRouteInfo>? children})
+      : super(
+          FilterPage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FilterPage';
+
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i31.SearchingPage]
+class SearchingPage extends _i37.PageRouteInfo<void> {
+  const SearchingPage({List<_i37.PageRouteInfo>? children})
       : super(
           SearchingPage.name,
           initialChildren: children,
@@ -948,13 +969,13 @@ class SearchingPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'SearchingPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i31.SearchingResultsPage]
-class SearchingResultsPage extends _i36.PageRouteInfo<void> {
-  const SearchingResultsPage({List<_i36.PageRouteInfo>? children})
+/// [_i32.SearchingResultsPage]
+class SearchingResultsPage extends _i37.PageRouteInfo<void> {
+  const SearchingResultsPage({List<_i37.PageRouteInfo>? children})
       : super(
           SearchingResultsPage.name,
           initialChildren: children,
@@ -962,17 +983,17 @@ class SearchingResultsPage extends _i36.PageRouteInfo<void> {
 
   static const String name = 'SearchingResultsPage';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i32.SearchSingleView]
-class SearchSingleView extends _i36.PageRouteInfo<SearchSingleViewArgs> {
+/// [_i33.SearchSingleView]
+class SearchSingleView extends _i37.PageRouteInfo<SearchSingleViewArgs> {
   SearchSingleView({
-    required _i38.SearchResultItem? item,
+    required _i39.SearchResultItem? item,
     required String? type,
-    _i37.Key? key,
-    List<_i36.PageRouteInfo>? children,
+    _i38.Key? key,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           SearchSingleView.name,
           args: SearchSingleViewArgs(
@@ -985,8 +1006,8 @@ class SearchSingleView extends _i36.PageRouteInfo<SearchSingleViewArgs> {
 
   static const String name = 'SearchSingleView';
 
-  static const _i36.PageInfo<SearchSingleViewArgs> page =
-      _i36.PageInfo<SearchSingleViewArgs>(name);
+  static const _i37.PageInfo<SearchSingleViewArgs> page =
+      _i37.PageInfo<SearchSingleViewArgs>(name);
 }
 
 class SearchSingleViewArgs {
@@ -996,11 +1017,11 @@ class SearchSingleViewArgs {
     this.key,
   });
 
-  final _i38.SearchResultItem? item;
+  final _i39.SearchResultItem? item;
 
   final String? type;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   @override
   String toString() {
@@ -1009,14 +1030,14 @@ class SearchSingleViewArgs {
 }
 
 /// generated route for
-/// [_i33.SingleView]
-class SingleView extends _i36.PageRouteInfo<SingleViewArgs> {
+/// [_i34.SingleView]
+class SingleView extends _i37.PageRouteInfo<SingleViewArgs> {
   SingleView({
-    required _i39.Vendor? vendor,
-    required _i40.TopListing? topListing,
-    _i37.Key? key,
+    required _i40.Vendor? vendor,
+    required _i41.TopListing? topListing,
+    _i38.Key? key,
     String? type,
-    List<_i36.PageRouteInfo>? children,
+    List<_i37.PageRouteInfo>? children,
   }) : super(
           SingleView.name,
           args: SingleViewArgs(
@@ -1030,8 +1051,8 @@ class SingleView extends _i36.PageRouteInfo<SingleViewArgs> {
 
   static const String name = 'SingleView';
 
-  static const _i36.PageInfo<SingleViewArgs> page =
-      _i36.PageInfo<SingleViewArgs>(name);
+  static const _i37.PageInfo<SingleViewArgs> page =
+      _i37.PageInfo<SingleViewArgs>(name);
 }
 
 class SingleViewArgs {
@@ -1042,11 +1063,11 @@ class SingleViewArgs {
     this.type,
   });
 
-  final _i39.Vendor? vendor;
+  final _i40.Vendor? vendor;
 
-  final _i40.TopListing? topListing;
+  final _i41.TopListing? topListing;
 
-  final _i37.Key? key;
+  final _i38.Key? key;
 
   final String? type;
 
@@ -1057,9 +1078,9 @@ class SingleViewArgs {
 }
 
 /// generated route for
-/// [_i34.SplashScreen]
-class SplashRoute extends _i36.PageRouteInfo<void> {
-  const SplashRoute({List<_i36.PageRouteInfo>? children})
+/// [_i35.SplashScreen]
+class SplashRoute extends _i37.PageRouteInfo<void> {
+  const SplashRoute({List<_i37.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -1067,13 +1088,13 @@ class SplashRoute extends _i36.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i35.VenuesScreen]
-class VenuesRoute extends _i36.PageRouteInfo<void> {
-  const VenuesRoute({List<_i36.PageRouteInfo>? children})
+/// [_i36.VenuesScreen]
+class VenuesRoute extends _i37.PageRouteInfo<void> {
+  const VenuesRoute({List<_i37.PageRouteInfo>? children})
       : super(
           VenuesRoute.name,
           initialChildren: children,
@@ -1081,5 +1102,5 @@ class VenuesRoute extends _i36.PageRouteInfo<void> {
 
   static const String name = 'VenuesRoute';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i37.PageInfo<void> page = _i37.PageInfo<void>(name);
 }
