@@ -189,14 +189,13 @@ class _HomePageState extends ConsumerState<HomePage>
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
-                        
                         if (ref.watch(isloginProvider)) {
                           ref.refresh(allListingProvider);
                         }
 
                         setState(() {
                           ref.read(isSearchingProvider.notifier).state = true;
-                          currentScreen = const AllListingPage();
+                          currentScreen = const AllListingPage(false);
                           currentTab = 1;
                           currentPage = 1;
                         });
@@ -259,7 +258,7 @@ class _HomePageState extends ConsumerState<HomePage>
                                   ? Colors.black54
                                   : Colors.white,
                             ),
-                          ), 
+                          ),
                         ],
                       ),
                     ),

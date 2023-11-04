@@ -882,100 +882,98 @@ class MyCardItem extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: SizedBox(
-                  width: 200,
-                  height: 500,
-                  child: Stack(
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: imagePath.toString(),
-                        fit: BoxFit.cover,
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: 150,
-                          width: 400,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            color: Colors.black,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Center(
-                          child: Image.network(
-                            'https://viwaha.lk/assets/img/logo/no_image.jpg',
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: imagePath.toString(),
+                      fit: BoxFit.cover,
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 250,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          color: Colors.black,
+                          image: DecorationImage(
+                            image: imageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      // Image.network(
-                      //   imagePath,
-                      //   fit: BoxFit.cover,
-                      //   loadingBuilder: (context, child, progress) {
-                      //     if (progress == null) {
-                      //       return ClipRRect(
-                      //         borderRadius: BorderRadius.circular(10),
-                      //         child: SizedBox(
-                      //           width: 400,
-                      //           height: 150,
-                      //           child: child,
-                      //         ),
-                      //       );
-                      //     }
-                      //     return const Center(
-                      //       child: CircularProgressIndicator(
-                      //           // value: progress.cumulativeBytesLoaded /
-                      //           //     progress.expectedTotalBytes!.toDouble(),
-                      //           ),
-                      //     );
-                      //   },
-                      //   errorBuilder: (context, error, stackTrace) {
-                      //     return Center(
-                      //       child: Image.network(
-                      //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                      //         fit: BoxFit.cover,
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: FavoriteIcon(id, isFav != "0" ? true : false),
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.network(
+                          'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0),
-                              child: Text(
-                                Jiffy.parse(date)
-                                    .format(pattern: 'do MMMM  yyyy'),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                    ),
+                    // Image.network(
+                    //   imagePath,
+                    //   fit: BoxFit.cover,
+                    //   loadingBuilder: (context, child, progress) {
+                    //     if (progress == null) {
+                    //       return ClipRRect(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         child: SizedBox(
+                    //           width: 400,
+                    //           height: 150,
+                    //           child: child,
+                    //         ),
+                    //       );
+                    //     }
+                    //     return const Center(
+                    //       child: CircularProgressIndicator(
+                    //           // value: progress.cumulativeBytesLoaded /
+                    //           //     progress.expectedTotalBytes!.toDouble(),
+                    //           ),
+                    //     );
+                    //   },
+                    //   errorBuilder: (context, error, stackTrace) {
+                    //     return Center(
+                    //       child: Image.network(
+                    //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FavoriteIcon(id, isFav != "0" ? true : false),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            child: Text(
+                              Jiffy.parse(date)
+                                  .format(pattern: 'do MMMM  yyyy'),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Padding(

@@ -63,10 +63,20 @@ class HomeService {
   }
 
   Future fetchSearchResultListApiRequest(
-      String location, String category, String keyword, String userId) async {
+    String location,
+    String category,
+    String keyword,
+    String userId,
+    String filter,
+    String price,
+    List<String> amenities,
+    String order,
+    String sort,
+    String rating,
+  ) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&location=$location&category=$category&keyword=$keyword');
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&location=$location&category=$category&keyword=$keyword&filter=$filter&aminities=$amenities&price=$price&order=$order&sortBy=$sort&rating=$rating');
       return res.data;
     } catch (e) {
       rethrow;

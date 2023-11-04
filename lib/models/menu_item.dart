@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -123,6 +124,18 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                         onTap: () {
                           AutoRouter.of(context).push(
                               UserDashboardPage(userId: user!.id.toString()));
+                        },
+                      )
+                    : const SizedBox(),
+                ref.read(isloginProvider) ? const Divider() : const SizedBox(),
+                ref.read(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.person_add),
+                        title: const Text("Couple Dashboard",
+                            style: TextStyle(color: Colors.grey)),
+                        onTap: () {
+                          launch(
+                              "http://coupledashboard.viwaha.lk/login-sso?email=${user!.email}");
                         },
                       )
                     : const SizedBox(),

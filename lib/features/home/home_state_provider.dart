@@ -120,7 +120,25 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
         ref.watch(selectedMainLocationProvider);
     String category = ref.watch(selectedSubCategoryProvider).sub_category ??
         ref.watch(selectedMainCategoryProvider);
-    String keyword = "";
+    String keyword = ref.watch(searchingKeywords);
+
+    String price = ref.watch(selectedPriceRangeProvider);
+    List<String> amenities = ref.watch(selectedAmenitiesProvider);
+    String order = ref.watch(selectedOrderProvider);
+    String sort = ref.watch(selectedSortProvider);
+    String rating = ref.watch(selectedRatingProvider);
+
+    String filter = price != ""
+        ? "1"
+        : amenities.isNotEmpty
+            ? "1"
+            : order != ""
+                ? "1"
+                : sort != ""
+                    ? "1"
+                    : rating != ""
+                        ? "1"
+                        : "";
 
     await ref
         .read(homeControllerProvider)
@@ -130,7 +148,13 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
             keyword,
             ref.read(isloginProvider)
                 ? '${ref.read(userProvider).user!.id.toString()}'
-                : '')
+                : '',
+            filter,
+            price,
+            amenities,
+            order,
+            sort,
+            rating)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -161,7 +185,7 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
-         ref.read(isSearchingProvider.notifier).state = false;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.

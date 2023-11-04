@@ -6,6 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
@@ -26,7 +28,7 @@ class SingleItemLatest extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<Vendor> premiumVendorsList = [];
     List<TopListing> topListingList = [];
-    List<CardModel> cardList = []; 
+    List<CardModel> cardList = [];
     final data = ref.watch(vendorsProvider);
     // final data = ref.watch(topListingProvider);
     if (type == "vendor") {
@@ -158,23 +160,52 @@ class SingleItemLatest extends ConsumerWidget {
                 scrollDirection:
                     Axis.horizontal, // Set the scroll direction to horizontal
                 children: List.generate(
-                  finalCardList.length > 3
-                      ? 3
+                  finalCardList.length > 11
+                      ? 11
                       : finalCardList.length, // Total number of cards
-                  (index) => CardItem(
-                    imagePath: finalCardList[index].imagePath!,
-                    title: finalCardList[index].title!,
-                    description: finalCardList[index].description!,
-                    starRating: finalCardList[index].starRating != null
-                        ? double.parse(
-                            finalCardList[index].starRating.toString())
-                        : 0,
-                    type: type,
-                    date: finalCardList[index].date!,
-                    location: finalCardList[index].location!,
-                    id: finalCardList[index].id.toString(),
-                    isFav: finalCardList[index].isFav.toString(),
-                  ),
+                  (index) => index != 10
+                      ? CardItem(
+                          imagePath: finalCardList[index].imagePath!,
+                          title: finalCardList[index].title!,
+                          description: finalCardList[index].description!,
+                          starRating: finalCardList[index].starRating != null
+                              ? double.parse(
+                                  finalCardList[index].starRating.toString())
+                              : 0,
+                          type: type,
+                          date: finalCardList[index].date!,
+                          location: finalCardList[index].location!,
+                          id: finalCardList[index].id.toString(),
+                          isFav: finalCardList[index].isFav.toString(),
+                        )
+                      : Container(
+                          height: 100,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: ViwahaColor.primary, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (ref.watch(isloginProvider)) {
+                                ref.refresh(allListingProvider);
+                              }
+                              ref.read(isSearchingProvider.notifier).state =
+                                  true;
+                              AutoRouter.of(context)
+                                  .push(AllListingPage(isAppBar: true));
+                            },
+                            child: const Center(
+                                child: Text(
+                              "Click here to see more listings >>",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  color: ViwahaColor.primary,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        ),
                 ),
               ),
             ),

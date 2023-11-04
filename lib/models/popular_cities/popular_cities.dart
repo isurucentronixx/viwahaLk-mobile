@@ -56,7 +56,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
           ratings: "0"),
       City(
           id: "6",
-          name: "anuradapura".tr(),
+          name: "anuradhapura".tr(),
           image: "https://viwaha.lk/assets/img/city/Anuradhapura.png",
           ratings: "0"),
       City(
@@ -129,7 +129,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                 ref.read(selectedMainLocationProvider.notifier).state =
                     data.name!;
                 ref.read(allListingProvider);
-
+                ref.read(isSearchingProvider.notifier).state = true;
                 AutoRouter.of(context).push(const SearchingResultsPage());
               },
               child: Card(

@@ -21,7 +21,7 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
-@RoutePage()
+@RoutePage() 
 class FavListingPage extends ConsumerStatefulWidget {
   final bool isAppBar;
   const FavListingPage(this.isAppBar, {super.key});

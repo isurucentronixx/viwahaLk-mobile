@@ -54,6 +54,9 @@ _$_VendorProfile _$$_VendorProfileFromJson(Map<String, dynamic> json) =>
       created: json['created'] as String?,
       modified: json['modified'] as String?,
       token_de_platform: json['token_de_platform'] as String?,
+      membership: json['membership'] as String?,
+      membership_upload: json['membership_upload'] as String?,
+      member: json['member'] as String?,
       listings_count: json['listings_count'] as String?,
     );
 
@@ -105,5 +108,8 @@ Map<String, dynamic> _$$_VendorProfileToJson(_$_VendorProfile instance) =>
       'created': instance.created,
       'modified': instance.modified,
       'token_de_platform': instance.token_de_platform,
+      'membership': instance.membership,
+      'membership_upload': instance.membership_upload,
+      'member': instance.member,
       'listings_count': instance.listings_count,
     };

@@ -118,10 +118,20 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchSearchResultList(
-      String location, String category, String keyword, String userId) async {
+      String location,
+      String category,
+      String keyword,
+      String userId,
+      String filter,
+      String price,
+      List<String> amenities,
+      String order,
+      String sort,
+      String rating,
+      ) async {
     try {
       final res = await homeService.fetchSearchResultListApiRequest(
-          location, category, keyword, userId);
+          location, category, keyword, userId, filter, price, amenities,order,sort,rating);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -129,7 +139,7 @@ class HomeController {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
       rethrow;
-    } 
+    }
   }
 
   Future<List<SearchResultItem>> fetchAllListing(String userId) async {
@@ -163,7 +173,6 @@ class HomeController {
       final res = await homeService.fetchMyListingApiRequest(ref: ref);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
-     
 
       return searchResult;
     } on DioError catch (e) {

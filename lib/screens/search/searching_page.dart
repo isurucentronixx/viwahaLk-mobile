@@ -15,6 +15,7 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
+import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 final isActivatedProvider = StateProvider<bool>((ref) => false);
 final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
@@ -22,6 +23,12 @@ final subCategoriesProvider = StateProvider<List<SubCategories?>>((ref) => []);
 final subLocationsProvider = StateProvider<List<SubLocation?>>((ref) => []);
 final selectedMainCategoryProvider = StateProvider<String>((ref) => "");
 final selectedMainLocationProvider = StateProvider<String>((ref) => "");
+final selectedPriceRangeProvider = StateProvider<String>((ref) => "");
+final selectedAmenitiesProvider = StateProvider<List<String>>((ref) => []);
+final searchingKeywords = StateProvider<String>((ref) => "");
+final selectedOrderProvider = StateProvider<String>((ref) => "");
+final selectedSortProvider = StateProvider<String>((ref) => "");
+final selectedRatingProvider = StateProvider<String>((ref) => "");
 final selectedSubCategoryProvider =
     StateProvider<SubCategories>((ref) => const SubCategories());
 final selectedSubLocationProvider =
@@ -35,6 +42,17 @@ class SearchingPage extends ConsumerStatefulWidget {
 }
 
 class _SearchingPageState extends ConsumerState<SearchingPage> {
+  List<S2Choice<SubCategories>>? subCat2 = [];
+  List<S2Choice<Location>>? location2 = [];
+
+  Location _location = const Location(
+    location_en: 'Select one',
+  );
+  double _currentHeight = 0;
+  final double _expandedHeight = 450;
+
+  final TextEditingController? _textEditingController = TextEditingController();
+  final FocusNode _texrFocusNode = FocusNode();
   Location _mainLocation = const Location(
     location_en: 'Select one',
   );
@@ -47,9 +65,22 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
   SubCategories _subCat = const SubCategories(
     sub_category: 'Select one',
   );
+  String _price = 'Select One';
+  String _orderBy = 'Select One';
+  String _sortBy = 'Select One';
+  String _ratings = 'Select One';
+  List<String> _amenities = ['Select'];
   final GlobalKey<DropdownSearchState<String>> _locationDropdownSearchKey =
       GlobalKey<DropdownSearchState<String>>();
   final GlobalKey<DropdownSearchState<String>> _categoryDropdownSearchKey =
+      GlobalKey<DropdownSearchState<String>>();
+  final GlobalKey<DropdownSearchState<String>> _priceDropdownSearchKey =
+      GlobalKey<DropdownSearchState<String>>();
+  final GlobalKey<DropdownSearchState<String>> _amenitiesDropdownSearchKey =
+      GlobalKey<DropdownSearchState<String>>();
+  final GlobalKey<DropdownSearchState<String>> _sortByDropdownSearchKey =
+      GlobalKey<DropdownSearchState<String>>();
+  final GlobalKey<DropdownSearchState<String>> _orderByDropdownSearchKey =
       GlobalKey<DropdownSearchState<String>>();
   @override
   void initState() {
@@ -62,6 +93,47 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
     ref.refresh(selectedMainLocationProvider);
     ref.refresh(selectedSubCategoryProvider);
     ref.refresh(selectedSubLocationProvider);
+    ref.refresh(selectedAmenitiesProvider);
+    ref.refresh(searchingKeywords);
+    ref.refresh(selectedPriceRangeProvider);
+    ref.read(categoriesProvider).forEach((element) {
+      element.sub_categories!.forEach((element) {
+        subCat2!.add(S2Choice<SubCategories>(
+            value: SubCategories(
+                id: int.parse(element!.category_id.toString()),
+                category_id: element.category_id,
+                sub_category: element.sub_category,
+                created_at: element.created_at,
+                updated_at: element.updated_at,
+                web_category: element.web_category),
+            title: element.sub_category));
+      });
+    });
+
+    ref.read(locationsProvider).forEach((element) {
+      location2!.add(S2Choice<Location>(
+          value: Location(
+              id: element.id,
+              location_id: element.location_id,
+              location_en: element.location_en,
+              location_si: element.location_si,
+              location_ta: element.location_ta),
+          title: element.location_en));
+    });
+  }
+
+  void _expandOnChanged() {
+    var isExpanded = _currentHeight == _expandedHeight;
+    setState(() {
+      _currentHeight = isExpanded ? 0 : _expandedHeight;
+    });
+  }
+
+  @override
+  void dispose() {
+    _texrFocusNode.dispose();
+    _textEditingController!.dispose();
+    super.dispose();
   }
 
   @override
@@ -88,26 +160,40 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
         .map((e) => S2Choice<SubCategories>(
             value: e!, title: e.sub_category.toString()))
         .toList();
+    List<S2Choice<String>>? priceData = [
+      S2Choice<String>(value: '1000', title: 'UNDER 1000'),
+      S2Choice<String>(value: '1000 - 1500', title: '1000 - 1500'),
+      S2Choice<String>(value: '1500 - 2000', title: '1500 - 2000'),
+      S2Choice<String>(value: '2000 - 3000', title: '2000 - 3000'),
+      S2Choice<String>(value: '3000+', title: '3000+'),
+    ];
+    List<S2Choice<String>>? amenitiesData = [
+      S2Choice<String>(value: 'Accommodations', title: 'Accommodations'),
+      S2Choice<String>(value: 'Bar Services', title: 'Bar Services'),
+      S2Choice<String>(value: 'Catering services', title: 'Catering services'),
+      S2Choice<String>(value: 'Get Ready Rooms', title: 'Get Ready Rooms'),
+      S2Choice<String>(value: 'Outside Vendors', title: 'Outside Vendors'),
+      S2Choice<String>(value: 'Wifi', title: 'Wifi'),
+    ];
+    List<S2Choice<String>>? orderByData = [
+      S2Choice<String>(value: 'asc', title: 'Accending'),
+      S2Choice<String>(value: 'desc', title: 'Decending'),
+    ];
+    List<S2Choice<String>>? sortByData = [
+      S2Choice<String>(value: 'title', title: 'Title'),
+      S2Choice<String>(value: 'rating', title: 'Rating'),
+      S2Choice<String>(value: 'date', title: 'Date'),
+    ];
+    List<S2Choice<String>>? ratingsData = [
+      S2Choice<String>(value: '', title: 'ALL RATINGS'),
+      S2Choice<String>(value: '4', title: 'RATED 4'),
+      S2Choice<String>(value: '4p', title: 'RATED 4+'),
+      S2Choice<String>(value: '4.5p', title: 'RATED 4.5+'),
+    ];
     return Scaffold(
         appBar: AppBar(
           title: const Text('Search'),
           centerTitle: true,
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    AutoRouter.of(context).push(const FilterPage());
-                  },
-                  child: const Icon(Icons.filter_alt),
-                ),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
-          ],
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
@@ -139,6 +225,33 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: _textEditingController,
+                                  focusNode: _texrFocusNode,
+                                  onChanged: (value) {
+                                    ref.read(searchingKeywords.notifier).state =
+                                        value.toString();
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'Type here to search',
+                                    prefixIcon: Icon(Icons.search),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: SmartSelect<Location>.single(
@@ -257,6 +370,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                               )
                             : const SizedBox(),
                         // const SizedBox(height: 5.0),
+
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: SmartSelect<Categories>.single(
@@ -367,6 +481,365 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                               )
                             : const SizedBox(),
                         // const SizedBox(height: 5.0),
+                        GestureDetector(
+                          onTap: _expandOnChanged,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.025,
+                                right:
+                                    MediaQuery.of(context).size.width * 0.025),
+                            child: Container(
+                              height: 35,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                              ),
+                              width: double.infinity,
+                              // color: Colors.green,
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Icon(
+                                      Icons.filter_alt_outlined,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'MORE FILTERS',
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Icon(
+                                          _currentHeight == 0
+                                              ? Icons.keyboard_arrow_down
+                                              : Icons.keyboard_arrow_up,
+                                          color: Colors.grey,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // this is the body which expands and collapses by height change
+                        AnimatedContainer(
+                          height: _currentHeight,
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          curve: Curves.fastOutSlowIn,
+                          duration: const Duration(milliseconds: 500),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                          ),
+                          child: Column(
+                            children: [
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Padding(
+                              //       padding: const EdgeInsets.all(5.0),
+                              //       child: SmartSelect<SubCategories>.single(
+                              //         modalFilterAuto: true,
+                              //         modalFilter: true,
+                              //         title: LocaleKeys.all_category.tr(),
+                              //         selectedValue: _subCat,
+                              //         choiceItems: subCat2,
+                              //         onChange: (selected) {
+                              //           setState(() {
+                              //             ref.refresh(
+                              //                 selectedMainLocationProvider);
+                              //             ref
+                              //                 .read(
+                              //                     isSearchingProvider.notifier)
+                              //                 .state = true;
+                              //             _categoryDropdownSearchKey
+                              //                 .currentState
+                              //                 ?.clear();
+                              //             ref
+                              //                 .read(selectedSubCategoryProvider
+                              //                     .notifier)
+                              //                 .state = selected.value;
+
+                              //             AutoRouter.of(context).push(
+                              //                 const SearchingResultsPage());
+                              //           });
+                              //         },
+                              //         modalType: S2ModalType.bottomSheet,
+                              //         tileBuilder: (context, state) {
+                              //           return ElevatedButton.icon(
+                              //               onPressed: () => state.showModal(),
+                              //               icon: const Icon(Icons.category),
+                              //               label: Text(
+                              //                   LocaleKeys.all_category.tr()));
+                              //         },
+                              //       ),
+                              //     ),
+                              //     Padding(
+                              //       padding: const EdgeInsets.all(5.0),
+                              //       child: SmartSelect<Location>.single(
+                              //         modalFilterAuto: true,
+                              //         modalFilter: true,
+                              //         title: LocaleKeys.all_location.tr(),
+                              //         selectedValue: _location,
+                              //         choiceItems: location2,
+                              //         onChange: (selected) {
+                              //           setState(() {
+                              //             ref.refresh(
+                              //                 selectedSubCategoryProvider);
+                              //             ref
+                              //                 .read(
+                              //                     isSearchingProvider.notifier)
+                              //                 .state = true;
+                              //             _locationDropdownSearchKey
+                              //                 .currentState
+                              //                 ?.clear();
+                              //             ref
+                              //                     .read(
+                              //                         selectedMainLocationProvider
+                              //                             .notifier)
+                              //                     .state =
+                              //                 selected.value.location_en!;
+
+                              //             AutoRouter.of(context).push(
+                              //                 const SearchingResultsPage());
+                              //           });
+                              //         },
+                              //         modalType: S2ModalType.bottomSheet,
+                              //         tileBuilder: (context, state) {
+                              //           return ElevatedButton.icon(
+                              //               onPressed: () => state.showModal(),
+                              //               icon: const Icon(Icons.location_on),
+                              //               label: Text(
+                              //                   LocaleKeys.all_location.tr()));
+                              //         },
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 5, right: 5, bottom: 5),
+                                child: SmartSelect<String>.single(
+                                  modalFilterAuto: true,
+                                  modalFilter: true,
+                                  title: 'SORT BY',
+                                  selectedValue: _sortBy,
+                                  choiceItems: sortByData,
+                                  onChange: (selected) {
+                                    setState(() {
+                                      _sortBy = selected.title.toString();
+                                      ref
+                                          .read(selectedSortProvider.notifier)
+                                          .state = selected.value;
+                                      _sortByDropdownSearchKey.currentState
+                                          ?.clear();
+                                    });
+                                  },
+                                  modalType: S2ModalType.bottomSheet,
+                                  tileBuilder: (context, state) {
+                                    return ListTile(
+                                      title: Text(
+                                        state.title.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 18,
+                                          fontFamily: "verdana_regular",
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      subtitle: Text(_sortBy.toString()),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: state.showModal,
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5, top: 5),
+                                child: SmartSelect<String>.single(
+                                  modalFilterAuto: true,
+                                  modalFilter: true,
+                                  title: 'ORDER BY',
+                                  selectedValue: _orderBy,
+                                  choiceItems: orderByData,
+                                  onChange: (selected) {
+                                    setState(() {
+                                      _orderBy = selected.title.toString();
+                                      ref
+                                          .read(selectedOrderProvider.notifier)
+                                          .state = selected.value;
+                                      _orderByDropdownSearchKey.currentState
+                                          ?.clear();
+                                    });
+                                  },
+                                  modalType: S2ModalType.bottomSheet,
+                                  tileBuilder: (context, state) {
+                                    return ListTile(
+                                      title: Text(
+                                        state.title.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 18,
+                                          fontFamily: "verdana_regular",
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      subtitle: Text(_orderBy.toString()),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: state.showModal,
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SmartSelect<String>.single(
+                                  modalFilterAuto: true,
+                                  modalFilter: true,
+                                  title: 'PRICE',
+                                  selectedValue: _price,
+                                  choiceItems: priceData,
+                                  onChange: (selected) {
+                                    setState(() {
+                                      _price = selected.title.toString();
+                                      ref
+                                          .read(selectedPriceRangeProvider
+                                              .notifier)
+                                          .state = selected.value.toString();
+                                      _priceDropdownSearchKey.currentState
+                                          ?.clear();
+                                    });
+                                    print(_price);
+                                  },
+                                  modalType: S2ModalType.bottomSheet,
+                                  tileBuilder: (context, state) {
+                                    return ListTile(
+                                      title: Text(
+                                        state.title.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 18,
+                                          fontFamily: "verdana_regular",
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      subtitle: Text(_price.toString()),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: state.showModal,
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SmartSelect<String>.multiple(
+                                  modalFilterAuto: true,
+                                  modalFilter: true,
+                                  title: 'AMENITIES',
+                                  selectedValue: _amenities,
+                                  choiceItems: amenitiesData,
+                                  placeholder: 'Select One or More',
+                                  onChange: (selected) {
+                                    setState(() {
+                                      _amenities = selected.value;
+                                      ref
+                                          .read(selectedAmenitiesProvider
+                                              .notifier)
+                                          .state = selected.value;
+                                      _amenitiesDropdownSearchKey.currentState
+                                          ?.clear();
+                                    });
+                                  },
+                                  modalType: S2ModalType.bottomSheet,
+                                  tileBuilder: (context, state) {
+                                    return Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            state.title.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontFamily: "verdana_regular",
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          subtitle: Text(_amenities.join(", ")),
+                                          trailing: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          onTap: state.showModal,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SmartSelect<String>.single(
+                                  modalFilterAuto: true,
+                                  modalFilter: true,
+                                  title: 'RATINGS',
+                                  selectedValue: _ratings,
+                                  choiceItems: ratingsData,
+                                  onChange: (selected) {
+                                    setState(() {
+                                      _ratings = selected.title.toString();
+                                      ref
+                                          .read(selectedRatingProvider.notifier)
+                                          .state = selected.value.toString();
+                                      _priceDropdownSearchKey.currentState
+                                          ?.clear();
+                                    });
+                                  },
+                                  modalType: S2ModalType.bottomSheet,
+                                  tileBuilder: (context, state) {
+                                    return ListTile(
+                                      title: Text(
+                                        state.title.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 18,
+                                          fontFamily: "verdana_regular",
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      subtitle: Text(_ratings.toString()),
+                                      trailing:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      onTap: state.showModal,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        )
                       ],
                     ),
                   ),

@@ -54,7 +54,11 @@ class VendorProfile with _$VendorProfile {
     String? created,
     String? modified,
     String? token_de_platform,
+    String? membership,
+    String? membership_upload,
+    String? member,
     String? listings_count,
+    
   }) = _VendorProfile;
 
   factory VendorProfile.fromJson(Map<String, dynamic> json) =>

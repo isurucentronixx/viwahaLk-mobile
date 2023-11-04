@@ -47,7 +47,6 @@ class _BottomBarState extends ConsumerState<BottomBar>
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-        
           setState(() {
             const AddListingPage(false);
           });
@@ -96,7 +95,7 @@ class _BottomBarState extends ConsumerState<BottomBar>
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const AllListingPage();
+                        currentScreen = const AllListingPage(false);
                         currentTab = 1;
                       });
                     },

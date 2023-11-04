@@ -128,7 +128,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                                     errorWidget: (context, url, error) =>
                                         Center(
                                       child: Image.network(
-                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                        'https://viwaha.lk/assets/img/user.jpg',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -202,6 +202,27 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                         ),
                       ),
                     ),
+                    vendor.member.toString() == "1"
+                        ? ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              side: BorderSide(color: Colors.amber),
+                              fixedSize: Size(110, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                            onPressed: () => null,
+                            icon: const Icon(
+                              Icons.stars_rounded,
+                              color: Colors.amber,
+                            ),
+                            label: const Text(
+                              "Member",
+                              style: TextStyle(color: Colors.amber),
+                            ),
+                          )
+                        : const SizedBox(),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
