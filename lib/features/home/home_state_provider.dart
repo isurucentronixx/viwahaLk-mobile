@@ -120,7 +120,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
         ref.watch(selectedMainLocationProvider);
     String category = ref.watch(selectedSubCategoryProvider).sub_category ??
         ref.watch(selectedMainCategoryProvider);
-    String keyword = ref.watch(searchingKeywords);
+    String keyword = ref.watch(searchingKeywords); 
 
     String price = ref.watch(selectedPriceRangeProvider);
     List<String> amenities = ref.watch(selectedAmenitiesProvider);

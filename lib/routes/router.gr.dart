@@ -104,6 +104,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
         routeData: routeData,
         child: _i6.CategoryListingPage(
           args.category,
+          args.tags,
           key: args.key,
         ),
       );
@@ -467,12 +468,14 @@ class AllListingPageArgs {
 class CategoryListingPage extends _i36.PageRouteInfo<CategoryListingPageArgs> {
   CategoryListingPage({
     required String category,
+    required List<String> tags,
     _i37.Key? key,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           CategoryListingPage.name,
           args: CategoryListingPageArgs(
             category: category,
+            tags: tags,
             key: key,
           ),
           initialChildren: children,
@@ -487,16 +490,19 @@ class CategoryListingPage extends _i36.PageRouteInfo<CategoryListingPageArgs> {
 class CategoryListingPageArgs {
   const CategoryListingPageArgs({
     required this.category,
+    required this.tags,
     this.key,
   });
 
   final String category;
 
+  final List<String> tags;
+
   final _i37.Key? key;
 
   @override
   String toString() {
-    return 'CategoryListingPageArgs{category: $category, key: $key}';
+    return 'CategoryListingPageArgs{category: $category, tags: $tags, key: $key}';
   }
 }
 

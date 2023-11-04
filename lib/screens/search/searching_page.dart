@@ -21,18 +21,14 @@ final isActivatedProvider = StateProvider<bool>((ref) => false);
 final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
 final subCategoriesProvider = StateProvider<List<SubCategories?>>((ref) => []);
 final subLocationsProvider = StateProvider<List<SubLocation?>>((ref) => []);
-final selectedMainCategoryProvider = StateProvider<String>((ref) => "");
-final selectedMainLocationProvider = StateProvider<String>((ref) => "");
+
 final selectedPriceRangeProvider = StateProvider<String>((ref) => "");
 final selectedAmenitiesProvider = StateProvider<List<String>>((ref) => []);
 final searchingKeywords = StateProvider<String>((ref) => "");
 final selectedOrderProvider = StateProvider<String>((ref) => "");
 final selectedSortProvider = StateProvider<String>((ref) => "");
 final selectedRatingProvider = StateProvider<String>((ref) => "");
-final selectedSubCategoryProvider =
-    StateProvider<SubCategories>((ref) => const SubCategories());
-final selectedSubLocationProvider =
-    StateProvider<SubLocation>((ref) => const SubLocation());
+
 
 @RoutePage()
 class SearchingPage extends ConsumerStatefulWidget {
@@ -45,9 +41,6 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
   List<S2Choice<SubCategories>>? subCat2 = [];
   List<S2Choice<Location>>? location2 = [];
 
-  Location _location = const Location(
-    location_en: 'Select one',
-  );
   double _currentHeight = 0;
   final double _expandedHeight = 450;
 
@@ -195,16 +188,62 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
           title: const Text('Search'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            setState(() {
-              ref.read(isSearchingProvider.notifier).state = true;
-            });
-            AutoRouter.of(context).push(const SearchingResultsPage());
-          },
-          label: const Text('search').tr(),
-          icon: const Icon(Icons.search),
-        ),
+        floatingActionButton:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          FloatingActionButton.extended(
+            onPressed: () {
+              setState(() {
+                ref.refresh(isActivatedProvider);
+                ref.refresh(isLocationActivatedProvider);
+                ref.refresh(subCategoriesProvider);
+                ref.refresh(subLocationsProvider);
+                ref.refresh(selectedMainCategoryProvider);
+                ref.refresh(selectedMainLocationProvider);
+                ref.refresh(selectedSubCategoryProvider);
+                ref.refresh(selectedSubLocationProvider);
+                ref.refresh(selectedAmenitiesProvider);
+                ref.refresh(searchingKeywords);
+                ref.refresh(selectedPriceRangeProvider);
+                _price = 'Select One';
+                _orderBy = 'Select One';
+                _sortBy = 'Select One';
+                _ratings = 'Select One';
+                _amenities = ['Select'];
+                _mainLocation = const Location(
+                  location_en: 'Select one',
+                );
+                _subLocation = const SubLocation(
+                  sub_location_en: 'Select one',
+                );
+                _mainCat = const Categories(
+                  category: 'Select one',
+                );
+                _subCat = const SubCategories(
+                  sub_category: 'Select one',
+                );
+
+                subCat2 = [];
+                location2 = [];
+                _textEditingController!.clear();
+              });
+            },
+            label: const Text('Clear'),
+            icon: const Icon(Icons.developer_board_off_outlined),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          FloatingActionButton.extended(
+            onPressed: () {
+              setState(() {
+                ref.read(isSearchingProvider.notifier).state = true;
+              });
+              AutoRouter.of(context).push(const SearchingResultsPage());
+            },
+            label: const Text('Apply'),
+            icon: const Icon(Icons.search),
+          ),
+        ]),
         body: Column(children: [
           Expanded(
             child: SingleChildScrollView(
@@ -241,6 +280,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                     ref.read(searchingKeywords.notifier).state =
                                         value.toString();
                                   },
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   decoration: const InputDecoration(
                                     labelText: 'Type here to search',
                                     prefixIcon: Icon(Icons.search),

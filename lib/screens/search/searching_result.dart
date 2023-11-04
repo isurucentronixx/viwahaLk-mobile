@@ -20,7 +20,7 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
+// import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
@@ -148,28 +148,42 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                         ],
                       )
                     : const SizedBox(),
-                // Padding(
-                //   padding: const EdgeInsets.all(5.0),
-                //   child: SmartSelect<String>.single(
-                //     modalFilterAuto: true,
-                //     modalFilter: true,
-                //     title: 'Sort by',
-                //     selectedValue: 'Select one',
-                //     choiceItems: sortData,
-                //     onChange: (selected) {
-                //       setState(() {});
-                //     },
-                //     modalType: S2ModalType.bottomSheet,
-                //     tileBuilder: (context, state) {
-                //       return ElevatedButton.icon(
-                //           onPressed: () => state.showModal(),
-                //           icon: const Icon(Icons.sort),
-                //           label: const Text('Sort by'));
-                //     },
-                //   ),
-                // ),
+                !ref.read(isSearchingProvider)
+                    ? GestureDetector(
+                        onTap: () {
+                          AutoRouter.of(context).push(const SearchingPage());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: ViwahaColor.primary,
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                      color: ViwahaColor.primary, width: 1)),
+                              child: const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.filter_alt,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          "FILTERS ",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ]))),
+                        ),
+                      )
+                    : const SizedBox()
               ],
             ),
+
             // Padding(
             //   padding: const EdgeInsets.all(8.0),
             //   child: Container(

@@ -5,15 +5,22 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_state_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
+import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
+import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
-
 final isSearchingProvider = StateProvider<bool>((ref) => false);
+final selectedSubCategoryProvider =
+    StateProvider<SubCategories>((ref) => const SubCategories());
+final selectedSubLocationProvider =
+    StateProvider<SubLocation>((ref) => const SubLocation());
+final selectedMainCategoryProvider = StateProvider<String>((ref) => "");
+final selectedMainLocationProvider = StateProvider<String>((ref) => "");
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });
@@ -93,7 +100,6 @@ class LocalizationService {
         );
 
   void changeLocale(Locale locale, BuildContext context) {
-
     context.setLocale(locale);
   }
 }

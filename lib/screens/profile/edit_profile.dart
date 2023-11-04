@@ -303,6 +303,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  
                                   focusNode: FocusNode(canRequestFocus: false),
                                   initialValue: user.firstname.toString(),
                                   style: const TextStyle(
