@@ -98,6 +98,7 @@ class _LoginState extends ConsumerState<Login> {
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: TextFormField(
+                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     focusNode: FocusNode(canRequestFocus: false),
                     // controller: usernameController,
                     decoration: const InputDecoration(
@@ -118,6 +119,7 @@ class _LoginState extends ConsumerState<Login> {
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: TextFormField(
+                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
                     focusNode: FocusNode(canRequestFocus: false),
                     // controller: passwordController,
                     obscureText: obscureText,
@@ -273,9 +275,7 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 
     // ignore: use_build_context_synchronously
     AutoRouter.of(context).push(const HomePage());
-  } else {
-
-  }
+  } else {}
 }
 
 class GoogleSignInApi {

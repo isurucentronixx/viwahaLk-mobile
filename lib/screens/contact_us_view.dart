@@ -22,7 +22,7 @@ class ContactUsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap:() {
+                    onTap: () {
                       AutoRouter.of(context).push(const HomePage());
                     },
                     child: SizedBox(
@@ -42,6 +42,7 @@ class ContactUsPage extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -86,6 +87,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -130,6 +132,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -174,6 +177,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,

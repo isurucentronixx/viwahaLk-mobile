@@ -315,6 +315,8 @@ class VendorTeamSection extends StatelessWidget {
                     const SizedBox(height: 100),
                     Expanded(
                       child: TextFormField(
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).unfocus(),
                         focusNode: FocusNode(canRequestFocus: false),
                         // name: 'title',
                         decoration: const InputDecoration(
@@ -325,6 +327,8 @@ class VendorTeamSection extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).unfocus(),
                         focusNode: FocusNode(canRequestFocus: false),
                         // name: 'location',
                         decoration: const InputDecoration(

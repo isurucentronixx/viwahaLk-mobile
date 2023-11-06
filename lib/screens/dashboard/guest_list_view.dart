@@ -50,6 +50,8 @@ class GuestListView extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -57,6 +59,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -64,6 +68,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -71,6 +77,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -78,6 +86,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -85,6 +95,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -92,6 +104,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(
@@ -99,6 +113,8 @@ class GuestListView extends StatelessWidget {
                                         ),
                                       ),
                                       TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
                                         focusNode:
                                             FocusNode(canRequestFocus: false),
                                         decoration: const InputDecoration(

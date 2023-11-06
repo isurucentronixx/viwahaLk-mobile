@@ -206,7 +206,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                         ? ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               side: BorderSide(color: Colors.amber),
-                              fixedSize: Size(110, 1),
+                              // fixedSize: Size(110, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -501,16 +501,16 @@ class MyCardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200,
-                height: 500,
+                height: 300,
                 child: Stack(
                   children: [
                     CachedNetworkImage(
                       imageUrl: imagePath.toString(),
                       fit: BoxFit.cover,
                       imageBuilder: (context, imageProvider) => Container(
-                        height: 150,
+                        height: 200,
                         width: 400,
                         decoration: BoxDecoration(
                           // borderRadius: const BorderRadius.only(
@@ -604,6 +604,7 @@ class MyCardItem extends ConsumerWidget {
                 children: [
                   Text(
                     title,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -629,12 +630,12 @@ class MyCardItem extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  Text(
-                    description,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  const SizedBox(height: 8),
+                  // Text(
+                  //   description,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: const TextStyle(fontSize: 12),
+                  // ),
+                  // const SizedBox(height: 8),
                   Row(
                     children: [
                       starRating.toString() != '0.0'

@@ -74,6 +74,8 @@ showReviewForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
@@ -120,6 +122,8 @@ showReviewForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,

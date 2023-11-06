@@ -52,6 +52,8 @@ class ToDoList extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         TextFormField(
+                                          onTapOutside: (event) =>
+                                              FocusScope.of(context).unfocus(),
                                           focusNode:
                                               FocusNode(canRequestFocus: false),
                                           decoration: const InputDecoration(
@@ -86,6 +88,8 @@ class ToDoList extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 16.0),
                                         TextFormField(
+                                          onTapOutside: (event) =>
+                                              FocusScope.of(context).unfocus(),
                                           focusNode:
                                               FocusNode(canRequestFocus: false),
                                           decoration: const InputDecoration(

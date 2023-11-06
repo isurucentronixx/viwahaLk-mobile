@@ -78,9 +78,9 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                    onTap:() {
-                      AutoRouter.of(context).push(const HomePage());
-                    },
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
                   child: SizedBox(
                     width: 100,
                     child: Assets.lib.assets.images.logo.image(),
@@ -109,6 +109,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
@@ -163,6 +165,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
@@ -216,6 +220,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,

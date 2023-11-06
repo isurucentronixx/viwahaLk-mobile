@@ -29,7 +29,6 @@ final selectedOrderProvider = StateProvider<String>((ref) => "");
 final selectedSortProvider = StateProvider<String>((ref) => "");
 final selectedRatingProvider = StateProvider<String>((ref) => "");
 
-
 @RoutePage()
 class SearchingPage extends ConsumerStatefulWidget {
   const SearchingPage({super.key});
@@ -189,46 +188,49 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
           centerTitle: true,
         ),
         floatingActionButton:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          FloatingActionButton.extended(
-            onPressed: () {
-              setState(() {
-                ref.refresh(isActivatedProvider);
-                ref.refresh(isLocationActivatedProvider);
-                ref.refresh(subCategoriesProvider);
-                ref.refresh(subLocationsProvider);
-                ref.refresh(selectedMainCategoryProvider);
-                ref.refresh(selectedMainLocationProvider);
-                ref.refresh(selectedSubCategoryProvider);
-                ref.refresh(selectedSubLocationProvider);
-                ref.refresh(selectedAmenitiesProvider);
-                ref.refresh(searchingKeywords);
-                ref.refresh(selectedPriceRangeProvider);
-                _price = 'Select One';
-                _orderBy = 'Select One';
-                _sortBy = 'Select One';
-                _ratings = 'Select One';
-                _amenities = ['Select'];
-                _mainLocation = const Location(
-                  location_en: 'Select one',
-                );
-                _subLocation = const SubLocation(
-                  sub_location_en: 'Select one',
-                );
-                _mainCat = const Categories(
-                  category: 'Select one',
-                );
-                _subCat = const SubCategories(
-                  sub_category: 'Select one',
-                );
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 28.0),
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                setState(() {
+                  ref.refresh(isActivatedProvider);
+                  ref.refresh(isLocationActivatedProvider);
+                  ref.refresh(subCategoriesProvider);
+                  ref.refresh(subLocationsProvider);
+                  ref.refresh(selectedMainCategoryProvider);
+                  ref.refresh(selectedMainLocationProvider);
+                  ref.refresh(selectedSubCategoryProvider);
+                  ref.refresh(selectedSubLocationProvider);
+                  ref.refresh(selectedAmenitiesProvider);
+                  ref.refresh(searchingKeywords);
+                  ref.refresh(selectedPriceRangeProvider);
+                  _price = 'Select One';
+                  _orderBy = 'Select One';
+                  _sortBy = 'Select One';
+                  _ratings = 'Select One';
+                  _amenities = ['Select'];
+                  _mainLocation = const Location(
+                    location_en: 'Select one',
+                  );
+                  _subLocation = const SubLocation(
+                    sub_location_en: 'Select one',
+                  );
+                  _mainCat = const Categories(
+                    category: 'Select one',
+                  );
+                  _subCat = const SubCategories(
+                    sub_category: 'Select one',
+                  );
 
-                subCat2 = [];
-                location2 = [];
-                _textEditingController!.clear();
-              });
-            },
-            label: const Text('Clear'),
-            icon: const Icon(Icons.developer_board_off_outlined),
+                  subCat2 = [];
+                  location2 = [];
+                  _textEditingController!.clear();
+                });
+              },
+              label: const Text('Clear'),
+              icon: const Icon(Icons.developer_board_off_outlined),
+            ),
           ),
           const SizedBox(
             width: 8,
@@ -242,7 +244,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
             },
             label: const Text('Apply'),
             icon: const Icon(Icons.search),
-          ),
+          )
         ]),
         body: Column(children: [
           Expanded(
@@ -274,14 +276,14 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             child: Column(
                               children: [
                                 TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   controller: _textEditingController,
                                   focusNode: _texrFocusNode,
                                   onChanged: (value) {
                                     ref.read(searchingKeywords.notifier).state =
                                         value.toString();
                                   },
-                                  onTapOutside: (event) =>
-                                      FocusScope.of(context).unfocus(),
                                   decoration: const InputDecoration(
                                     labelText: 'Type here to search',
                                     prefixIcon: Icon(Icons.search),

@@ -881,6 +881,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -944,6 +946,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1037,6 +1041,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     controller: _dobController,
                                     // initialValue:  '2018/7/7',
                                     onTap: () async {
@@ -1102,6 +1108,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1157,6 +1165,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1212,6 +1222,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1357,6 +1369,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1409,6 +1423,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1473,6 +1489,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1553,6 +1571,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1602,6 +1622,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1652,6 +1674,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1702,6 +1726,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1752,6 +1778,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1804,6 +1832,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1854,6 +1884,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1904,6 +1936,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1952,6 +1986,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2000,6 +2036,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2048,6 +2086,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -2096,6 +2136,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -2678,6 +2720,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3403,6 +3447,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -3468,6 +3514,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3518,6 +3566,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3568,6 +3618,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3618,6 +3670,8 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,

@@ -370,6 +370,7 @@ class CardItem extends ConsumerWidget {
                   children: [
                     Text(
                       title,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

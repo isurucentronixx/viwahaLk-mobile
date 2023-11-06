@@ -250,7 +250,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   ? ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         side: BorderSide(color: Colors.amber),
-                        fixedSize: Size(110, 1),
+                        // fixedSize: Size(110, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -1459,17 +1459,21 @@ class _SingleItemMapState extends State<SingleItemMap> {
           const SizedBox(height: 20),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
-            child: Flexible(
-              child: GoogleMap(
-                  mapType: MapType.normal,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                  initialCameraPosition:
-                      const CameraPosition(target: LatLng(0.0, 0.0)),
-                  markers: markers,
-                  zoomControlsEnabled: true,
-                  tiltGesturesEnabled: false),
+            child: Column(
+              children: [
+                Expanded(
+                  child: GoogleMap(
+                      mapType: MapType.normal,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                      initialCameraPosition:
+                          const CameraPosition(target: LatLng(7.8731, 80.7718)),
+                      markers: markers,
+                      zoomControlsEnabled: true,
+                      tiltGesturesEnabled: false),
+                ),
+              ],
             ),
 
             // Image.network(url),

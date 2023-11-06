@@ -194,6 +194,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             //     child: Column(
             //       children: [
             //         TextFormField(
+                                    // onTapOutside: (event) =>
+                                    //     FocusScope.of(context).unfocus(),
             //           // initialValue: ref.watch(searchingKeywords) != null ?ref.watch(searchingKeywords),
             //           controller: _textEditingController,
             //           focusNode: _texrFocusNode,
