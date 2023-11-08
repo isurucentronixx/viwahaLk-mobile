@@ -24,6 +24,7 @@ import 'package:http/http.dart' as http;
 
 final mainImageProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');
+final paginateIndexProvider = StateProvider<int>((ref) => 1);
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
 
@@ -128,10 +129,20 @@ class HomeController {
       String order,
       String sort,
       String rating,
-      ) async {
+      int pageId) async {
     try {
       final res = await homeService.fetchSearchResultListApiRequest(
-          location, category, keyword, userId, filter, price, amenities,order,sort,rating);
+          location,
+          category,
+          keyword,
+          userId,
+          filter,
+          price,
+          amenities,
+          order,
+          sort,
+          rating,
+          pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -142,9 +153,10 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> fetchAllListing(String userId) async {
+  Future<List<SearchResultItem>> fetchAllListing(
+      String userId, int pageId) async {
     try {
-      final res = await homeService.fetchAllListingApiRequest(userId);
+      final res = await homeService.fetchAllListingApiRequest(userId, pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -183,10 +195,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchCategoryListing(
-      String userId, String category) async {
+      String userId, String category,int pageId) async {
     try {
       final res =
-          await homeService.fetchCategoryListingApiRequest(userId, category);
+          await homeService.fetchCategoryListingApiRequest(userId, category, pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

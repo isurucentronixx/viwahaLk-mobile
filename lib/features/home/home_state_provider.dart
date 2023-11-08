@@ -120,7 +120,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
         ref.watch(selectedMainLocationProvider);
     String category = ref.watch(selectedSubCategoryProvider).sub_category ??
         ref.watch(selectedMainCategoryProvider);
-    String keyword = ref.watch(searchingKeywords); 
+    String keyword = ref.watch(searchingKeywords);
 
     String price = ref.watch(selectedPriceRangeProvider);
     List<String> amenities = ref.watch(selectedAmenitiesProvider);
@@ -139,6 +139,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
                     : rating != ""
                         ? "1"
                         : "";
+    int pageId = ref.watch(paginateIndexProvider);
 
     await ref
         .read(homeControllerProvider)
@@ -154,7 +155,8 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
             amenities,
             order,
             sort,
-            rating)
+            rating,
+            pageId)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -178,9 +180,11 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   Future fetchAllListing({required Ref ref}) async {
     await ref
         .read(homeControllerProvider)
-        .fetchAllListing(ref.read(isloginProvider)
-            ? ref.read(userProvider).user!.id.toString()
-            : '')
+        .fetchAllListing(
+            ref.read(isloginProvider)
+                ? ref.read(userProvider).user!.id.toString()
+                : '',
+            ref.watch(paginateIndexProvider))
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -253,13 +257,15 @@ class CategoryListingProviderNotifier
 
   Future fetchCategoryListing({required Ref ref}) async {
     String category = ref.watch(selectedMainCategoryProvider);
+    int pageId = ref.watch(paginateIndexProvider);
     await ref
         .read(homeControllerProvider)
         .fetchCategoryListing(
             ref.read(isloginProvider)
                 ? ref.read(userProvider).user!.id.toString()
                 : '',
-            category)
+            category,
+            pageId)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {

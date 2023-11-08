@@ -8,6 +8,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
 class SearchingCardItem extends ConsumerWidget {
@@ -22,6 +23,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String isFav;
   final bool isPremium;
   final String boostedDate;
+  final SearchResultItem item;
 
   const SearchingCardItem({
     required this.id,
@@ -35,6 +37,7 @@ class SearchingCardItem extends ConsumerWidget {
     required this.isFav,
     required this.isPremium,
     required this.boostedDate,
+    required this.item,
   });
 
   String timeAgoSinceDate(String date) {
@@ -67,18 +70,7 @@ class SearchingCardItem extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
-            item: ref
-                .watch(type == "myAd"
-                    ? myListingProvider
-                    : type == "fav"
-                        ? favListingProvider
-                        : type == "cat"
-                            ? categoryListingProvider
-                            : type == "all"
-                                ? allListingProvider
-                                : searchResultProvider)
-                .where((element) => id == element.id)
-                .first,
+            item: item,
             type: type == "myAd"
                 ? 'myAd'
                 : type == "fav"

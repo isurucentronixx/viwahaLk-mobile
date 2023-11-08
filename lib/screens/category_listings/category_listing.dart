@@ -4,7 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -20,7 +22,6 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/venues/venues_list.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
@@ -34,27 +35,36 @@ class CategoryListingPage extends ConsumerStatefulWidget {
 }
 
 class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
-  List<SearchResultItem>? filtered;
+  List<SearchResultItem> allListing = [];
 
-  final FocusNode _texrFocusNode = FocusNode();
-  // ignore: unnecessary_nullable_for_final_variable_declarations
-  final TextEditingController? _textEditingController = TextEditingController();
+  bool isAddLoading = false;
+  final scrollController = ScrollController();
 
   @override
   initState() {
     super.initState();
+    ref.refresh(paginateIndexProvider);
+    scrollController.addListener(_scrollListner);
   }
 
-  @override
-  void dispose() {
-    _texrFocusNode.dispose();
-    _textEditingController!.dispose();
-    super.dispose();
+  void _scrollListner() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      setState(() {
+        isAddLoading = true;
+      });
+      ref.read(paginateIndexProvider.notifier).state =
+          ref.watch(paginateIndexProvider) + 1;
+      allListing = allListing;
+      setState(() {
+        isAddLoading = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final allListing = ref.watch(categoryListingProvider);
+    allListing.addAll(ref.watch(categoryListingProvider));
 
     return Scaffold(
         appBar: AppBar(
@@ -85,7 +95,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
@@ -94,23 +104,8 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                   child: Column(
                     children: [
                       TextField(
-                        controller: _textEditingController,
-                        focusNode: _texrFocusNode,
-                        onChanged: (value) {
-                          setState(() {
-                            filtered = allListing
-                                .where((element) => element.name
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(value.toString().toLowerCase()))
-                                .toList();
-                            if (_textEditingController!.text.isNotEmpty &&
-                                filtered!.isEmpty) {
-                              print(
-                                  'itemsListSearch Length ${filtered!.length}');
-                            }
-                          });
-                        },
+                        onTap: () =>
+                            AutoRouter.of(context).push(const SearchingPage()),
                         decoration: const InputDecoration(
                           labelText: 'Search',
                           prefixIcon: Icon(Icons.search),
@@ -160,114 +155,84 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                     )
                   : const SizedBox(),
               const SizedBox(height: 15),
-              _textEditingController!.text.isNotEmpty && filtered!.isEmpty
-                  ? const Center(
-                      child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Opacity(
-                            opacity: 0.5,
-                            child: Icon(Icons.comments_disabled_outlined,
-                                size: 50, color: Colors.grey)),
-                        Text(
-                          "No listings were found",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w300),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                      ],
-                    ))
-                  : ref.watch(isSearchingProvider)
-                      ? const Center(child: CircularProgressIndicator())
-                      : allListing.isEmpty
-                          ? const Center(child: NoListingPage())
-                          : Expanded(
-                              child: GridView.count(
-                              crossAxisCount: 2, // Number of columns
-                              children: List.generate(
-                                _textEditingController!.text.isNotEmpty
-                                    ? filtered!.length
-                                    : allListing
-                                        .length, // Total number of cards
-                                (index) => SearchingCardItem(
-                                  id: _textEditingController!.text.isNotEmpty
-                                      ? filtered![index].id.toString()
-                                      : allListing[index].id.toString(),
-                                  imagePath: (_textEditingController!
-                                                  .text.isNotEmpty
-                                              ? filtered![index].image
-                                              : allListing[index].image) !=
-                                          null
-                                      ? "https://viwaha.lk/${_textEditingController!.text.isNotEmpty ? filtered![index].image.toString() : allListing[index].image.toString()}"
-                                      : ref
-                                          .read(homeControllerProvider)
-                                          .getTumbImage(_textEditingController!
-                                                  .text.isNotEmpty
-                                              ? filtered![index].thumb_images
-                                              : allListing[index].thumb_images)
-                                          .first,
-                                  // Replace with your image paths
-                                  title: _textEditingController!.text.isNotEmpty
-                                      ? filtered![index].title.toString()
-                                      : allListing[index].title.toString(),
-                                  description: _textEditingController!
-                                          .text.isNotEmpty
-                                      ? filtered![index].description.toString()
-                                      : allListing[index]
-                                          .description
-                                          .toString(),
-                                  starRating: (_textEditingController!
-                                                  .text.isNotEmpty
-                                              ? filtered![index].average_rating
-                                              : allListing[index]
-                                                  .average_rating) !=
-                                          null
-                                      ? double.parse(
-                                          _textEditingController!
-                                                  .text.isNotEmpty
-                                              ? filtered![index]
-                                                  .average_rating
-                                                  .toString()
-                                              : allListing[index]
-                                                  .average_rating
-                                                  .toString())
-                                      : 0,
-                                  location: _textEditingController!
-                                          .text.isNotEmpty
-                                      ? filtered![index].location.toString()
-                                      : allListing[index].location.toString(),
-                                  date: _textEditingController!.text.isNotEmpty
-                                      ? filtered![index].datetime.toString()
-                                      : allListing[index].datetime.toString(),
-                                  type: 'cat',
-                                  isFav: _textEditingController!.text.isNotEmpty
-                                      ? filtered![index].is_favourite.toString()
-                                      : allListing[index]
-                                          .is_favourite
-                                          .toString(),
-                                  isPremium: _textEditingController!
-                                          .text.isNotEmpty
-                                      ? filtered![index].premium.toString() !=
-                                              "1"
-                                          ? false
-                                          : true
-                                      : allListing[index].premium.toString() !=
-                                              "1"
-                                          ? false
-                                          : true,
-                                  boostedDate: _textEditingController!
-                                          .text.isNotEmpty
-                                      ? filtered![index].boosted.toString()
-                                      : allListing[index].boosted.toString(),
-
-                                  // Replace with the appropriate star rating value
-                                ),
+              ref.watch(isSearchingProvider)
+                  ? const Center(child: CircularProgressIndicator())
+                  : allListing.isEmpty
+                      ? const Center(child: NoListingPage())
+                      : Expanded(
+                          child: GridView.builder(
+                              controller: scrollController,
+                              itemCount: isAddLoading
+                                  ? allListing.length + 2
+                                  : allListing.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
                               ),
-                            ))
+                              itemBuilder: (context, index) {
+                                if (index < allListing.length) {
+                                  return SearchingCardItem(
+                                    id: allListing[index].id.toString(),
+                                    imagePath: (allListing[index].image) != null
+                                        ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                        : ref
+                                            .read(homeControllerProvider)
+                                            .getTumbImage(
+                                                allListing[index].thumb_images)
+                                            .first,
+                                    // Replace with your image paths
+                                    title: allListing[index].title.toString(),
+                                    description: allListing[index]
+                                        .description
+                                        .toString(),
+                                    starRating:
+                                        (allListing[index].average_rating) !=
+                                                null
+                                            ? double.parse(allListing[index]
+                                                .average_rating
+                                                .toString())
+                                            : 0,
+                                    location:
+                                        allListing[index].location.toString(),
+                                    date: allListing[index].datetime.toString(),
+                                    type: 'cat',
+                                    isFav: allListing[index]
+                                        .is_favourite
+                                        .toString(),
+                                    isPremium:
+                                        allListing[index].premium.toString() !=
+                                                "1"
+                                            ? false
+                                            : true,
+                                    boostedDate:
+                                        allListing[index].boosted.toString(),
+                                    item: allListing[index],
+                                    // Replace with the appropriate star rating value
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade100,
+                                      highlightColor: Colors.grey.shade300,
+                                      child: Card(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10)),
+                                            color: Colors.grey.shade200,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }),
+                        )
             ],
           ),
         ));

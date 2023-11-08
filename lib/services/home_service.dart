@@ -63,31 +63,31 @@ class HomeService {
   }
 
   Future fetchSearchResultListApiRequest(
-    String location,
-    String category,
-    String keyword,
-    String userId,
-    String filter,
-    String price,
-    List<String> amenities,
-    String order,
-    String sort,
-    String rating,
-  ) async {
+      String location,
+      String category,
+      String keyword,
+      String userId,
+      String filter,
+      String price,
+      List<String> amenities,
+      String order,
+      String sort,
+      String rating,
+      int pageId) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&location=$location&category=$category&keyword=$keyword&filter=$filter&aminities=$amenities&price=$price&order=$order&sortBy=$sort&rating=$rating');
-      return res.data;
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&location=$location&category=$category&keyword=$keyword&filter=$filter&aminities=$amenities&price=$price&order=$order&sortBy=$sort&rating=$rating&page=$pageId');
+      return res.data["data"];
     } catch (e) {
       rethrow;
     }
   }
 
-  Future fetchAllListingApiRequest(String userId) async {
+  Future fetchAllListingApiRequest(String userId, int pageId) async {
     try {
-      final res = await _dioClient
-          .get(Endpoints.baseUrl + Endpoints.getAllListing + userId);
-      return res.data;
+      final res = await _dioClient.get(
+          "${Endpoints.baseUrl}${Endpoints.getAllListing}$userId&page=$pageId");
+      return res.data["data"];
     } catch (e) {
       rethrow;
     }
@@ -114,11 +114,11 @@ class HomeService {
     }
   }
 
-  Future fetchCategoryListingApiRequest(String userId, String category) async {
+  Future fetchCategoryListingApiRequest(String userId, String category, int pageId) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/location=&category=$category&keyword=');
-      return res.data;
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/&category=$category&page=$pageId');
+      return res.data['data'];
     } catch (e) {
       rethrow;
     }

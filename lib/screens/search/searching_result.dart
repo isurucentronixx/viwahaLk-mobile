@@ -5,7 +5,9 @@ import 'package:awesome_select/awesome_select.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -31,32 +33,36 @@ class SearchingResultsPage extends ConsumerStatefulWidget {
 }
 
 class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
-  List<SearchResultItem>? filtered;
-  final FocusNode _texrFocusNode = FocusNode();
-  // ignore: unnecessary_nullable_for_final_variable_declarations
-  final TextEditingController _textEditingController = TextEditingController();
-  // List<S2Choice<String>>? sortData = [
-  //   S2Choice<String>(value: 'Accending', title: 'Accending'),
-  //   S2Choice<String>(value: 'Decending', title: 'Decending'),
-  // ];
+  List<SearchResultItem> searchingResult = [];
 
-  @override
-  void dispose() {
-    _texrFocusNode.dispose();
-    _textEditingController.dispose();
-    super.dispose();
-  }
+  bool isAddLoading = false;
+  final scrollController = ScrollController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.refresh(searchResultProvider);
+    ref.refresh(paginateIndexProvider);
+    scrollController.addListener(_scrollListner);
+  }
+
+  void _scrollListner() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      setState(() {
+        isAddLoading = true;
+      });
+      ref.read(paginateIndexProvider.notifier).state =
+          ref.watch(paginateIndexProvider) + 1;
+      setState(() {
+        isAddLoading = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var searchingResult = ref.watch(searchResultProvider);
+    searchingResult.addAll(ref.watch(searchResultProvider));
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -183,189 +189,96 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                     : const SizedBox()
               ],
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(10.0),
-            //       border: Border.all(color: Colors.grey),
-            //     ),
-            //     child: Column(
-            //       children: [
-            //         TextFormField(
-                                    // onTapOutside: (event) =>
-                                    //     FocusScope.of(context).unfocus(),
-            //           // initialValue: ref.watch(searchingKeywords) != null ?ref.watch(searchingKeywords),
-            //           controller: _textEditingController,
-            //           focusNode: _texrFocusNode,
-            //           onChanged: (value) {
-            //             setState(() {
-            //               filtered = searchingResult
-            //                   .where((element) => element.name
-            //                       .toString()
-            //                       .toLowerCase()
-            //                       .contains(value.toString().toLowerCase()))
-            //                   .toList();
-            //               if (_textEditingController.text.isNotEmpty &&
-            //                   filtered!.isEmpty) {
-            //                 print('itemsListSearch Length ${filtered!.length}');
-            //               }
-            //             });
-            //           },
-            //           decoration: const InputDecoration(
-            //             labelText: 'Search',
-            //             prefixIcon: Icon(Icons.search),
-            //             border: InputBorder.none,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             const SizedBox(height: 15),
-            _textEditingController.text.isNotEmpty && filtered!.isEmpty
-                ? const Center(
-                    child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Opacity(
-                          opacity: 0.5,
-                          child: Icon(Icons.comments_disabled_outlined,
-                              size: 50, color: Colors.grey)),
-                      Text(
-                        "No listings were found",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                    ],
-                  ))
-                : ref.watch(isSearchingProvider)
-                    ? const Center(child: CircularProgressIndicator())
-                    : searchingResult.isEmpty
-                        ? const Center(child: NoListingPage())
-                        : Expanded(
-                            child: searchingResult.isNotEmpty
-                                ? GridView.count(
-                                    crossAxisCount: 2, // Number of columns
-                                    children: List.generate(
-                                      _textEditingController.text.isNotEmpty
-                                          ? filtered!.length
-                                          : searchingResult
-                                              .length, // Total number of cards
-                                      (index) => SearchingCardItem(
-                                        id: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index].id.toString()
-                                            : searchingResult[index]
-                                                .id
-                                                .toString(),
-                                        imagePath: (_textEditingController
-                                                        .text.isNotEmpty
-                                                    ? filtered![index].image
-                                                    : searchingResult[index]
-                                                        .image) !=
-                                                null
-                                            ? "https://viwaha.lk/${_textEditingController.text.isNotEmpty ? filtered![index].image.toString() : searchingResult[index].image.toString()}"
-                                            : ref
-                                                .read(homeControllerProvider)
-                                                .getTumbImage(
-                                                    _textEditingController
-                                                            .text.isNotEmpty
-                                                        ? filtered![index]
-                                                            .thumb_images
-                                                        : searchingResult[index]
-                                                            .thumb_images)
-                                                .first, // Replace with your image paths
-                                        title: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index].title.toString()
-                                            : searchingResult[index]
-                                                .title
-                                                .toString(),
-                                        description: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                .description
-                                                .toString()
-                                            : searchingResult[index]
-                                                .description
-                                                .toString(),
-                                        starRating: (_textEditingController
-                                                        .text.isNotEmpty
-                                                    ? filtered![index]
-                                                        .average_rating
-                                                    : searchingResult[index]
-                                                        .average_rating) !=
-                                                null
-                                            ? double.parse(
-                                                _textEditingController
-                                                        .text.isNotEmpty
-                                                    ? filtered![index]
-                                                        .average_rating
-                                                        .toString()
-                                                    : searchingResult[index]
-                                                        .average_rating
-                                                        .toString())
-                                            : 0,
-                                        location: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                .location
-                                                .toString()
-                                            : searchingResult[index]
-                                                .location
-                                                .toString(),
-                                        date: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                .datetime
-                                                .toString()
-                                            : searchingResult[index]
-                                                .datetime
-                                                .toString(),
-                                        type: '',
-                                        isFav: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                .is_favourite
-                                                .toString()
-                                            : searchingResult[index]
-                                                .is_favourite
-                                                .toString(),
-                                        isPremium: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                        .premium
-                                                        .toString() !=
-                                                    "1"
-                                                ? false
-                                                : true
-                                            : searchingResult[index]
-                                                        .premium
-                                                        .toString() !=
-                                                    "1"
-                                                ? false
-                                                : true,
-                                        boostedDate: _textEditingController
-                                                .text.isNotEmpty
-                                            ? filtered![index]
-                                                .boosted
-                                                .toString()
-                                            : searchingResult[index]
-                                                .boosted
-                                                .toString(),
+            ref.watch(isSearchingProvider)
+                ? const Center(child: CircularProgressIndicator())
+                : searchingResult.isEmpty
+                    ? const Center(child: NoListingPage())
+                    : Expanded(
+                        child: searchingResult.isNotEmpty
+                            ? GridView.builder(
+                                controller: scrollController,
+                                itemCount: isAddLoading
+                                    ? searchingResult.length + 2
+                                    : searchingResult.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                ),
+                                itemBuilder: (context, index) {
+                                  if (index < searchingResult.length) {
+                                    return SearchingCardItem(
+                                      id: searchingResult[index].id.toString(),
+                                      imagePath: (searchingResult[index]
+                                                  .image) !=
+                                              null
+                                          ? "https://viwaha.lk/${searchingResult[index].image.toString()}"
+                                          : ref
+                                              .read(homeControllerProvider)
+                                              .getTumbImage(
+                                                  searchingResult[index]
+                                                      .thumb_images)
+                                              .first, // Replace with your image paths
+                                      title: searchingResult[index]
+                                          .title
+                                          .toString(),
+                                      description: searchingResult[index]
+                                          .description
+                                          .toString(),
+                                      starRating: (searchingResult[index]
+                                                  .average_rating) !=
+                                              null
+                                          ? double.parse(searchingResult[index]
+                                              .average_rating
+                                              .toString())
+                                          : 0,
+                                      location: searchingResult[index]
+                                          .location
+                                          .toString(),
+                                      date: searchingResult[index]
+                                          .datetime
+                                          .toString(),
+                                      type: '',
+                                      isFav: searchingResult[index]
+                                          .is_favourite
+                                          .toString(),
+                                      isPremium: searchingResult[index]
+                                                  .premium
+                                                  .toString() !=
+                                              "1"
+                                          ? false
+                                          : true,
+                                      boostedDate: searchingResult[index]
+                                          .boosted
+                                          .toString(),
+                                      item: searchingResult[index],
 
-                                        // Replace with the appropriate star rating value
+                                      // Replace with the appropriate star rating value
+                                    );
+                                  } else {
+                                    return Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey.shade100,
+                                        highlightColor: Colors.grey.shade300,
+                                        child: Card(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10)),
+                                              color: Colors.grey.shade200,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                : NoListingPage()),
+                                    );
+                                  }
+                                })
+                            : NoListingPage()),
           ],
         ));
   }
