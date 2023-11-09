@@ -310,7 +310,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                           style: const TextStyle(color: Colors.grey),
                         ),
                         RatingBarIndicator(
-                          rating: int.parse(vendor.average_rating != null
+                          rating: double.parse(vendor.average_rating != null
                                   ? vendor.average_rating.toString()
                                   : '0')
                               .ceilToDouble(),

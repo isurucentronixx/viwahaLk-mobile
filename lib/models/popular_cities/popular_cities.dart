@@ -215,7 +215,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                         ),
                         RatingBarIndicator(
                           rating:
-                              int.parse(city.ratings.toString()).ceilToDouble(),
+                              double.parse(city.ratings.toString()).ceilToDouble(),
                           itemBuilder: (context, index) => Icon(
                             city.ratings.toString() != "0"
                                 ? Icons.star
