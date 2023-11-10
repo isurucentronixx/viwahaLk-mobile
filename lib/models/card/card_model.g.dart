@@ -17,6 +17,7 @@ _$_CardModel _$$_CardModelFromJson(Map<String, dynamic> json) => _$_CardModel(
       date: json['date'] as String?,
       type: json['type'] as String?,
       isFav: json['isFav'] as String?,
+      boosted: json['boosted'] as String?,
     );
 
 Map<String, dynamic> _$$_CardModelToJson(_$_CardModel instance) =>
@@ -31,4 +32,5 @@ Map<String, dynamic> _$$_CardModelToJson(_$_CardModel instance) =>
       'date': instance.date,
       'type': instance.type,
       'isFav': instance.isFav,
+      'boosted': instance.boosted,
     };

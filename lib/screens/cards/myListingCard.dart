@@ -34,6 +34,7 @@ class MyCardItem extends ConsumerStatefulWidget {
   final String name;
   final String main_category;
   final String isFav;
+  final String boosted;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -45,6 +46,7 @@ class MyCardItem extends ConsumerStatefulWidget {
     required this.name,
     required this.main_category,
     required this.isFav,
+    required this.boosted,
   });
   @override
   _MyCardItemState createState() => _MyCardItemState();
@@ -168,14 +170,19 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
-                            child: Text(
-                              timeAgoSinceDate(widget.date),
-                              // Jiffy.parse(widget.date)
-                              //     .format(pattern: 'do MMMM  yyyy'),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            child: widget.boosted != "null"
+                                ? Text(
+                                    "Boosted ${timeAgoSinceDate(widget.boosted)}",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : Text(
+                                    timeAgoSinceDate(widget.date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         ),
                       ),
@@ -315,7 +322,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                               .primary),
                                                       borderRadius:
                                                           const BorderRadius
-                                                                  .all(
+                                                              .all(
                                                               Radius.circular(
                                                                   10))),
                                                   child: Assets.lib.assets
@@ -337,7 +344,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                               .primary),
                                                       borderRadius:
                                                           const BorderRadius
-                                                                  .all(
+                                                              .all(
                                                               Radius.circular(
                                                                   10))),
                                                 )

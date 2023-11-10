@@ -17,6 +17,7 @@ class CardModel with _$CardModel{
     String? date,
     String? type,
     String? isFav,
+    String? boosted,
    
   }) = _CardModel;
 

@@ -105,28 +105,6 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                       ),
                                     ),
                                   ),
-                                  // Image.network(
-                                  //   user!.image.toString(),
-                                  //   fit: BoxFit.cover,
-                                  //   loadingBuilder: (context, child, progress) {
-                                  //     if (progress == null) {
-                                  //       return SizedBox(
-                                  //         width: 150,
-                                  //         height: 150,
-                                  //         child: child,
-                                  //       );
-                                  //     }
-                                  //     return const Center(
-                                  //       child: CircularProgressIndicator(),
-                                  //     );
-                                  //   },
-                                  //   errorBuilder: (context, error, stackTrace) {
-                                  //     return Image.network(
-                                  //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                  //       fit: BoxFit.cover,
-                                  //     );
-                                  //   },
-                                  // ),
                                 ),
                               ),
                             ),
@@ -143,7 +121,10 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                               textAlign: TextAlign.center),
-                          subtitle: Text(user.designation.toString(),
+                          subtitle: Text(
+                              user.designation.toString() != "null"
+                                  ? user.designation.toString()
+                                  : "",
                               style: const TextStyle(
                                   fontWeight: FontWeight.normal, fontSize: 18),
                               textAlign: TextAlign.center),

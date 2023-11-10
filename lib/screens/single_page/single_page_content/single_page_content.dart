@@ -18,7 +18,8 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:viwaha_lk/models/top_listing/listingData.dart';
+import 'package:viwaha_lk/models/categories/sub_categories.dart';
+import 'package:viwaha_lk/screens/top_listings/listingData.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -172,23 +173,36 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           Row(
             children: [
               const SizedBox(width: 8),
-              Container(
-                  height: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: ViwahaColor.primary, width: 1)),
-                  child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.item!.category.toString(),
-                              style:
-                                  const TextStyle(color: ViwahaColor.primary),
-                            )
-                          ]))),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    ref.read(isSearchingProvider.notifier).state = true;
+                    ref.refresh(selectedMainLocationProvider);
+                    ref.refresh(selectedSubLocationProvider);
+                    ref.read(selectedSubCategoryProvider.notifier).state =
+                        SubCategories(sub_category: widget.item.category);
+                  });
+                  AutoRouter.of(context).push(const SearchingResultsPage());
+                },
+                child: Container(
+                    height: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border:
+                            Border.all(color: ViwahaColor.primary, width: 1)),
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.item!.category.toString(),
+                                style:
+                                    const TextStyle(color: ViwahaColor.primary),
+                              )
+                            ]))),
+              ),
               const SizedBox(width: 10),
               Container(
                 decoration: BoxDecoration(
@@ -209,7 +223,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.premium.toString() != "0"
                   ? ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(120, 1),
+                        // fixedSize: Size(120, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -228,7 +242,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   ? ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         side: BorderSide(color: Colors.lightBlueAccent),
-                        fixedSize: Size(110, 1),
+                        // fixedSize: Size(110, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -406,11 +420,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 ? const Icon(Icons.star, color: Colors.yellow)
                                 : const Icon(Icons.star_border,
                                     color: Colors.yellow),
-                            // const Icon(
-
-                            //   Icons.star,
-                            //   color: Colors.yellow,
-                            // ),
                             const SizedBox(width: 4),
                             Text(
                               '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
@@ -441,6 +450,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 width: 5,
               ),
               ElevatedButton.icon(
+                style: const ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(Colors.green),
+                ),
                 onPressed: () {
                   Share.share('https://viwaha.lk/listing?id=${widget.id}');
                 },

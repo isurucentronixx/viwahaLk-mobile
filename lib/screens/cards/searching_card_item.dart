@@ -23,7 +23,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String isFav;
   final bool isPremium;
   final String boostedDate;
-  final SearchResultItem item;
+  final dynamic item;
 
   const SearchingCardItem({
     required this.id,
@@ -234,14 +234,21 @@ class SearchingCardItem extends ConsumerWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 4.0),
-                                          child: Text(
-                                            timeAgoSinceDate(date),
-                                            // Jiffy.parse(date).format(
-                                            //     pattern: 'do MMM  yyyy'),
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                          child: boostedDate != "null"
+                                              ? Text(
+                                                  "Boosted ${timeAgoSinceDate(boostedDate)}",
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              : Text(
+                                                  timeAgoSinceDate(date),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                         ),
                                       ),
                                     ),
