@@ -9,7 +9,6 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
@@ -43,7 +42,6 @@ class TopListing extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var inputDateFormat = DateFormat('dd MMMM, yyyy');
     final data = ref.watch(topListingProvider);
 
     final homeServiceProvider = Provider<HomeService>((ref) {

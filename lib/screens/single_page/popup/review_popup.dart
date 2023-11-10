@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sizer/sizer.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';

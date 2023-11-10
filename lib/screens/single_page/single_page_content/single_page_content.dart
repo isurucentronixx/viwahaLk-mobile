@@ -19,7 +19,6 @@ import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
-import 'package:viwaha_lk/screens/top_listings/listingData.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -263,7 +262,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.member.toString() != "0"
                   ? ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        side: BorderSide(color: Colors.amber),
+                        side: const BorderSide(color: Colors.amber),
                         // fixedSize: Size(110, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -535,7 +534,7 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
 
   List<String> getAmenites(String amenities) {
     // Remove the initial 'a:11:' part from the string
-    String serializedString = amenities!.substring(6);
+    String serializedString = amenities.substring(6);
     // Replace the semicolons, colons, and quotes to format it as a valid JSON
     RegExp regex = RegExp('"([^"]+)"');
     Iterable<Match> matches = regex.allMatches(serializedString);

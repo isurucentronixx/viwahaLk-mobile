@@ -5,8 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -16,7 +14,6 @@ import 'package:intl/intl.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 import '../../appColor.dart';
-import '../../gen/assets.gen.dart';
 import '../../routes/router.gr.dart';
 import '../../models/favorite.dart';
 

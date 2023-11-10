@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
 class FavoriteIcon extends ConsumerStatefulWidget {

@@ -8,7 +8,6 @@ import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 class VendorNotifier extends StateNotifier<List<Vendor>> {

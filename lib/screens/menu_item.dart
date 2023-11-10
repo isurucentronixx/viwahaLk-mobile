@@ -58,52 +58,10 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                         alignment: Alignment.center),
                   ),
                   accountName: Text(ref.watch(isloginProvider)
-                      ? '${user!.firstname.toString()[0].toUpperCase()}${user!.firstname.toString().substring(1).toLowerCase()} ${user.lastname.toString()[0].toUpperCase()}${user.lastname.toString().substring(1).toLowerCase()}'
+                      ? '${user!.firstname.toString()[0].toUpperCase()}${user.firstname.toString().substring(1).toLowerCase()} ${user.lastname.toString()[0].toUpperCase()}${user.lastname.toString().substring(1).toLowerCase()}'
                       : ''),
                   accountEmail: Text(
                       ref.watch(isloginProvider) ? user!.email.toString() : ''),
-                  // currentAccountPicture: ref.watch(isloginProvider)
-                  //     ? Container(
-                  //         decoration: BoxDecoration(
-                  //           shape: BoxShape.circle,
-                  //           border: Border.all(
-                  //             color: Colors.white,
-                  //             width: 2.0,
-                  //           ),
-                  //         ),
-                  //         child: SizedBox(
-                  //           width: 120,
-                  //           height: 120,
-                  //           child: SizedBox(
-                  //             child: CachedNetworkImage(
-                  //               imageUrl: user!.image.toString(),
-                  //               fit: BoxFit.cover,
-                  //               imageBuilder: (context, imageProvider) =>
-                  //                   Container(
-                  //                 decoration: BoxDecoration(
-                  //                   shape: BoxShape.circle,
-                  //                   border: Border.all(
-                  //                     color: Colors.white,
-                  //                   ),
-                  //                   image: DecorationImage(
-                  //                     image: imageProvider,
-                  //                     fit: BoxFit.cover,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               placeholder: (context, url) => const Center(
-                  //                   child: CircularProgressIndicator()),
-                  //               errorWidget: (context, url, error) => Center(
-                  //                 child: Image.network(
-                  //                   'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                  //                   fit: BoxFit.cover,
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       )
-                  //     : Container(),
                 ),
                 ListTile(
                   leading: const Icon(Icons.home),

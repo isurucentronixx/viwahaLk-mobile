@@ -1,11 +1,10 @@
-import 'dart:convert';
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
-import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
@@ -20,7 +19,6 @@ import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
-import 'package:http/http.dart' as http;
 
 final mainImageProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');

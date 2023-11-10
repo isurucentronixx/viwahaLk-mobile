@@ -17,7 +17,7 @@ import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
-import 'package:viwaha_lk/models/menu_item.dart';
+import 'package:viwaha_lk/screens/menu_item.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:country_flags/country_flags.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -118,16 +117,7 @@ Widget cardContent(String lng) {
                   : 'தமிழ்',
           style: const TextStyle(color: Colors.grey, fontSize: 16),
         ),
-        // CountryFlag.fromCountryCode(
-        //   lng == 'en'
-        //       ? 'GB'
-        //       : lng == 'si'
-        //           ? 'LK'
-        //           : 'IN',
-        //   height: 35,
-        //   width: 35,
-        //   borderRadius: 25,
-        // )
+   
       ],
     ),
   );

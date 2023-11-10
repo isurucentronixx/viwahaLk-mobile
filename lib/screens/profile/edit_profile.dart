@@ -79,7 +79,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     final user = ref.watch(userProvider).user;
     final controller = ref.watch(postControllerProvider);
     final state = ref.watch(profileViewStateProvider);
-    final router = AppRouter();
     userImg = user!.image.toString();
 
     ref.listen<AsyncValue>(profileViewStateProvider, (_, state) {

@@ -6,9 +6,6 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
-
 class CardView extends ConsumerWidget {
   const CardView({super.key});
 

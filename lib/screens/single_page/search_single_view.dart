@@ -11,14 +11,11 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/screens/latest_items/latest.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
-import '../../models/menu_item.dart';
 
 @RoutePage()
 class SearchSingleView extends ConsumerStatefulWidget {
