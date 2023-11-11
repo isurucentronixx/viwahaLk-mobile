@@ -307,7 +307,8 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.views.toString(),
                         widget.type.toString(),
                         widget.item!.id.toString(),
-                        widget.item),
+                        widget.item,
+                        widget.item!.boosted.toString()),
                     widget.item!.main_category == "Proposal"
                         ? SingleItemProposal(widget.item)
                         : widget.item!.amenities.toString() != ""

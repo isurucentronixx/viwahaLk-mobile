@@ -19,6 +19,7 @@ import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
+import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -87,7 +88,7 @@ class _SliderState extends ConsumerState<SliderView> {
 
 class SingleItemOverview extends ConsumerStatefulWidget {
   const SingleItemOverview(this.date, this.location, this.title, this.views,
-      this.type, this.id, this.item,
+      this.type, this.id, this.item, this.boosted,
       {super.key});
   final String date;
   final String location;
@@ -96,6 +97,7 @@ class SingleItemOverview extends ConsumerStatefulWidget {
   final String type;
   final String id;
   final dynamic item;
+  final String boosted;
 
   @override
   _SingleItemOverviewState createState() => _SingleItemOverviewState();
@@ -306,47 +308,23 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               ])))
                   : const SizedBox()
               : const SizedBox(),
-          const SizedBox(height: 10),
-          (widget.date != "null")
-              ? (widget.date != null)
-                  ? (widget.date != "")
-                      ? Row(
-                          children: [
-                            const Icon(
-                              Icons.date_range,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                // color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox()
-                  : const SizedBox()
-              : const SizedBox(),
           const SizedBox(height: 8),
-          (widget.location != "null")
-              ? (widget.location != null)
-                  ? (widget.location != "")
+          (widget.views != "null")
+              ? (widget.views != null)
+                  ? (widget.views != "")
                       ? Row(
                           children: [
                             const Icon(
-                              Icons.pin_drop,
+                              Icons.remove_red_eye,
                               color: Colors.grey,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${widget.location}',
+                              '${widget.views} Views',
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                // color: Colors.grey,
+                                color: Colors.grey,
                               ),
                             ),
                           ],
@@ -354,6 +332,8 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
+          // const SizedBox(height: 8),
+          // const SizedBox(height: 10),
           SizedBox(height: widget.item.ask_price == "1" ? 8 : 0),
           widget.item.ask_price == "1"
               ? const Row(
@@ -368,7 +348,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        // color: Colors.grey,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -388,42 +368,131 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        // color: Colors.grey,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
                 )
               : const SizedBox(),
           const SizedBox(height: 8),
-          (widget.views != "null")
-              ? (widget.views != null)
-                  ? (widget.views != "")
+          widget.item.address.isEmpty ||
+                  widget.item.address == 'null' ||
+                  widget.item.address == 'Null' ||
+                  widget.item.address == ""
+              ? Container()
+              : Row(
+                  children: [
+                    const Icon(
+                      Icons.home,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        widget.item.main_category == "Proposal"
+                            ? isMembership(widget.item.address)
+                            : widget.item.address,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+          const SizedBox(height: 0),
+          (widget.location != "null")
+              ? (widget.location != null)
+                  ? (widget.location != "")
                       ? Row(
                           children: [
                             const Icon(
-                              Icons.remove_red_eye,
+                              Icons.pin_drop,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            TextButton(
+                              onPressed: (() {
+                                ref.read(isSearchingProvider.notifier).state =
+                                    true;
+                                ref.refresh(selectedMainLocationProvider);
+                                ref.refresh(selectedMainCategoryProvider);
+                                ref.refresh(selectedSubCategoryProvider);
+                                ref
+                                        .read(selectedSubLocationProvider.notifier)
+                                        .state =
+                                    SubLocation(
+                                        sub_location_en: widget.location);
+                                AutoRouter.of(context)
+                                    .push(const SearchingResultsPage());
+                              }),
+                              child: Text(
+                                '${widget.location},',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: (() {
+                                ref.read(isSearchingProvider.notifier).state =
+                                    true;
+                                ref
+                                    .read(selectedMainLocationProvider.notifier)
+                                    .state = widget.item.main_location;
+                                ref.refresh(selectedMainCategoryProvider);
+                                ref.refresh(selectedSubCategoryProvider);
+                                ref.refresh(selectedSubLocationProvider);
+                                AutoRouter.of(context)
+                                    .push(const SearchingResultsPage());
+                              }),
+                              child: Text(
+                                '${widget.item.main_location}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: ViwahaColor.primary,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
+          const SizedBox(height: 0),
+          (widget.date != "null")
+              ? (widget.date != null)
+                  ? (widget.date != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.date_range,
                               color: Colors.grey,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${widget.views} Views',
+                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
                               style: const TextStyle(
                                 fontSize: 16,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.grey,
                             ),
-                            widget.item!.average_rating != null
-                                ? const Icon(Icons.star, color: Colors.yellow)
-                                : const Icon(Icons.star_border,
-                                    color: Colors.yellow),
                             const SizedBox(width: 4),
                             Text(
-                              '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                              "${Jiffy.parse(widget.date).format(pattern: 'h:mm a')}",
                               style: const TextStyle(
                                 fontSize: 16,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                               ),
                             ),
@@ -432,6 +501,47 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
+          const SizedBox(height: 8),
+          (widget.boosted != "null")
+              ? (widget.boosted != null)
+                  ? (widget.boosted != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "Boosted ${Jiffy.parse(widget.boosted).fromNow()}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              widget.item!.average_rating != null
+                  ? const Icon(Icons.star, color: Colors.yellow)
+                  : const Icon(Icons.star_border, color: Colors.yellow),
+              const SizedBox(width: 4),
+              Text(
+                '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
