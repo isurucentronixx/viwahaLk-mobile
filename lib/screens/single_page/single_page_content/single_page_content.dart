@@ -401,7 +401,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                     )
                   ],
                 ),
-          const SizedBox(height: 0),
+          const SizedBox(height: 8),
           (widget.location != "null")
               ? (widget.location != null)
                   ? (widget.location != "")
@@ -427,6 +427,12 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 AutoRouter.of(context)
                                     .push(const SearchingResultsPage());
                               }),
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(50, 30),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  alignment: Alignment.centerLeft),
                               child: Text(
                                 '${widget.location},',
                                 style: const TextStyle(
@@ -449,6 +455,12 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 AutoRouter.of(context)
                                     .push(const SearchingResultsPage());
                               }),
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(50, 30),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  alignment: Alignment.centerLeft),
                               child: Text(
                                 '${widget.item.main_location}',
                                 style: const TextStyle(
@@ -463,7 +475,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
-          const SizedBox(height: 0),
+          const SizedBox(height: 8),
           (widget.date != "null")
               ? (widget.date != null)
                   ? (widget.date != "")
@@ -525,7 +537,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
-          const SizedBox(height: 8),
+          // const SizedBox(height: 0),
           Row(
             children: [
               widget.item!.average_rating != null
@@ -559,7 +571,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 width: 5,
               ),
               ElevatedButton.icon(
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll<Color>(Color(0xFF4caf50)),
                 ),
