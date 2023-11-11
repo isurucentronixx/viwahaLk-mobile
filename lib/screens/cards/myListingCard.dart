@@ -427,7 +427,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     ),
                     label: const Text('Boost'), // <-- Text
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color(0xFF4caf50),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

@@ -44,13 +44,6 @@ class TopListing extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(topListingProvider);
 
-    final homeServiceProvider = Provider<HomeService>((ref) {
-      return HomeService(ref.read(dioClientProvider));
-    });
-    final homeControllerProvider = Provider<HomeController>((ref) {
-      return HomeController(ref.read(homeServiceProvider));
-    });
-
     return Column(
       children: [
         Padding(
@@ -97,16 +90,13 @@ class TopListing extends ConsumerWidget {
                 children: List.generate(data.length, // Total number of cards
                     (index) {
                   final wedding = data[index];
-                  String thumbImg = wedding.image != ""
+                  String thumbImg = wedding.image != null
                       ? "https://viwaha.lk/${wedding.image.toString()}"
                       : ref
                           .read(homeControllerProvider)
                           .getTumbImage(wedding.thumb_images)
                           .first;
-                  // ref
-                  //     .read(homeControllerProvider)
-                  //     .getTumbImage(wedding.thumb_images)
-                  //     .first;
+
                   return GestureDetector(
                     onTap: () {
                       AutoRouter.of(context)

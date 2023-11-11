@@ -51,13 +51,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
 
     final isLoading = ref.watch(isLoadingHomeProvider);
 
-    final homeServiceProvider = Provider<HomeService>((ref) {
-      return HomeService(ref.read(dioClientProvider));
-    });
-
-    final homeControllerProvider = Provider<HomeController>((ref) {
-      return HomeController(ref.read(homeServiceProvider));
-    });
+   
 
     return Column(
       children: [

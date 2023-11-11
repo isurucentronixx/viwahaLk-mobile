@@ -449,9 +449,9 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 width: 5,
               ),
               ElevatedButton.icon(
-                style: const ButtonStyle(
+                style: ButtonStyle(
                   backgroundColor:
-                      MaterialStatePropertyAll<Color>(Colors.green),
+                      MaterialStatePropertyAll<Color>(Color(0xFF4caf50)),
                 ),
                 onPressed: () {
                   Share.share('https://viwaha.lk/listing?id=${widget.id}');

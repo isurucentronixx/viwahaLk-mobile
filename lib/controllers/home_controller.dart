@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -34,10 +33,6 @@ final profileViewStateProvider =
 
 final changePasswordViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
-
-final homeServiceProvider = Provider<HomeService>((ref) {
-  return HomeService(ref.read(dioClientProvider));
-});
 
 final isLoadingHomeProvider = StateProvider<bool>((ref) {
   return true;
@@ -193,10 +188,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchCategoryListing(
-      String userId, String category,int pageId) async {
+      String userId, String category, int pageId) async {
     try {
-      final res =
-          await homeService.fetchCategoryListingApiRequest(userId, category, pageId);
+      final res = await homeService.fetchCategoryListingApiRequest(
+          userId, category, pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

@@ -102,7 +102,8 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                           const SizedBox(width: 5),
                           Text(
                             'search'.tr(),
-                            style: const TextStyle(fontSize: 16, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
                           ),
                         ],
                       )),
