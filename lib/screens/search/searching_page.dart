@@ -187,55 +187,55 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
           title: const Text('Search'),
           centerTitle: true,
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 28.0),
-            child: FloatingActionButton.extended(
-              onPressed: () {
-                setState(() {
-                  ref.refresh(isActivatedProvider);
-                  ref.refresh(isLocationActivatedProvider);
-                  ref.refresh(subCategoriesProvider);
-                  ref.refresh(subLocationsProvider);
-                  ref.refresh(selectedMainCategoryProvider);
-                  ref.refresh(selectedMainLocationProvider);
-                  ref.refresh(selectedSubCategoryProvider);
-                  ref.refresh(selectedSubLocationProvider);
-                  ref.refresh(selectedAmenitiesProvider);
-                  ref.refresh(searchingKeywords);
-                  ref.refresh(selectedPriceRangeProvider);
-                  _price = 'Select One';
-                  _orderBy = 'Select One';
-                  _sortBy = 'Select One';
-                  _ratings = 'Select One';
-                  _amenities = ['Select'];
-                  _mainLocation = const Location(
-                    location_en: 'Select one',
-                  );
-                  _subLocation = const SubLocation(
-                    sub_location_en: 'Select one',
-                  );
-                  _mainCat = const Categories(
-                    category: 'Select one',
-                  );
-                  _subCat = const SubCategories(
-                    sub_category: 'Select one',
-                  );
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          FloatingActionButton.extended(
+            elevation: 0,
+            onPressed: () {
+              setState(() {
+                ref.refresh(isActivatedProvider);
+                ref.refresh(isLocationActivatedProvider);
+                ref.refresh(subCategoriesProvider);
+                ref.refresh(subLocationsProvider);
+                ref.refresh(selectedMainCategoryProvider);
+                ref.refresh(selectedMainLocationProvider);
+                ref.refresh(selectedSubCategoryProvider);
+                ref.refresh(selectedSubLocationProvider);
+                ref.refresh(selectedAmenitiesProvider);
+                ref.refresh(searchingKeywords);
+                ref.refresh(selectedPriceRangeProvider);
+                _price = 'Select One';
+                _orderBy = 'Select One';
+                _sortBy = 'Select One';
+                _ratings = 'Select One';
+                _amenities = ['Select'];
+                _mainLocation = const Location(
+                  location_en: 'Select one',
+                );
+                _subLocation = const SubLocation(
+                  sub_location_en: 'Select one',
+                );
+                _mainCat = const Categories(
+                  category: 'Select one',
+                );
+                _subCat = const SubCategories(
+                  sub_category: 'Select one',
+                );
 
-                  subCat2 = [];
-                  location2 = [];
-                  _textEditingController!.clear();
-                });
-              },
-              label: const Text('Clear'),
-              icon: const Icon(Icons.developer_board_off_outlined),
-            ),
+                subCat2 = [];
+                location2 = [];
+                _textEditingController!.clear();
+              });
+            },
+            label: const Text('Clear'),
+            icon: const Icon(Icons.clear_rounded),
           ),
           const SizedBox(
             width: 8,
           ),
           FloatingActionButton.extended(
+            elevation: 0,
             onPressed: () {
               setState(() {
                 ref.read(isSearchingProvider.notifier).state = true;
@@ -549,12 +549,13 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   const Padding(
                                     padding: EdgeInsets.all(4.0),
                                     child: Icon(
-                                      Icons.filter_alt_outlined,
+                                      size: 24,
+                                      Icons.filter_list,
                                       color: Colors.grey,
                                     ),
                                   ),
                                   const Text(
-                                    'MORE FILTERS',
+                                    'More Filter',
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                   Column(
@@ -579,7 +580,6 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           ),
                         ),
 
-                        // this is the body which expands and collapses by height change
                         AnimatedContainer(
                           height: _currentHeight,
                           width: MediaQuery.of(context).size.width * 0.95,
@@ -589,6 +589,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                             borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(0),
+                                topRight: Radius.circular(0),
                                 bottomLeft: Radius.circular(10),
                                 bottomRight: Radius.circular(10)),
                           ),
@@ -600,7 +602,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<String>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'SORT BY',
+                                  title: 'Sort by',
                                   selectedValue: _sortBy,
                                   choiceItems: sortByData,
                                   onChange: (selected) {
@@ -638,7 +640,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<String>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'ORDER BY',
+                                  title: 'Order by',
                                   selectedValue: _orderBy,
                                   choiceItems: orderByData,
                                   onChange: (selected) {
@@ -676,7 +678,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<String>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'PRICE',
+                                  title: 'Price',
                                   selectedValue: _price,
                                   choiceItems: priceData,
                                   onChange: (selected) {
@@ -716,10 +718,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<String>.multiple(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'AMENITIES',
+                                  title: 'Amenities',
                                   selectedValue: _amenities,
                                   choiceItems: amenitiesData,
-                                  placeholder: 'Select One or More',
+                                  placeholder: 'Select one or more',
                                   onChange: (selected) {
                                     setState(() {
                                       _amenities = selected.value;
@@ -760,7 +762,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                 child: SmartSelect<String>.single(
                                   modalFilterAuto: true,
                                   modalFilter: true,
-                                  title: 'RATINGS',
+                                  title: 'Ratings',
                                   selectedValue: _ratings,
                                   choiceItems: ratingsData,
                                   onChange: (selected) {

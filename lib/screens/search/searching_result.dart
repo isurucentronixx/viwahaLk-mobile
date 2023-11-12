@@ -177,10 +177,14 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                       children: [
                                         Icon(
                                           Icons.filter_alt,
+                                          size: 18,
                                           color: Colors.white,
                                         ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
                                         Text(
-                                          "FILTERS ",
+                                          "Filter ",
                                           style: TextStyle(color: Colors.white),
                                         )
                                       ]))),

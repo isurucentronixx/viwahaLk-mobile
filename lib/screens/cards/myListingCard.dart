@@ -1,27 +1,17 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/favorite.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
-import 'package:viwaha_lk/models/search/search_result_item.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:intl/intl.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';
-
-import '../../appColor.dart';
-import '../../gen/assets.gen.dart';
-import '../../routes/router.gr.dart';
+import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/gen/assets.gen.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 
 class MyCardItem extends ConsumerStatefulWidget {
   final String id;
