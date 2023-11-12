@@ -34,6 +34,7 @@ class MyCardItem extends ConsumerStatefulWidget {
   final String name;
   final String main_category;
   final String isFav;
+  final String boosted;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -45,6 +46,7 @@ class MyCardItem extends ConsumerStatefulWidget {
     required this.name,
     required this.main_category,
     required this.isFav,
+    required this.boosted,
   });
   @override
   _MyCardItemState createState() => _MyCardItemState();
@@ -77,7 +79,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     final controller = ref.watch(postControllerProvider);
     final picker = ImagePicker();
 
-    imageUpload(File image, String name, String type) async {
+    imageUpload(XFile image, String name, String type) async {
       ref.read(isLoadingBillImgProvider.notifier).state = true;
 
       final res = await controller.imageUpload(image, name, type);
@@ -168,14 +170,19 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8.0, vertical: 4.0),
-                            child: Text(
-                              timeAgoSinceDate(widget.date),
-                              // Jiffy.parse(widget.date)
-                              //     .format(pattern: 'do MMMM  yyyy'),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            child: widget.boosted != "null"
+                                ? Text(
+                                    "Boosted ${timeAgoSinceDate(widget.boosted)}",
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : Text(
+                                    timeAgoSinceDate(widget.date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         ),
                       ),
@@ -268,7 +275,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              File image;
+                                              XFile image;
                                               picker
                                                   .pickImage(
                                                       source:
@@ -279,7 +286,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                   .then((value) => {
                                                         if (value != null)
                                                           {
-                                                            image = File(
+                                                            image = XFile(
                                                                 value.path),
                                                             stfSetState(
                                                               () {
@@ -315,7 +322,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                               .primary),
                                                       borderRadius:
                                                           const BorderRadius
-                                                                  .all(
+                                                              .all(
                                                               Radius.circular(
                                                                   10))),
                                                   child: Assets.lib.assets
@@ -337,7 +344,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                               .primary),
                                                       borderRadius:
                                                           const BorderRadius
-                                                                  .all(
+                                                              .all(
                                                               Radius.circular(
                                                                   10))),
                                                 )
@@ -420,7 +427,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     ),
                     label: const Text('Boost'), // <-- Text
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color(0xFF4caf50),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

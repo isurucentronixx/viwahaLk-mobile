@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
@@ -104,7 +105,7 @@ class PostData {
     }
   }
 
-  Future imageUpload(File image, String name, String type) async {
+  Future imageUpload(XFile image, String name, String type) async {
     var formData = FormData.fromMap({
       'userId': ref.watch(userProvider).user!.id,
       type != 'main' ? 'gallery_images' : 'file1':

@@ -2,18 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/latest_items/latest.dart';
+import 'package:viwaha_lk/screens/latest_items/latest.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
-import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import '../../models/menu_item.dart';
-import '../../models/releted_items/releted.dart';
 
 @RoutePage()
 class SingleView extends ConsumerStatefulWidget {
@@ -83,9 +79,14 @@ class _SingleViewState extends ConsumerState<SingleView> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -118,7 +119,9 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.type.toString(),
                 widget.vendor?.id.toString() ??
                     widget.topListing!.id!.toString(),
-                widget.vendor ?? widget.topListing),
+                widget.vendor ?? widget.topListing,
+                widget.vendor?.boosted.toString() ??
+                    widget.topListing!.boosted.toString()),
             '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' ==
                     "Proposal"
                 ? SingleItemProposal(widget.vendor ?? widget.topListing)

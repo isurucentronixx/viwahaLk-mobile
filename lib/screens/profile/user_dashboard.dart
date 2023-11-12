@@ -77,9 +77,14 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -750,83 +755,87 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
 
   Widget myListigs() {
     List<SearchResultItem> myListing = ref.watch(myListingProvider);
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: SizedBox(
-        height: 400, // Set the desired height for the horizontal list view
-        child: Column(
-          children: [
-            Container(
-              color:
-                  ViwahaColor.primary, // Set the background color for the title
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
+    return myListing.isNotEmpty
+        ? Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              height:
+                  400, // Set the desired height for the horizontal list view
+              child: Column(
                 children: [
-                  const Icon(
-                    Icons.list,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    LocaleKeys.my_listings.tr(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
+                  Container(
+                    color: ViwahaColor
+                        .primary, // Set the background color for the title
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.list,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          LocaleKeys.my_listings.tr(),
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 1,
+                      scrollDirection: Axis
+                          .horizontal, // Set the scroll direction to horizontal
+                      children: List.generate(
+                        myListing.length, // Total number of cards
+                        (index) => MyCardItem(
+                          imagePath: myListing[index].image != null
+                              ? "https://viwaha.lk/${myListing[index].image.toString()}"
+                              : ref
+                                  .read(homeControllerProvider)
+                                  .getTumbImage(myListing[index].thumb_images)
+                                  .first,
+                          title: myListing[index].title != null
+                              ? myListing[index].title!
+                              : "",
+                          description: myListing[index].description != null
+                              ? myListing[index].description!
+                              : "",
+                          starRating: myListing[index].average_rating != null
+                              ? double.parse(
+                                  myListing[index].average_rating.toString())
+                              : 0,
+                          type: "myAd",
+                          date: myListing[index].datetime != null
+                              ? myListing[index].datetime!
+                              : "",
+                          location: myListing[index].location != null
+                              ? myListing[index].location!
+                              : "",
+                          name: myListing[index].name.toString(),
+                          main_category:
+                              myListing[index].main_category.toString(),
+                          id: myListing[index].id.toString(),
+                          isFav: myListing[index].is_favourite.toString(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 1,
-                scrollDirection:
-                    Axis.horizontal, // Set the scroll direction to horizontal
-                children: List.generate(
-                  myListing.length, // Total number of cards
-                  (index) => MyCardItem(
-                    imagePath: myListing[index].image != null
-                        ? "https://viwaha.lk/${myListing[index].image.toString()}"
-                        : ref
-                            .read(homeControllerProvider)
-                            .getTumbImage(myListing[index].thumb_images)
-                            .first,
-                    title: myListing[index].title != null
-                        ? myListing[index].title!
-                        : "",
-                    description: myListing[index].description != null
-                        ? myListing[index].description!
-                        : "",
-                    starRating: myListing[index].average_rating != null
-                        ? double.parse(
-                            myListing[index].average_rating.toString())
-                        : 0,
-                    type: "myAd",
-                    date: myListing[index].datetime != null
-                        ? myListing[index].datetime!
-                        : "",
-                    location: myListing[index].location != null
-                        ? myListing[index].location!
-                        : "",
-                    name: myListing[index].name.toString(),
-                    main_category: myListing[index].main_category.toString(),
-                    id: myListing[index].id.toString(),
-                    isFav: myListing[index].is_favourite.toString(),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const SizedBox();
   }
 }
 
@@ -867,30 +876,27 @@ class MyCardItem extends ConsumerWidget {
                 .first,
             type: 'myAd'));
       },
-      child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Container(
+      child: SizedBox(
+        height: 100,
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
                 width: 200,
-                height: 500,
+                height: 200,
                 child: Stack(
                   children: [
                     CachedNetworkImage(
                       imageUrl: imagePath.toString(),
                       fit: BoxFit.cover,
                       imageBuilder: (context, imageProvider) => Container(
-                        height: 150,
+                        height: 250,
                         width: 400,
                         decoration: BoxDecoration(
-                          // borderRadius:
-                          //     const BorderRadius.only(
-                          //         topLeft:
-                          //             Radius.circular(10),
-                          //         topRight:
-                          //             Radius.circular(
-                          //                 10)),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
                           color: Colors.black,
                           image: DecorationImage(
                             image: imageProvider,
@@ -970,56 +976,56 @@ class MyCardItem extends ConsumerWidget {
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    main_category == "Proposal" ? '${name}' : '${title}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      main_category == "Proposal" ? name : title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.location_pin,
-                          color: ViwahaColor.primary,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          location,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.location_pin,
+                            color: ViwahaColor.primary,
+                            size: 16,
                           ),
-                        ),
+                          const SizedBox(width: 4),
+                          Text(
+                            location,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Text(
+                    //   description,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   style: const TextStyle(fontSize: 12),
+                    // ),
+                    // const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.star, color: Colors.yellow),
+                        const SizedBox(width: 4),
+                        Text(starRating.toString()),
                       ],
                     ),
-                  ),
-                  Text(
-                    description,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.yellow),
-                      const SizedBox(width: 4),
-                      Text(starRating.toString()),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

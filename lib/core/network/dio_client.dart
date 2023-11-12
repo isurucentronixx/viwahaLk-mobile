@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:viwaha_lk/core/network/constant/endpoints.dart';
 import 'package:viwaha_lk/core/network/interceptor/dio_interceptor.dart';
 
 class DioClient {

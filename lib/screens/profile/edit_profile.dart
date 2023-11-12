@@ -28,7 +28,7 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
+
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -79,7 +79,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     final user = ref.watch(userProvider).user;
     final controller = ref.watch(postControllerProvider);
     final state = ref.watch(profileViewStateProvider);
-    final router = AppRouter();
     userImg = user!.image.toString();
 
     ref.listen<AsyncValue>(profileViewStateProvider, (_, state) {
@@ -109,9 +108,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -298,8 +302,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
-                                  initialValue: user.firstname.toString(),
+                                  initialValue: user.firstname,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -346,6 +352,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -359,7 +367,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.lastname.toString(),
+                                  initialValue: user.lastname,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -394,6 +402,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -407,7 +417,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.company.toString(),
+                                  initialValue: user.company,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -442,6 +452,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -456,7 +468,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.designation.toString(),
+                                  initialValue: user.designation,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -491,6 +503,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -504,7 +518,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.birthday.toString(),
+                                  initialValue: user.birthday,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -539,6 +553,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -552,7 +568,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.email.toString(),
+                                  initialValue: user.email,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -587,6 +603,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -601,7 +619,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.phone.toString(),
+                                  initialValue: user.phone,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -636,6 +654,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -649,7 +669,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.phonenumber.toString(),
+                                  initialValue: user.phonenumber,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -684,6 +704,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -697,7 +719,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.address.toString(),
+                                  initialValue: user.address,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -738,6 +760,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -751,7 +775,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.facebook.toString(),
+                                  initialValue: user.facebook,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -786,6 +810,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -799,7 +825,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.instagram.toString(),
+                                  initialValue: user.instagram,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -834,6 +860,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -847,7 +875,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.youtube.toString(),
+                                  initialValue: user.youtube,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -882,6 +910,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -895,7 +925,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.twitter.toString(),
+                                  initialValue: user.twitter,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -930,6 +960,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -944,7 +976,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.linkedin.toString(),
+                                  initialValue: user.linkedin,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -979,6 +1011,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -992,7 +1026,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                           .state = value;
                                     });
                                   },
-                                  initialValue: user.website.toString(),
+                                  initialValue: user.website,
                                   decoration: InputDecoration(
                                     focusColor: Colors.white,
                                     border: OutlineInputBorder(
@@ -1034,8 +1068,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: TextFormField(
+                                  onTapOutside: (event) =>
+                                      FocusScope.of(context).unfocus(),
                                   focusNode: FocusNode(canRequestFocus: false),
-                                  initialValue: user.about.toString(),
+                                  initialValue: user.about,
                                   keyboardType: TextInputType.multiline,
                                   maxLines: 4,
                                   style: const TextStyle(

@@ -85,6 +85,8 @@ _$_Vendor _$$_VendorFromJson(Map<String, dynamic> json) => _$_Vendor(
       next_step: json['next_step'] as String?,
       average_rating: json['average_rating'] as String?,
       is_favourite: json['is_favourite'] as String?,
+      verified: json['verified'] as String?,
+      member: json['member'] as String?,
     );
 
 Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
@@ -166,4 +168,6 @@ Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
       'next_step': instance.next_step,
       'average_rating': instance.average_rating,
       'is_favourite': instance.is_favourite,
+      'verified': instance.verified,
+      'member': instance.member,
     };

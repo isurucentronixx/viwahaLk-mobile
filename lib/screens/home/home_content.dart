@@ -7,15 +7,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/models/build_card/card_view.dart';
-import 'package:viwaha_lk/models/popular_cities/popular_cities.dart';
-import 'package:viwaha_lk/models/premium_vender/premium_vendors.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing.dart';
+import 'package:viwaha_lk/screens/popular_cities/popular_cities.dart';
+import 'package:viwaha_lk/screens/premium_vendors/premium_vendors.dart';
+import 'package:viwaha_lk/screens/top_listings/top_listing.dart';
 import 'package:http/http.dart' as http;
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class HomeContent extends ConsumerStatefulWidget {
   const HomeContent({super.key});
@@ -104,7 +102,8 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                           const SizedBox(width: 5),
                           Text(
                             'search'.tr(),
-                            style: const TextStyle(fontSize: 16, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
                           ),
                         ],
                       )),

@@ -22,7 +22,7 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
+
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -77,9 +77,14 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -104,6 +109,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
@@ -158,6 +165,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,
@@ -211,6 +220,8 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
+                            onTapOutside: (event) =>
+                                FocusScope.of(context).unfocus(),
                             focusNode: FocusNode(canRequestFocus: false),
                             style: const TextStyle(
                               fontSize: 18,

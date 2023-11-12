@@ -7,11 +7,10 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/screens/home/home_content.dart';
-import 'package:viwaha_lk/models/menu_item.dart';
+import 'package:viwaha_lk/screens/menu_item.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/localizationBottomSheet.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 
@@ -27,8 +26,6 @@ class _HomePageState extends ConsumerState<HomePage>
   late int currentPage;
   late TabController tabController;
   int? selectedOption;
-  bool _show = true;
-  int _radioValue = 0;
   int selectedIndex = -1;
   String selectedPremium = "";
   String selectedPolicyNumber = "";
@@ -87,13 +84,6 @@ class _HomePageState extends ConsumerState<HomePage>
                     child: Assets.lib.assets.images.logo.image(),
                   ),
                 ),
-                // currentPage == 0
-                //     ? IconButton(
-                //         onPressed: () {
-                //           localizationBottomSheet(context, ref);
-                //         },
-                //         icon: const Icon(Icons.language))
-                //     : const SizedBox(),
               ],
             )
           ],
@@ -189,14 +179,13 @@ class _HomePageState extends ConsumerState<HomePage>
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
-                        
                         if (ref.watch(isloginProvider)) {
                           ref.refresh(allListingProvider);
                         }
 
                         setState(() {
                           ref.read(isSearchingProvider.notifier).state = true;
-                          currentScreen = const AllListingPage();
+                          currentScreen = const AllListingPage(false);
                           currentTab = 1;
                           currentPage = 1;
                         });
@@ -259,7 +248,7 @@ class _HomePageState extends ConsumerState<HomePage>
                                   ? Colors.black54
                                   : Colors.white,
                             ),
-                          ), 
+                          ),
                         ],
                       ),
                     ),

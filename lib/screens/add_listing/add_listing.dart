@@ -16,6 +16,7 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/features/login/login_state_provider.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -28,7 +29,7 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
+
 import 'package:viwaha_lk/screens/add_listing/field_set_widget.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:image_picker/image_picker.dart';
@@ -612,7 +613,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
             value: e.location_en.toString(), title: e.location_en.toString()))
         .toList();
 
-    imageUpload(File image, String name, String type) async {
+    imageUpload(XFile image, String name, String type) async {
       if (type == "gallery") {
         ref.read(isLoadingGalleryProvider.notifier).state = true;
       } else {
@@ -667,9 +668,14 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            child: Assets.lib.assets.images.logo.image(),
+                          child: GestureDetector(
+                            onTap: () {
+                              AutoRouter.of(context).push(const HomePage());
+                            },
+                            child: SizedBox(
+                              width: 100,
+                              child: Assets.lib.assets.images.logo.image(),
+                            ),
                           ),
                         ),
                       ],
@@ -784,6 +790,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -846,6 +854,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -936,6 +946,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     controller: _dobController,
                                     onTap: () async {
                                       DateTime? pickedDate =
@@ -1000,6 +1012,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1052,6 +1066,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1104,6 +1120,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1248,6 +1266,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1297,6 +1317,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               ? Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1354,6 +1376,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1434,6 +1458,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1486,6 +1512,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1538,6 +1566,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1590,6 +1620,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1639,6 +1671,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1687,6 +1721,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1736,6 +1772,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1783,6 +1821,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1830,6 +1870,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1877,6 +1919,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1924,6 +1968,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -1971,6 +2017,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -2307,7 +2355,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    XFile image;
                                     setState(() {
                                       picker
                                           .pickImage(
@@ -2318,7 +2366,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                           .then((value) => {
                                                 if (value != null)
                                                   {
-                                                    image = File(value.path),
+                                                    image = XFile(value.path),
                                                     imageUpload(image,
                                                         value.name, "main"),
                                                     ref
@@ -2432,26 +2480,44 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    File image;
+                                    // File image;
+                                    List<XFile> images = [];
                                     picker
-                                        .pickImage(
-                                            source: ImageSource.gallery,
+                                        .pickMultiImage(
+                                            // source: ImageSource.gallery,
                                             imageQuality: 50,
                                             maxWidth: 800,
                                             maxHeight: 800)
                                         .then((value) => {
                                               if (value != null)
                                                 {
-                                                  image = File(value.path),
-                                                  imageUpload(image, value.name,
-                                                      "gallery"),
-                                                  setState(() {
-                                                    ref
-                                                        .read(
-                                                            imageGalleryProvider)
-                                                        .add(ImageObject(
-                                                            path: value.path));
-                                                  })
+                                                  images.addAll(value),
+                                                  // ignore: avoid_function_literals_in_foreach_calls
+                                                  images.forEach((image) {
+                                                    imageUpload(image,
+                                                        image.name, "gallery");
+                                                    setState(() {
+                                                      ref
+                                                          .read(
+                                                              imageGalleryProvider)
+                                                          .add(ImageObject(
+                                                              path:
+                                                                  image.path));
+                                                    });
+                                                  }),
+                                                  // print(value)
+                                                  // image = File(value.path),
+                                                  // imageUpload(image, value.name,
+                                                  //     "gallery"),
+                                                  // setState(() {
+                                                  //   ref
+                                                  //       .read(
+                                                  //           imageGalleryProvider)
+                                                  //       .add(ImageObject(
+                                                  //           path: value.path));
+                                                  // })
+                                                  print("images"),
+                                                  print(images),
                                                 }
                                             });
                                   },
@@ -3232,6 +3298,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 4,
                                     style: const TextStyle(
@@ -3293,6 +3361,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3340,6 +3410,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3387,6 +3459,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3434,6 +3508,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -3490,6 +3566,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -5078,7 +5156,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               }
                             },
                             icon: const Icon(Icons.add_box_outlined),
-                            label: const Text('ADD YOUR LISTING'),
+                            label: const Text('SUBMIT AD'),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),

@@ -66,6 +66,9 @@ mixin _$VendorProfile {
   String? get created => throw _privateConstructorUsedError;
   String? get modified => throw _privateConstructorUsedError;
   String? get token_de_platform => throw _privateConstructorUsedError;
+  String? get membership => throw _privateConstructorUsedError;
+  String? get membership_upload => throw _privateConstructorUsedError;
+  String? get member => throw _privateConstructorUsedError;
   String? get listings_count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -127,6 +130,9 @@ abstract class $VendorProfileCopyWith<$Res> {
       String? created,
       String? modified,
       String? token_de_platform,
+      String? membership,
+      String? membership_upload,
+      String? member,
       String? listings_count});
 }
 
@@ -189,6 +195,9 @@ class _$VendorProfileCopyWithImpl<$Res, $Val extends VendorProfile>
     Object? created = freezed,
     Object? modified = freezed,
     Object? token_de_platform = freezed,
+    Object? membership = freezed,
+    Object? membership_upload = freezed,
+    Object? member = freezed,
     Object? listings_count = freezed,
   }) {
     return _then(_value.copyWith(
@@ -376,6 +385,18 @@ class _$VendorProfileCopyWithImpl<$Res, $Val extends VendorProfile>
           ? _value.token_de_platform
           : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
+      membership: freezed == membership
+          ? _value.membership
+          : membership // ignore: cast_nullable_to_non_nullable
+              as String?,
+      membership_upload: freezed == membership_upload
+          ? _value.membership_upload
+          : membership_upload // ignore: cast_nullable_to_non_nullable
+              as String?,
+      member: freezed == member
+          ? _value.member
+          : member // ignore: cast_nullable_to_non_nullable
+              as String?,
       listings_count: freezed == listings_count
           ? _value.listings_count
           : listings_count // ignore: cast_nullable_to_non_nullable
@@ -439,6 +460,9 @@ abstract class _$$_VendorProfileCopyWith<$Res>
       String? created,
       String? modified,
       String? token_de_platform,
+      String? membership,
+      String? membership_upload,
+      String? member,
       String? listings_count});
 }
 
@@ -499,6 +523,9 @@ class __$$_VendorProfileCopyWithImpl<$Res>
     Object? created = freezed,
     Object? modified = freezed,
     Object? token_de_platform = freezed,
+    Object? membership = freezed,
+    Object? membership_upload = freezed,
+    Object? member = freezed,
     Object? listings_count = freezed,
   }) {
     return _then(_$_VendorProfile(
@@ -686,6 +713,18 @@ class __$$_VendorProfileCopyWithImpl<$Res>
           ? _value.token_de_platform
           : token_de_platform // ignore: cast_nullable_to_non_nullable
               as String?,
+      membership: freezed == membership
+          ? _value.membership
+          : membership // ignore: cast_nullable_to_non_nullable
+              as String?,
+      membership_upload: freezed == membership_upload
+          ? _value.membership_upload
+          : membership_upload // ignore: cast_nullable_to_non_nullable
+              as String?,
+      member: freezed == member
+          ? _value.member
+          : member // ignore: cast_nullable_to_non_nullable
+              as String?,
       listings_count: freezed == listings_count
           ? _value.listings_count
           : listings_count // ignore: cast_nullable_to_non_nullable
@@ -744,6 +783,9 @@ class _$_VendorProfile implements _VendorProfile {
       this.created,
       this.modified,
       this.token_de_platform,
+      this.membership,
+      this.membership_upload,
+      this.member,
       this.listings_count});
 
   factory _$_VendorProfile.fromJson(Map<String, dynamic> json) =>
@@ -842,11 +884,17 @@ class _$_VendorProfile implements _VendorProfile {
   @override
   final String? token_de_platform;
   @override
+  final String? membership;
+  @override
+  final String? membership_upload;
+  @override
+  final String? member;
+  @override
   final String? listings_count;
 
   @override
   String toString() {
-    return 'VendorProfile(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, listings_count: $listings_count)';
+    return 'VendorProfile(id: $id, date: $date, active_date: $active_date, valid_date: $valid_date, type: $type, firstname: $firstname, lastname: $lastname, username: $username, nic: $nic, phonenumber: $phonenumber, whatsappnumber: $whatsappnumber, email: $email, active: $active, edit: $edit, inviteid: $inviteid, verifycode: $verifycode, verified: $verified, image: $image, bank_name: $bank_name, branch_name: $branch_name, account_name: $account_name, account_number: $account_number, bank_swift_code: $bank_swift_code, address: $address, bank_receipt_image: $bank_receipt_image, view_bank_receipt: $view_bank_receipt, payment_type: $payment_type, website: $website, company: $company, designation: $designation, birthday: $birthday, phone: $phone, country: $country, facebook: $facebook, instagram: $instagram, twitter: $twitter, linkedin: $linkedin, youtube: $youtube, about: $about, oauth_provider: $oauth_provider, oauth_uid: $oauth_uid, gender: $gender, unique_link: $unique_link, created: $created, modified: $modified, token_de_platform: $token_de_platform, membership: $membership, membership_upload: $membership_upload, member: $member, listings_count: $listings_count)';
   }
 
   @override
@@ -928,6 +976,11 @@ class _$_VendorProfile implements _VendorProfile {
                 other.modified == modified) &&
             (identical(other.token_de_platform, token_de_platform) ||
                 other.token_de_platform == token_de_platform) &&
+            (identical(other.membership, membership) ||
+                other.membership == membership) &&
+            (identical(other.membership_upload, membership_upload) ||
+                other.membership_upload == membership_upload) &&
+            (identical(other.member, member) || other.member == member) &&
             (identical(other.listings_count, listings_count) ||
                 other.listings_count == listings_count));
   }
@@ -982,6 +1035,9 @@ class _$_VendorProfile implements _VendorProfile {
         created,
         modified,
         token_de_platform,
+        membership,
+        membership_upload,
+        member,
         listings_count
       ]);
 
@@ -1047,6 +1103,9 @@ abstract class _VendorProfile implements VendorProfile {
       final String? created,
       final String? modified,
       final String? token_de_platform,
+      final String? membership,
+      final String? membership_upload,
+      final String? member,
       final String? listings_count}) = _$_VendorProfile;
 
   factory _VendorProfile.fromJson(Map<String, dynamic> json) =
@@ -1144,6 +1203,12 @@ abstract class _VendorProfile implements VendorProfile {
   String? get modified;
   @override
   String? get token_de_platform;
+  @override
+  String? get membership;
+  @override
+  String? get membership_upload;
+  @override
+  String? get member;
   @override
   String? get listings_count;
   @override

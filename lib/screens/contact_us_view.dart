@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 
 import '../gen/assets.gen.dart';
 
@@ -20,9 +20,14 @@ class ContactUsPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
+                  child: GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).push(const HomePage());
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      child: Assets.lib.assets.images.logo.image(),
+                    ),
                   ),
                 ),
               ],
@@ -36,6 +41,7 @@ class ContactUsPage extends StatelessWidget {
             child: Column(
               children: [
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -80,6 +86,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -124,6 +131,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,
@@ -168,6 +176,7 @@ class ContactUsPage extends StatelessWidget {
                   height: 15,
                 ),
                 TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   style: const TextStyle(
                     fontSize: 18,

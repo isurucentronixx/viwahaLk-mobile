@@ -32,9 +32,14 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -100,28 +105,6 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                       ),
                                     ),
                                   ),
-                                  // Image.network(
-                                  //   user!.image.toString(),
-                                  //   fit: BoxFit.cover,
-                                  //   loadingBuilder: (context, child, progress) {
-                                  //     if (progress == null) {
-                                  //       return SizedBox(
-                                  //         width: 150,
-                                  //         height: 150,
-                                  //         child: child,
-                                  //       );
-                                  //     }
-                                  //     return const Center(
-                                  //       child: CircularProgressIndicator(),
-                                  //     );
-                                  //   },
-                                  //   errorBuilder: (context, error, stackTrace) {
-                                  //     return Image.network(
-                                  //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                  //       fit: BoxFit.cover,
-                                  //     );
-                                  //   },
-                                  // ),
                                 ),
                               ),
                             ),
@@ -138,7 +121,10 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                               textAlign: TextAlign.center),
-                          subtitle: Text(user.designation.toString(),
+                          subtitle: Text(
+                              user.designation.toString() != "null"
+                                  ? user.designation.toString()
+                                  : "",
                               style: const TextStyle(
                                   fontWeight: FontWeight.normal, fontSize: 18),
                               textAlign: TextAlign.center),
@@ -153,95 +139,111 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                             title: LocaleKeys.profile_details.tr(),
                             description: "",
                             inputList: [
-                              ListTile(
-                                  title: Text(LocaleKeys.contact_number.tr(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                      textAlign: TextAlign.start),
-                                  subtitle: Text(user.phone.toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 18),
-                                      textAlign: TextAlign.start)),
-                              ListTile(
-                                title: Text(LocaleKeys.tele_number.tr(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    textAlign: TextAlign.start),
-                                subtitle: Text(user.phonenumber.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18),
-                                    textAlign: TextAlign.start),
-                              ),
-                              ListTile(
-                                title: Text(LocaleKeys.email.tr(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    textAlign: TextAlign.start),
-                                subtitle: Text(user.email.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18),
-                                    textAlign: TextAlign.start),
-                              ),
-                              ListTile(
-                                title: Text(LocaleKeys.address.tr(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    textAlign: TextAlign.start),
-                                subtitle: Text(user.address.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18),
-                                    textAlign: TextAlign.start),
-                              ),
-                              ListTile(
-                                title: const Text('Company',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    textAlign: TextAlign.start),
-                                subtitle: Text(user.company.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18),
-                                    textAlign: TextAlign.start),
-                              ),
-                              ListTile(
-                                title: const Text('Birthday',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    textAlign: TextAlign.start),
-                                subtitle: Text(user.birthday.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18),
-                                    textAlign: TextAlign.start),
-                              ),
+                              user.phone != null
+                                  ? ListTile(
+                                      title: Text(
+                                          LocaleKeys.contact_number.tr(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(user.phone.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start))
+                                  : const SizedBox(),
+                              user.phonenumber != null
+                                  ? ListTile(
+                                      title: Text(LocaleKeys.tele_number.tr(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(
+                                          user.phonenumber.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start),
+                                    )
+                                  : const SizedBox(),
+                              user.email != null
+                                  ? ListTile(
+                                      title: Text(LocaleKeys.email.tr(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(user.email.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start),
+                                    )
+                                  : const SizedBox(),
+                              user.address != null
+                                  ? ListTile(
+                                      title: Text(LocaleKeys.address.tr(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(user.address.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start),
+                                    )
+                                  : const SizedBox(),
+                              user.company != null
+                                  ? ListTile(
+                                      title: const Text('Company',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(user.company.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start),
+                                    )
+                                  : const SizedBox(),
+                              user.birthday != null
+                                  ? ListTile(
+                                      title: const Text('Birthday',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                          textAlign: TextAlign.start),
+                                      subtitle: Text(user.birthday.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                          textAlign: TextAlign.start),
+                                    )
+                                  : const SizedBox(),
                             ]),
-                        AddFieldMainWidget(
-                            icon: Icons.follow_the_signs_outlined,
-                            title: LocaleKeys.follow_us.tr(),
-                            description: "",
-                            inputList: [
-                              ListTile(
-                                leading:
-                                    const Icon(Icons.mail_outline_outlined),
-                                title: Text(
-                                  user.email.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 18),
-                                ),
-                              ),
-                            ])
+                        user.email != null
+                            ? AddFieldMainWidget(
+                                icon: Icons.follow_the_signs_outlined,
+                                title: LocaleKeys.follow_us.tr(),
+                                description: "",
+                                inputList: [
+                                    ListTile(
+                                      leading: const Icon(
+                                          Icons.mail_outline_outlined),
+                                      title: Text(
+                                        user.email.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 18),
+                                      ),
+                                    ),
+                                  ])
+                            : const SizedBox()
                       ],
                     )
                   ],

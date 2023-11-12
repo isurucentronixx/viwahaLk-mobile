@@ -4,9 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
@@ -20,6 +18,9 @@ class SearchingCardItem extends ConsumerWidget {
   final String date;
   final String type;
   final String isFav;
+  final bool isPremium;
+  final String boostedDate;
+  final dynamic item;
 
   const SearchingCardItem({
     required this.id,
@@ -31,6 +32,9 @@ class SearchingCardItem extends ConsumerWidget {
     required this.date,
     required this.type,
     required this.isFav,
+    required this.isPremium,
+    required this.boostedDate,
+    required this.item,
   });
 
   String timeAgoSinceDate(String date) {
@@ -56,24 +60,14 @@ class SearchingCardItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var vendorData;
-    var topListingData;
+    DateTime dt1 =
+        boostedDate != "null" ? DateTime.parse(boostedDate) : DateTime.now();
+    DateTime dt2 = DateTime.now();
 
     return GestureDetector(
       onTap: () {
         AutoRouter.of(context).push(SearchSingleView(
-            item: ref
-                .watch(type == "myAd"
-                    ? myListingProvider
-                    : type == "fav"
-                        ? favListingProvider
-                        : type == "cat"
-                            ? categoryListingProvider
-                            : type == "all"
-                                ? allListingProvider
-                                : searchResultProvider)
-                .where((element) => id == element.id)
-                .first,
+            item: item,
             type: type == "myAd"
                 ? 'myAd'
                 : type == "fav"
@@ -120,6 +114,50 @@ class SearchingCardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
+                    isPremium
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.amber.withOpacity(0.9),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10)),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  "PREMIUM",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                    dt1.compareTo(dt2) > 0
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ViwahaColor.primary.withOpacity(0.8),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10)),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  "TOP",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     // Image.network(
                     //   (imagePath == "null")
                     //       ? "https://viwaha.lk/assets/img/logo/no_image.jpg"
@@ -193,14 +231,21 @@ class SearchingCardItem extends ConsumerWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 4.0),
-                                          child: Text(
-                                            timeAgoSinceDate(date),
-                                            // Jiffy.parse(date).format(
-                                            //     pattern: 'do MMM  yyyy'),
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                          child: boostedDate != "null"
+                                              ? Text(
+                                                  "Boosted ${timeAgoSinceDate(boostedDate)}",
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              : Text(
+                                                  timeAgoSinceDate(date),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                         ),
                                       ),
                                     ),

@@ -8,7 +8,6 @@ import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 
 class VendorNotifier extends StateNotifier<List<Vendor>> {
@@ -120,7 +119,26 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
         ref.watch(selectedMainLocationProvider);
     String category = ref.watch(selectedSubCategoryProvider).sub_category ??
         ref.watch(selectedMainCategoryProvider);
-    String keyword = "";
+    String keyword = ref.watch(searchingKeywords);
+
+    String price = ref.watch(selectedPriceRangeProvider);
+    List<String> amenities = ref.watch(selectedAmenitiesProvider);
+    String order = ref.watch(selectedOrderProvider);
+    String sort = ref.watch(selectedSortProvider);
+    String rating = ref.watch(selectedRatingProvider);
+
+    String filter = price != ""
+        ? "1"
+        : amenities.isNotEmpty
+            ? "1"
+            : order != ""
+                ? "1"
+                : sort != ""
+                    ? "1"
+                    : rating != ""
+                        ? "1"
+                        : "";
+    int pageId = ref.watch(paginateIndexProvider);
 
     await ref
         .read(homeControllerProvider)
@@ -130,7 +148,14 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
             keyword,
             ref.read(isloginProvider)
                 ? '${ref.read(userProvider).user!.id.toString()}'
-                : '')
+                : '',
+            filter,
+            price,
+            amenities,
+            order,
+            sort,
+            rating,
+            pageId)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -154,14 +179,16 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
   Future fetchAllListing({required Ref ref}) async {
     await ref
         .read(homeControllerProvider)
-        .fetchAllListing(ref.read(isloginProvider)
-            ? ref.read(userProvider).user!.id.toString()
-            : '')
+        .fetchAllListing(
+            ref.read(isloginProvider)
+                ? ref.read(userProvider).user!.id.toString()
+                : '',
+            ref.watch(paginateIndexProvider))
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;
-         ref.read(isSearchingProvider.notifier).state = false;
+        ref.read(isSearchingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.
@@ -229,13 +256,15 @@ class CategoryListingProviderNotifier
 
   Future fetchCategoryListing({required Ref ref}) async {
     String category = ref.watch(selectedMainCategoryProvider);
+    int pageId = ref.watch(paginateIndexProvider);
     await ref
         .read(homeControllerProvider)
         .fetchCategoryListing(
             ref.read(isloginProvider)
                 ? ref.read(userProvider).user!.id.toString()
                 : '',
-            category)
+            category,
+            pageId)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {

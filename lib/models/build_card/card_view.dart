@@ -6,9 +6,6 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
-
 class CardView extends ConsumerWidget {
   const CardView({super.key});
 
@@ -63,18 +60,36 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Venues";
+                List<String> tags = [];
+
+                var selectedTags = ref.read(categoriesProvider).firstWhere(
+                    (element) => element.category == "Wedding Venues");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Venues'));
+                    .push(CategoryListingPage(category: 'Venues', tags: tags));
               },
             ),
             _buildCard(
                 'dressing'.tr(), Assets.lib.assets.images.dressing.image(), () {
-                  ref.read(isSearchingProvider.notifier).state = true;
+              ref.read(isSearchingProvider.notifier).state = true;
               ref.read(selectedMainCategoryProvider.notifier).state =
                   "Dressing";
-                  
+
+              List<String> tags = [];
+
+              var selectedTags = ref
+                  .read(categoriesProvider)
+                  .firstWhere((element) => element.category == "Dressing");
+
+              selectedTags.sub_categories!.forEach((element) {
+                tags.add(element!.sub_category!);
+              });
+
               AutoRouter.of(context)
-                  .push(CategoryListingPage(category: 'Dressing'));
+                  .push(CategoryListingPage(category: 'Dressing', tags: tags));
             }),
             _buildCard(
               'jewelry'.tr(),
@@ -83,8 +98,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Jewelry";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Jewellery");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Jewelry'));
+                    .push(CategoryListingPage(category: 'Jewelry', tags: tags));
               },
             ),
             _buildCard(
@@ -94,8 +118,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Decorations";
-                AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Decorations'));
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Decorations");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Decorations', tags: tags));
               },
             ),
             _buildCard(
@@ -105,8 +138,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Photography";
-                AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Photography'));
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Photography");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Photography', tags: tags));
               },
             ),
             _buildCard(
@@ -116,8 +158,16 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Entertainment";
-                AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Entertainment'));
+                List<String> tags = [];
+
+                var selectedTags = ref.read(categoriesProvider).firstWhere(
+                    (element) => element.category == "Entertainment");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Entertainment', tags: tags));
               },
             ),
             _buildCard(
@@ -126,8 +176,17 @@ class CardView extends ConsumerWidget {
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Makeup");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Salon'));
+                    .push(CategoryListingPage(category: 'Salon', tags: tags));
               },
             ),
             _buildCard(
@@ -136,8 +195,17 @@ class CardView extends ConsumerWidget {
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Food";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Food");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Food'));
+                    .push(CategoryListingPage(category: 'Food', tags: tags));
               },
             ),
             _buildCard(
@@ -147,8 +215,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Honeymoon";
-                AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Honeymoon'));
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Honeymoon");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Honeymoon', tags: tags));
               },
             ),
             _buildCard(
@@ -158,8 +235,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Wedding Car";
-                AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Wedding Car'));
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Wedding Cars");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Wedding Car', tags: tags));
               },
             ),
             _buildCard(
@@ -168,8 +254,17 @@ class CardView extends ConsumerWidget {
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state = "Music";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Music");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Music'));
+                    .push(CategoryListingPage(category: 'Music', tags: tags));
               },
             ),
             _buildCard(
@@ -179,8 +274,17 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Others";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Others");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
                 AutoRouter.of(context)
-                    .push(CategoryListingPage(category: 'Others'));
+                    .push(CategoryListingPage(category: 'Others', tags: tags));
               },
             ),
             // Add more cards as needed

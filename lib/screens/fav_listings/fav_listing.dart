@@ -16,11 +16,10 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/models/venues/venues_list.dart';
+
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
-
 
 @RoutePage()
 class FavListingPage extends ConsumerStatefulWidget {
@@ -51,9 +50,14 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: 100,
-                          child: Assets.lib.assets.images.logo.image(),
+                        child: GestureDetector(
+                          onTap: () {
+                            AutoRouter.of(context).push(const HomePage());
+                          },
+                          child: SizedBox(
+                            width: 100,
+                            child: Assets.lib.assets.images.logo.image(),
+                          ),
                         ),
                       ),
                     ],
@@ -98,6 +102,13 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                               date: favListing[index].datetime.toString(),
                               type: 'fav',
                               isFav: favListing[index].is_favourite.toString(),
+                              isPremium:
+                                  favListing[index].premium.toString() != "1"
+                                      ? false
+                                      : true,
+                              boostedDate: favListing[index].boosted.toString(),
+                              item: favListing[index],
+
                               // Replace with the appropriate star rating value
                             ),
                           ),

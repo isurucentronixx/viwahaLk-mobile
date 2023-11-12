@@ -1,4 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,18 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
+import 'package:viwaha_lk/models/categories/sub_categories.dart';
+import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
+import 'package:viwaha_lk/screens/single_page/single_page_content/inner_fav.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -80,7 +88,7 @@ class _SliderState extends ConsumerState<SliderView> {
 
 class SingleItemOverview extends ConsumerStatefulWidget {
   const SingleItemOverview(this.date, this.location, this.title, this.views,
-      this.type, this.id, this.item,
+      this.type, this.id, this.item, this.boosted,
       {super.key});
   final String date;
   final String location;
@@ -89,6 +97,7 @@ class SingleItemOverview extends ConsumerStatefulWidget {
   final String type;
   final String id;
   final dynamic item;
+  final String boosted;
 
   @override
   _SingleItemOverviewState createState() => _SingleItemOverviewState();
@@ -162,51 +171,141 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             ),
           ),
           const SizedBox(height: 10),
-          (widget.date != "null")
-              ? (widget.date != null)
-                  ? (widget.date != "")
-                      ? Row(
-                          children: [
-                            const Icon(
-                              Icons.date_range,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                // color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox()
-                  : const SizedBox()
-              : const SizedBox(),
-          const SizedBox(height: 8),
-          (widget.location != "null")
-              ? (widget.location != null)
-                  ? (widget.location != "")
-                      ? Row(
-                          children: [
-                            const Icon(
-                              Icons.pin_drop,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${widget.location}',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                // color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox()
+          Row(
+            children: [
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    ref.read(isSearchingProvider.notifier).state = true;
+                    ref.refresh(selectedMainLocationProvider);
+                    ref.refresh(selectedSubLocationProvider);
+                    ref.read(selectedSubCategoryProvider.notifier).state =
+                        SubCategories(sub_category: widget.item.category);
+                  });
+                  AutoRouter.of(context).push(const SearchingResultsPage());
+                },
+                child: Container(
+                    height: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border:
+                            Border.all(color: ViwahaColor.primary, width: 1)),
+                    child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.item!.category.toString(),
+                                style:
+                                    const TextStyle(color: ViwahaColor.primary),
+                              )
+                            ]))),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: ViwahaColor.primary),
+                  shape: BoxShape.circle,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: InnerFavoriteIcon(widget.id,
+                      widget.item!.is_favourite != "0" ? true : false),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            children: [
+              widget.item!.premium.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        // fixedSize: Size(120, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.amber,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(Icons.workspace_premium),
+                      label: const Text(
+                        "Premium",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  : const SizedBox(),
+              SizedBox(width: widget.item!.verified.toString() != "0" ? 8 : 0),
+              widget.item!.verified.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.lightBlueAccent),
+                        // fixedSize: Size(110, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.white,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(
+                        Icons.shield_outlined,
+                        color: Colors.lightBlueAccent,
+                      ),
+                      label: const Text(
+                        "Verified",
+                        style: TextStyle(color: Colors.lightBlueAccent),
+                      ),
+                    )
+                  : const SizedBox(),
+              SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
+              widget.item!.member.toString() != "0"
+                  ? ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        side: const BorderSide(color: Colors.amber),
+                        // fixedSize: Size(110, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        backgroundColor: Colors.white,
+                      ),
+                      onPressed: () => null,
+                      icon: const Icon(
+                        Icons.stars_rounded,
+                        color: Colors.amber,
+                      ),
+                      label: const Text(
+                        "Member",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
+          const SizedBox(height: 10),
+          widget.item!.main_category != "Proposal"
+              ? widget.item.price != "0"
+                  ? Container(
+                      height: 35,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: ViwahaColor.primary,
+                          borderRadius: BorderRadius.circular(30),
+                          border:
+                              Border.all(color: ViwahaColor.primary, width: 1)),
+                      child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Up to RS. ${widget.item.price}",
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              ])))
                   : const SizedBox()
               : const SizedBox(),
           const SizedBox(height: 8),
@@ -224,26 +323,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               '${widget.views} Views',
                               style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            widget.item!.average_rating != null
-                                ? const Icon(Icons.star, color: Colors.yellow)
-                                : const Icon(Icons.star_border,
-                                    color: Colors.yellow),
-                            // const Icon(
-
-                            //   Icons.star,
-                            //   color: Colors.yellow,
-                            // ),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
-                              style: const TextStyle(
-                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                               ),
                             ),
@@ -252,6 +332,228 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
+          // const SizedBox(height: 8),
+          // const SizedBox(height: 10),
+          SizedBox(height: widget.item.ask_price == "1" ? 8 : 0),
+          widget.item.ask_price == "1"
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.check_box_outlined,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Ask Price",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
+          SizedBox(height: widget.item.negotiable == "1" ? 8 : 0),
+          widget.item.negotiable == "1"
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.check_box_outlined,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Negotiable",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
+          const SizedBox(height: 8),
+          widget.item.address.isEmpty ||
+                  widget.item.address == 'null' ||
+                  widget.item.address == 'Null' ||
+                  widget.item.address == ""
+              ? Container()
+              : Row(
+                  children: [
+                    const Icon(
+                      Icons.home,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        widget.item.main_category == "Proposal"
+                            ? isMembership(widget.item.address)
+                            : widget.item.address,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+          const SizedBox(height: 8),
+          (widget.location != "null")
+              ? (widget.location != null)
+                  ? (widget.location != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.pin_drop,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            TextButton(
+                              onPressed: (() {
+                                ref.read(isSearchingProvider.notifier).state =
+                                    true;
+                                ref.refresh(selectedMainLocationProvider);
+                                ref.refresh(selectedMainCategoryProvider);
+                                ref.refresh(selectedSubCategoryProvider);
+                                ref
+                                        .read(selectedSubLocationProvider.notifier)
+                                        .state =
+                                    SubLocation(
+                                        sub_location_en: widget.location);
+                                AutoRouter.of(context)
+                                    .push(const SearchingResultsPage());
+                              }),
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(50, 30),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  alignment: Alignment.centerLeft),
+                              child: Text(
+                                '${widget.location},',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: (() {
+                                ref.read(isSearchingProvider.notifier).state =
+                                    true;
+                                ref
+                                    .read(selectedMainLocationProvider.notifier)
+                                    .state = widget.item.main_location;
+                                ref.refresh(selectedMainCategoryProvider);
+                                ref.refresh(selectedSubCategoryProvider);
+                                ref.refresh(selectedSubLocationProvider);
+                                AutoRouter.of(context)
+                                    .push(const SearchingResultsPage());
+                              }),
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(50, 30),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  alignment: Alignment.centerLeft),
+                              child: Text(
+                                '${widget.item.main_location}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: ViwahaColor.primary,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
+          const SizedBox(height: 8),
+          (widget.date != "null")
+              ? (widget.date != null)
+                  ? (widget.date != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.date_range,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "${Jiffy.parse(widget.date).format(pattern: 'h:mm a')}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
+          const SizedBox(height: 8),
+          (widget.boosted != "null")
+              ? (widget.boosted != null)
+                  ? (widget.boosted != "")
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              "Boosted ${Jiffy.parse(widget.boosted).fromNow()}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox()
+              : const SizedBox(),
+          // const SizedBox(height: 0),
+          Row(
+            children: [
+              widget.item!.average_rating != null
+                  ? const Icon(Icons.star, color: Colors.yellow)
+                  : const Icon(Icons.star_border, color: Colors.yellow),
+              const SizedBox(width: 4),
+              Text(
+                '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -264,6 +566,20 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 },
                 icon: const Icon(Icons.person),
                 label: Text(LocaleKeys.vendor_profile.tr()),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              ElevatedButton.icon(
+                style: const ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(Color(0xFF4caf50)),
+                ),
+                onPressed: () {
+                  Share.share('https://viwaha.lk/listing?id=${widget.id}');
+                },
+                icon: const Icon(Icons.share_sharp),
+                label: const Text("Share"),
               ),
             ],
           ),
@@ -340,7 +656,7 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
 
   List<String> getAmenites(String amenities) {
     // Remove the initial 'a:11:' part from the string
-    String serializedString = amenities!.substring(6);
+    String serializedString = amenities.substring(6);
     // Replace the semicolons, colons, and quotes to format it as a valid JSON
     RegExp regex = RegExp('"([^"]+)"');
     Iterable<Match> matches = regex.allMatches(serializedString);
@@ -762,7 +1078,7 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                   //   color: Colors.amber,
                   //   fontFamily: 'Noto Serif Sinhala',
                   // ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
                 widget.videoLink != ""
                     ? Center(
@@ -1003,24 +1319,34 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       widget.contactNumber == 'Null' ||
                       widget.contactNumber == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.phone_android),
-                      title: Text(LocaleKeys.contact_number.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.contactNumber)
-                          : widget.contactNumber),
+                  : GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("tel:${widget.contactNumber}"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.phone_android),
+                        title: Text(LocaleKeys.contact_number.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.contactNumber)
+                            : widget.contactNumber),
+                      ),
                     ),
               widget.telephoneNumer.isEmpty ||
                       widget.telephoneNumer == 'null' ||
                       widget.telephoneNumer == 'Null' ||
                       widget.telephoneNumer == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.phone),
-                      title: Text(LocaleKeys.tele_number.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.telephoneNumer)
-                          : widget.telephoneNumer),
+                  : GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("tel:${widget.telephoneNumer}"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.phone),
+                        title: Text(LocaleKeys.tele_number.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.telephoneNumer)
+                            : widget.telephoneNumer),
+                      ),
                     ),
               widget.address.isEmpty ||
                       widget.address == 'null' ||
@@ -1039,12 +1365,19 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       widget.email == 'Null' ||
                       widget.email == ""
                   ? Container()
-                  : ListTile(
-                      leading: const Icon(Icons.email),
-                      title: Text(LocaleKeys.email.tr()),
-                      subtitle: Text(widget.mainCategory == "Proposal"
-                          ? isMembership(widget.email)
-                          : widget.email),
+                  : GestureDetector(
+                      onTap: () {
+                        print(widget.email.replaceAll(' ', ''));
+                        launchUrl(Uri.parse(
+                            "mailto:${widget.email.replaceAll(' ', '')}?subject=subject&body=body"));
+                      },
+                      child: ListTile(
+                        leading: const Icon(Icons.email),
+                        title: Text(LocaleKeys.email.tr()),
+                        subtitle: Text(widget.mainCategory == "Proposal"
+                            ? isMembership(widget.email)
+                            : widget.email),
+                      ),
                     ),
               const SizedBox(height: 8),
               Center(
@@ -1194,22 +1527,42 @@ class SingleItemMap extends StatefulWidget {
 }
 
 class _SingleItemMapState extends State<SingleItemMap> {
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+  Set<Marker> markers = Set();
+
+  @override
+  void initState() {
+    setState(() {
+      _goToTheAddress();
+    });
+
+    super.initState();
+  }
+
+  Future<void> _goToTheAddress() async {
+    List<Location> locations = await locationFromAddress(widget.address);
+    final GoogleMapController controller = await _controller.future;
+
+    Marker resultMarker = Marker(
+      markerId: const MarkerId("marker"),
+      infoWindow: InfoWindow(
+        title: widget.address.toString(),
+      ),
+      position: LatLng(locations.first.latitude, locations.first.longitude),
+    );
+
+    await controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(locations.first.latitude, locations.first.longitude),
+            zoom: 16)));
+    setState(() {
+      markers.add(resultMarker);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // https://maps.googleapis.com/maps/api/staticmap?size=512x512&maptype=roadmap\&markers=size:mid|color:red|89%2F10%2C%20Lady%20Gordons%20%20Drive%2C%20Kandy%2C%20Sri%20Lanka&key=AIzaSyCQthDZlGXOe_-wTKiPUmLd9MVaisTCz-M
-    String address = widget.address;
-
-    const apiKey =
-        'AIzaSyD856KsYNpA6N-1dTKmwOl_TnnEk7NrTYc'; // Replace with your Google API key
-    final encodedAddress = Uri.encodeComponent(address);
-
-    final url = 'https://maps.googleapis.com/maps/api/staticmap?'
-        'size=600x400'
-        '&zoom=17'
-        '&maptype=roadmap\&'
-        'markers=size:mid|color:red|$encodedAddress'
-        '&key=$apiKey';
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -1239,7 +1592,25 @@ class _SingleItemMapState extends State<SingleItemMap> {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            child: Image.network(url),
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Column(
+              children: [
+                Expanded(
+                  child: GoogleMap(
+                      mapType: MapType.normal,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                      initialCameraPosition:
+                          const CameraPosition(target: LatLng(7.8731, 80.7718)),
+                      markers: markers,
+                      zoomControlsEnabled: true,
+                      tiltGesturesEnabled: false),
+                ),
+              ],
+            ),
+
+            // Image.network(url),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -57,52 +58,10 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                         alignment: Alignment.center),
                   ),
                   accountName: Text(ref.watch(isloginProvider)
-                      ? '${user!.firstname.toString()[0].toUpperCase()}${user!.firstname.toString().substring(1).toLowerCase()} ${user.lastname.toString()[0].toUpperCase()}${user.lastname.toString().substring(1).toLowerCase()}'
+                      ? '${user!.firstname.toString()[0].toUpperCase()}${user.firstname.toString().substring(1).toLowerCase()} ${user.lastname.toString()[0].toUpperCase()}${user.lastname.toString().substring(1).toLowerCase()}'
                       : ''),
                   accountEmail: Text(
                       ref.watch(isloginProvider) ? user!.email.toString() : ''),
-                  // currentAccountPicture: ref.watch(isloginProvider)
-                  //     ? Container(
-                  //         decoration: BoxDecoration(
-                  //           shape: BoxShape.circle,
-                  //           border: Border.all(
-                  //             color: Colors.white,
-                  //             width: 2.0,
-                  //           ),
-                  //         ),
-                  //         child: SizedBox(
-                  //           width: 120,
-                  //           height: 120,
-                  //           child: SizedBox(
-                  //             child: CachedNetworkImage(
-                  //               imageUrl: user!.image.toString(),
-                  //               fit: BoxFit.cover,
-                  //               imageBuilder: (context, imageProvider) =>
-                  //                   Container(
-                  //                 decoration: BoxDecoration(
-                  //                   shape: BoxShape.circle,
-                  //                   border: Border.all(
-                  //                     color: Colors.white,
-                  //                   ),
-                  //                   image: DecorationImage(
-                  //                     image: imageProvider,
-                  //                     fit: BoxFit.cover,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               placeholder: (context, url) => const Center(
-                  //                   child: CircularProgressIndicator()),
-                  //               errorWidget: (context, url, error) => Center(
-                  //                 child: Image.network(
-                  //                   'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                  //                   fit: BoxFit.cover,
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       )
-                  //     : Container(),
                 ),
                 ListTile(
                   leading: const Icon(Icons.home),
@@ -114,6 +73,30 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                     AutoRouter.of(context).push(const HomePage());
                   },
                 ),
+                ref.read(isloginProvider) ? const Divider() : const SizedBox(),
+                ref.read(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.dashboard),
+                        title: const Text("Dashboard",
+                            style: TextStyle(color: Colors.grey)),
+                        onTap: () {
+                          AutoRouter.of(context).push(
+                              UserDashboardPage(userId: user!.id.toString()));
+                        },
+                      )
+                    : const SizedBox(),
+                ref.read(isloginProvider) ? const Divider() : const SizedBox(),
+                ref.read(isloginProvider)
+                    ? ListTile(
+                        leading: const Icon(Icons.person_add),
+                        title: const Text("Couple Dashboard",
+                            style: TextStyle(color: Colors.grey)),
+                        onTap: () {
+                          launch(
+                              "http://coupledashboard.viwaha.lk/login-sso?email=${user!.email}");
+                        },
+                      )
+                    : const SizedBox(),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.person),
@@ -167,6 +150,55 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       )
                     : Container(),
                 const Divider(),
+                ref.watch(isloginProvider)
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                ref.read(mainImageNameProvider.notifier).state =
+                                    "";
+                                ref.read(imageNameGalleryProvider).clear();
+                                ref.read(mainImageProvider.notifier).state = "";
+                                ref.read(imageGalleryProvider).clear();
+                                AutoRouter.of(context)
+                                    .push(AddListingPage(isAppBar: true));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: ViwahaColor.primary,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border:
+                                        Border.all(color: ViwahaColor.primary)),
+                                child: const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(6.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(Icons.add, color: Colors.white),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          "POST YOUR LISTING",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

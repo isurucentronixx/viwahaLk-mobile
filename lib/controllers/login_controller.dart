@@ -7,7 +7,6 @@ import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/models/auth/user_model.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
-import 'package:viwaha_lk/screens/profile/edit_profile.dart';
 import 'package:viwaha_lk/services/auth_service.dart';
 
 final loginServiceProvider = Provider<LoginService>((ref) {

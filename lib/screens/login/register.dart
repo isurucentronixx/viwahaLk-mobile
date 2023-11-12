@@ -61,6 +61,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   decoration: const InputDecoration(
                     labelText: 'First Name',
@@ -82,6 +83,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   decoration: const InputDecoration(
                     labelText: 'Last Name',
@@ -104,6 +106,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   decoration: const InputDecoration(
                     labelText: 'E-Mail',
@@ -126,6 +129,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   // controller: passwordController,
                   obscureText: _obscureText,
@@ -160,6 +164,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
+                  onTapOutside: (event) => FocusScope.of(context).unfocus(),
                   focusNode: FocusNode(canRequestFocus: false),
                   // controller: passwordController,
                   obscureText: true,

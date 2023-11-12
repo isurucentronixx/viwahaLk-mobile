@@ -98,6 +98,8 @@ mixin _$TopListing {
   String? get next_step => throw _privateConstructorUsedError;
   String? get average_rating => throw _privateConstructorUsedError;
   String? get is_favourite => throw _privateConstructorUsedError;
+  String? get verified => throw _privateConstructorUsedError;
+  String? get member => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -189,7 +191,9 @@ abstract class $TopListingCopyWith<$Res> {
       String? personality,
       String? next_step,
       String? average_rating,
-      String? is_favourite});
+      String? is_favourite,
+      String? verified,
+      String? member});
 }
 
 /// @nodoc
@@ -283,6 +287,8 @@ class _$TopListingCopyWithImpl<$Res, $Val extends TopListing>
     Object? next_step = freezed,
     Object? average_rating = freezed,
     Object? is_favourite = freezed,
+    Object? verified = freezed,
+    Object? member = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -597,6 +603,14 @@ class _$TopListingCopyWithImpl<$Res, $Val extends TopListing>
           ? _value.is_favourite
           : is_favourite // ignore: cast_nullable_to_non_nullable
               as String?,
+      verified: freezed == verified
+          ? _value.verified
+          : verified // ignore: cast_nullable_to_non_nullable
+              as String?,
+      member: freezed == member
+          ? _value.member
+          : member // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -687,7 +701,9 @@ abstract class _$$_TopListingCopyWith<$Res>
       String? personality,
       String? next_step,
       String? average_rating,
-      String? is_favourite});
+      String? is_favourite,
+      String? verified,
+      String? member});
 }
 
 /// @nodoc
@@ -779,6 +795,8 @@ class __$$_TopListingCopyWithImpl<$Res>
     Object? next_step = freezed,
     Object? average_rating = freezed,
     Object? is_favourite = freezed,
+    Object? verified = freezed,
+    Object? member = freezed,
   }) {
     return _then(_$_TopListing(
       id: freezed == id
@@ -1093,6 +1111,14 @@ class __$$_TopListingCopyWithImpl<$Res>
           ? _value.is_favourite
           : is_favourite // ignore: cast_nullable_to_non_nullable
               as String?,
+      verified: freezed == verified
+          ? _value.verified
+          : verified // ignore: cast_nullable_to_non_nullable
+              as String?,
+      member: freezed == member
+          ? _value.member
+          : member // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1178,7 +1204,9 @@ class _$_TopListing implements _TopListing {
       this.personality,
       this.next_step,
       this.average_rating,
-      this.is_favourite});
+      this.is_favourite,
+      this.verified,
+      this.member});
 
   factory _$_TopListing.fromJson(Map<String, dynamic> json) =>
       _$$_TopListingFromJson(json);
@@ -1339,10 +1367,14 @@ class _$_TopListing implements _TopListing {
   final String? average_rating;
   @override
   final String? is_favourite;
+  @override
+  final String? verified;
+  @override
+  final String? member;
 
   @override
   String toString() {
-    return 'TopListing(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating, is_favourite: $is_favourite)';
+    return 'TopListing(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating, is_favourite: $is_favourite, verified: $verified, member: $member)';
   }
 
   @override
@@ -1470,7 +1502,9 @@ class _$_TopListing implements _TopListing {
             (identical(other.personality, personality) || other.personality == personality) &&
             (identical(other.next_step, next_step) || other.next_step == next_step) &&
             (identical(other.average_rating, average_rating) || other.average_rating == average_rating) &&
-            (identical(other.is_favourite, is_favourite) || other.is_favourite == is_favourite));
+            (identical(other.is_favourite, is_favourite) || other.is_favourite == is_favourite) &&
+            (identical(other.verified, verified) || other.verified == verified) &&
+            (identical(other.member, member) || other.member == member));
   }
 
   @JsonKey(ignore: true)
@@ -1554,7 +1588,9 @@ class _$_TopListing implements _TopListing {
         personality,
         next_step,
         average_rating,
-        is_favourite
+        is_favourite,
+        verified,
+        member
       ]);
 
   @JsonKey(ignore: true)
@@ -1650,7 +1686,9 @@ abstract class _TopListing implements TopListing {
       final String? personality,
       final String? next_step,
       final String? average_rating,
-      final String? is_favourite}) = _$_TopListing;
+      final String? is_favourite,
+      final String? verified,
+      final String? member}) = _$_TopListing;
 
   factory _TopListing.fromJson(Map<String, dynamic> json) =
       _$_TopListing.fromJson;
@@ -1811,6 +1849,10 @@ abstract class _TopListing implements TopListing {
   String? get average_rating;
   @override
   String? get is_favourite;
+  @override
+  String? get verified;
+  @override
+  String? get member;
   @override
   @JsonKey(ignore: true)
   _$$_TopListingCopyWith<_$_TopListing> get copyWith =>

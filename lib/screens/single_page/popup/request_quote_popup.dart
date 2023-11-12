@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -75,6 +74,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
@@ -121,6 +122,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
@@ -167,6 +170,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           style: const TextStyle(
                             fontSize: 18,
@@ -214,6 +219,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          onTapOutside: (event) =>
+                              FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
                           keyboardType: TextInputType.number,
                           style: const TextStyle(

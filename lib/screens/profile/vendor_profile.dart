@@ -58,9 +58,14 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 100,
-                  child: Assets.lib.assets.images.logo.image(),
+                child: GestureDetector(
+                  onTap: () {
+                    AutoRouter.of(context).push(const HomePage());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    child: Assets.lib.assets.images.logo.image(),
+                  ),
                 ),
               ),
             ],
@@ -123,7 +128,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                                     errorWidget: (context, url, error) =>
                                         Center(
                                       child: Image.network(
-                                        'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                                        'https://viwaha.lk/assets/img/user.jpg',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -197,6 +202,27 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                         ),
                       ),
                     ),
+                    vendor.member.toString() == "1"
+                        ? ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              side: BorderSide(color: Colors.amber),
+                              // fixedSize: Size(110, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                            onPressed: () => null,
+                            icon: const Icon(
+                              Icons.stars_rounded,
+                              color: Colors.amber,
+                            ),
+                            label: const Text(
+                              "Member",
+                              style: TextStyle(color: Colors.amber),
+                            ),
+                          )
+                        : const SizedBox(),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,16 +501,16 @@ class MyCardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200,
-                height: 500,
+                height: 300,
                 child: Stack(
                   children: [
                     CachedNetworkImage(
                       imageUrl: imagePath.toString(),
                       fit: BoxFit.cover,
                       imageBuilder: (context, imageProvider) => Container(
-                        height: 150,
+                        height: 200,
                         width: 400,
                         decoration: BoxDecoration(
                           // borderRadius: const BorderRadius.only(
@@ -578,6 +604,7 @@ class MyCardItem extends ConsumerWidget {
                 children: [
                   Text(
                     title,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -603,12 +630,12 @@ class MyCardItem extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  Text(
-                    description,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  const SizedBox(height: 8),
+                  // Text(
+                  //   description,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: const TextStyle(fontSize: 12),
+                  // ),
+                  // const SizedBox(height: 8),
                   Row(
                     children: [
                       starRating.toString() != '0.0'

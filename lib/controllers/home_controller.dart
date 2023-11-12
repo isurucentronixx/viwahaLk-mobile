@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
-import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
@@ -20,10 +18,10 @@ import 'package:viwaha_lk/models/vendor_profile/vendor_profile.dart';
 import 'package:viwaha_lk/routes/router.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
-import 'package:http/http.dart' as http;
 
 final mainImageProvider = StateProvider<String>((ref) => '');
 final mainImageNameProvider = StateProvider<String>((ref) => '');
+final paginateIndexProvider = StateProvider<int>((ref) => 1);
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
 
@@ -35,10 +33,6 @@ final profileViewStateProvider =
 
 final changePasswordViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
-
-final homeServiceProvider = Provider<HomeService>((ref) {
-  return HomeService(ref.read(dioClientProvider));
-});
 
 final isLoadingHomeProvider = StateProvider<bool>((ref) {
   return true;
@@ -118,10 +112,30 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchSearchResultList(
-      String location, String category, String keyword, String userId) async {
+      String location,
+      String category,
+      String keyword,
+      String userId,
+      String filter,
+      String price,
+      List<String> amenities,
+      String order,
+      String sort,
+      String rating,
+      int pageId) async {
     try {
       final res = await homeService.fetchSearchResultListApiRequest(
-          location, category, keyword, userId);
+          location,
+          category,
+          keyword,
+          userId,
+          filter,
+          price,
+          amenities,
+          order,
+          sort,
+          rating,
+          pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -129,12 +143,13 @@ class HomeController {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
       rethrow;
-    } 
+    }
   }
 
-  Future<List<SearchResultItem>> fetchAllListing(String userId) async {
+  Future<List<SearchResultItem>> fetchAllListing(
+      String userId, int pageId) async {
     try {
-      final res = await homeService.fetchAllListingApiRequest(userId);
+      final res = await homeService.fetchAllListingApiRequest(userId, pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -163,7 +178,6 @@ class HomeController {
       final res = await homeService.fetchMyListingApiRequest(ref: ref);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
-     
 
       return searchResult;
     } on DioError catch (e) {
@@ -174,10 +188,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchCategoryListing(
-      String userId, String category) async {
+      String userId, String category, int pageId) async {
     try {
-      final res =
-          await homeService.fetchCategoryListingApiRequest(userId, category);
+      final res = await homeService.fetchCategoryListingApiRequest(
+          userId, category, pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

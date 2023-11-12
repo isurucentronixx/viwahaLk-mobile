@@ -10,15 +10,12 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/latest_items/latest.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/screens/latest_items/latest.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
-import '../../models/menu_item.dart';
 
 @RoutePage()
 class SearchSingleView extends ConsumerStatefulWidget {
@@ -84,9 +81,14 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
+                  child: GestureDetector(
+                    onTap:() {
+                      AutoRouter.of(context).push(const HomePage());
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      child: Assets.lib.assets.images.logo.image(),
+                    ),
                   ),
                 ),
               ],
@@ -305,7 +307,8 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.views.toString(),
                         widget.type.toString(),
                         widget.item!.id.toString(),
-                        widget.item),
+                        widget.item,
+                        widget.item!.boosted.toString()),
                     widget.item!.main_category == "Proposal"
                         ? SingleItemProposal(widget.item)
                         : widget.item!.amenities.toString() != ""
