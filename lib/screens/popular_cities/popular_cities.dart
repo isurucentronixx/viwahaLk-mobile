@@ -190,8 +190,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                                       child: Text(
                                         city.name.toString(),
                                         style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                            color: Colors.white),
                                       ),
                                     ),
                                   ),

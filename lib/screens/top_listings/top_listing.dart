@@ -186,18 +186,13 @@ class TopListing extends ConsumerWidget {
                                             ? Text(
                                                 "Boosted ${timeAgoSinceDate(wedding.boosted!)}",
                                                 style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    color: Colors.white),
                                               )
                                             : Text(
                                                 timeAgoSinceDate(
                                                     wedding.datetime!),
                                                 style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                                    color: Colors.white)),
                                       ),
                                     ),
                                   ),
@@ -224,8 +219,7 @@ class TopListing extends ConsumerWidget {
                                             child: Text(
                                               wedding.category!,
                                               style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ),
@@ -248,9 +242,7 @@ class TopListing extends ConsumerWidget {
                                           horizontal: 8.0, vertical: 4.0),
                                       child: Text(
                                         "TOP",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),

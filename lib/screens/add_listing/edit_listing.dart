@@ -981,14 +981,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Name',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -1024,7 +1024,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -1085,14 +1085,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Born on',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -1142,14 +1142,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Email',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -1199,14 +1199,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Phone',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -1256,14 +1256,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Whatsapp (without +94)',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -1459,14 +1459,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Google Location Address',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -2754,14 +2754,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Youtube video link',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -2801,7 +2801,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -2838,7 +2838,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -2875,7 +2875,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -2912,7 +2912,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -2949,7 +2949,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -2986,7 +2986,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3023,7 +3023,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3060,7 +3060,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3097,7 +3097,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3134,7 +3134,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3171,7 +3171,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3208,7 +3208,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3245,7 +3245,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3282,7 +3282,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3319,7 +3319,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3356,7 +3356,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3393,7 +3393,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3430,7 +3430,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 18,
-                                              fontFamily: "verdana_regular",
+                                              fontFamily: "Montserrat",
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -3548,14 +3548,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Facebook',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -3600,14 +3600,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Instagram',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -3652,14 +3652,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'Youtube',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -3704,14 +3704,14 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 16,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                       labelText: 'LinkedIn',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
-                                        fontFamily: "verdana_regular",
+                                        fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),

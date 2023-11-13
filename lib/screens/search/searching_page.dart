@@ -271,7 +271,9 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(color: Colors.grey),
+                              border: Border.all(
+                                color: ViwahaColor.primary,
+                              ),
                             ),
                             child: Column(
                               children: [
@@ -286,7 +288,10 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   },
                                   decoration: const InputDecoration(
                                     labelText: 'Type here to search',
-                                    prefixIcon: Icon(Icons.search),
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: ViwahaColor.primary,
+                                    ),
                                     border: InputBorder.none,
                                   ),
                                 ),
@@ -345,18 +350,30 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             modalType: S2ModalType.bottomSheet,
                             tileBuilder: (context, state) {
                               return ListTile(
-                                title: Text(
-                                  state.title.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 18,
-                                    fontFamily: "verdana_regular",
-                                    fontWeight: FontWeight.w400,
+                                title: Align(
+                                  alignment: const Alignment(-1.3, 0),
+                                  child: Text(
+                                    state.title.toString(),
+                                    style: const TextStyle(
+                                      color: ViwahaColor.primary,
+                                      fontSize: 18,
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
-                                subtitle:
-                                    Text(_mainLocation.location_en.toString()),
-                                trailing: const Icon(Icons.keyboard_arrow_down),
+                                leading: const Icon(
+                                  Icons.location_on_outlined,
+                                  color: ViwahaColor.primary,
+                                ),
+                                subtitle: Align(
+                                    alignment: const Alignment(-1.3, 0),
+                                    child: Text(
+                                        _mainLocation.location_en.toString())),
+                                trailing: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: ViwahaColor.primary,
+                                ),
                                 onTap: state.showModal,
                               );
                             },
@@ -392,20 +409,31 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.4, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle: Text(_subLocation
-                                          .sub_location_en
-                                          .toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.location_city_outlined,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                        alignment: const Alignment(-1.3, 0),
+                                        child: Text(_subLocation.sub_location_en
+                                            .toString()),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: ViwahaColor.primary,
+                                      ),
                                       onTap: state.showModal,
                                     );
                                   },
@@ -458,17 +486,29 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             modalType: S2ModalType.bottomSheet,
                             tileBuilder: (context, state) {
                               return ListTile(
-                                title: Text(
-                                  state.title.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 18,
-                                    fontFamily: "verdana_regular",
-                                    fontWeight: FontWeight.w400,
+                                title: Align(
+                                  alignment: const Alignment(-1.3, 0),
+                                  child: Text(
+                                    state.title.toString(),
+                                    style: const TextStyle(
+                                      color: ViwahaColor.primary,
+                                      fontSize: 18,
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
-                                subtitle: Text(_mainCat.category.toString()),
-                                trailing: const Icon(Icons.keyboard_arrow_down),
+                                leading: const Icon(
+                                  Icons.library_books_outlined,
+                                  color: ViwahaColor.primary,
+                                ),
+                                subtitle: Align(
+                                    alignment: const Alignment(-1.3, 0),
+                                    child: Text(_mainCat.category.toString())),
+                                trailing: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: ViwahaColor.primary,
+                                ),
                                 onTap: state.showModal,
                               );
                             },
@@ -504,19 +544,30 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.4, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle:
-                                          Text(_subCat.sub_category.toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.list,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                          alignment: const Alignment(-1.3, 0),
+                                          child: Text(
+                                              _subCat.sub_category.toString())),
+                                      trailing: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: ViwahaColor.primary,
+                                      ),
                                       onTap: state.showModal,
                                     );
                                   },
@@ -534,7 +585,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             child: Container(
                               height: 35,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
+                                border: Border.all(color: ViwahaColor.primary),
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10)),
@@ -551,12 +602,13 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                     child: Icon(
                                       size: 24,
                                       Icons.filter_list,
-                                      color: Colors.grey,
+                                      color: ViwahaColor.primary,
                                     ),
                                   ),
                                   const Text(
                                     'More Filter',
-                                    style: TextStyle(color: Colors.grey),
+                                    style:
+                                        TextStyle(color: ViwahaColor.primary),
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -569,7 +621,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                           _currentHeight == 0
                                               ? Icons.keyboard_arrow_down
                                               : Icons.keyboard_arrow_up,
-                                          color: Colors.grey,
+                                          color: ViwahaColor.primary,
                                         ),
                                       )
                                     ],
@@ -587,7 +639,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                           duration: const Duration(milliseconds: 500),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: ViwahaColor.primary),
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(0),
                                 topRight: Radius.circular(0),
@@ -618,18 +670,28 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.3, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle: Text(_sortBy.toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.sort_by_alpha_outlined,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                          alignment: const Alignment(-1.3, 0),
+                                          child: Text(_sortBy.toString())),
+                                      trailing: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: ViwahaColor.primary),
                                       onTap: state.showModal,
                                     );
                                   },
@@ -656,18 +718,28 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.3, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle: Text(_orderBy.toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.sort,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                          alignment: const Alignment(-1.3, 0),
+                                          child: Text(_orderBy.toString())),
+                                      trailing: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: ViwahaColor.primary),
                                       onTap: state.showModal,
                                     );
                                   },
@@ -696,18 +768,28 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.3, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle: Text(_price.toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.attach_money_sharp,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                          alignment: const Alignment(-1.3, 0),
+                                          child: Text(_price.toString())),
+                                      trailing: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: ViwahaColor.primary),
                                       onTap: state.showModal,
                                     );
                                   },
@@ -738,18 +820,30 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                     return Column(
                                       children: [
                                         ListTile(
-                                          title: Text(
-                                            state.title.toString(),
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 18,
-                                              fontFamily: "verdana_regular",
-                                              fontWeight: FontWeight.w400,
+                                          title: Align(
+                                            alignment: const Alignment(-1.3, 0),
+                                            child: Text(
+                                              state.title.toString(),
+                                              style: const TextStyle(
+                                                color: ViwahaColor.primary,
+                                                fontSize: 18,
+                                                fontFamily: "Montserrat",
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
                                           ),
-                                          subtitle: Text(_amenities.join(", ")),
+                                          leading: const Icon(
+                                            Icons.emoji_transportation_rounded,
+                                            color: ViwahaColor.primary,
+                                          ),
+                                          subtitle: Align(
+                                              alignment:
+                                                  const Alignment(-1.3, 0),
+                                              child:
+                                                  Text(_amenities.join(", "))),
                                           trailing: const Icon(
-                                              Icons.keyboard_arrow_down),
+                                              Icons.keyboard_arrow_down,
+                                              color: ViwahaColor.primary),
                                           onTap: state.showModal,
                                         ),
                                       ],
@@ -778,18 +872,28 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {
                                     return ListTile(
-                                      title: Text(
-                                        state.title.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: "verdana_regular",
-                                          fontWeight: FontWeight.w400,
+                                      title: Align(
+                                        alignment: const Alignment(-1.3, 0),
+                                        child: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: ViwahaColor.primary,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                      subtitle: Text(_ratings.toString()),
-                                      trailing:
-                                          const Icon(Icons.keyboard_arrow_down),
+                                      leading: const Icon(
+                                        Icons.star_border_outlined,
+                                        color: ViwahaColor.primary,
+                                      ),
+                                      subtitle: Align(
+                                          alignment: const Alignment(-1.3, 0),
+                                          child: Text(_ratings.toString())),
+                                      trailing: const Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: ViwahaColor.primary),
                                       onTap: state.showModal,
                                     );
                                   },

@@ -142,36 +142,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               ),
                             ),
                           ),
-                          // Image.network(
-                          //   thumbImg,
-                          //   fit: BoxFit.cover,
-                          //   loadingBuilder: (context, child, progress) {
-                          //     if (progress == null) {
-                          //       return ClipRRect(
-                          //         borderRadius: BorderRadius.circular(10),
-                          //         child: SizedBox(
-                          //           width: 280,
-                          //           height: 225,
-                          //           child: child,
-                          //         ),
-                          //       );
-                          //     }
-                          //     return const Center(
-                          //       child: CircularProgressIndicator(
-                          //           // value: progress.cumulativeBytesLoaded /
-                          //           //     progress.expectedTotalBytes!.toDouble(),
-                          //           ),
-                          //     );
-                          //   },
-                          //   errorBuilder: (context, error, stackTrace) {
-                          //     return Center(
-                          //       child: Image.network(
-                          //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                          //         fit: BoxFit.cover,
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
+                         
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.75,
@@ -210,14 +181,12 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                       ? Text(
                                           "Boosted ${timeAgoSinceDate(vendor.boosted!)}",
                                           style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                              color: Colors.white),
                                         )
                                       : Text(
                                           timeAgoSinceDate(vendor.datetime!),
                                           style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                              color: Colors.white),
                                         ),
                                 ),
                               ),
@@ -264,8 +233,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                     child: Text(
                                       vendor.category!,
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                          color: Colors.white),
                                     ),
                                   ),
                                 ),
