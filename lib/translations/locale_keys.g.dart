@@ -67,7 +67,7 @@ abstract class  LocaleKeys {
   static const aminities = 'aminities';
   static const vendor_profile = 'vendor_profile';
   static const description = 'description';
-  static const latest = 'latest';
+  static const latest = 'latest ';
   static const location = 'location';
   static const contact_information = 'contact_information';
   static const contact_number = 'contact_number';

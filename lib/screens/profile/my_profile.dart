@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -169,18 +170,25 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                     )
                                   : const SizedBox(),
                               user.email != null
-                                  ? ListTile(
-                                      title: Text(LocaleKeys.email.tr(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                          textAlign: TextAlign.start),
-                                      subtitle: Text(user.email.toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 18),
-                                          textAlign: TextAlign.start),
-                                    )
+                                  ? GestureDetector(
+                                    onTap: () {
+                                        print(user.email!.replaceAll(' ', ''));
+                                        launchUrl(Uri.parse(
+                                            "mailto:${user.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
+                                      },
+                                    child: ListTile(
+                                        title: Text(LocaleKeys.email.tr(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                            textAlign: TextAlign.start),
+                                        subtitle: Text(user.email.toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 18),
+                                            textAlign: TextAlign.start),
+                                      ),
+                                  )
                                   : const SizedBox(),
                               user.address != null
                                   ? ListTile(
@@ -231,15 +239,22 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                 title: LocaleKeys.follow_us.tr(),
                                 description: "",
                                 inputList: [
-                                    ListTile(
-                                      leading: const Icon(
-                                          Icons.mail_outline_outlined),
-                                      title: Text(
-                                        user.email.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 18),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print(user.email!.replaceAll(' ', ''));
+                                        launchUrl(Uri.parse(
+                                            "mailto:${user.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
+                                      },
+                                      child: ListTile(
+                                        leading: const Icon(
+                                            Icons.mail_outline_outlined),
+                                        title: Text(
+                                          user.email.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 18),
+                                        ),
                                       ),
                                     ),
                                   ])

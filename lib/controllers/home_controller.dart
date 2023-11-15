@@ -147,9 +147,9 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchAllListing(
-      String userId, int pageId) async {
+      String userId, int pageId, String sortBy) async {
     try {
-      final res = await homeService.fetchAllListingApiRequest(userId, pageId);
+      final res = await homeService.fetchAllListingApiRequest(userId, pageId,sortBy);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

@@ -183,7 +183,8 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
             ref.read(isloginProvider)
                 ? ref.read(userProvider).user!.id.toString()
                 : '',
-            ref.watch(paginateIndexProvider))
+            ref.watch(paginateIndexProvider),
+            ref.watch(selectedSortProvider))
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {

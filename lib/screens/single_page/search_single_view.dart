@@ -82,7 +82,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap:() {
+                    onTap: () {
                       AutoRouter.of(context).push(const HomePage());
                     },
                     child: SizedBox(
@@ -196,10 +196,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                                                                     border: Border.all(
                                                                         color: ViwahaColor
                                                                             .primary),
-                                                                    borderRadius: const BorderRadius
+                                                                    borderRadius:
+                                                                        const BorderRadius
                                                                             .all(
-                                                                        Radius.circular(
-                                                                            10))),
+                                                                            Radius.circular(10))),
                                                                 child: Assets
                                                                     .lib
                                                                     .assets
@@ -219,10 +219,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                                                                     border: Border.all(
                                                                         color: ViwahaColor
                                                                             .primary),
-                                                                    borderRadius: const BorderRadius
+                                                                    borderRadius:
+                                                                        const BorderRadius
                                                                             .all(
-                                                                        Radius.circular(
-                                                                            10))),
+                                                                            Radius.circular(10))),
                                                               )
                                                       ],
                                                     ),
@@ -319,13 +319,17 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.description.toString(),
                         widget.item!.main_category.toString(),
                         widget.item!.video.toString()),
-                   
                     SingleItemContactInfo(
                       widget.item!.main_category.toString(),
                       widget.item!.phone.toString(),
                       widget.item!.whatsapp.toString(),
                       widget.item!.address.toString(),
-                      widget.item!.email.toString(),widget.item!.facebook.toString(),widget.item!.whatsapp.toString(),widget.item!.instagram.toString(),widget.item!.linkedin.toString(),
+                      widget.item!.email.toString(),
+                      widget.item!.facebook.toString(),
+                      widget.item!.whatsapp.toString(),
+                      widget.item!.instagram.toString(),
+                      widget.item!.linkedin.toString(),
+                      widget.item!.user_id.toString(),
                     ),
                     SingleItemOpeningHours(widget.item!),
                     SingleItemMap(widget.item!.address.toString()),

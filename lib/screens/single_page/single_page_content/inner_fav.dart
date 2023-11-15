@@ -77,15 +77,20 @@ class _InnerFavoriteIconState extends ConsumerState<InnerFavoriteIcon> {
             ));
         }
       },
-      child: isFavorite
-          ? const Icon(
-              Icons.favorite,
-              color: ViwahaColor.primary,
-            )
-          : const Icon(
-              Icons.favorite_border,
-              color: ViwahaColor.primary,
-            ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: isFavorite
+            ? const Icon(
+                Icons.favorite,
+                color: ViwahaColor.primary,
+                size: 10,
+              )
+            : const Icon(
+                Icons.favorite_border,
+                color: ViwahaColor.primary,
+                size: 20,
+              ),
+      ),
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:geocoding/geocoding.dart';
@@ -222,65 +221,74 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           Wrap(
             children: [
               widget.item!.premium.toString() != "0"
-                  ? ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        // fixedSize: Size(120, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        backgroundColor: Colors.amber,
-                      ),
-                      onPressed: () => null,
-                      icon: const Icon(Icons.workspace_premium),
-                      label: const Text(
-                        "Premium",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )
+                  ? Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: Colors.amber, width: 1)),
+                      child: const Padding(
+                          padding: EdgeInsets.all(3.0),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.workspace_premium,
+                                  color: Colors.amber,
+                                ),
+                                Text(
+                                  'Premium',
+                                  style: TextStyle(color: Colors.amber),
+                                )
+                              ])))
                   : const SizedBox(),
               SizedBox(width: widget.item!.verified.toString() != "0" ? 8 : 0),
               widget.item!.verified.toString() != "0"
-                  ? ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        side: BorderSide(color: Colors.lightBlueAccent),
-                        // fixedSize: Size(110, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        backgroundColor: Colors.white,
-                      ),
-                      onPressed: () => null,
-                      icon: const Icon(
-                        Icons.shield_outlined,
-                        color: Colors.lightBlueAccent,
-                      ),
-                      label: const Text(
-                        "Verified",
-                        style: TextStyle(color: Colors.lightBlueAccent),
-                      ),
-                    )
+                  ? Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                              color: Colors.lightBlueAccent, width: 1)),
+                      child: const Padding(
+                          padding: EdgeInsets.all(3.0),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shield_outlined,
+                                  color: Colors.lightBlueAccent,
+                                ),
+                                Text(
+                                  'Verified',
+                                  style:
+                                      TextStyle(color: Colors.lightBlueAccent),
+                                )
+                              ])))
                   : const SizedBox(),
               SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
               widget.item!.member.toString() != "0"
-                  ? ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(color: Colors.amber),
-                        // fixedSize: Size(110, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        backgroundColor: Colors.white,
-                      ),
-                      onPressed: () => null,
-                      icon: const Icon(
-                        Icons.stars_rounded,
-                        color: Colors.amber,
-                      ),
-                      label: const Text(
-                        "Member",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                    )
+                  ? Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: Colors.amber, width: 1)),
+                      child: const Padding(
+                          padding: EdgeInsets.all(3.0),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.stars_rounded,
+                                  color: Colors.amber,
+                                ),
+                                Text(
+                                  'Member',
+                                  style: TextStyle(color: Colors.amber),
+                                )
+                              ])))
                   : const SizedBox(),
             ],
           ),
@@ -316,7 +324,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           children: [
                             const Icon(
                               Icons.remove_red_eye,
-                              color: Colors.grey,
+                              color: ViwahaColor.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -340,7 +348,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   children: [
                     Icon(
                       Icons.check_box_outlined,
-                      color: Colors.grey,
+                      color: ViwahaColor.primary,
                     ),
                     SizedBox(width: 4),
                     Text(
@@ -360,7 +368,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   children: [
                     Icon(
                       Icons.check_box_outlined,
-                      color: Colors.grey,
+                      color: ViwahaColor.primary,
                     ),
                     SizedBox(width: 4),
                     Text(
@@ -384,7 +392,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   children: [
                     const Icon(
                       Icons.home,
-                      color: Colors.grey,
+                      color: ViwahaColor.primary,
                     ),
                     const SizedBox(width: 4),
                     Expanded(
@@ -409,7 +417,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           children: [
                             const Icon(
                               Icons.pin_drop,
-                              color: Colors.grey,
+                              color: ViwahaColor.primary,
                             ),
                             const SizedBox(width: 4),
                             TextButton(
@@ -483,7 +491,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           children: [
                             const Icon(
                               Icons.date_range,
-                              color: Colors.grey,
+                              color: ViwahaColor.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -497,7 +505,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             const SizedBox(width: 8),
                             const Icon(
                               Icons.watch_later_outlined,
-                              color: Colors.grey,
+                              color: ViwahaColor.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -521,7 +529,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           children: [
                             const Icon(
                               Icons.watch_later_outlined,
-                              color: Colors.grey,
+                              color: ViwahaColor.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -538,51 +546,41 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   : const SizedBox()
               : const SizedBox(),
           // const SizedBox(height: 0),
-          Row(
-            children: [
-              widget.item!.average_rating != null
-                  ? const Icon(Icons.star, color: Colors.yellow)
-                  : const Icon(Icons.star_border, color: Colors.yellow),
-              const SizedBox(width: 4),
-              Text(
-                '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
+          widget.item!.average_rating != null
+              ? Row(
+                  children: [
+                    widget.item!.average_rating != null
+                        ? const Icon(Icons.star, color: Colors.yellow)
+                        : const Icon(Icons.star_border, color: Colors.yellow),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
 
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  AutoRouter.of(context).push(VendorProfilePage(
-                      userId: widget.item!.user_id.toString()));
-                },
-                icon: const Icon(Icons.person),
-                label: Text(LocaleKeys.vendor_profile.tr()),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              ElevatedButton.icon(
-                style: const ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll<Color>(Color(0xFF4caf50)),
+          Center(
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-                onPressed: () {
-                  Share.share('https://viwaha.lk/listing?id=${widget.id}');
-                },
-                icon: const Icon(Icons.share_sharp),
-                label: const Text("Share"),
+                backgroundColor: const Color(0xFF4caf50),
               ),
-            ],
+              onPressed: () {
+                Share.share('https://viwaha.lk/listing?id=${widget.id}');
+              },
+              icon: const Icon(Icons.share_sharp),
+              label: const Text("Share"),
+            ),
           ),
+
           const SizedBox(height: 20),
           widget.type != "myAd"
               ? Row(
@@ -590,6 +588,11 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
                       onPressed: () {
                         showRequestQuoteForm(context, ref,
                             listingId: widget.item!.id.toString(),
@@ -604,6 +607,11 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                         : const SizedBox(),
                     ref.watch(isloginProvider)
                         ? ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
                             onPressed: () {
                               showReviewForm(context, ref,
                                   listingId: widget.item!.id.toString(),
@@ -623,6 +631,11 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                         : const SizedBox(),
                     ref.watch(isloginProvider)
                         ? ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
                             onPressed: () {
                               showReportingForm(context, ref,
                                   listingId: widget.item!.id.toString(),
@@ -1073,11 +1086,6 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                   widget.mainCategory == "Proposal"
                       ? isMembership(widget.description)
                       : widget.description,
-                  // style: GoogleFonts.lato(),
-                  // TextStyle(
-                  //   color: Colors.amber,
-                  //   fontFamily: 'Noto Serif Sinhala',
-                  // ),
                   textAlign: TextAlign.left,
                 ),
                 widget.videoLink != ""
@@ -1253,6 +1261,7 @@ class SingleItemContactInfo extends ConsumerStatefulWidget {
       this.whatsapp,
       this.instagram,
       this.linkedin,
+      this.userId,
       {super.key});
   final String mainCategory;
   final String contactNumber;
@@ -1263,6 +1272,7 @@ class SingleItemContactInfo extends ConsumerStatefulWidget {
   final String whatsapp;
   final String instagram;
   final String linkedin;
+  final String userId;
   @override
   _SingleItemContactInfoState createState() => _SingleItemContactInfoState();
 }
@@ -1324,7 +1334,10 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                         launchUrl(Uri.parse("tel:${widget.contactNumber}"));
                       },
                       child: ListTile(
-                        leading: const Icon(Icons.phone_android),
+                        leading: const Icon(
+                          Icons.phone_android,
+                          color: ViwahaColor.primary,
+                        ),
                         title: Text(LocaleKeys.contact_number.tr()),
                         subtitle: Text(widget.mainCategory == "Proposal"
                             ? isMembership(widget.contactNumber)
@@ -1341,7 +1354,8 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                         launchUrl(Uri.parse("tel:${widget.telephoneNumer}"));
                       },
                       child: ListTile(
-                        leading: const Icon(Icons.phone),
+                        leading:
+                            const Icon(Icons.phone, color: ViwahaColor.primary),
                         title: Text(LocaleKeys.tele_number.tr()),
                         subtitle: Text(widget.mainCategory == "Proposal"
                             ? isMembership(widget.telephoneNumer)
@@ -1354,7 +1368,8 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       widget.address == ""
                   ? Container()
                   : ListTile(
-                      leading: const Icon(Icons.home),
+                      leading:
+                          const Icon(Icons.home, color: ViwahaColor.primary),
                       title: Text(LocaleKeys.address.tr()),
                       subtitle: Text(widget.mainCategory == "Proposal"
                           ? isMembership(widget.address)
@@ -1369,16 +1384,46 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                       onTap: () {
                         print(widget.email.replaceAll(' ', ''));
                         launchUrl(Uri.parse(
-                            "mailto:${widget.email.replaceAll(' ', '')}?subject=subject&body=body"));
+                            "mailto:${widget.email.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
                       },
                       child: ListTile(
-                        leading: const Icon(Icons.email),
+                        leading:
+                            const Icon(Icons.email, color: ViwahaColor.primary),
                         title: Text(LocaleKeys.email.tr()),
                         subtitle: Text(widget.mainCategory == "Proposal"
                             ? isMembership(widget.email)
                             : widget.email),
                       ),
                     ),
+              const SizedBox(height: 8),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(color: Colors.black),
+                  // fixedSize: Size(120, 1),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  AutoRouter.of(context).push(
+                      VendorProfilePage(userId: widget.userId.toString()));
+                },
+                icon: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(color: Colors.black, width: 2),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: const Icon(
+                      Icons.person,
+                      size: 15,
+                    )),
+                label: Text(
+                  LocaleKeys.vendor_profile.tr(),
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
               const SizedBox(height: 8),
               Center(
                 child: Row(

@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
@@ -278,20 +279,28 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                               (vendor.email != "null")
                                   ? (vendor.email != null)
                                       ? (vendor.email != "")
-                                          ? ListTile(
-                                              title: const Text('Email',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16),
-                                                  textAlign: TextAlign.start),
-                                              subtitle: Text(
-                                                  vendor.email.toString(),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.start),
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                print(vendor.email!
+                                                    .replaceAll(' ', ''));
+                                                launchUrl(Uri.parse(
+                                                    "mailto:${vendor.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
+                                              },
+                                              child: ListTile(
+                                                title: const Text('Email',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16),
+                                                    textAlign: TextAlign.start),
+                                                subtitle: Text(
+                                                    vendor.email.toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 18),
+                                                    textAlign: TextAlign.start),
+                                              ),
                                             )
                                           : const SizedBox()
                                       : const SizedBox()
@@ -365,15 +374,22 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                             title: LocaleKeys.follow_us.tr(),
                             description: "",
                             inputList: [
-                              ListTile(
-                                leading:
-                                    const Icon(Icons.mail_outline_outlined),
-                                title: Text(
-                                  vendor.email.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 18),
+                              GestureDetector(
+                                onTap: () {
+                                  print(vendor.email!.replaceAll(' ', ''));
+                                  launchUrl(Uri.parse(
+                                      "mailto:${vendor.email!.replaceAll(' ', '')}?subject=subject&body=body"));
+                                },
+                                child: ListTile(
+                                  leading:
+                                      const Icon(Icons.mail_outline_outlined),
+                                  title: Text(
+                                    vendor.email.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 18),
+                                  ),
                                 ),
                               ),
                             ]),

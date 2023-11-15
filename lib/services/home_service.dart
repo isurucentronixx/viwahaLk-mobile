@@ -83,10 +83,10 @@ class HomeService {
     }
   }
 
-  Future fetchAllListingApiRequest(String userId, int pageId) async {
+  Future fetchAllListingApiRequest(String userId, int pageId, String sortBy) async {
     try {
       final res = await _dioClient.get(
-          "${Endpoints.baseUrl}${Endpoints.getAllListing}$userId&page=$pageId");
+          "${Endpoints.baseUrl}${Endpoints.getAllListing}$userId&filter=1&sortBy=$sortBy&page=$pageId");
       return res.data["data"];
     } catch (e) {
       rethrow;

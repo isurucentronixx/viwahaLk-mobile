@@ -47,6 +47,7 @@ dependencies:
   google_maps_flutter: ^2.5.0
   geocoding: ^2.1.1
   shimmer: ^3.0.0
+  slide_countdown: ^1.1.1
   
   
 

@@ -9,7 +9,7 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
-class SearchingCardItem extends ConsumerWidget {
+class SearchingListItem extends ConsumerWidget {
   final String id;
   final String imagePath;
   final String title;
@@ -23,7 +23,7 @@ class SearchingCardItem extends ConsumerWidget {
   final String boostedDate;
   final dynamic item;
 
-  const SearchingCardItem({
+  const SearchingListItem({
     required this.id,
     required this.imagePath,
     required this.title,
@@ -80,27 +80,26 @@ class SearchingCardItem extends ConsumerWidget {
                             : ''));
       },
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: 200,
-              height: 100,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              width: 150,
+              height: 150,
               child: Stack(
                 children: [
                   CachedNetworkImage(
                     imageUrl: imagePath,
                     fit: BoxFit.cover,
                     imageBuilder: (context, imageProvider) => Container(
-                      height: 100,
-                      width: 200,
+                      height: 150,
+                      width: 150,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
+                        boxShadow: const [
+                          BoxShadow(color: ViwahaColor.black, blurRadius: 1)
+                        ],
+                        borderRadius: BorderRadius.circular(10.0),
                         color: Colors.black,
                         image: DecorationImage(
                           image: imageProvider,
@@ -124,7 +123,8 @@ class SearchingCardItem extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: Colors.amber.withOpacity(0.9),
                               borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10)),
+                                  topLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
@@ -146,7 +146,8 @@ class SearchingCardItem extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: ViwahaColor.primary.withOpacity(0.8),
                               borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10)),
+                                  topLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
@@ -165,6 +166,7 @@ class SearchingCardItem extends ConsumerWidget {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.75,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
@@ -182,122 +184,89 @@ class SearchingCardItem extends ConsumerWidget {
                       child: FavoriteIcon(id, isFav != "0" ? true : false),
                     ),
                   ),
-                  (date != "null")
-                      ? (date != null)
-                          ? (date != "")
-                              ? Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.4),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0, vertical: 4.0),
-                                        child: boostedDate != "null"
-                                            ? Text(
-                                                "Boosted ${timeAgoSinceDate(boostedDate)}",
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : Text(
-                                                timeAgoSinceDate(date),
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container()
-                          : Container()
-                      : Container(),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: SizedBox(
-                    width: 120,
-                    child: Center(
-                      child: Text(
-                        title,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            if (location != "null" && location != null && location != "")
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.location_pin,
-                      size: 16,
-                      color: ViwahaColor.primary,
-                    ),
-                    Text(
-                      location.toString(),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 14.0),
-                    ),
-                  ]),
-            const SizedBox(
-              height: 4,
-            ),
-            if (starRating.toString() != "null" &&
-                starRating != null &&
-                starRating.toString() != "")
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RatingBar.builder(
-                    itemSize: 15,
-                    initialRating: double.parse(starRating.toString()),
-                    minRating: 0,
-                    direction: Axis.horizontal,
-                    itemCount: 5,
-                    ignoreGestures: true,
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {},
-                  ),
-                  const SizedBox(width: 4),
+            Expanded(
+              child: Column(
+                // mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
                   Text(
-                      '(${(double.parse(starRating.toString())).roundToDouble()})'),
+                    title,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  if (location != "null" && location != null && location != "")
+                    Wrap(
+                      children: [
+                        const Icon(
+                          Icons.location_pin,
+                          color: ViwahaColor.primary,
+                          size: 16,
+                        ),
+                        Text(
+                          location,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  if (starRating.toString() != "null" &&
+                      starRating != null &&
+                      starRating.toString() != "")
+                    Wrap(
+                      children: [
+                        RatingBar.builder(
+                          itemSize: 15,
+                          initialRating: double.parse(starRating.toString()),
+                          minRating: 0,
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          ignoreGestures: true,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {},
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                            '(${(double.parse(starRating.toString())).roundToDouble()})'),
+                      ],
+                    ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  if (date != "null" && date != null && date != "")
+                    boostedDate != "null"
+                        ? Text(
+                            "Boosted ${timeAgoSinceDate(boostedDate)}",
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          )
+                        : Text(
+                            timeAgoSinceDate(date),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          )
                 ],
               ),
-            const SizedBox(
-              height: 2,
             ),
           ],
         ),

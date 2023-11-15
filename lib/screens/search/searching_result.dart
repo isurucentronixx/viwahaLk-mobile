@@ -13,6 +13,7 @@ import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/cards/searching_list_card.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -236,9 +237,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                               .average_rating
                                               .toString())
                                           : 0,
-                                      location: searchingResult[index]
-                                          .location
-                                          .toString(),
+                                      location:
+                                          '${searchingResult[index].location.toString()}, ${searchingResult[index].main_location.toString()}',
                                       date: searchingResult[index]
                                           .datetime
                                           .toString(),

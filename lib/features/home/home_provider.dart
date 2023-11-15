@@ -21,6 +21,19 @@ final selectedSubLocationProvider =
     StateProvider<SubLocation>((ref) => const SubLocation());
 final selectedMainCategoryProvider = StateProvider<String>((ref) => "");
 final selectedMainLocationProvider = StateProvider<String>((ref) => "");
+
+final isActivatedProvider = StateProvider<bool>((ref) => false);
+final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
+final subCategoriesProvider = StateProvider<List<SubCategories?>>((ref) => []);
+final subLocationsProvider = StateProvider<List<SubLocation?>>((ref) => []);
+
+final selectedPriceRangeProvider = StateProvider<String>((ref) => "");
+final selectedAmenitiesProvider = StateProvider<List<String>>((ref) => []);
+final searchingKeywords = StateProvider<String>((ref) => "");
+final selectedOrderProvider = StateProvider<String>((ref) => "");
+final selectedSortProvider = StateProvider<String>((ref) => "");
+final selectedRatingProvider = StateProvider<String>((ref) => "");
+
 final homeServiceProvider = Provider<HomeService>((ref) {
   return HomeService(ref.read(dioClientProvider));
 });

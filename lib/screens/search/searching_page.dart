@@ -17,18 +17,6 @@ import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
-final isActivatedProvider = StateProvider<bool>((ref) => false);
-final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
-final subCategoriesProvider = StateProvider<List<SubCategories?>>((ref) => []);
-final subLocationsProvider = StateProvider<List<SubLocation?>>((ref) => []);
-
-final selectedPriceRangeProvider = StateProvider<String>((ref) => "");
-final selectedAmenitiesProvider = StateProvider<List<String>>((ref) => []);
-final searchingKeywords = StateProvider<String>((ref) => "");
-final selectedOrderProvider = StateProvider<String>((ref) => "");
-final selectedSortProvider = StateProvider<String>((ref) => "");
-final selectedRatingProvider = StateProvider<String>((ref) => "");
-
 @RoutePage()
 class SearchingPage extends ConsumerStatefulWidget {
   const SearchingPage({super.key});

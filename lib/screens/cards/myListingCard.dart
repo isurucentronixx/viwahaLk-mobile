@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -43,6 +45,8 @@ class MyCardItem extends ConsumerStatefulWidget {
 }
 
 class _MyCardItemState extends ConsumerState<MyCardItem> {
+
+
   String timeAgoSinceDate(String date) {
     final now = DateTime.now();
     final difference = now.difference(DateTime.parse(date));
@@ -63,6 +67,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
       return '$years ${years == 1 ? 'year' : 'years'} ago';
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -412,7 +418,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                           });
                     },
                     icon: const Icon(
-                      Icons.analytics_outlined,
+                      Icons.airplane_ticket_outlined,
                       size: 22.0,
                     ),
                     label: const Text('Boost'), // <-- Text

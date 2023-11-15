@@ -156,6 +156,8 @@ class _SingleViewState extends ConsumerState<SingleView> {
                   widget.topListing!.instagram.toString(),
               widget.vendor?.linkedin.toString() ??
                   widget.topListing!.linkedin.toString(),
+              widget.vendor?.user_id.toString() ??
+                  widget.topListing!.user_id.toString(),
             ),
             SingleItemOpeningHours(widget.vendor ?? widget.topListing),
             SingleItemMap(widget.vendor?.address.toString() ??

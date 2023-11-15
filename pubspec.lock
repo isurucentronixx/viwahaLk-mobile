@@ -1274,6 +1274,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_countdown:
+    dependency: "direct main"
+    description:
+      name: slide_countdown
+      sha256: "2701b980f7a8f5554cdd52264ddc64f1f17e2e56eca2501dc5d27bd8e8655c57"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   source_gen:
     dependency: transitive
     description:
@@ -1338,6 +1346,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  stream_duration:
+    dependency: transitive
+    description:
+      name: stream_duration
+      sha256: "766e19d507bc1ae64beda01ef075ba40e36e0380138c6b6cf28d4742a7bc4a38"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   stream_transform:
     dependency: transitive
     description:
