@@ -147,9 +147,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchAllListing(
-      String userId, int pageId, String sortBy) async {
+      String userId, int pageId, String order) async {
     try {
-      final res = await homeService.fetchAllListingApiRequest(userId, pageId,sortBy);
+      final res =
+          await homeService.fetchAllListingApiRequest(userId, pageId, order);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;
@@ -188,10 +189,10 @@ class HomeController {
   }
 
   Future<List<SearchResultItem>> fetchCategoryListing(
-      String userId, String category, int pageId) async {
+      String userId, String category, int pageId, String order) async {
     try {
       final res = await homeService.fetchCategoryListingApiRequest(
-          userId, category, pageId);
+          userId, category, pageId, order);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

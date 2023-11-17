@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -57,26 +58,53 @@ class _SliderState extends ConsumerState<SliderView> {
         aspectRatio: 16 / 9, // Aspect ratio of the images
       ),
       items: imagePaths.map((imagePath) {
-        return CachedNetworkImage(
-          imageUrl: imagePath.toString(),
-          fit: BoxFit.cover,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.black,
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (_) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: PhotoView(
+                        backgroundDecoration:
+                            const BoxDecoration(color: Colors.transparent),
+                        // tightMode: true,
+                        imageProvider: NetworkImage(imagePath.toString()),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Tap here to close'),
+                  )
+                ],
+              ),
+            );
+          },
+          child: CachedNetworkImage(
+            imageUrl: imagePath.toString(),
+            fit: BoxFit.cover,
+            imageBuilder: (context, imageProvider) => Container(
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black,
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Center(
-            child: Image.network(
-              'https://viwaha.lk/assets/img/logo/no_image.jpg',
-              fit: BoxFit.cover,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Center(
+              child: Image.network(
+                'https://viwaha.lk/assets/img/logo/no_image.jpg',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         );

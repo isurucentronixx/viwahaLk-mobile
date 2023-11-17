@@ -35,7 +35,7 @@ dependencies:
   image_picker: ^0.8.6
   google_fonts: ^4.0.4
   awesome_select: ^6.0.0
-  # flutter_facebook_auth: ^5.0.11
+  # flutter_facebook_auth: ^5.0.
   expand_widget: ^3.1.1
   awesome_snackbar_content: ^0.1.1
   loading_overlay: ^0.3.0
@@ -48,6 +48,7 @@ dependencies:
   geocoding: ^2.1.1
   shimmer: ^3.0.0
   slide_countdown: ^1.1.1
+  photo_view: ^0.14.0
   
   
 

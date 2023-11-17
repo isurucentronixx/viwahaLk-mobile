@@ -98,12 +98,12 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                       child: Row(
                         children: [
                           const SizedBox(width: 10),
-                          const Icon(Icons.search, color: Colors.grey),
+                          const Icon(Icons.search, color: ViwahaColor.primary),
                           const SizedBox(width: 5),
                           Text(
                             'search'.tr(),
                             style: const TextStyle(
-                                fontSize: 16, color: Colors.grey),
+                                fontSize: 16, color: ViwahaColor.primary),
                           ),
                         ],
                       )),
@@ -143,31 +143,6 @@ class _HomeContentState extends ConsumerState<HomeContent> {
                       ),
                     ),
                   ),
-                  //     Image.network(
-                  //   imageUrl,
-                  //   fit: BoxFit.cover,
-                  //   loadingBuilder: (context, child, progress) {
-                  //     if (progress == null) {
-                  //       return SizedBox(
-                  //         width: MediaQuery.of(context).size.width,
-                  //         height: MediaQuery.of(context).size.height * 0.75,
-                  //         child: child,
-                  //       );
-                  //     }
-
-                  //     return const Center(
-                  //       child: CircularProgressIndicator(),
-                  //     );
-                  //   },
-                  //   errorBuilder: (context, error, stackTrace) {
-                  //     return Center(
-                  //       child: Image.network(
-                  //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
                 );
               }).toList(),
               options: CarouselOptions(

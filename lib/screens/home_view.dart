@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
@@ -64,12 +67,39 @@ class _HomePageState extends ConsumerState<HomePage>
   int currentTab = 0;
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeContent();
+  var currentTime;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        DateTime now = DateTime.now();
+        if (currentTime == null ||
+            now.difference(currentTime) > const Duration(seconds: 2)) {
+          currentTime = now;
+
+          SnackBar snackBar = SnackBar(
+            content: const Text('Press again to exit',
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
+            backgroundColor: ViwahaColor.primary,
+            dismissDirection: DismissDirection.up,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height - 220,
+                left: 50,
+                right: 50),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //     content: Text(
+          //         'Press again to exit')));
+          return Future.value(false);
+        } else {
+          SystemNavigator.pop();
+          exit(0);
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

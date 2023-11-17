@@ -31,7 +31,7 @@ final selectedPriceRangeProvider = StateProvider<String>((ref) => "");
 final selectedAmenitiesProvider = StateProvider<List<String>>((ref) => []);
 final searchingKeywords = StateProvider<String>((ref) => "");
 final selectedOrderProvider = StateProvider<String>((ref) => "");
-final selectedSortProvider = StateProvider<String>((ref) => "");
+final selectedSortProvider = StateProvider<String>((ref) => "date");
 final selectedRatingProvider = StateProvider<String>((ref) => "");
 
 final homeServiceProvider = Provider<HomeService>((ref) {

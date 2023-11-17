@@ -21,7 +21,6 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -104,7 +103,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: ViwahaColor.primary),
                 ),
                 child: Column(
                   children: [
@@ -113,7 +112,11 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                           AutoRouter.of(context).push(const SearchingPage()),
                       decoration: const InputDecoration(
                         labelText: 'Search',
-                        prefixIcon: Icon(Icons.search),
+                        labelStyle: TextStyle(color: ViwahaColor.primary),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: ViwahaColor.primary,
+                        ),
                         border: InputBorder.none,
                       ),
                     ),
@@ -121,86 +124,69 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ToggleButtons(
-                    borderColor: Colors.grey,
-                    selectedBorderColor: Colors.grey,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ToggleButtons(
+                    borderColor: ViwahaColor.primary,
+                    selectedBorderColor: ViwahaColor.primary,
                     borderRadius: BorderRadius.circular(5),
+                    constraints:
+                        const BoxConstraints(minWidth: 30, minHeight: 30),
                     onPressed: (int index) {
                       setState(() {
                         isGridView = index == 0;
                       });
                     },
                     isSelected: [isGridView, !isGridView],
-                    children: [
+                    children: const [
                       Icon(
                         Icons.grid_on_outlined,
-                        color: isGridView ? ViwahaColor.primary : Colors.grey,
+                        color: ViwahaColor.primary,
                       ),
-                      Icon(Icons.list,
-                          color:
-                              !isGridView ? ViwahaColor.primary : Colors.grey),
+                      Icon(Icons.list, color: ViwahaColor.primary),
                     ],
                   ),
-                ),
-                SmartSelect<String>.single(
-                  modalFilterAuto: true,
-                  modalFilter: true,
-                  title: 'Order by',
-                  selectedValue: _orderBy,
-                  choiceItems: orderByData,
-                  onChange: (selected) {
-                    setState(() {
-                      allListing = [];
-                      print(selected);
-                      print(allListing.length);
-                      ref.read(selectedSortProvider.notifier).state =
-                          selected.value;
-                      ref.refresh(allListingProvider);
-                    });
+                  SmartSelect<String>.single(
+                    modalFilterAuto: true,
+                    modalFilter: true,
+                    title: 'Order by',
+                    selectedValue: _orderBy,
+                    choiceItems: orderByData,
+                    onChange: (selected) {
+                      setState(() {
+                        allListing = [];
 
-                    //  if (ref.watch(isloginProvider)) {
-                    //             ref.refresh(allListingProvider);
-                    //           }
-                    //           ref.read(isSearchingProvider.notifier).state =
-                    //               true;
-                    //           AutoRouter.of(context)
-                    //               .push(AllListingPage(isAppBar: true));
-                    // setState(() {
-                    //   _orderBy = selected.title.toString();
-                    //   ref.read(selectedOrderProvider.notifier).state =
-                    //       selected.value;
-                    //   ref.read(isSearchingProvider.notifier).state = true;
-                    //   ref.refresh(allListingProvider);
-                    // });
-                  },
-                  modalType: S2ModalType.bottomSheet,
-                  tileBuilder: (context, state) {
-                    return GestureDetector(
-                      onTap: () {
-                        state.showModal();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        ref.read(selectedOrderProvider.notifier).state =
+                            selected.value;
+                        ref.refresh(allListingProvider);
+                      });
+                    },
+                    modalType: S2ModalType.bottomSheet,
+                    tileBuilder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          state.showModal();
+                        },
                         child: Container(
-                            padding: const EdgeInsets.all(8),
+                            width: 30,
+                            height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(color: Colors.grey),
+                              border: Border.all(color: ViwahaColor.primary),
                             ),
                             child: const Icon(
                               Icons.sort,
-                              color: Colors.grey,
+                              size: 20,
+                              color: ViwahaColor.primary,
                             )),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
             allListing.isNotEmpty
                 ? Expanded(
@@ -274,10 +260,6 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                             itemCount: isAddLoading
                                 ? allListing.length + 1
                                 : allListing.length,
-                            // gridDelegate:
-                            //     const SliverGridDelegateWithFixedCrossAxisCount(
-                            //   crossAxisCount: 2,
-                            // ),
                             itemBuilder: (context, index) {
                               if (index < allListing.length) {
                                 return SearchingListItem(

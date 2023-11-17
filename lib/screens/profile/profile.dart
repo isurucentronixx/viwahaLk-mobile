@@ -105,21 +105,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           ),
                         ),
 
-                        // Positioned(
-                        //   bottom: 0,
-                        //   right: 0,
-                        //   child: Container(
-                        //     width: 35,
-                        //     height: 35,
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(100)),
-                        //     child: const Icon(
-                        //       Icons.mode_edit_outline,
-                        //       color: ViwahaColor.primary,
-                        //       size: 20,
-                        //     ),
-                        //   ),
-                        // ),
+                       
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -168,13 +154,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           ElevatedButton(
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(
-                                  Size(double.infinity, 48)),
+                                  const Size(double.infinity, 48)),
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.blue),
                               shape: MaterialStateProperty.all<

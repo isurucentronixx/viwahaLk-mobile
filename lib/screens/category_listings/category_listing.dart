@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_field
 
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_select/awesome_select.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,7 @@ import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
+import 'package:viwaha_lk/screens/cards/searching_list_card.dart';
 import 'package:viwaha_lk/screens/menu_item.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
@@ -39,6 +41,13 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
 
   bool isAddLoading = false;
   final scrollController = ScrollController();
+  String _orderBy = 'Select One';
+  bool isGridView = true;
+  List<S2Choice<String>>? orderByData = [
+    S2Choice<String>(value: 'asc', title: 'Accending'),
+    S2Choice<String>(value: 'desc', title: 'Decending'),
+  ];
+  bool collaps = false;
 
   @override
   initState() {
@@ -99,7 +108,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: ViwahaColor.primary),
                   ),
                   child: Column(
                     children: [
@@ -108,7 +117,11 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                             AutoRouter.of(context).push(const SearchingPage()),
                         decoration: const InputDecoration(
                           labelText: 'Search',
-                          prefixIcon: Icon(Icons.search),
+                          labelStyle: TextStyle(color: ViwahaColor.primary),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: ViwahaColor.primary,
+                          ),
                           border: InputBorder.none,
                         ),
                       ),
@@ -154,84 +167,246 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                       }),
                     )
                   : const SizedBox(),
+              Align(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        collaps = !collaps;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(
+                        !collaps
+                            ? Icons.keyboard_arrow_down
+                            : Icons.keyboard_arrow_up,
+                        color: ViwahaColor.primary,
+                      ),
+                    )),
+              ),
+              AnimatedContainer(
+                height: collaps ? 30 : 0,
+                duration: const Duration(milliseconds: 750),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      collaps
+                          ? ToggleButtons(
+                              borderColor: ViwahaColor.primary,
+                              selectedBorderColor: ViwahaColor.primary,
+                              borderRadius: BorderRadius.circular(5),
+                              constraints: const BoxConstraints(
+                                  minWidth: 30, minHeight: 30),
+                              onPressed: (int index) {
+                                setState(() {
+                                  isGridView = index == 0;
+                                });
+                              },
+                              isSelected: [isGridView, !isGridView],
+                              children: const [
+                                Icon(
+                                  Icons.grid_on_outlined,
+                                  color: ViwahaColor.primary,
+                                ),
+                                Icon(Icons.list, color: ViwahaColor.primary),
+                              ],
+                            )
+                          : const SizedBox(),
+                      SmartSelect<String>.single(
+                        modalFilterAuto: true,
+                        modalFilter: true,
+                        title: 'Order by',
+                        selectedValue: _orderBy,
+                        choiceItems: orderByData,
+                        onChange: (selected) {
+                          setState(() {
+                            allListing = [];
+
+                            ref.read(selectedOrderProvider.notifier).state =
+                                selected.value;
+                            ref.refresh(categoryListingProvider);
+                          });
+                        },
+                        modalType: S2ModalType.bottomSheet,
+                        tileBuilder: (context, state) {
+                          return GestureDetector(
+                            onTap: () {
+                              state.showModal();
+                            },
+                            child: collaps
+                                ? Container(
+                                    width: 30,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                          color: ViwahaColor.primary),
+                                    ),
+                                    child: const Icon(
+                                      Icons.sort,
+                                      size: 20,
+                                      color: ViwahaColor.primary,
+                                    ))
+                                : const SizedBox(),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 15),
               ref.watch(isSearchingProvider)
                   ? const Center(child: CircularProgressIndicator())
                   : allListing.isEmpty
                       ? const Center(child: NoListingPage())
                       : Expanded(
-                          child: GridView.builder(
-                              controller: scrollController,
-                              itemCount: isAddLoading
-                                  ? allListing.length + 2
-                                  : allListing.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                              ),
-                              itemBuilder: (context, index) {
-                                if (index < allListing.length) {
-                                  return SearchingCardItem(
-                                    id: allListing[index].id.toString(),
-                                    imagePath: (allListing[index].image) != null
-                                        ? "https://viwaha.lk/${allListing[index].image.toString()}"
-                                        : ref
-                                            .read(homeControllerProvider)
-                                            .getTumbImage(
-                                                allListing[index].thumb_images)
-                                            .first,
-                                    // Replace with your image paths
-                                    title: allListing[index].title.toString(),
-                                    description: allListing[index]
-                                        .description
-                                        .toString(),
-                                    starRating:
-                                        (allListing[index].average_rating) !=
+                          child: isGridView
+                              ? GridView.builder(
+                                  controller: scrollController,
+                                  itemCount: isAddLoading
+                                      ? allListing.length + 2
+                                      : allListing.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    if (index < allListing.length) {
+                                      return SearchingCardItem(
+                                        id: allListing[index].id.toString(),
+                                        imagePath: (allListing[index].image) !=
+                                                null
+                                            ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                            : ref
+                                                .read(homeControllerProvider)
+                                                .getTumbImage(allListing[index]
+                                                    .thumb_images)
+                                                .first,
+                                        // Replace with your image paths
+                                        title:
+                                            allListing[index].title.toString(),
+                                        description: allListing[index]
+                                            .description
+                                            .toString(),
+                                        starRating: (allListing[index]
+                                                    .average_rating) !=
                                                 null
                                             ? double.parse(allListing[index]
                                                 .average_rating
                                                 .toString())
                                             : 0,
-                                    location:
-                                        allListing[index].location.toString(),
-                                    date: allListing[index].datetime.toString(),
-                                    type: 'cat',
-                                    isFav: allListing[index]
-                                        .is_favourite
-                                        .toString(),
-                                    isPremium:
-                                        allListing[index].premium.toString() !=
+                                        location: allListing[index]
+                                            .location
+                                            .toString(),
+                                        date: allListing[index]
+                                            .datetime
+                                            .toString(),
+                                        type: 'cat',
+                                        isFav: allListing[index]
+                                            .is_favourite
+                                            .toString(),
+                                        isPremium: allListing[index]
+                                                    .premium
+                                                    .toString() !=
                                                 "1"
                                             ? false
                                             : true,
-                                    boostedDate:
-                                        allListing[index].boosted.toString(),
-                                    item: allListing[index],
-                                    // Replace with the appropriate star rating value
-                                  );
-                                } else {
-                                  return Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Shimmer.fromColors(
-                                      baseColor: Colors.grey.shade100,
-                                      highlightColor: Colors.grey.shade300,
-                                      child: Card(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10)),
-                                            color: Colors.grey.shade200,
+                                        boostedDate: allListing[index]
+                                            .boosted
+                                            .toString(),
+                                        item: allListing[index],
+                                        // Replace with the appropriate star rating value
+                                      );
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Shimmer.fromColors(
+                                          baseColor: Colors.grey.shade100,
+                                          highlightColor: Colors.grey.shade300,
+                                          child: Card(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(10),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                10)),
+                                                color: Colors.grey.shade200,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              }),
+                                      );
+                                    }
+                                  })
+                              : ListView.builder(
+                                  controller: scrollController,
+                                  itemCount: isAddLoading
+                                      ? allListing.length + 1
+                                      : allListing.length,
+                                  itemBuilder: (context, index) {
+                                    if (index < allListing.length) {
+                                      return SearchingListItem(
+                                        id: allListing[index].id.toString(),
+                                        imagePath: (allListing[index].image) !=
+                                                null
+                                            ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                            : ref
+                                                .read(homeControllerProvider)
+                                                .getTumbImage(allListing[index]
+                                                    .thumb_images)
+                                                .first,
+                                        title:
+                                            allListing[index].title.toString(),
+                                        description: allListing[index]
+                                            .description
+                                            .toString(),
+                                        starRating: (allListing[index]
+                                                    .average_rating) !=
+                                                null
+                                            ? double.parse(allListing[index]
+                                                .average_rating
+                                                .toString())
+                                            : 0,
+                                        location:
+                                            '${allListing[index].location.toString()}, ${allListing[index].main_location.toString()}',
+                                        date: allListing[index]
+                                            .datetime
+                                            .toString(),
+                                        type: 'all',
+                                        isFav: allListing[index]
+                                            .is_favourite
+                                            .toString(),
+                                        isPremium: allListing[index]
+                                                    .premium
+                                                    .toString() !=
+                                                "1"
+                                            ? false
+                                            : true,
+                                        boostedDate: allListing[index]
+                                            .boosted
+                                            .toString(),
+                                        item: allListing[index],
+                                      );
+                                    } else {
+                                      return Shimmer.fromColors(
+                                        baseColor: Colors.grey.shade100,
+                                        highlightColor: Colors.grey.shade300,
+                                        child: const Card(
+                                          child: SizedBox(
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }),
                         )
             ],
           ),

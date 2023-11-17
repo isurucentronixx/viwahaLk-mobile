@@ -83,10 +83,11 @@ class HomeService {
     }
   }
 
-  Future fetchAllListingApiRequest(String userId, int pageId, String sortBy) async {
+  Future fetchAllListingApiRequest(
+      String userId, int pageId, String order) async {
     try {
       final res = await _dioClient.get(
-          "${Endpoints.baseUrl}${Endpoints.getAllListing}$userId&filter=1&sortBy=$sortBy&page=$pageId");
+          "${Endpoints.baseUrl}${Endpoints.getAllListing}$userId&sortBy=date&filter=1&order=$order&page=$pageId");
       return res.data["data"];
     } catch (e) {
       rethrow;
@@ -114,10 +115,11 @@ class HomeService {
     }
   }
 
-  Future fetchCategoryListingApiRequest(String userId, String category, int pageId) async {
+  Future fetchCategoryListingApiRequest(
+      String userId, String category, int pageId, String order) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}/&category=$category&page=$pageId');
+          '${Endpoints.baseUrl + Endpoints.getAllListing + userId}&category=$category&filter=1&sortBy=date&order=$order&page=$pageId');
       return res.data['data'];
     } catch (e) {
       rethrow;

@@ -147,7 +147,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
             category,
             keyword,
             ref.read(isloginProvider)
-                ? '${ref.read(userProvider).user!.id.toString()}'
+                ? ref.read(userProvider).user!.id.toString()
                 : '',
             filter,
             price,
@@ -184,7 +184,7 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
                 ? ref.read(userProvider).user!.id.toString()
                 : '',
             ref.watch(paginateIndexProvider),
-            ref.watch(selectedSortProvider))
+            ref.watch(selectedOrderProvider))
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -258,6 +258,8 @@ class CategoryListingProviderNotifier
   Future fetchCategoryListing({required Ref ref}) async {
     String category = ref.watch(selectedMainCategoryProvider);
     int pageId = ref.watch(paginateIndexProvider);
+    String order = ref.watch(selectedOrderProvider);
+
     await ref
         .read(homeControllerProvider)
         .fetchCategoryListing(
@@ -265,7 +267,8 @@ class CategoryListingProviderNotifier
                 ? ref.read(userProvider).user!.id.toString()
                 : '',
             category,
-            pageId)
+            pageId,
+            order)
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
