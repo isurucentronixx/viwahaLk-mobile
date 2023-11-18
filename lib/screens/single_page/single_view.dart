@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/screens/latest_items/latest.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -29,6 +30,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
   final TextEditingController _searchController = TextEditingController();
   bool isVendor = false;
   String googlePlace = "";
+  List<Reviews> reviews = [];
   @override
   void initState() {
     super.initState();
@@ -51,6 +53,8 @@ class _SingleViewState extends ConsumerState<SingleView> {
         } else {
           googlePlace = widget.vendor!.googleplace!;
         }
+
+        reviews.addAll(widget.vendor!.reviews!);
       } else {
         if (widget.topListing!.googleplace == '') {
           googlePlace =
@@ -61,6 +65,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
         } else {
           googlePlace = widget.topListing!.googleplace!;
         }
+        reviews.addAll(widget.topListing!.reviews!);
       }
     });
   }
@@ -191,8 +196,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
             ),
             SingleItemOpeningHours(widget.vendor ?? widget.topListing),
             SingleItemMap(googlePlace),
-            SingleItemReviews(
-                widget.vendor!.reviews ?? widget.topListing!.reviews!, ref),
+            if (reviews.isNotEmpty) SingleItemReviews(reviews, ref),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing')
           ],
         ),

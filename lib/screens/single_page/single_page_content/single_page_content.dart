@@ -1701,7 +1701,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
 
 class SingleItemReviews extends StatefulWidget {
   const SingleItemReviews(this.reviews, this.ref, {super.key});
-  final List<Reviews> reviews;
+  final List<Reviews>? reviews;
   final WidgetRef ref;
   @override
   State<SingleItemReviews> createState() => _SingleItemReviewsState();
@@ -1712,7 +1712,7 @@ class _SingleItemReviewsState extends State<SingleItemReviews> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.reviews.forEach((element) {
+    widget.reviews!.forEach((element) {
       if (element.reply_id != null) {
         replyReviews.add(element);
       }
@@ -1758,12 +1758,12 @@ class _SingleItemReviewsState extends State<SingleItemReviews> {
               children: [
                 Expanded(
                     child: ListView.builder(
-                  itemCount: widget.reviews.length,
+                  itemCount: widget.reviews!.length,
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => reviewCard(
                       context, widget.ref,
-                      review: widget.reviews[index],
+                      review: widget.reviews![index],
                       replyReviews: replyReviews),
                 )),
               ],
@@ -1916,9 +1916,9 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                     ],
                                   ),
                                 SizedBox(
-                                  width: 200,
-                                  child: Text(review.message.toString()),
-                                ),
+                                    width: 200,
+                                    child:
+                                        ExpandText(review.message.toString())),
                                 const SizedBox(
                                   height: 8,
                                 ),
@@ -2031,12 +2031,10 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                                     )),
                                                 SizedBox(
                                                   width: 200,
-                                                  child: Text(
-                                                    replyReviews[index]
-                                                        .message
-                                                        .toString(),
-                                                    textAlign: TextAlign.end,
-                                                  ),
+                                                  child: ExpandText(
+                                                      replyReviews[index]
+                                                          .message
+                                                          .toString()),
                                                 ),
                                                 const SizedBox(
                                                   height: 8,
