@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:geocoding/geocoding.dart';
@@ -20,6 +21,8 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
+import 'package:viwaha_lk/models/user_dashboard/user_reviews.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -308,7 +311,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.stars_rounded,
                                   color: Colors.amber,
                                 ),
@@ -323,25 +326,28 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           const SizedBox(height: 10),
           widget.item!.main_category != "Proposal"
               ? widget.item.price != "0"
-                  ? Container(
-                      height: 35,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: ViwahaColor.primary,
-                          borderRadius: BorderRadius.circular(30),
-                          border:
-                              Border.all(color: ViwahaColor.primary, width: 1)),
-                      child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Up to RS. ${widget.item.price}",
-                                  style: const TextStyle(color: Colors.white),
-                                )
-                              ])))
+                  ? widget.item.price != null
+                      ? Container(
+                          height: 35,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              color: ViwahaColor.primary,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                  color: ViwahaColor.primary, width: 1)),
+                          child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Up to RS. ${widget.item.price}",
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    )
+                                  ])))
+                      : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
           const SizedBox(height: 8),
@@ -641,7 +647,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               ),
                             ),
                             onPressed: () {
-                              showReviewForm(context, ref,
+                              showReviewForm(context, ref, null,
                                   listingId: widget.item!.id.toString(),
                                   userId: ref
                                       .read(userProvider)
@@ -1117,16 +1123,18 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                   textAlign: TextAlign.left,
                 ),
                 widget.videoLink != ""
-                    ? Center(
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            await launchUrl(Uri.parse(widget.videoLink),
-                                mode: LaunchMode.externalApplication);
-                          },
-                          icon: const Icon(Icons.play_circle),
-                          label: const Text('Watch clip'),
-                        ),
-                      )
+                    ? widget.videoLink != 'null'
+                        ? Center(
+                            child: ElevatedButton.icon(
+                              onPressed: () async {
+                                await launchUrl(Uri.parse(widget.videoLink),
+                                    mode: LaunchMode.externalApplication);
+                              },
+                              icon: const Icon(Icons.play_circle),
+                              label: const Text('Watch clip'),
+                            ),
+                          )
+                        : const SizedBox()
                     : const SizedBox(),
               ],
             ),
@@ -1201,7 +1209,7 @@ class _SingleItemOpeningHoursState
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               widget.item.open_holiday.toString() == 'Yes'
-                  ? Stack(
+                  ? Wrap(
                       children: [
                         openTimeWidget(
                             'Monday',
@@ -1592,7 +1600,7 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
 }
 
 class SingleItemMap extends StatefulWidget {
-  final String address;
+  final String? address;
   const SingleItemMap(this.address, {super.key});
 
   @override
@@ -1614,7 +1622,7 @@ class _SingleItemMapState extends State<SingleItemMap> {
   }
 
   Future<void> _goToTheAddress() async {
-    List<Location> locations = await locationFromAddress(widget.address);
+    List<Location> locations = await locationFromAddress(widget.address!);
     final GoogleMapController controller = await _controller.future;
 
     Marker resultMarker = Marker(
@@ -1689,4 +1697,458 @@ class _SingleItemMapState extends State<SingleItemMap> {
       ),
     );
   }
+}
+
+class SingleItemReviews extends StatefulWidget {
+  const SingleItemReviews(this.reviews, this.ref, {super.key});
+  final List<Reviews> reviews;
+  final WidgetRef ref;
+  @override
+  State<SingleItemReviews> createState() => _SingleItemReviewsState();
+}
+
+class _SingleItemReviewsState extends State<SingleItemReviews> {
+  List<Reviews> replyReviews = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.reviews.forEach((element) {
+      if (element.reply_id != null) {
+        replyReviews.add(element);
+      }
+    });
+    print('object');
+    print(replyReviews.length);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color:
+                ViwahaColor.primary, // Set the background color for the title
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.list,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  LocaleKeys.reviews.tr(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: widget.reviews.length,
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => reviewCard(
+                      context, widget.ref,
+                      review: widget.reviews[index],
+                      replyReviews: replyReviews),
+                )),
+              ],
+            ),
+
+            // Image.network(url),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget reviewCard(BuildContext context, WidgetRef ref,
+    {required Reviews review, required List<Reviews> replyReviews}) {
+  return review.reply_id == null
+      ? GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: const BorderSide(color: ViwahaColor.primary),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: 70,
+                                        height: 70,
+                                        child: SizedBox(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: ViwahaColor
+                                                    .primary, // Set your desired border color here
+                                                width:
+                                                    2, // Set the desired border width
+                                              ),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              child: CachedNetworkImage(
+                                                imageUrl: review.user_image
+                                                            .toString()[0] ==
+                                                        "a"
+                                                    ? 'https://viwaha.lk/${review.user_image.toString()}'
+                                                    : review.user_image
+                                                        .toString(),
+                                                fit: BoxFit.cover,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  height: 150,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Center(
+                                                  child: Image.network(
+                                                    'https://viwaha.lk/assets/img/user.jpg',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 120, top: 5, right: 5),
+                                  child: Text(
+                                    Jiffy.parse(review.datetime.toString())
+                                        .format(pattern: 'dd, MMM yyyy'),
+                                    style: const TextStyle(color: Colors.grey),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: 200,
+                                    child: Text(
+                                      '${review.firstname} ${review.lastname ?? ""}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                if (review.rating != null)
+                                  Row(
+                                    children: [
+                                      RatingBar.builder(
+                                        ignoreGestures: true,
+                                        itemSize: 15,
+                                        initialRating: double.parse(
+                                            "${review.rating!.toString()}"),
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 1.0),
+                                        itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {},
+                                      ),
+                                      Text(
+                                        '(${review.rating!.toString()})',
+                                        style:
+                                            const TextStyle(color: Colors.grey),
+                                      )
+                                    ],
+                                  ),
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(review.message.toString()),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        showReviewForm(context, ref, review.id,
+                                            listingId: review.listing_id!,
+                                            userId: ref
+                                                .read(userProvider)
+                                                .user!
+                                                .id
+                                                .toString());
+                                      },
+                                      icon: const Icon(
+                                        Icons.replay,
+                                        size: 22.0,
+                                      ),
+                                      label: const Text('Reply'), // <-- Text
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: ViwahaColor.primary,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListView.builder(
+                  itemCount: replyReviews.length,
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return replyReviews[index].reply_id == review.id
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Card(
+                                  margin: const EdgeInsets.only(left: 30),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: const BorderSide(color: Colors.grey),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 100,
+                                                          top: 5,
+                                                          left: 5),
+                                                  child: Text(
+                                                    Jiffy.parse(
+                                                            replyReviews[index]
+                                                                .datetime
+                                                                .toString())
+                                                        .format(
+                                                            pattern:
+                                                                'dd, MMM yyyy'),
+                                                    style: const TextStyle(
+                                                        color: Colors.grey),
+                                                    textAlign: TextAlign.end,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    width: 200,
+                                                    child: Text(
+                                                      '${replyReviews[index].firstname} ${replyReviews[index].lastname ?? ""}',
+                                                      textAlign: TextAlign.end,
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                SizedBox(
+                                                  width: 200,
+                                                  child: Text(
+                                                    replyReviews[index]
+                                                        .message
+                                                        .toString(),
+                                                    textAlign: TextAlign.end,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 50,
+                                                        height: 50,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              border:
+                                                                  Border.all(
+                                                                color: Colors
+                                                                    .grey, // Set your desired border color here
+                                                                width:
+                                                                    2, // Set the desired border width
+                                                              ),
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          100),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                imageUrl: replyReviews[index].user_image.toString()[
+                                                                            0] ==
+                                                                        "a"
+                                                                    ? 'https://viwaha.lk/${replyReviews[index].user_image.toString()}'
+                                                                    : replyReviews[
+                                                                            index]
+                                                                        .user_image
+                                                                        .toString(),
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                imageBuilder:
+                                                                    (context,
+                                                                            imageProvider) =>
+                                                                        Container(
+                                                                  height: 150,
+                                                                  width: 150,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image:
+                                                                          imageProvider,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    const Center(
+                                                                        child:
+                                                                            CircularProgressIndicator()),
+                                                                errorWidget:
+                                                                    (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Center(
+                                                                  child: Image
+                                                                      .network(
+                                                                    'https://viwaha.lk/assets/img/user.jpg',
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox();
+                  },
+                ),
+              ],
+            ),
+          ),
+        )
+      : const SizedBox();
 }

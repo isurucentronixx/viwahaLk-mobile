@@ -62,9 +62,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                 height: 120,
                                 width: 120,
                                 decoration: BoxDecoration(
-                                  // borderRadius: const BorderRadius.only(
-                                  //     topLeft: Radius.circular(10),
-                                  //     topRight: Radius.circular(10)),
+                                 
                                   color: Colors.black,
                                   image: DecorationImage(
                                     image: imageProvider,
@@ -81,36 +79,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                 ),
                               ),
                             ),
-                            // Image.network(
-                            //   user!.image.toString(),
-                            //   fit: BoxFit.cover,
-                            //   loadingBuilder: (context, child, progress) {
-                            //     if (progress == null) {
-                            //       return ClipRRect(
-                            //         borderRadius: BorderRadius.circular(100),
-                            //         child: SizedBox(
-                            //           width: 120,
-                            //           height: 120,
-                            //           child: child,
-                            //         ),
-                            //       );
-                            //     }
-                            //     return const Center(
-                            //       child: CircularProgressIndicator(
-                            //           // value: progress.cumulativeBytesLoaded /
-                            //           //     progress.expectedTotalBytes!.toDouble(),
-                            //           ),
-                            //     );
-                            //   },
-                            //   errorBuilder: (context, error, stackTrace) {
-                            //     return Center(
-                            //       child: Image.network(
-                            //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                            //         fit: BoxFit.cover,
-                            //       ),
-                            //     );
-                            //   },
-                            // ),
+                          
                           ),
                         ),
                       ],

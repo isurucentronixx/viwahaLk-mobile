@@ -87,6 +87,9 @@ _$_Vendor _$$_VendorFromJson(Map<String, dynamic> json) => _$_Vendor(
       is_favourite: json['is_favourite'] as String?,
       verified: json['verified'] as String?,
       member: json['member'] as String?,
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Reviews.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
@@ -170,4 +173,5 @@ Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
       'is_favourite': instance.is_favourite,
       'verified': instance.verified,
       'member': instance.member,
+      'reviews': instance.reviews,
     };

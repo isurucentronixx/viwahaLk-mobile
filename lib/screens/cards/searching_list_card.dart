@@ -206,21 +206,30 @@ class SearchingListItem extends ConsumerWidget {
                     height: 8,
                   ),
                   if (location != "null" && location != null && location != "")
-                    Wrap(
-                      children: [
-                        const Icon(
-                          Icons.location_pin,
-                          color: ViwahaColor.primary,
-                          size: 16,
-                        ),
-                        Text(
-                          location,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 100,
+                        child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.location_pin,
+                                size: 16,
+                                color: ViwahaColor.primary,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  location.toString(),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14.0),
+                                ),
+                              ),
+                            ]),
+                      ),
                     ),
                   const SizedBox(
                     height: 4,

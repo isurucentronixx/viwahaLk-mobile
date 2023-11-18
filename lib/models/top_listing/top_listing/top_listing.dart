@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 
 part 'top_listing.freezed.dart';
 part 'top_listing.g.dart';
@@ -88,6 +89,8 @@ class TopListing with _$TopListing {
     String? is_favourite,
     String? verified,
     String? member,
+    List<Reviews>? reviews,
+    
   }) = _TopListing;
 
   factory TopListing.fromJson(Map<String, dynamic> json) =>

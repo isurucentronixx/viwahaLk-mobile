@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 
 part 'search_result_item.freezed.dart';
 part 'search_result_item.g.dart';
@@ -88,6 +89,7 @@ class SearchResultItem with _$SearchResultItem {
     String? is_favourite,
     String? verified,
     String? member,
+    List<Reviews>? reviews,
   }) = _SearchResultItem;
 
   factory SearchResultItem.fromJson(Map<String, dynamic> json) =>

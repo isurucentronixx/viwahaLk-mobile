@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 
 part 'vendor.freezed.dart';
 part 'vendor.g.dart';
@@ -87,7 +88,8 @@ class Vendor with _$Vendor {
     String? average_rating,
     String? is_favourite, 
     String? verified,
-    String? member,   
+    String? member,
+    List<Reviews>? reviews,   
   }) = _Vendor;
 
   factory Vendor.fromJson(Map<String, dynamic> json) => _$VendorFromJson(json);

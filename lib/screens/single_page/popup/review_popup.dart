@@ -12,7 +12,7 @@ final reviewEmailProvider = StateProvider<String>((ref) => '');
 final reviewMessageProvider = StateProvider<String>((ref) => '');
 final reviewRatingProvider = StateProvider<String>((ref) => '');
 
-showReviewForm(BuildContext context, WidgetRef ref,
+showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
     {required String userId, required String listingId}) {
   showModalBottomSheet<void>(
     isScrollControlled: true,
@@ -251,6 +251,7 @@ showReviewForm(BuildContext context, WidgetRef ref,
                         var formDetails = {
                           "id": userId,
                           "listing_id": listingId,
+                          "reply_id": replyId,
                           "name": ref.read(reviewNameProvider),
                           "email": ref.read(reviewEmailProvider),
                           "message": ref.read(reviewMessageProvider),

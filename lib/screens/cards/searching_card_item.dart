@@ -88,7 +88,7 @@ class SearchingCardItem extends ConsumerWidget {
           children: [
             SizedBox(
               width: 200,
-              height: 100,
+              height: type == 'fav' ? 85 : 100,
               child: Stack(
                 children: [
                   CachedNetworkImage(
@@ -252,23 +252,31 @@ class SearchingCardItem extends ConsumerWidget {
               height: 4,
             ),
             if (location != "null" && location != null && location != "")
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.location_pin,
-                      size: 16,
-                      color: ViwahaColor.primary,
-                    ),
-                    Text(
-                      location.toString(),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 14.0),
-                    ),
-                  ]),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 100,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.location_pin,
+                          size: 16,
+                          color: ViwahaColor.primary,
+                        ),
+                        Expanded(
+                          child: Text(
+                            location.toString(),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 14.0),
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
             const SizedBox(
               height: 4,
             ),

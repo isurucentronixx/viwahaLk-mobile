@@ -33,37 +33,37 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
           id: "1",
           name: "colombo".tr(),
           image: "https://viwaha.lk/assets/img/city/Colombo.png",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "2",
           name: "kandy".tr(),
           image: "https://viwaha.lk/assets/img/city/Kandy.png",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "3",
           name: "galle".tr(),
           image: "https://viwaha.lk/assets/img/city/Galle.png",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "4",
           name: "jaffna".tr(),
           image: "https://viwaha.lk/assets/img/city/Jaffna.png",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "5",
           name: "kurunegala".tr(),
           image: "https://viwaha.lk/assets/img/city/Kurunegala.jpg",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "6",
           name: "anuradhapura".tr(),
           image: "https://viwaha.lk/assets/img/city/Anuradhapura.png",
-          ratings: "0"),
+          ratings: "5"),
       City(
           id: "7",
           name: "badulla".tr(),
           image: "https://viwaha.lk/assets/img/city/Badulla.png",
-          ratings: "3")
+          ratings: "5")
     ];
     final data = popularCities;
 

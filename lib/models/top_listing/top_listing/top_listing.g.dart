@@ -88,6 +88,9 @@ _$_TopListing _$$_TopListingFromJson(Map<String, dynamic> json) =>
       is_favourite: json['is_favourite'] as String?,
       verified: json['verified'] as String?,
       member: json['member'] as String?,
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Reviews.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_TopListingToJson(_$_TopListing instance) =>
@@ -172,4 +175,5 @@ Map<String, dynamic> _$$_TopListingToJson(_$_TopListing instance) =>
       'is_favourite': instance.is_favourite,
       'verified': instance.verified,
       'member': instance.member,
+      'reviews': instance.reviews,
     };

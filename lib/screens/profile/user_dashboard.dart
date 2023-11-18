@@ -347,14 +347,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                                 height: 150,
                                                 width: 150,
                                                 decoration: BoxDecoration(
-                                                  // borderRadius:
-                                                  //     const BorderRadius.only(
-                                                  //         topLeft:
-                                                  //             Radius.circular(
-                                                  //                 10),
-                                                  //         topRight:
-                                                  //             Radius.circular(
-                                                  //                 10)),
+                                               
                                                   color: Colors.black,
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -375,33 +368,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                                 ),
                                               ),
                                             ),
-                                            // Image.network(
-                                            //   messages[index].image != null
-                                            //       ? 'https://viwaha.lk/${messages[index].image.toString()}'
-                                            //       : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                            //   fit: BoxFit.fill,
-                                            //   loadingBuilder:
-                                            //       (context, child, progress) {
-                                            //     if (progress == null) {
-                                            //       return SizedBox(
-                                            //         width: 150,
-                                            //         height: 150,
-                                            //         child: child,
-                                            //       );
-                                            //     }
-                                            //     return const Center(
-                                            //       child:
-                                            //           CircularProgressIndicator(),
-                                            //     );
-                                            //   },
-                                            //   errorBuilder:
-                                            //       (context, error, stackTrace) {
-                                            //     return Image.network(
-                                            //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                            //       fit: BoxFit.cover,
-                                            //     );
-                                            //   },
-                                            // ),
+                                           
                                           ),
                                         ),
                                       ),
@@ -606,13 +573,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                               height: 150,
                                               width: 150,
                                               decoration: BoxDecoration(
-                                                // borderRadius:
-                                                //     const BorderRadius.only(
-                                                //         topLeft:
-                                                //             Radius.circular(10),
-                                                //         topRight:
-                                                //             Radius.circular(
-                                                //                 10)),
+                                             
                                                 color: Colors.black,
                                                 image: DecorationImage(
                                                   image: imageProvider,
@@ -632,33 +593,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                               ),
                                             ),
                                           ),
-                                          // Image.network(
-                                          //   review.image != null
-                                          //       ? 'https://viwaha.lk/${review.image.toString()}'
-                                          //       : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                          //   fit: BoxFit.fill,
-                                          //   loadingBuilder:
-                                          //       (context, child, progress) {
-                                          //     if (progress == null) {
-                                          //       return SizedBox(
-                                          //         width: 150,
-                                          //         height: 150,
-                                          //         child: child,
-                                          //       );
-                                          //     }
-                                          //     return const Center(
-                                          //       child:
-                                          //           CircularProgressIndicator(),
-                                          //     );
-                                          //   },
-                                          //   errorBuilder:
-                                          //       (context, error, stackTrace) {
-                                          //     return Image.network(
-                                          //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                          //       fit: BoxFit.cover,
-                                          //     );
-                                          //   },
-                                          // ),
+                                         
                                         ),
                                       ),
                                     ),
@@ -913,36 +848,7 @@ class MyCardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    // Image.network(
-                    //   imagePath,
-                    //   fit: BoxFit.cover,
-                    //   loadingBuilder: (context, child, progress) {
-                    //     if (progress == null) {
-                    //       return ClipRRect(
-                    //         borderRadius: BorderRadius.circular(10),
-                    //         child: SizedBox(
-                    //           width: 400,
-                    //           height: 150,
-                    //           child: child,
-                    //         ),
-                    //       );
-                    //     }
-                    //     return const Center(
-                    //       child: CircularProgressIndicator(
-                    //           // value: progress.cumulativeBytesLoaded /
-                    //           //     progress.expectedTotalBytes!.toDouble(),
-                    //           ),
-                    //     );
-                    //   },
-                    //   errorBuilder: (context, error, stackTrace) {
-                    //     return Center(
-                    //       child: Image.network(
-                    //         'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                    //         fit: BoxFit.cover,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
+                   
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(

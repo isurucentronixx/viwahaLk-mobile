@@ -100,6 +100,7 @@ mixin _$SearchResultItem {
   String? get is_favourite => throw _privateConstructorUsedError;
   String? get verified => throw _privateConstructorUsedError;
   String? get member => throw _privateConstructorUsedError;
+  List<Reviews>? get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -193,7 +194,8 @@ abstract class $SearchResultItemCopyWith<$Res> {
       String? average_rating,
       String? is_favourite,
       String? verified,
-      String? member});
+      String? member,
+      List<Reviews>? reviews});
 }
 
 /// @nodoc
@@ -289,6 +291,7 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
     Object? is_favourite = freezed,
     Object? verified = freezed,
     Object? member = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -611,6 +614,10 @@ class _$SearchResultItemCopyWithImpl<$Res, $Val extends SearchResultItem>
           ? _value.member
           : member // ignore: cast_nullable_to_non_nullable
               as String?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Reviews>?,
     ) as $Val);
   }
 }
@@ -703,7 +710,8 @@ abstract class _$$_SearchResultItemCopyWith<$Res>
       String? average_rating,
       String? is_favourite,
       String? verified,
-      String? member});
+      String? member,
+      List<Reviews>? reviews});
 }
 
 /// @nodoc
@@ -797,6 +805,7 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
     Object? is_favourite = freezed,
     Object? verified = freezed,
     Object? member = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$_SearchResultItem(
       id: freezed == id
@@ -1119,6 +1128,10 @@ class __$$_SearchResultItemCopyWithImpl<$Res>
           ? _value.member
           : member // ignore: cast_nullable_to_non_nullable
               as String?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Reviews>?,
     ));
   }
 }
@@ -1206,7 +1219,9 @@ class _$_SearchResultItem implements _SearchResultItem {
       this.average_rating,
       this.is_favourite,
       this.verified,
-      this.member});
+      this.member,
+      final List<Reviews>? reviews})
+      : _reviews = reviews;
 
   factory _$_SearchResultItem.fromJson(Map<String, dynamic> json) =>
       _$$_SearchResultItemFromJson(json);
@@ -1371,10 +1386,19 @@ class _$_SearchResultItem implements _SearchResultItem {
   final String? verified;
   @override
   final String? member;
+  final List<Reviews>? _reviews;
+  @override
+  List<Reviews>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating, is_favourite: $is_favourite, verified: $verified, member: $member)';
+    return 'SearchResultItem(id: $id, datetime: $datetime, user_id: $user_id, title: $title, category: $category, main_category: $main_category, address: $address, googleplace: $googleplace, location: $location, main_location: $main_location, video: $video, name: $name, email: $email, phone: $phone, whatsapp: $whatsapp, website: $website, designation: $designation, company: $company, facebook: $facebook, instagram: $instagram, youtube: $youtube, linkedin: $linkedin, description: $description, amenities: $amenities, saturday_open_time: $saturday_open_time, saturday_close_time: $saturday_close_time, sunday_open_time: $sunday_open_time, sunday_close_time: $sunday_close_time, monday_open_time: $monday_open_time, monday_close_time: $monday_close_time, tuesday_open_time: $tuesday_open_time, tuesday_close_time: $tuesday_close_time, wednesday_open_time: $wednesday_open_time, wednesday_close_time: $wednesday_close_time, thursday_open_time: $thursday_open_time, thursday_close_time: $thursday_close_time, friday_open_time: $friday_open_time, friday_close_time: $friday_close_time, always_open: $always_open, open_holiday: $open_holiday, image: $image, images: $images, thumb_images: $thumb_images, views: $views, active: $active, premium: $premium, bank_receipt_image: $bank_receipt_image, price: $price, ask_price: $ask_price, negotiable: $negotiable, boosted: $boosted, gender: $gender, birthday: $birthday, birthmonth: $birthmonth, birthyear: $birthyear, country: $country, province: $province, city: $city, height: $height, weight: $weight, body: $body, appearance: $appearance, complexion: $complexion, maritial: $maritial, education: $education, career: $career, religion: $religion, ethnicity: $ethnicity, social_class: $social_class, residency: $residency, family_values: $family_values, smoking: $smoking, drinking: $drinking, diet: $diet, personality: $personality, next_step: $next_step, average_rating: $average_rating, is_favourite: $is_favourite, verified: $verified, member: $member, reviews: $reviews)';
   }
 
   @override
@@ -1504,7 +1528,8 @@ class _$_SearchResultItem implements _SearchResultItem {
             (identical(other.average_rating, average_rating) || other.average_rating == average_rating) &&
             (identical(other.is_favourite, is_favourite) || other.is_favourite == is_favourite) &&
             (identical(other.verified, verified) || other.verified == verified) &&
-            (identical(other.member, member) || other.member == member));
+            (identical(other.member, member) || other.member == member) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(ignore: true)
@@ -1590,7 +1615,8 @@ class _$_SearchResultItem implements _SearchResultItem {
         average_rating,
         is_favourite,
         verified,
-        member
+        member,
+        const DeepCollectionEquality().hash(_reviews)
       ]);
 
   @JsonKey(ignore: true)
@@ -1688,7 +1714,8 @@ abstract class _SearchResultItem implements SearchResultItem {
       final String? average_rating,
       final String? is_favourite,
       final String? verified,
-      final String? member}) = _$_SearchResultItem;
+      final String? member,
+      final List<Reviews>? reviews}) = _$_SearchResultItem;
 
   factory _SearchResultItem.fromJson(Map<String, dynamic> json) =
       _$_SearchResultItem.fromJson;
@@ -1853,6 +1880,8 @@ abstract class _SearchResultItem implements SearchResultItem {
   String? get verified;
   @override
   String? get member;
+  @override
+  List<Reviews>? get reviews;
   @override
   @JsonKey(ignore: true)
   _$$_SearchResultItemCopyWith<_$_SearchResultItem> get copyWith =>

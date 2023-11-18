@@ -1,11 +1,12 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_select/awesome_select.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:slide_countdown/slide_countdown.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -16,17 +17,17 @@ import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 
 class MyCardItem extends ConsumerStatefulWidget {
-  final String id;
-  final String imagePath;
-  final String title;
-  final String description;
-  final double starRating;
-  final String location;
-  final String date;
-  final String name;
-  final String main_category;
-  final String isFav;
-  final String boosted;
+  final String? id;
+  final String? imagePath;
+  final String? title;
+  final String? description;
+  final double? starRating;
+  final String? location;
+  final String? date;
+  final String? name;
+  final String? main_category;
+  final String? isFav;
+  final String? boosted;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -45,7 +46,27 @@ class MyCardItem extends ConsumerStatefulWidget {
 }
 
 class _MyCardItemState extends ConsumerState<MyCardItem> {
+  Duration boostingCount = const Duration();
+  bool isBoosting = false;
+  String _more = 'Select One';
+  List<S2Choice<String>>? moreData = [
+    S2Choice<String>(value: 'edit', title: 'Edit Listing'),
+    S2Choice<String>(value: 'delete', title: 'Delete'),
+  ];
+  boostingTime() {
+    final now = DateTime.now();
 
+    DateTime boostedDate = DateTime.parse(widget.boosted!);
+    DateTime boostEndTime = boostedDate.add(const Duration(hours: 24));
+
+    Duration difference = boostEndTime.difference(now);
+    setState(() {
+      boostingCount = difference;
+      if (boostingCount < const Duration(hours: 24)) {
+        isBoosting = true;
+      }
+    });
+  }
 
   String timeAgoSinceDate(String date) {
     final now = DateTime.now();
@@ -68,7 +89,15 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
     }
   }
 
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (widget.boosted.toString() != 'null') {
+      boostingTime();
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +141,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                 child: Stack(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: widget.imagePath,
+                      imageUrl: widget.imagePath!,
                       fit: BoxFit.cover,
                       imageBuilder: (context, imageProvider) => Container(
                         width: 400,
@@ -150,7 +179,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FavoriteIcon(
-                            widget.id, widget.isFav != "0" ? true : false),
+                            widget.id!, widget.isFav != "0" ? true : false),
                       ),
                     ),
                     Align(
@@ -168,7 +197,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 horizontal: 8.0, vertical: 4.0),
                             child: widget.boosted != "null"
                                 ? Text(
-                                    "Boosted ${timeAgoSinceDate(widget.boosted)}",
+                                    "Boosted ${timeAgoSinceDate(widget.boosted!)}",
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
@@ -197,8 +226,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     width: 170,
                     child: Text(
                       widget.main_category == "Proposal"
-                          ? '${widget.name}'
-                          : '${widget.title}',
+                          ? widget.name!
+                          : widget.title!,
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 20,
@@ -213,7 +242,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                         SizedBox(
                           width: 100,
                           child: Text(
-                            widget.location,
+                            widget.location!,
                             textAlign: TextAlign.end,
                             style: const TextStyle(
                               overflow: TextOverflow.ellipsis,
@@ -389,89 +418,118 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      showDialog<bool>(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: const Text(
-                                  'Are you sure you want to boost this post?'),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  child: const Text('No'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                ElevatedButton(
-                                  child: const Text('Yes, Boost now!'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    ref
-                                        .read(
-                                            myListingViewStateProvider.notifier)
-                                        .state = const AsyncValue.loading();
-                                    controller.boostMyListing(widget.id);
-                                  },
-                                ),
-                              ],
-                            );
-                          });
+                      !isBoosting
+                          ? showDialog<bool>(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: const Text(
+                                      'Are you sure you want to boost this post?'),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('No'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    ElevatedButton(
+                                      child: const Text('Yes, Boost now!'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        ref
+                                            .read(myListingViewStateProvider
+                                                .notifier)
+                                            .state = const AsyncValue.loading();
+                                        controller.boostMyListing(widget.id);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              })
+                          : null;
                     },
                     icon: const Icon(
                       Icons.airplane_ticket_outlined,
                       size: 22.0,
                     ),
-                    label: const Text('Boost'), // <-- Text
+                    label: const Text('Boost'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4caf50),
+                      backgroundColor: isBoosting
+                          ? const Color.fromARGB(255, 147, 220, 150)
+                          : const Color(0xFF4caf50),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      showDialog<bool>(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: const Text(
-                                  'Are you sure you want to delete?'),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  child: const Text('No'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop(false);
-                                  },
-                                ),
-                                ElevatedButton(
-                                  child: const Text('Yes, delete'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    ref
-                                        .read(
-                                            myListingViewStateProvider.notifier)
-                                        .state = const AsyncValue.loading();
+                  SmartSelect<String>.single(
+                    modalFilterAuto: true,
+                    modalFilter: true,
+                    title: 'More about listing',
+                    selectedValue: _more,
+                    choiceItems: moreData,
+                    onChange: (selected) {
+                      if (selected.value == 'delete') {
+                        showDialog<bool>(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: const Text(
+                                    'Are you sure you want to delete?'),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    child: const Text('No'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(false);
+                                    },
+                                  ),
+                                  ElevatedButton(
+                                    child: const Text('Yes, delete'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      ref
+                                          .read(myListingViewStateProvider
+                                              .notifier)
+                                          .state = const AsyncValue.loading();
 
-                                    controller.deleteMyListing(widget.id);
-                                  },
-                                ),
-                              ],
-                            );
-                          });
+                                      controller.deleteMyListing(widget.id);
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      } else if (selected.value == 'edit') {
+                        ref.read(mainImageNameProvider.notifier).state = "";
+                        ref.read(imageNameGalleryProvider).clear();
+                        ref.read(mainImageProvider.notifier).state = "";
+                        ref.read(imageGalleryProvider).clear();
+                        AutoRouter.of(context).push(EditListingPage(
+                            item: ref
+                                .watch(myListingProvider)
+                                .where((element) => widget.id == element.id)
+                                .first));
+                      }
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.delete_outline_rounded,
-                      size: 22,
-                    ),
+                    modalType: S2ModalType.bottomSheet,
+                    tileBuilder: (context, state) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          state.showModal();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ViwahaColor.primary,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.more_horiz_outlined,
+                          size: 22,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -490,6 +548,43 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                 ],
               ),
             ),
+            isBoosting
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: ViwahaColor.primary.withOpacity(0.8),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'You can boost in:',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SlideCountdown(
+                                duration: boostingCount,
+                                decoration: const BoxDecoration(
+                                    color: ViwahaColor.transparent),
+                                onDone: () {
+                                  setState(() {
+                                    isBoosting = false;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                : const SizedBox()
           ],
         ),
       ),

@@ -32,7 +32,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
   List<String> filteredItems = [];
 
   final TextEditingController _searchController = TextEditingController();
-
+  String googlePlace = "";
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
     setState(() {
@@ -40,6 +40,23 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
           .where((item) => item.toLowerCase().contains(searchText))
           .toList();
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    setState(() {
+      if (widget.item!.googleplace == '') {
+        googlePlace = '${widget.item!.location},${widget.item!.main_location}';
+      } else if (widget.item!.googleplace == null) {
+        googlePlace = '${widget.item!.location},${widget.item!.main_location}';
+      } else {
+        googlePlace = widget.item!.googleplace!;
+      }
+    });
+
+    super.initState();
   }
 
   @override
@@ -332,7 +349,8 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.item!.user_id.toString(),
                     ),
                     SingleItemOpeningHours(widget.item!),
-                    SingleItemMap(widget.item!.address.toString()),
+                    SingleItemMap(googlePlace),
+                    SingleItemReviews(widget.item!.reviews!, ref),
                     const SingleItemLatest('topListing')
                   ],
                 ),

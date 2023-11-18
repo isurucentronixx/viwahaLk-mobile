@@ -27,12 +27,42 @@ class _SingleViewState extends ConsumerState<SingleView> {
   List<String> filteredItems = [];
 
   final TextEditingController _searchController = TextEditingController();
-
+  bool isVendor = false;
+  String googlePlace = "";
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
     filteredItems.addAll(items);
+    if (widget.vendor != null) {
+      setState(() {
+        isVendor = true;
+      });
+    }
+
+    setState(() {
+      if (isVendor) {
+        if (widget.vendor!.googleplace == '') {
+          googlePlace =
+              '${widget.vendor!.location},${widget.vendor!.main_location}';
+        } else if (widget.vendor!.googleplace == null) {
+          googlePlace =
+              '${widget.vendor!.location},${widget.vendor!.main_location}';
+        } else {
+          googlePlace = widget.vendor!.googleplace!;
+        }
+      } else {
+        if (widget.topListing!.googleplace == '') {
+          googlePlace =
+              '${widget.topListing!.location},${widget.topListing!.main_location}';
+        } else if (widget.topListing!.googleplace == null) {
+          googlePlace =
+              '${widget.topListing!.location},${widget.topListing!.main_location}';
+        } else {
+          googlePlace = widget.topListing!.googleplace!;
+        }
+      }
+    });
   }
 
   // @override
@@ -160,8 +190,9 @@ class _SingleViewState extends ConsumerState<SingleView> {
                   widget.topListing!.user_id.toString(),
             ),
             SingleItemOpeningHours(widget.vendor ?? widget.topListing),
-            SingleItemMap(widget.vendor?.address.toString() ??
-                widget.topListing!.address.toString()),
+            SingleItemMap(googlePlace),
+            SingleItemReviews(
+                widget.vendor!.reviews ?? widget.topListing!.reviews!, ref),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing')
           ],
         ),

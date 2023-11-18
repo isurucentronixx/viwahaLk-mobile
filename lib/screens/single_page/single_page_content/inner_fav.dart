@@ -83,7 +83,7 @@ class _InnerFavoriteIconState extends ConsumerState<InnerFavoriteIcon> {
             ? const Icon(
                 Icons.favorite,
                 color: ViwahaColor.primary,
-                size: 10,
+                size: 20,
               )
             : const Icon(
                 Icons.favorite_border,
