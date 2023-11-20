@@ -110,13 +110,6 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                                       height: 150,
                                       width: 150,
                                       decoration: BoxDecoration(
-                                        // borderRadius:
-                                        //     const BorderRadius.only(
-                                        //         topLeft:
-                                        //             Radius.circular(10),
-                                        //         topRight:
-                                        //             Radius.circular(
-                                        //                 10)),
                                         color: Colors.black,
                                         image: DecorationImage(
                                           image: imageProvider,
@@ -134,28 +127,6 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                                       ),
                                     ),
                                   ),
-                                  // Image.network(
-                                  //   vendor.image.toString(),
-                                  //   fit: BoxFit.cover,
-                                  //   loadingBuilder: (context, child, progress) {
-                                  //     if (progress == null) {
-                                  //       return SizedBox(
-                                  //         width: 150,
-                                  //         height: 150,
-                                  //         child: child,
-                                  //       );
-                                  //     }
-                                  //     return const Center(
-                                  //       child: CircularProgressIndicator(),
-                                  //     );
-                                  //   },
-                                  //   errorBuilder: (context, error, stackTrace) {
-                                  //     return Image.network(
-                                  //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                  //       fit: BoxFit.cover,
-                                  //     );
-                                  //   },
-                                  // ),
                                 ),
                               ),
                             ),
@@ -236,42 +207,53 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                               (vendor.phone != "null")
                                   ? (vendor.phone != null)
                                       ? (vendor.phone != "")
-                                          ? ListTile(
-                                              title: const Text(
-                                                  'Telephone Number',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16),
-                                                  textAlign: TextAlign.start),
-                                              subtitle: Text(
-                                                  vendor.phone.toString(),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.start))
+                                          ? GestureDetector(
+                                              onTap: () => launchUrl(Uri.parse(
+                                                  "tel:${vendor.phone.toString()}")),
+                                              child: ListTile(
+                                                  title: const Text(
+                                                      'Telephone Number',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16),
+                                                      textAlign:
+                                                          TextAlign.start),
+                                                  subtitle: Text(
+                                                      vendor.phone.toString(),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 18),
+                                                      textAlign:
+                                                          TextAlign.start)),
+                                            )
                                           : const SizedBox()
                                       : const SizedBox()
                                   : const SizedBox(),
                               (vendor.phonenumber != "null")
                                   ? (vendor.phonenumber != null)
                                       ? (vendor.phonenumber != "")
-                                          ? ListTile(
-                                              title: const Text(
-                                                  'Whatsapp Number',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16),
-                                                  textAlign: TextAlign.start),
-                                              subtitle: Text(
-                                                  vendor.phonenumber.toString(),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 18),
-                                                  textAlign: TextAlign.start),
+                                          ? GestureDetector(
+                                              onTap: () => launchUrl(Uri.parse(
+                                                  "tel:${vendor.phonenumber.toString()}")),
+                                              child: ListTile(
+                                                title: const Text(
+                                                    'Whatsapp Number',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16),
+                                                    textAlign: TextAlign.start),
+                                                subtitle: Text(
+                                                    vendor.phonenumber
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 18),
+                                                    textAlign: TextAlign.start),
+                                              ),
                                             )
                                           : const SizedBox()
                                       : const SizedBox()

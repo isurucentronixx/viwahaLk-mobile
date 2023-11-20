@@ -81,7 +81,7 @@ class CodegenLoader extends AssetLoader{
   "aminities": "Aminities",
   "vendor_profile": "Vendor Profile",
   "description": "Description",
-  "latest": "Latest",
+  "latest": "Latest Listings",
   "location": "Location",
   "contact_information": "Contact Information",
   "contact_number": "Contact Number",
@@ -109,7 +109,8 @@ class CodegenLoader extends AssetLoader{
   "social_media_links": "Social Media Links",
   "add_your_listing": "Add Your Listing",
   "notifications": "notifications",
-  "referals": "Referals"
+  "referals": "Referals",
+  "video": "Video"
 };
 static const Map<String,dynamic> si = {
   "home_main_title": "ඔබේ විවාහ දිනය සැලසුම් කිරීමට අවශ්‍ය සියල්ල ඉක්මනින් සොයා ගන්න.",
@@ -206,7 +207,8 @@ static const Map<String,dynamic> si = {
   "social_media_links": "Social Media Links",
   "add_your_listing": "Add Your Listing",
   "notifications": "දැනුම්දීම්",
-  "referals": "යොමු කිරීම්"
+  "referals": "යොමු කිරීම්",
+  "video": "වීඩියෝ"
 };
 static const Map<String,dynamic> ta = {
   "home_main_title": "உங்கள் திருமண நாளைத் திட்டமிட தேவையான அனைத்தையும் கண்டறியவும்",
@@ -303,7 +305,8 @@ static const Map<String,dynamic> ta = {
   "social_media_links": "சமூக ஊடக இணைப்புகள்",
   "add_your_listing": "உங்கள் பட்டியலைச் சேர்க்கவும்",
   "notifications": "அறிவிப்புகள்",
-  "referals": "பரிந்துரைகள்"
+  "referals": "பரிந்துரைகள்",
+  "video": "காணொளி"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "si": si, "ta": ta};
 }

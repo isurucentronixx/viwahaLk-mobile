@@ -1874,7 +1874,7 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 120, top: 5, right: 5),
+                                      left: 128, top: 5, right: 5),
                                   child: Text(
                                     Jiffy.parse(review.datetime.toString())
                                         .format(pattern: 'dd, MMM yyyy'),
@@ -1915,45 +1915,43 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                       )
                                     ],
                                   ),
-                                SizedBox(
-                                    width: 200,
-                                    child:
-                                        ExpandText(review.message.toString())),
+                                if (review.message != null)
+                                  SizedBox(
+                                      width: 200,
+                                      child: ExpandText(
+                                          review.message.toString())),
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    ElevatedButton.icon(
-                                      onPressed: () {
-                                        showReviewForm(context, ref, review.id,
-                                            listingId: review.listing_id!,
-                                            userId: ref
-                                                .read(userProvider)
-                                                .user!
-                                                .id
-                                                .toString());
-                                      },
-                                      icon: const Icon(
-                                        Icons.replay,
-                                        size: 22.0,
-                                      ),
-                                      label: const Text('Reply'), // <-- Text
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        foregroundColor: ViwahaColor.primary,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      showReviewForm(context, ref, review.id,
+                                          listingId: review.listing_id!,
+                                          userId: ref
+                                              .read(userProvider)
+                                              .user!
+                                              .id
+                                              .toString());
+                                    },
+                                    icon: const Icon(
+                                      Icons.replay,
+                                      size: 22.0,
+                                    ),
+                                    label: const Text('Reply'), // <-- Text
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: ViwahaColor.primary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
                                 ),
                                 const SizedBox(
                                   height: 8,
@@ -1990,7 +1988,7 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                             MediaQuery.of(context).size.width,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
@@ -2032,9 +2030,11 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                                 SizedBox(
                                                   width: 200,
                                                   child: ExpandText(
-                                                      replyReviews[index]
-                                                          .message
-                                                          .toString()),
+                                                    replyReviews[index]
+                                                        .message
+                                                        .toString(),
+                                                    textAlign: TextAlign.end,
+                                                  ),
                                                 ),
                                                 const SizedBox(
                                                   height: 8,
@@ -2043,9 +2043,9 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                             ),
                                             Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                  MainAxisAlignment.end,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Padding(
                                                   padding:
