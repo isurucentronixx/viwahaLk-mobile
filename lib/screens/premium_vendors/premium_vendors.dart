@@ -14,6 +14,8 @@ import 'package:intl/intl.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/services/home_service.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class PremiumVendors extends ConsumerStatefulWidget {
   const PremiumVendors({super.key});
@@ -23,9 +25,22 @@ class PremiumVendors extends ConsumerStatefulWidget {
 }
 
 class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
+    tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
+    final location = tz.getLocation(timeZoneName);
+    final deviceTimeZone = tz.TZDateTime.from(dateTime, location);
+    return deviceTimeZone;
+  }
+
   String timeAgoSinceDate(String date) {
-    final now = DateTime.now();
-    final difference = now.difference(DateTime.parse(date));
+
+    DateTime originalDateTime = DateTime.now(); // Your original date and time
+    String deviceTimeZone = tz.local.name; // Device's time zone
+    tz.TZDateTime deviceDateTime =
+        convertToTimeZone(originalDateTime, deviceTimeZone);
+    tz.TZDateTime listingDateTime =
+        convertToTimeZone(DateTime.parse(date), deviceTimeZone);
+    final now = deviceDateTime;
+    final difference = now.difference(listingDateTime);
 
     if (difference.inSeconds < 60) {
       return 'few seconds ago';

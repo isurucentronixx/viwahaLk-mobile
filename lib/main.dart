@@ -8,7 +8,11 @@ import 'package:viwaha_lk/theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:viwaha_lk/translations/codegen_loader.g.dart';
 
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tzdata;
+
 Future<void> main() async {
+   tzdata.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
@@ -25,15 +29,14 @@ Future<void> main() async {
 
 // assuing this is the root widget of your App
 class App extends ConsumerWidget {
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.read(appRouterProvider);
-    return MaterialApp.router(      
+    return MaterialApp.router(
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
       title: 'Viwaha App',
       theme: MyTheme.lightTheme,
       routerDelegate: AutoRouterDelegate(

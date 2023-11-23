@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
+import 'package:viwaha_lk/features/login/login_state_provider.dart';
 import 'package:viwaha_lk/models/auth/user_model.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/services/auth_service.dart';
@@ -38,6 +39,11 @@ class LoginController {
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
+      ref.read(loginViewStateProvider.notifier).state = const AsyncValue
+              .data(
+              "Invalid credentials or Unable to login for some other reason. Please try again...");
+          ref.read(loginViewStateProvider.notifier).state =
+              const AsyncValue.data(null);
       rethrow;
     }
   }

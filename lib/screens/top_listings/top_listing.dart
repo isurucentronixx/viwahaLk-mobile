@@ -4,24 +4,37 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
-import 'package:viwaha_lk/controllers/home_controller.dart';
-import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/services/home_service.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'listingData.dart';
 
 class TopListing extends ConsumerWidget {
   const TopListing({super.key});
 
+  tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
+    final location = tz.getLocation(timeZoneName);
+    final deviceTimeZone = tz.TZDateTime.from(dateTime, location);
+    return deviceTimeZone;
+  }
+
   String timeAgoSinceDate(String date) {
-    final now = DateTime.now();
-    final difference = now.difference(DateTime.parse(date));
+
+    DateTime originalDateTime = DateTime.now(); // Your original date and time
+    String deviceTimeZone = tz.local.name; // Device's time zone
+    tz.TZDateTime deviceDateTime =
+        convertToTimeZone(originalDateTime, deviceTimeZone);
+    tz.TZDateTime listingDateTime =
+        convertToTimeZone(DateTime.parse(date), deviceTimeZone);
+    final now = deviceDateTime;
+    final difference = now.difference(listingDateTime);
 
     if (difference.inSeconds < 60) {
       return 'few seconds ago';
@@ -98,7 +111,8 @@ class TopListing extends ConsumerWidget {
                           .first;
 
                   return GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+              
                       AutoRouter.of(context)
                           .push(SingleView(vendor: null, topListing: wedding));
                     },

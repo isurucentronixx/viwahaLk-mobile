@@ -7,6 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -1488,6 +1489,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
@@ -1505,6 +1507,9 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     initialValue: widget.item!.price != null
                                         ? widget.item!.price.toString()
                                         : '',
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     decoration: InputDecoration(
                                       focusColor: Colors.white,
                                       border: OutlineInputBorder(
@@ -5026,9 +5031,10 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
 
                               // PostData.addNewListing(newList);
                             },
-                            icon: const Icon(Icons.add_box_outlined),
-                            label: const Text('ADD YOUR LISTING'),
+                            icon: const Icon(Icons.edit_document),
+                            label: const Text('Save Changes'),
                             style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff21B6A8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),

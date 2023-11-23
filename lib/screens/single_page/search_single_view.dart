@@ -47,7 +47,6 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
   @override
   void initState() {
     // TODO: implement initState
-
     setState(() {
       if (widget.item!.googleplace == '') {
         googlePlace = '${widget.item!.location},${widget.item!.main_location}';

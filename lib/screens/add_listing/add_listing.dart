@@ -7,6 +7,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -1376,6 +1377,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
                                     style: const TextStyle(
@@ -1390,6 +1392,9 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             .state = value;
                                       });
                                     },
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     decoration: InputDecoration(
                                       focusColor: Colors.white,
                                       border: OutlineInputBorder(
@@ -5155,9 +5160,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 }
                               }
                             },
-                            icon: const Icon(Icons.add_box_outlined),
+                            icon: const Icon(Icons.file_upload_outlined),
                             label: const Text('SUBMIT AD'),
                             style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff21B6A8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),

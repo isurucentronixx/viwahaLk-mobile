@@ -22,7 +22,6 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/reviews/reviews.dart';
-import 'package:viwaha_lk/models/user_dashboard/user_reviews.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -30,6 +29,8 @@ import 'package:viwaha_lk/screens/single_page/popup/request_quote_popup.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/inner_fav.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -146,8 +147,16 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
     return isMembership == "1" ? text : modifiedText;
   }
 
+  tz.TZDateTime convertToTimeZone(DateTime dateTime) {
+    final location = tz.getLocation(tz.local.name);
+    final deviceTimeZone = tz.TZDateTime.from(dateTime, location);
+    return deviceTimeZone;
+  }
+
   @override
   Widget build(BuildContext context) {
+    tz.TZDateTime deviceDateTime =
+        convertToTimeZone(DateTime.parse(widget.date));
     return Padding(
       padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
       child: Column(
@@ -529,7 +538,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "${Jiffy.parse(widget.date).format(pattern: 'do MMMM  yyyy')}",
+                              "${Jiffy.parse(deviceDateTime.toString().split('.')[0]).format(pattern: 'do MMMM  yyyy')}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -543,7 +552,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "${Jiffy.parse(widget.date).format(pattern: 'h:mm a')}",
+                              "${Jiffy.parse(deviceDateTime.toString().split('.')[0]).format(pattern: 'h:mm a')}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
