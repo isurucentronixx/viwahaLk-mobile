@@ -12,6 +12,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -64,6 +65,8 @@ class _SliderState extends ConsumerState<SliderView> {
       items: imagePaths.map((imagePath) {
         return GestureDetector(
           onTap: () async {
+            final PageController _pageController =
+                PageController(initialPage: imagePaths.indexOf(imagePath));
             await showDialog(
               context: context,
               builder: (_) => Column(
@@ -71,14 +74,21 @@ class _SliderState extends ConsumerState<SliderView> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: PhotoView(
-                        backgroundDecoration:
-                            const BoxDecoration(color: Colors.transparent),
-                        // tightMode: true,
-                        imageProvider: NetworkImage(imagePath.toString()),
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: PhotoViewGallery.builder(
+                          scrollPhysics: const BouncingScrollPhysics(),
+                          builder: (BuildContext context, int index) {
+                            return PhotoViewGalleryPageOptions(
+                              imageProvider: NetworkImage(imagePaths[index]),
+                              initialScale: PhotoViewComputedScale.contained,
+                              minScale: PhotoViewComputedScale.contained * 0.8,
+                            );
+                          },
+                          pageController: _pageController,
+                          itemCount: imagePaths.length,
+                          backgroundDecoration:
+                              const BoxDecoration(color: Colors.transparent),
+                        )),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -277,7 +287,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   color: Colors.amber,
                                 ),
                                 Text(
-                                  'Premium',
+                                  'Premium  ',
                                   style: TextStyle(color: Colors.amber),
                                 )
                               ])))
@@ -301,7 +311,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   color: Colors.lightBlueAccent,
                                 ),
                                 Text(
-                                  'Verified',
+                                  'Verified  ',
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
                                 )
@@ -325,7 +335,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   color: Colors.amber,
                                 ),
                                 Text(
-                                  'Member',
+                                  'Member  ',
                                   style: TextStyle(color: Colors.amber),
                                 )
                               ])))
@@ -1709,8 +1719,10 @@ class _SingleItemMapState extends State<SingleItemMap> {
 }
 
 class SingleItemReviews extends StatefulWidget {
-  const SingleItemReviews(this.reviews, this.ref, {super.key});
+  const SingleItemReviews(this.reviews, this.averageRating, this.ref,
+      {super.key});
   final List<Reviews>? reviews;
+  final String? averageRating;
   final WidgetRef ref;
   @override
   State<SingleItemReviews> createState() => _SingleItemReviewsState();
@@ -1718,14 +1730,28 @@ class SingleItemReviews extends StatefulWidget {
 
 class _SingleItemReviewsState extends State<SingleItemReviews> {
   List<Reviews> replyReviews = [];
+  List<Reviews> sortedReviews = [];
   @override
   void initState() {
     // TODO: implement initState
+
     widget.reviews!.forEach((element) {
       if (element.reply_id != null) {
         replyReviews.add(element);
       }
     });
+    setState(() {
+      sortedReviews.addAll(widget.reviews!);
+      sortedReviews.sort(((a, b) {
+        return DateTime.parse(b.datetime!)
+            .compareTo(DateTime.parse(a.datetime!));
+      }));
+      replyReviews.sort(((a, b) {
+        return DateTime.parse(b.datetime!)
+            .compareTo(DateTime.parse(a.datetime!));
+      }));
+    });
+
     print('object');
     print(replyReviews.length);
     super.initState();
@@ -1765,15 +1791,43 @@ class _SingleItemReviewsState extends State<SingleItemReviews> {
             height: MediaQuery.of(context).size.height * 0.5,
             child: Column(
               children: [
+                Column(
+                  children: [
+                    Text(widget.averageRating.toString(),
+                        style: const TextStyle(
+                            color: ViwahaColor.primary,
+                            fontSize: 54,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                        '${double.parse(widget.averageRating.toString()) >= 4 ? 'Verry Good' : double.parse(widget.averageRating.toString()) >= 2 ? 'Good' : 'Good'}',
+                        style: const TextStyle(
+                            color: ViwahaColor.primary, fontSize: 18)),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                          ' ${sortedReviews.length - replyReviews.length} reviews',
+                          style: const TextStyle(
+                              color: Colors.grey, fontSize: 18)),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
                 Expanded(
                     child: ListView.builder(
-                  itemCount: widget.reviews!.length,
+                  itemCount: sortedReviews.length,
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => reviewCard(
                       context, widget.ref,
-                      review: widget.reviews![index],
-                      replyReviews: replyReviews),
+                      review: sortedReviews[index], replyReviews: replyReviews),
                 )),
               ],
             ),
@@ -1936,13 +1990,18 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                   alignment: Alignment.centerRight,
                                   child: ElevatedButton.icon(
                                     onPressed: () {
-                                      showReviewForm(context, ref, review.id,
-                                          listingId: review.listing_id!,
-                                          userId: ref
-                                              .read(userProvider)
-                                              .user!
-                                              .id
-                                              .toString());
+                                      ref.watch(isloginProvider)
+                                          ? showReviewForm(
+                                              context, ref, review.id,
+                                              listingId: review.listing_id!,
+                                              userId: ref
+                                                  .read(userProvider)
+                                                  .user!
+                                                  .id
+                                                  .toString())
+                                          : ref
+                                              .read(appRouterProvider)
+                                              .push(Login(onHome: false));
                                     },
                                     icon: const Icon(
                                       Icons.replay,

@@ -15,6 +15,7 @@ import 'package:viwaha_lk/screens/latest_items/latest.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
+import 'package:viwaha_lk/screens/other_latest_items/other_latest.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 
@@ -352,8 +353,11 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                     ),
                     SingleItemOpeningHours(widget.item!),
                     SingleItemMap(googlePlace),
-                    if (reviews.isNotEmpty) SingleItemReviews(reviews, ref),
-                    const SingleItemLatest('topListing')
+                    if (reviews.isNotEmpty)
+                      SingleItemReviews(
+                          reviews, widget.item!.average_rating.toString(), ref),
+                    const SingleItemLatest('topListing'),
+                    const SingleItemOtherLatest('topListing')
                   ],
                 ),
               ),

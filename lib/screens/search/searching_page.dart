@@ -176,64 +176,67 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
           centerTitle: true,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          FloatingActionButton.extended(
-            elevation: 0,
-            onPressed: () {
-              setState(() {
-                ref.refresh(isActivatedProvider);
-                ref.refresh(isLocationActivatedProvider);
-                ref.refresh(subCategoriesProvider);
-                ref.refresh(subLocationsProvider);
-                ref.refresh(selectedMainCategoryProvider);
-                ref.refresh(selectedMainLocationProvider);
-                ref.refresh(selectedSubCategoryProvider);
-                ref.refresh(selectedSubLocationProvider);
-                ref.refresh(selectedAmenitiesProvider);
-                ref.refresh(searchingKeywords);
-                ref.refresh(selectedPriceRangeProvider);
-                _price = 'Select One';
-                _orderBy = 'Select One';
-                _sortBy = 'Select One';
-                _ratings = 'Select One';
-                _amenities = ['Select'];
-                _mainLocation = const Location(
-                  location_en: 'Select one',
-                );
-                _subLocation = const SubLocation(
-                  sub_location_en: 'Select one',
-                );
-                _mainCat = const Categories(
-                  category: 'Select one',
-                );
-                _subCat = const SubCategories(
-                  sub_category: 'Select one',
-                );
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            FloatingActionButton.extended(
+              elevation: 0,
+              onPressed: () {
+                setState(() {
+                  ref.refresh(isActivatedProvider);
+                  ref.refresh(isLocationActivatedProvider);
+                  ref.refresh(subCategoriesProvider);
+                  ref.refresh(subLocationsProvider);
+                  ref.refresh(selectedMainCategoryProvider);
+                  ref.refresh(selectedMainLocationProvider);
+                  ref.refresh(selectedSubCategoryProvider);
+                  ref.refresh(selectedSubLocationProvider);
+                  ref.refresh(selectedAmenitiesProvider);
+                  ref.refresh(searchingKeywords);
+                  ref.refresh(selectedPriceRangeProvider);
+                  _price = 'Select One';
+                  _orderBy = 'Select One';
+                  _sortBy = 'Select One';
+                  _ratings = 'Select One';
+                  _amenities = ['Select'];
+                  _mainLocation = const Location(
+                    location_en: 'Select one',
+                  );
+                  _subLocation = const SubLocation(
+                    sub_location_en: 'Select one',
+                  );
+                  _mainCat = const Categories(
+                    category: 'Select one',
+                  );
+                  _subCat = const SubCategories(
+                    sub_category: 'Select one',
+                  );
 
-                subCat2 = [];
-                location2 = [];
-                _textEditingController!.clear();
-              });
-            },
-            label: const Text('Clear'),
-            icon: const Icon(Icons.clear_rounded),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          FloatingActionButton.extended(
-            elevation: 0,
-            onPressed: () {
-              setState(() {
-                ref.read(isSearchingProvider.notifier).state = true;
-              });
-              AutoRouter.of(context).push(const SearchingResultsPage());
-            },
-            label: const Text('Apply'),
-            icon: const Icon(Icons.search),
-          )
-        ]),
+                  subCat2 = [];
+                  location2 = [];
+                  _textEditingController!.clear();
+                });
+              },
+              label: const Text('Clear'),
+              icon: const Icon(Icons.clear_rounded),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            FloatingActionButton.extended(
+              elevation: 0,
+              onPressed: () {
+                setState(() {
+                  ref.read(isSearchingProvider.notifier).state = true;
+                });
+                AutoRouter.of(context).push(const SearchingResultsPage());
+              },
+              label: const Text('Apply'),
+              icon: const Icon(Icons.search),
+            )
+          ]),
+        ),
         body: Column(children: [
           Expanded(
             child: SingleChildScrollView(
@@ -242,14 +245,6 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Image(
-                        width: 250,
-                        image:
-                            Assets.lib.assets.images.colorLogo.image().image),
-                  ),
-                  const SizedBox(height: 20),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

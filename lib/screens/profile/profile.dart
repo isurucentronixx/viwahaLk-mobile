@@ -104,8 +104,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             ),
                           ),
                         ),
-
-                       
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -124,7 +122,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               minimumSize: MaterialStateProperty.all(
                                   Size(double.infinity, 48)),
                               backgroundColor: MaterialStateProperty.all(
-                                  ViwahaColor.primary),
+                                  const Color(0xff21B6A8)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(

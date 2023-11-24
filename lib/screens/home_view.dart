@@ -141,9 +141,10 @@ class _HomePageState extends ConsumerState<HomePage>
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
           child: FloatingActionButton(
-            child: Icon(
+            backgroundColor: const Color(0xff21B6A8),
+            child: const Icon(
               Icons.add,
-              color: currentTab == 4 ? Colors.black54 : Colors.white,
+              color: Colors.white,
             ),
             onPressed: () {
               setState(() {

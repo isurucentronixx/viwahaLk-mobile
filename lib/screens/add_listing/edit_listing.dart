@@ -18,6 +18,7 @@ import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
+import 'package:viwaha_lk/screens/cards/duplicated_list_card.dart';
 import 'package:viwaha_lk/services/functions.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -738,7 +739,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Listing submitted successfully!', 
+            title: 'Listing submitted successfully',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
@@ -888,7 +889,151 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                    onChanged: (value) {
+                                    onChanged: (value) async {
+                                      await controller
+                                          .isDuplicate('title', value)
+                                          .then((value) {
+                                        if (value['responseCode'] == '1') {
+                                          final searchResult = (value[
+                                                  'listings'] as List)
+                                              .map((e) =>
+                                                  SearchResultItem.fromJson(e))
+                                              .toList();
+                                          return showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                insetPadding:
+                                                    EdgeInsets.all(10),
+                                                child: Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.5,
+                                                  child: Column(
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          'Duplicate Listing',
+                                                          style: TextStyle(
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                searchResult
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return DuplicatedListItem(
+                                                                id: searchResult[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                imagePath: (searchResult[index]
+                                                                            .image) !=
+                                                                        null
+                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                    : ref
+                                                                        .read(
+                                                                            homeControllerProvider)
+                                                                        .getTumbImage(
+                                                                            searchResult[index].thumb_images)
+                                                                        .first,
+                                                                title: searchResult[
+                                                                        index]
+                                                                    .title
+                                                                    .toString(),
+                                                                description: searchResult[
+                                                                        index]
+                                                                    .description
+                                                                    .toString(),
+                                                                starRating: (searchResult[index]
+                                                                            .average_rating) !=
+                                                                        null
+                                                                    ? double.parse(searchResult[
+                                                                            index]
+                                                                        .average_rating
+                                                                        .toString())
+                                                                    : 0,
+                                                                location:
+                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                date: searchResult[
+                                                                        index]
+                                                                    .datetime
+                                                                    .toString(),
+                                                                type: 'all',
+                                                                isFav: searchResult[
+                                                                        index]
+                                                                    .is_favourite
+                                                                    .toString(),
+                                                                isPremium: searchResult[index]
+                                                                            .premium
+                                                                            .toString() !=
+                                                                        "1"
+                                                                    ? false
+                                                                    : true,
+                                                                boostedDate:
+                                                                    searchResult[
+                                                                            index]
+                                                                        .boosted
+                                                                        .toString(),
+                                                                item:
+                                                                    searchResult[
+                                                                        index],
+                                                              );
+                                                            }),
+                                                      ),
+                                                      ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(ViwahaColor
+                                                                      .primary),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                                  RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              "Continue anyway",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      });
                                       setState(() {
                                         ref
                                             .read(adTitleProvider.notifier)
@@ -953,7 +1098,151 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                    onChanged: (value) {
+                                    onChanged: (value) async {
+                                      await controller
+                                          .isDuplicate('title', value)
+                                          .then((value) {
+                                        if (value['responseCode'] == '1') {
+                                          final searchResult = (value[
+                                                  'listings'] as List)
+                                              .map((e) =>
+                                                  SearchResultItem.fromJson(e))
+                                              .toList();
+                                          return showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                insetPadding:
+                                                    EdgeInsets.all(10),
+                                                child: Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.5,
+                                                  child: Column(
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          'Duplicate Listing',
+                                                          style: TextStyle(
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                searchResult
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return DuplicatedListItem(
+                                                                id: searchResult[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                imagePath: (searchResult[index]
+                                                                            .image) !=
+                                                                        null
+                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                    : ref
+                                                                        .read(
+                                                                            homeControllerProvider)
+                                                                        .getTumbImage(
+                                                                            searchResult[index].thumb_images)
+                                                                        .first,
+                                                                title: searchResult[
+                                                                        index]
+                                                                    .title
+                                                                    .toString(),
+                                                                description: searchResult[
+                                                                        index]
+                                                                    .description
+                                                                    .toString(),
+                                                                starRating: (searchResult[index]
+                                                                            .average_rating) !=
+                                                                        null
+                                                                    ? double.parse(searchResult[
+                                                                            index]
+                                                                        .average_rating
+                                                                        .toString())
+                                                                    : 0,
+                                                                location:
+                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                date: searchResult[
+                                                                        index]
+                                                                    .datetime
+                                                                    .toString(),
+                                                                type: 'all',
+                                                                isFav: searchResult[
+                                                                        index]
+                                                                    .is_favourite
+                                                                    .toString(),
+                                                                isPremium: searchResult[index]
+                                                                            .premium
+                                                                            .toString() !=
+                                                                        "1"
+                                                                    ? false
+                                                                    : true,
+                                                                boostedDate:
+                                                                    searchResult[
+                                                                            index]
+                                                                        .boosted
+                                                                        .toString(),
+                                                                item:
+                                                                    searchResult[
+                                                                        index],
+                                                              );
+                                                            }),
+                                                      ),
+                                                      ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(ViwahaColor
+                                                                      .primary),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                                  RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              "Continue anyway",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      });
                                       setState(() {
                                         ref
                                             .read(proposerNameProvider.notifier)
@@ -1115,7 +1404,151 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                    onChanged: (value) {
+                                    onChanged: (value) async {
+                                      await controller
+                                          .isDuplicate('email', value)
+                                          .then((value) {
+                                        if (value['responseCode'] == '1') {
+                                          final searchResult = (value[
+                                                  'listings'] as List)
+                                              .map((e) =>
+                                                  SearchResultItem.fromJson(e))
+                                              .toList();
+                                          return showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                insetPadding:
+                                                    EdgeInsets.all(10),
+                                                child: Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.5,
+                                                  child: Column(
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          'Duplicate Listing',
+                                                          style: TextStyle(
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                searchResult
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return DuplicatedListItem(
+                                                                id: searchResult[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                imagePath: (searchResult[index]
+                                                                            .image) !=
+                                                                        null
+                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                    : ref
+                                                                        .read(
+                                                                            homeControllerProvider)
+                                                                        .getTumbImage(
+                                                                            searchResult[index].thumb_images)
+                                                                        .first,
+                                                                title: searchResult[
+                                                                        index]
+                                                                    .title
+                                                                    .toString(),
+                                                                description: searchResult[
+                                                                        index]
+                                                                    .description
+                                                                    .toString(),
+                                                                starRating: (searchResult[index]
+                                                                            .average_rating) !=
+                                                                        null
+                                                                    ? double.parse(searchResult[
+                                                                            index]
+                                                                        .average_rating
+                                                                        .toString())
+                                                                    : 0,
+                                                                location:
+                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                date: searchResult[
+                                                                        index]
+                                                                    .datetime
+                                                                    .toString(),
+                                                                type: 'all',
+                                                                isFav: searchResult[
+                                                                        index]
+                                                                    .is_favourite
+                                                                    .toString(),
+                                                                isPremium: searchResult[index]
+                                                                            .premium
+                                                                            .toString() !=
+                                                                        "1"
+                                                                    ? false
+                                                                    : true,
+                                                                boostedDate:
+                                                                    searchResult[
+                                                                            index]
+                                                                        .boosted
+                                                                        .toString(),
+                                                                item:
+                                                                    searchResult[
+                                                                        index],
+                                                              );
+                                                            }),
+                                                      ),
+                                                      ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(ViwahaColor
+                                                                      .primary),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                                  RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              "Continue anyway",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      });
                                       setState(() {
                                         ref
                                             .read(adEmailProvider.notifier)
@@ -1172,7 +1605,151 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                    onChanged: (value) {
+                                    onChanged: (value) async {
+                                      await controller
+                                          .isDuplicate('phone', value)
+                                          .then((value) {
+                                        if (value['responseCode'] == '1') {
+                                          final searchResult = (value[
+                                                  'listings'] as List)
+                                              .map((e) =>
+                                                  SearchResultItem.fromJson(e))
+                                              .toList();
+                                          return showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                insetPadding:
+                                                    EdgeInsets.all(10),
+                                                child: Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.5,
+                                                  child: Column(
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          'Duplicate Listing',
+                                                          style: TextStyle(
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                searchResult
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return DuplicatedListItem(
+                                                                id: searchResult[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                imagePath: (searchResult[index]
+                                                                            .image) !=
+                                                                        null
+                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                    : ref
+                                                                        .read(
+                                                                            homeControllerProvider)
+                                                                        .getTumbImage(
+                                                                            searchResult[index].thumb_images)
+                                                                        .first,
+                                                                title: searchResult[
+                                                                        index]
+                                                                    .title
+                                                                    .toString(),
+                                                                description: searchResult[
+                                                                        index]
+                                                                    .description
+                                                                    .toString(),
+                                                                starRating: (searchResult[index]
+                                                                            .average_rating) !=
+                                                                        null
+                                                                    ? double.parse(searchResult[
+                                                                            index]
+                                                                        .average_rating
+                                                                        .toString())
+                                                                    : 0,
+                                                                location:
+                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                date: searchResult[
+                                                                        index]
+                                                                    .datetime
+                                                                    .toString(),
+                                                                type: 'all',
+                                                                isFav: searchResult[
+                                                                        index]
+                                                                    .is_favourite
+                                                                    .toString(),
+                                                                isPremium: searchResult[index]
+                                                                            .premium
+                                                                            .toString() !=
+                                                                        "1"
+                                                                    ? false
+                                                                    : true,
+                                                                boostedDate:
+                                                                    searchResult[
+                                                                            index]
+                                                                        .boosted
+                                                                        .toString(),
+                                                                item:
+                                                                    searchResult[
+                                                                        index],
+                                                              );
+                                                            }),
+                                                      ),
+                                                      ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(ViwahaColor
+                                                                      .primary),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                                  RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              "Continue anyway",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      });
                                       setState(() {
                                         ref
                                             .read(adPhoneProvider.notifier)

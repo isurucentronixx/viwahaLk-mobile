@@ -25,16 +25,26 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Colors.black.withOpacity(0.1),
+          color: title == 'Post Your Listing'
+              ? const Color(0xff21B6A8).withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
         ),
-        child: Icon(icon, color: Colors.black),
+        child: Icon(icon,
+            color: title == 'Post Your Listing'
+                ? const Color(0xff21B6A8)
+                : Colors.black),
       ),
       title: Text(title,
-          style:
-              Theme.of(context).textTheme.bodyText1?.apply(color: textColor)),
+          style: Theme.of(context).textTheme.bodyText1?.apply(
+              color: title == 'Post Your Listing'
+                  ? const Color(0xff21B6A8)
+                  : textColor)),
       trailing: endIcon
-          ? const Icon(Icons.arrow_forward_ios_outlined,
-              size: 18.0, color: Colors.grey)
+          ? Icon(Icons.arrow_forward_ios_outlined,
+              size: 18.0,
+              color: title == 'Post Your Listing'
+                  ? const Color(0xff21B6A8)
+                  : Colors.grey)
           : null,
     );
   }

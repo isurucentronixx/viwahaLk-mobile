@@ -88,9 +88,12 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                 ref.read(isloginProvider) ? const Divider() : const SizedBox(),
                 ref.read(isloginProvider)
                     ? ListTile(
-                        leading: const Icon(Icons.person_add),
+                        leading: const Icon(
+                          Icons.people_alt_rounded,
+                          color: Color(0xff21B6A8),
+                        ),
                         title: const Text("Couple Dashboard",
-                            style: TextStyle(color: Colors.grey)),
+                            style: TextStyle(color: Color(0xff21B6A8))),
                         onTap: () {
                           launch(
                               "http://coupledashboard.viwaha.lk/login-sso?email=${user!.email}");
@@ -168,10 +171,10 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: ViwahaColor.primary,
+                                    color: const Color(0xff21B6A8),
                                     borderRadius: BorderRadius.circular(8),
-                                    border:
-                                        Border.all(color: ViwahaColor.primary)),
+                                    border: Border.all(
+                                        color: const Color(0xff21B6A8))),
                                 child: const Center(
                                   child: Padding(
                                     padding: EdgeInsets.all(6.0),

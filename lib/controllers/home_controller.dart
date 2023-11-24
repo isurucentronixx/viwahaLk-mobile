@@ -24,6 +24,37 @@ final mainImageNameProvider = StateProvider<String>((ref) => '');
 final paginateIndexProvider = StateProvider<int>((ref) => 1);
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
+final myListingViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+final singleListingViewStateProvider =
+    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
+final proposerNameProvider = StateProvider<String>((ref) => '');
+final proposerDobProvider =
+    StateProvider<DateTime>((ref) => DateTime(1996, 08, 22));
+final premiumBillProvider = StateProvider<String>((ref) => '');
+final membershipBillProvider = StateProvider<String>((ref) => '');
+
+
+
+final premiumBillNameProvider = StateProvider<String>((ref) => '');
+final adTitleProvider = StateProvider<String>((ref) => '');
+final adAddressProvider = StateProvider<String>((ref) => '');
+final adGoogleAddressProvider = StateProvider<String>((ref) => '');
+final adPriceProvider = StateProvider<String>((ref) => '');
+final adOwnerNameProvider = StateProvider<String>((ref) => '');
+final adEmailProvider = StateProvider<String>((ref) => '');
+final adPhoneProvider = StateProvider<String>((ref) => '');
+final adWhatsappProvider = StateProvider<String>((ref) => '');
+final adDesignationProvider = StateProvider<String>((ref) => '');
+final adCompanyProvider = StateProvider<String>((ref) => '');
+final adWebSiteProvider = StateProvider<String>((ref) => '');
+final adFacebookProvider = StateProvider<String>((ref) => '');
+final adInstagramProvider = StateProvider<String>((ref) => '');
+final adYoutubeProvider = StateProvider<String>((ref) => '');
+final adLinkedinProvider = StateProvider<String>((ref) => '');
+final adDescProvider = StateProvider<String>((ref) => '');
+final adVideoLinkProvider = StateProvider<String>((ref) => '');
+
 
 final addListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -27,10 +28,6 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
-final myListingViewStateProvider =
-    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
-final singleListingViewStateProvider =
-    StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 
 @RoutePage()
 class MyListingPage extends ConsumerStatefulWidget {
