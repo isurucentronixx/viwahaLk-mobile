@@ -643,7 +643,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Successfully publishing!',
+            title: 'Listing submitted successfully!',
             message: items,
             inMaterialBanner: true,
 

@@ -738,7 +738,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Successfully publishing!',
+            title: 'Listing submitted successfully!', 
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
