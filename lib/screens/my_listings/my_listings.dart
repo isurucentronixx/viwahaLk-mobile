@@ -28,7 +28,6 @@ import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
-
 @RoutePage()
 class MyListingPage extends ConsumerStatefulWidget {
   const MyListingPage({super.key});
@@ -41,8 +40,6 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
   Widget build(BuildContext context) {
     List<SearchResultItem> myListing = ref.watch(myListingProvider);
     final state = ref.watch(myListingViewStateProvider);
-    // List<SearchResultItem> myListing;
-    // final favListing = ref.watch(favListingProvider);
     Future getData() async {
       return await ref.watch(myListingProvider);
     }
@@ -55,16 +52,18 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
 
     ref.listen<AsyncValue>(myListingViewStateProvider, (_, state) {
       state.whenData((items) {
+        bool isSuccessfull =
+            items.toString().split(' ')[0] == "Successfully" ? true : false;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Successfully',
+            title: isSuccessfull ? 'Successfully' : 'Unsuccessfully',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: isSuccessfull ? const Color(0xff21B6A8) : Colors.red,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

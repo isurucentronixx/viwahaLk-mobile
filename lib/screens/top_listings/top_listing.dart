@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -26,7 +27,6 @@ class TopListing extends ConsumerWidget {
   }
 
   String timeAgoSinceDate(String date) {
-
     DateTime originalDateTime = DateTime.now(); // Your original date and time
     String deviceTimeZone = tz.local.name; // Device's time zone
     tz.TZDateTime deviceDateTime =
@@ -112,7 +112,6 @@ class TopListing extends ConsumerWidget {
 
                   return GestureDetector(
                     onTap: () async {
-              
                       AutoRouter.of(context)
                           .push(SingleView(vendor: null, topListing: wedding));
                     },
@@ -339,7 +338,33 @@ class TopListing extends ConsumerWidget {
             : const Center(
                 child: Center(
                 child: CircularProgressIndicator(),
-              ))
+              )),
+        const SizedBox(
+          height: 15,
+        ),
+        data.isNotEmpty
+            ? GestureDetector(
+                onTap: () {
+                  if (ref.watch(isloginProvider)) {
+                    ref.refresh(allListingProvider);
+                  }
+                  ref.read(isSearchingProvider.notifier).state = true;
+                  AutoRouter.of(context).push(AllListingPage(isAppBar: true));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: ViwahaColor.primary),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      'See More',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

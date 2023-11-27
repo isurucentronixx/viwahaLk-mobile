@@ -269,8 +269,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                   contentType:
                                                                       ContentType
                                                                           .success,
-                                                                  color: ViwahaColor
-                                                                      .primary,
+                                                                  color: const Color(0xff21B6A8),
                                                                 ),
                                                               );
                                                               ScaffoldMessenger

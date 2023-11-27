@@ -50,12 +50,12 @@ class _LoginState extends ConsumerState<Login> {
           content: AwesomeSnackbarContent(
             title: ref.read(isloginProvider)
                 ? 'Login Successful'
-                : 'Login Failed!',
+                : 'Failed please try again!',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
             color: ref.read(isloginProvider)
-                ? ViwahaColor.primary
+                ? const Color(0xff21B6A8)
                 : Colors.redAccent,
           ),
         );

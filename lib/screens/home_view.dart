@@ -79,7 +79,7 @@ class _HomePageState extends ConsumerState<HomePage>
           currentTime = now;
 
           SnackBar snackBar = SnackBar(
-            content: const Text('Press again to exit',
+            content: const Text('Tap again to exit',
                 textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
             backgroundColor: ViwahaColor.primary,
             dismissDirection: DismissDirection.up,
@@ -92,9 +92,6 @@ class _HomePageState extends ConsumerState<HomePage>
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          //     content: Text(
-          //         'Press again to exit')));
           return Future.value(false);
         } else {
           SystemNavigator.pop();
@@ -141,10 +138,10 @@ class _HomePageState extends ConsumerState<HomePage>
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
           child: FloatingActionButton(
-            backgroundColor: const Color(0xff21B6A8),
-            child: const Icon(
+            backgroundColor: ViwahaColor.primary,
+            child: Icon(
               Icons.add,
-              color: Colors.white,
+              color: currentTab == 4 ? Colors.black54 : Colors.white,
             ),
             onPressed: () {
               setState(() {

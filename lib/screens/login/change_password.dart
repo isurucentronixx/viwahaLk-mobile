@@ -52,16 +52,20 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
     final router = AppRouter();
     ref.listen<AsyncValue>(addListingViewStateProvider, (_, state) {
       state.whenData((items) {
+        bool isSuccessfull =
+            items.toString().split(' ')[0] == "Successfully" ? true : false;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Successfully publishing!',
+            title: isSuccessfull
+                ? 'Successfully changed!'
+                : 'Unsuccessfully!',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: isSuccessfull ? const Color(0xff21B6A8) : Colors.red,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!

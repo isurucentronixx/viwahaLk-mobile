@@ -90,6 +90,10 @@ class $LibAssetsImagesGen {
   AssetGenImage get colorLogo =>
       const AssetGenImage('lib/assets/images/color-logo.png');
 
+  /// File path: lib/assets/images/couple.png
+  AssetGenImage get couple =>
+      const AssetGenImage('lib/assets/images/couple.png');
+
   /// File path: lib/assets/images/facebook.png
   AssetGenImage get facebook =>
       const AssetGenImage('lib/assets/images/facebook.png');
@@ -130,6 +134,7 @@ class $LibAssetsImagesGen {
         weddingCars,
         weddingVenues,
         colorLogo,
+        couple,
         facebook,
         googleLogo,
         logoNav,

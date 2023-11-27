@@ -10,6 +10,6 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: Noto Serif Sinhala
-  static const String notoSerifSinhala = 'Noto Serif Sinhala';
+  /// Font family: Montserrat
+  static const String montserrat = 'Montserrat';
 }

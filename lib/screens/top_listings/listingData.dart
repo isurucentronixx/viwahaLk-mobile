@@ -52,10 +52,8 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
                         title: 'Success!',
                         message: value['responseMsg'],
                         inMaterialBanner: true,
-
-                        /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
                         contentType: ContentType.success,
-                        color: ViwahaColor.primary,
+                        color: const Color(0xff21B6A8),
                       ),
                     )),
                 });
@@ -71,10 +69,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
                 title: 'Warning!',
                 message: "please login and make your changes",
                 inMaterialBanner: true,
-
-                /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                contentType: ContentType.success,
-                color: ViwahaColor.primary,
+                contentType: ContentType.warning,
               ),
             ));
         }

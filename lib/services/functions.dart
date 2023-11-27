@@ -26,12 +26,14 @@ class PostData {
           data: newListing);
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfully published your listing.");
+          const AsyncValue.data(
+              "Your listing has been successfully published.");
       ref.watch(appRouterProvider).push(AddListingPage(isAppBar: true));
       return res.data;
     } catch (e) {
       ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Unsuccessfuly published your listing.");
+          const AsyncValue.data(
+              "Unsuccessfuly published your listing. please try again!");
       ref.read(addListingViewStateProvider.notifier).state =
           const AsyncValue.data(null);
       print(e);
@@ -94,7 +96,7 @@ class PostData {
       return res.data;
     } catch (e) {
       ref.read(changePasswordViewStateProvider.notifier).state =
-          const AsyncValue.data("Unsuccessfuly changed your password.");
+          const AsyncValue.data("Failed. Please try again.");
       ref.read(changePasswordViewStateProvider.notifier).state =
           const AsyncValue.data(null);
       rethrow;
@@ -155,7 +157,7 @@ class PostData {
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Unsuccessfuly.");
+          const AsyncValue.data("Failed. please try again!");
 
       rethrow;
     }

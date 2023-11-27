@@ -70,7 +70,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
             inMaterialBanner: true,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: const Color(0xff21B6A8),
           ),
         );
         ScaffoldMessenger.of(context)
@@ -90,7 +90,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
             inMaterialBanner: false,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: const Color(0xff21B6A8),
           ));
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()

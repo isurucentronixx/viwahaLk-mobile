@@ -68,6 +68,7 @@ class _SliderState extends ConsumerState<SliderView> {
             final PageController _pageController =
                 PageController(initialPage: imagePaths.indexOf(imagePath));
             await showDialog(
+              barrierDismissible: true,
               context: context,
               builder: (_) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -90,9 +91,25 @@ class _SliderState extends ConsumerState<SliderView> {
                               const BoxDecoration(color: Colors.transparent),
                         )),
                   ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Tap here to close'),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.8),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: ViwahaColor.primary)),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Tap here to close',
+                            style: TextStyle(color: ViwahaColor.primary),
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -653,30 +670,29 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       },
                       child: const Text('Request Quote'),
                     ),
-                    ref.watch(isloginProvider)
-                        ? const SizedBox(
-                            width: 10,
-                          )
-                        : const SizedBox(),
-                    ref.watch(isloginProvider)
-                        ? ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                            onPressed: () {
-                              showReviewForm(context, ref, null,
-                                  listingId: widget.item!.id.toString(),
-                                  userId: ref
-                                      .read(userProvider)
-                                      .user!
-                                      .id
-                                      .toString());
-                            },
-                            child: const Text('Add Review'),
-                          )
-                        : const SizedBox(),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (ref.watch(isloginProvider)) {
+                          showReviewForm(context, ref, null,
+                              listingId: widget.item!.id.toString(),
+                              userId:
+                                  ref.read(userProvider).user!.id.toString());
+                        } else {
+                          ref
+                              .read(appRouterProvider)
+                              .push(Login(onHome: false));
+                        }
+                      },
+                      child: const Text('Add Review'),
+                    ),
                     ref.watch(isloginProvider)
                         ? const SizedBox(
                             width: 10,
@@ -1261,41 +1277,50 @@ class _SingleItemOpeningHoursState
                       ],
                     )
                   : const SizedBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Always Open'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: widget.item.always_open.toString() == "Yes"
-                        ? const Icon(
-                            Icons.check_rounded,
-                            color: Colors.green,
-                          )
-                        : const Icon(Icons.close_rounded, color: Colors.red),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Open in Holidays'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: widget.item.open_holiday.toString() == "Yes"
-                        ? const Icon(
-                            Icons.check_rounded,
-                            color: Colors.green,
-                          )
-                        : const Icon(Icons.close_rounded, color: Colors.red),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Always Open'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: widget.item.always_open.toString() == "Yes"
+                              ? const Icon(
+                                  Icons.check_rounded,
+                                  color: Colors.green,
+                                )
+                              : const Icon(Icons.close_rounded,
+                                  color: Colors.red),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Open in Holidays'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: widget.item.open_holiday.toString() == "Yes"
+                              ? const Icon(
+                                  Icons.check_rounded,
+                                  color: Colors.green,
+                                )
+                              : const Icon(Icons.close_rounded,
+                                  color: Colors.red),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
           )
@@ -1454,7 +1479,6 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(color: Colors.black),
-                  // fixedSize: Size(120, 1),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(30.0),
@@ -1718,17 +1742,19 @@ class _SingleItemMapState extends State<SingleItemMap> {
   }
 }
 
-class SingleItemReviews extends StatefulWidget {
-  const SingleItemReviews(this.reviews, this.averageRating, this.ref,
+class SingleItemReviews extends ConsumerStatefulWidget {
+  const SingleItemReviews(
+      this.reviews, this.averageRating, this.listingId, this.ref,
       {super.key});
   final List<Reviews>? reviews;
   final String? averageRating;
+  final String? listingId;
   final WidgetRef ref;
   @override
-  State<SingleItemReviews> createState() => _SingleItemReviewsState();
+  _SingleItemReviewsState createState() => _SingleItemReviewsState();
 }
 
-class _SingleItemReviewsState extends State<SingleItemReviews> {
+class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
   List<Reviews> replyReviews = [];
   List<Reviews> sortedReviews = [];
   @override
@@ -1788,7 +1814,7 @@ class _SingleItemReviewsState extends State<SingleItemReviews> {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.75,
             child: Column(
               children: [
                 Column(
@@ -1829,10 +1855,28 @@ class _SingleItemReviewsState extends State<SingleItemReviews> {
                       context, widget.ref,
                       review: sortedReviews[index], replyReviews: replyReviews),
                 )),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (ref.watch(isloginProvider)) {
+                      showReviewForm(context, ref, null,
+                          listingId: widget.listingId.toString(),
+                          userId: ref.read(userProvider).user!.id.toString());
+                    } else {
+                      ref.read(appRouterProvider).push(Login(onHome: false));
+                    }
+                  },
+                  child: const Text('Add Review'),
+                ),
               ],
             ),
-
-            // Image.network(url),
           ),
         ],
       ),
@@ -2111,10 +2155,9 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                                             shape:
                                                                 BoxShape.circle,
                                                             border: Border.all(
-                                                              color: Colors
-                                                                  .grey, // Set your desired border color here
-                                                              width:
-                                                                  2, // Set the desired border width
+                                                              color:
+                                                                  Colors.grey,
+                                                              width: 2,
                                                             ),
                                                           ),
                                                           child: ClipRRect(

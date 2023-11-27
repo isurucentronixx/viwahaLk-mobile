@@ -91,16 +91,18 @@ class _SingleViewState extends ConsumerState<SingleView> {
   Widget build(BuildContext context) {
     ref.listen<AsyncValue>(singleListingViewStateProvider, (_, state) {
       state.whenData((items) {
+        bool isSuccessfull =
+            items.toString() == "Requesting failed" ? false : true;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Status!',
+            title: isSuccessfull ? 'Successfully' : 'Unsuccessfully',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: isSuccessfull ? const Color(0xff21B6A8) : Colors.red,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -203,6 +205,8 @@ class _SingleViewState extends ConsumerState<SingleView> {
                   reviews,
                   widget.vendor?.average_rating.toString() ??
                       widget.topListing!.average_rating.toString(),
+                  widget.vendor?.id.toString() ??
+                      widget.topListing!.id.toString(),
                   ref),
             SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing'),
             SingleItemOtherLatest(

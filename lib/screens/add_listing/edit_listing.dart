@@ -9,6 +9,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -734,16 +735,20 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
 
     ref.listen<AsyncValue>(addListingViewStateProvider, (_, state) {
       state.whenData((items) {
+        bool isSuccessfull =
+            items.toString().split(' ')[0] == "Successfully" ? true : false;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Listing submitted successfully',
+            title: isSuccessfull
+                ? 'Listing submitted successfully'
+                : 'Submitted listing failed',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
-            color: ViwahaColor.primary,
+            color: isSuccessfull ? const Color(0xff21B6A8) : Colors.red,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -4391,857 +4396,1125 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                     ),
                                   ),
                                 ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
+                                _alwaysOpen != 'Yes'
+                                    ? Column(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _mondayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _mondayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _mondayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _mondayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _mondayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
-                                                    subtitle: Text(_mondayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _mondayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _mondayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _mondayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Monday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _mondayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _mondayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _tuesdayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _tuesdayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _tuesdayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
-                                                    subtitle:
-                                                        Text(_mondayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _tuesdayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _tuesdayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _tuesdayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Tuesday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _wednesdayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _wednesdayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _wednesdayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _wednesdayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _wednesdayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _wednesdayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Wednesday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _thursdayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _thursdayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _thursdayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _thursdayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _thursdayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _thursdayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Thursday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _fridayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _fridayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _fridayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _fridayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _fridayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _fridayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Friday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _saturedayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _saturedayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _saturedayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _saturedayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _saturedayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _saturedayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Saturday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 200,
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 20, 20, 10),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          ViwahaColor.primary,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  shape: BoxShape.rectangle,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Opening Time',
+                                                          selectedValue:
+                                                              _sundayOpen,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _sundayOpen =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _sundayOpen),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                        child: SmartSelect<
+                                                            String>.single(
+                                                          title: 'Closing Time',
+                                                          selectedValue:
+                                                              _sundayClose,
+                                                          choiceItems: timeData,
+                                                          onChange: (selected) {
+                                                            setState(() {
+                                                              _sundayClose =
+                                                                  selected
+                                                                      .value;
+                                                            });
+                                                          },
+                                                          modalType: S2ModalType
+                                                              .bottomSheet,
+                                                          tileBuilder:
+                                                              (context, state) {
+                                                            return ListTile(
+                                                              title: Text(
+                                                                state.title
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                              subtitle: Text(
+                                                                  _sundayClose),
+                                                              trailing:
+                                                                  const Icon(Icons
+                                                                      .keyboard_arrow_down),
+                                                              onTap: state
+                                                                  .showModal,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                left: 50,
+                                                top: 12,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10,
+                                                          left: 10,
+                                                          right: 10),
+                                                  color: Colors.white,
+                                                  child: const Text(
+                                                    'Sunday',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ViwahaColor.primary,
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Monday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _tuesdayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _tuesdayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_tuesdayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _tuesdayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _tuesdayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_tuesdayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Tuesday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _wednesdayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _wednesdayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_wednesdayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _wednesdayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _wednesdayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_wednesdayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Wednesday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _thursdayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _thursdayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_thursdayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _thursdayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _thursdayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_thursdayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Thursday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _fridayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _fridayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle: Text(_fridayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _fridayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _fridayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_fridayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Friday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _saturedayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _saturedayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_saturedayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _saturedayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _saturedayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_saturedayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Saturday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      height: 200,
-                                      margin: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 10),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ViwahaColor.primary,
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Opening Time',
-                                                selectedValue: _sundayOpen,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _sundayOpen =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle: Text(_sundayOpen),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                              ),
-                                              child: SmartSelect<String>.single(
-                                                title: 'Closing Time',
-                                                selectedValue: _sundayClose,
-                                                choiceItems: timeData,
-                                                onChange: (selected) {
-                                                  setState(() {
-                                                    _sundayClose =
-                                                        selected.value;
-                                                  });
-                                                },
-                                                modalType:
-                                                    S2ModalType.bottomSheet,
-                                                tileBuilder: (context, state) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      state.title.toString(),
-                                                      style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    subtitle:
-                                                        Text(_sundayClose),
-                                                    trailing: const Icon(Icons
-                                                        .keyboard_arrow_down),
-                                                    onTap: state.showModal,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 50,
-                                      top: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 10, left: 10, right: 10),
-                                        color: Colors.white,
-                                        child: const Text(
-                                          'Sunday',
-                                          style: TextStyle(
-                                              color: ViwahaColor.primary,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                      )
+                                    : const SizedBox()
                               ])
                         : const SizedBox(),
                     Center(

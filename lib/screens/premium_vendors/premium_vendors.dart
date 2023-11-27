@@ -6,16 +6,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
-import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
-import 'package:viwaha_lk/services/home_service.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class PremiumVendors extends ConsumerStatefulWidget {
   const PremiumVendors({super.key});
@@ -25,14 +23,13 @@ class PremiumVendors extends ConsumerStatefulWidget {
 }
 
 class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
-    tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
+  tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
     final location = tz.getLocation(timeZoneName);
     final deviceTimeZone = tz.TZDateTime.from(dateTime, location);
     return deviceTimeZone;
   }
 
   String timeAgoSinceDate(String date) {
-
     DateTime originalDateTime = DateTime.now(); // Your original date and time
     String deviceTimeZone = tz.local.name; // Device's time zone
     tz.TZDateTime deviceDateTime =
@@ -61,12 +58,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
 
   @override
   Widget build(BuildContext context) {
-    var inputDateFormat = DateFormat('dd MMMM, yyyy');
     final data = ref.watch(vendorsProvider);
-
-    final isLoading = ref.watch(isLoadingHomeProvider);
-
-   
 
     return Column(
       children: [
@@ -95,7 +87,27 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
           ),
         ),
         const SizedBox(
-          height: 20,
+          height: 10,
+        ),
+        GestureDetector(
+          onTap: () {
+             AutoRouter.of(context).push(const ViewAllPremiumsPage());
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: ViwahaColor.primary),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                'View All',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         CarouselSlider(
           options: CarouselOptions(
@@ -157,7 +169,6 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               ),
                             ),
                           ),
-                         
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.75,
@@ -247,8 +258,8 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                                         horizontal: 8.0, vertical: 4.0),
                                     child: Text(
                                       vendor.category!,
-                                      style: const TextStyle(
-                                          color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),

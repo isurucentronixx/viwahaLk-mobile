@@ -64,7 +64,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       ref.watch(isloginProvider) ? user!.email.toString() : ''),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.home),
+                  leading: const Icon(Icons.home_outlined),
                   title: Text(
                     LocaleKeys.home.tr(),
                     style: const TextStyle(color: Colors.grey),
@@ -76,7 +76,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                 ref.read(isloginProvider) ? const Divider() : const SizedBox(),
                 ref.read(isloginProvider)
                     ? ListTile(
-                        leading: const Icon(Icons.dashboard),
+                        leading: const Icon(Icons.dashboard_outlined),
                         title: const Text("Dashboard",
                             style: TextStyle(color: Colors.grey)),
                         onTap: () {
@@ -88,9 +88,9 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                 ref.read(isloginProvider) ? const Divider() : const SizedBox(),
                 ref.read(isloginProvider)
                     ? ListTile(
-                        leading: const Icon(
-                          Icons.people_alt_rounded,
-                          color: Color(0xff21B6A8),
+                        leading: Container(
+                          child: Assets.lib.assets.images.couple
+                              .image(color: const Color(0xff21B6A8), width: 27),
                         ),
                         title: const Text("Couple Dashboard",
                             style: TextStyle(color: Color(0xff21B6A8))),
@@ -102,7 +102,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                     : const SizedBox(),
                 const Divider(),
                 ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: const Icon(Icons.person_outline),
                   title: Text(LocaleKeys.about_us.tr(),
                       style: const TextStyle(color: Colors.grey)),
                   onTap: () async {
@@ -111,7 +111,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                 ),
                 const Divider(),
                 ListTile(
-                  leading: const Icon(Icons.contact_phone),
+                  leading: const Icon(Icons.contact_phone_outlined),
                   title: Text(LocaleKeys.contact_us.tr(),
                       style: const TextStyle(color: Colors.grey)),
                   onTap: () {

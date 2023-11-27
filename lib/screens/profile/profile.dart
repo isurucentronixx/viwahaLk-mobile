@@ -37,7 +37,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       SnackBar snackBar = SnackBar(
         content:
             const Text('Referral link copied!', style: TextStyle(fontSize: 15)),
-        backgroundColor: ViwahaColor.primary,
+        backgroundColor: const Color(0xff21B6A8),
         dismissDirection: DismissDirection.up,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(
@@ -159,8 +159,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(
                                   const Size(double.infinity, 48)),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.blue),
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 255, 193, 7)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -172,13 +172,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.copy_all_outlined,
-                                    color: Colors.white),
+                                const Icon(Icons.file_copy,
+                                    color: Colors.black),
                                 const SizedBox(width: 8),
                                 Text(
                                   "Copy referral link".toUpperCase(),
                                   style: const TextStyle(
-                                      fontSize: 14, color: Colors.white),
+                                      fontSize: 14, color: Colors.black),
                                 ),
                               ],
                             ),

@@ -617,12 +617,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
     ref.listen<AsyncValue>(addListingViewStateProvider, (_, state) {
       state.whenData((items) {
+        bool isSuccessfull =
+            items.toString().split(' ')[0] == "Successfully" ? true : false;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Listing submitted successfully',
+            title: isSuccessfull
+                ? 'Listing submitted successfully'
+                : 'Submitted listing failed',
             message: items,
             inMaterialBanner: true,
 

@@ -10,7 +10,6 @@ class AppRouter extends $AppRouter {
           page: Login.page,
           path: '/login',
         ),
-
         AutoRoute(
           page: Register.page,
           path: '/register',
@@ -43,7 +42,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: UserDashboardPage.page, path: "/userDashboardPage"),
         AutoRoute(page: VendorProfilePage.page, path: "/vendorProfilePage"),
         AutoRoute(page: AllListingPage.page, path: "/allListingPage"),
-
-        // AutoRoute(page: FacebookLogin.page, path: "/facebookLogin"),
+        AutoRoute(page: ViewAllPremiumsPage.page, path: "/viewAllPremiumsPage"),
       ];
 }

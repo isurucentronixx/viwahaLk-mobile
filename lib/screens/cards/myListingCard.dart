@@ -423,7 +423,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                     ),
                     label: const Text('Premium'), // <-- Text
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: ViwahaColor.primary,
+                      backgroundColor: Colors.amber,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
