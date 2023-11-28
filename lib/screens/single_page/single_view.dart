@@ -161,10 +161,12 @@ class _SingleViewState extends ConsumerState<SingleView> {
                 widget.vendor ?? widget.topListing,
                 widget.vendor?.boosted.toString() ??
                     widget.topListing!.boosted.toString()),
-            '${widget.vendor?.main_category.toString() ?? widget.topListing!.main_category!.toString()}' ==
+            (widget.vendor?.main_category.toString() ??
+                        widget.topListing!.main_category!.toString()) ==
                     "Proposal"
                 ? SingleItemProposal(widget.vendor ?? widget.topListing)
-                : '${widget.vendor?.amenities.toString() ?? widget.topListing!.amenities!.toString()}' !=
+                : (widget.vendor?.amenities.toString() ??
+                            widget.topListing!.amenities!.toString()) !=
                         ""
                     ? SingleItemAmenities(widget.vendor?.amenities.toString() ??
                         widget.topListing!.amenities.toString())

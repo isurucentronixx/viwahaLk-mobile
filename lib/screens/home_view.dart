@@ -78,17 +78,12 @@ class _HomePageState extends ConsumerState<HomePage>
             now.difference(currentTime) > const Duration(seconds: 2)) {
           currentTime = now;
 
-          SnackBar snackBar = SnackBar(
-            content: const Text('Tap again to exit',
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
-            backgroundColor: ViwahaColor.primary,
-            dismissDirection: DismissDirection.up,
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height - 220,
-                left: 50,
-                right: 50),
-          );
+          SnackBar snackBar = const SnackBar(
+              content: Text('Tap again to exit',
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 15)),
+              backgroundColor: ViwahaColor.primary,
+              dismissDirection: DismissDirection.up,
+              behavior: SnackBarBehavior.floating);
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
 

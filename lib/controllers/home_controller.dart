@@ -34,8 +34,6 @@ final proposerDobProvider =
 final premiumBillProvider = StateProvider<String>((ref) => '');
 final membershipBillProvider = StateProvider<String>((ref) => '');
 
-
-
 final premiumBillNameProvider = StateProvider<String>((ref) => '');
 final adTitleProvider = StateProvider<String>((ref) => '');
 final adAddressProvider = StateProvider<String>((ref) => '');
@@ -54,7 +52,6 @@ final adYoutubeProvider = StateProvider<String>((ref) => '');
 final adLinkedinProvider = StateProvider<String>((ref) => '');
 final adDescProvider = StateProvider<String>((ref) => '');
 final adVideoLinkProvider = StateProvider<String>((ref) => '');
-
 
 final addListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
@@ -94,6 +91,7 @@ class HomeController {
       final res = await homeService.fetchTopWeddingListApiRequest(userId);
       final topListing =
           (res as List).map((e) => TopListing.fromJson(e)).toList();
+      
       return topListing;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

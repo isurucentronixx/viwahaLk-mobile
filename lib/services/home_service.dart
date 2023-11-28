@@ -23,7 +23,9 @@ class HomeService {
     try {
       final res = await _dioClient
           .get(Endpoints.baseUrl + Endpoints.getTopListUrl + userId);
-
+      print(
+          "topListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListing");
+      print(res.data);
       return res.data;
     } catch (e) {
       rethrow;
