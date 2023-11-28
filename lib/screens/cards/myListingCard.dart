@@ -53,6 +53,7 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
   Duration boostingCount = const Duration();
   bool isBoosting = false;
   String _more = 'Select One';
+  late XFile image;
   List<S2Choice<String>>? moreData = [
     S2Choice<String>(value: 'edit', title: 'Edit Listing'),
     S2Choice<String>(value: 'delete', title: 'Delete'),
@@ -318,7 +319,6 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  XFile image;
                                                   picker
                                                       .pickImage(
                                                           source: ImageSource
@@ -329,15 +329,9 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                       .then((value) => {
                                                             if (value != null)
                                                               {
-                                                                image = XFile(
-                                                                    value.path),
                                                                 stfSetState(
                                                                   () {
-                                                                    imageUpload(
-                                                                        image,
-                                                                        value
-                                                                            .name,
-                                                                        "review");
+                                                                    image = value;
                                                                     ref
                                                                         .read(premiumBillProvider
                                                                             .notifier)
@@ -419,8 +413,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                                           .notifier)
                                                   .state =
                                               const AsyncValue.loading();
-                                          controller
-                                              .premiumMyListing(widget.id);
+                                          controller.premiumMyListing(widget.id,
+                                              image,image.name );
                                         },
                                       ),
                                     ],

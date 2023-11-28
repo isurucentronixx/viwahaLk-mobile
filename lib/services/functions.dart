@@ -66,7 +66,7 @@ class PostData {
     try {
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/user/update_profile',
-          data: editedDetails); 
+          data: editedDetails);
       ref.refresh(loginProvider);
       ref.read(profileViewStateProvider.notifier).state =
           const AsyncValue.data("Successfully updated your profile.");
@@ -180,11 +180,18 @@ class PostData {
     }
   }
 
-  Future premiumMyListing(id) async {
+  Future premiumMyListing(id, XFile image, String name) async {
+    var formData = FormData.fromMap({
+      'listing_id': id,
+      'image': await MultipartFile.fromFile(image.path, filename: name),
+    });
     try {
-      print(ref.read(premiumBillNameProvider));
       final res = await _dioClient.post(
-        'https://viwahaapp.viwaha.lk/api/listings/request_premium?listing_id=$id&image=${ref.read(premiumBillNameProvider)}',
+        options: Options(
+          headers: {'Content-Type': 'multipart/form-data'},
+        ),
+        'https://viwahaapp.viwaha.lk/api/listings/request_premium',
+        data: formData,
       );
       ref.refresh(premiumBillNameProvider);
       ref.refresh(myListingProvider);
@@ -192,8 +199,6 @@ class PostData {
 
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requested premium your listing.");
-      print("------------------------------------------------------");
-      print(res);
       ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {

@@ -60,8 +60,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                   Container(
                                 height: 120,
                                 width: 120,
-                                decoration: BoxDecoration(
-                                 
+                                decoration: BoxDecoration(                                 
                                   color: Colors.black,
                                   image: DecorationImage(
                                     image: imageProvider,
