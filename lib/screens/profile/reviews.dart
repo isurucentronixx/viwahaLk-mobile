@@ -39,7 +39,6 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider).user;
-    final router = AppRouter();
     return Scaffold(
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(

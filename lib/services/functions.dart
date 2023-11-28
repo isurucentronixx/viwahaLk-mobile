@@ -66,17 +66,17 @@ class PostData {
     try {
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/user/update_profile',
-          data: editedDetails);
+          data: editedDetails); 
       ref.refresh(loginProvider);
       ref.read(profileViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfuly updated your profile.");
+          const AsyncValue.data("Successfully updated your profile.");
       ref.read(profileViewStateProvider.notifier).state =
           const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const ProfilePage());
       return res.data;
     } catch (e) {
       ref.read(profileViewStateProvider.notifier).state =
-          const AsyncValue.data("Unsuccessfuly updated your profile.");
+          const AsyncValue.data("Unsuccessfully updated your profile.");
       ref.read(profileViewStateProvider.notifier).state =
           const AsyncValue.data(null);
       rethrow;
@@ -89,7 +89,7 @@ class PostData {
           'https://viwahaapp.viwaha.lk/api/auth/change_password',
           data: passwords);
       ref.read(changePasswordViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfuly changed your password.");
+          const AsyncValue.data("Successfully changed your password.");
       ref.read(changePasswordViewStateProvider.notifier).state =
           const AsyncValue.data(null);
       ref.watch(appRouterProvider).push(const ProfilePage());
@@ -148,16 +148,16 @@ class PostData {
   Future deleteMyListing(id) async {
     try {
       final res = await _dioClient.post(
-          'https://viwahaapp.viwaha.lk/api/listings/delete?listing_id=${id}');
+          'https://viwahaapp.viwaha.lk/api/listings/delete?listing_id=$id');
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfuly deleted your listing.");
+          const AsyncValue.data("Successfully deleted your listing.");
 
       ref.refresh(myListingProvider);
       ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Failed. please try again!");
+          const AsyncValue.data("Requesting failed");
 
       rethrow;
     }
@@ -166,15 +166,15 @@ class PostData {
   Future boostMyListing(id) async {
     try {
       final res = await _dioClient.post(
-          'https://viwahaapp.viwaha.lk/api/listings/request_boost?listing_id=${id}');
+          'https://viwahaapp.viwaha.lk/api/listings/request_boost?listing_id=$id');
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfuly boosted your listing.");
+          const AsyncValue.data("Successfully boosted your listing.");
       ref.refresh(myListingProvider);
       ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Unsuccessfuly.");
+          const AsyncValue.data("Requesting failed");
 
       rethrow;
     }
@@ -182,23 +182,23 @@ class PostData {
 
   Future premiumMyListing(id) async {
     try {
+      print(ref.read(premiumBillNameProvider));
       final res = await _dioClient.post(
-          'https://viwahaapp.viwaha.lk/api/listings/request_premium',
-          data: {
-            "listing_id": id,
-            "image": ref.read(premiumBillNameProvider),
-          });
+        'https://viwahaapp.viwaha.lk/api/listings/request_premium?listing_id=$id&image=${ref.read(premiumBillNameProvider)}',
+      );
       ref.refresh(premiumBillNameProvider);
+      ref.refresh(myListingProvider);
+      ref.refresh(premiumBillProvider);
+
       ref.read(myListingViewStateProvider.notifier).state =
           const AsyncValue.data("Requested premium your listing.");
-      ref.refresh(myListingProvider);
+      print("------------------------------------------------------");
+      print(res);
       ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Requesting failed.");
-      // ref.read(myListingViewStateProvider.notifier).state =
-      //     const AsyncValue.data(null);
+          const AsyncValue.data("Requesting failed");
       rethrow;
     }
   }

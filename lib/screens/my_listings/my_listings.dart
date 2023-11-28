@@ -22,7 +22,6 @@ import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
@@ -46,14 +45,13 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
 
     @override
     initState() {
-      // at the beginning, all users are shown
       super.initState();
     }
 
     ref.listen<AsyncValue>(myListingViewStateProvider, (_, state) {
       state.whenData((items) {
         bool isSuccessfull =
-            items.toString().split(' ')[0] == "Successfully" ? true : false;
+            items.toString() == "Requesting failed" ? false : true;
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
@@ -147,6 +145,8 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                           .toString(),
                                       boosted:
                                           myListing[index].boosted.toString(),
+                                      premium:
+                                          myListing[index].premium.toString(),
                                     ),
                                   )),
                         ))

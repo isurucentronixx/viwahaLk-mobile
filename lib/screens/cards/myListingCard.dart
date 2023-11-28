@@ -30,6 +30,7 @@ class MyCardItem extends ConsumerStatefulWidget {
   final String? main_category;
   final String? isFav;
   final String? boosted;
+  final String? premium;
   const MyCardItem({
     required this.id,
     required this.imagePath,
@@ -42,6 +43,7 @@ class MyCardItem extends ConsumerStatefulWidget {
     required this.main_category,
     required this.isFav,
     required this.boosted,
+    required this.premium,
   });
   @override
   _MyCardItemState createState() => _MyCardItemState();
@@ -283,147 +285,163 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return StatefulBuilder(
-                                builder: (stfContext, stfSetState) {
-                              return AlertDialog(
-                                content: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Text(
-                                        'Bank Receipt',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      const Text(
-                                        '(Maximum image size 1 Mb)',
-                                        style: TextStyle(fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Row(
+                      widget.premium == "0"
+                          ? showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (stfContext, stfSetState) {
+                                  return AlertDialog(
+                                    content: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              XFile image;
-                                              picker
-                                                  .pickImage(
-                                                      source:
-                                                          ImageSource.gallery,
-                                                      imageQuality: 50,
-                                                      maxWidth: 800,
-                                                      maxHeight: 800)
-                                                  .then((value) => {
-                                                        if (value != null)
-                                                          {
-                                                            image = XFile(
-                                                                value.path),
-                                                            stfSetState(
-                                                              () {
-                                                                imageUpload(
-                                                                    image,
-                                                                    value.name,
-                                                                    "review");
-                                                                ref
-                                                                    .read(premiumBillProvider
-                                                                        .notifier)
-                                                                    .state = value.path;
-                                                              },
-                                                            )
-                                                          }
-                                                      });
-                                            },
-                                            child: Container(
-                                              color: ViwahaColor.transparent,
-                                              width: 50,
-                                              height: 50,
-                                              child: Assets
-                                                  .lib.assets.images.photography
-                                                  .image(),
-                                            ),
+                                          const Text(
+                                            'Bank Receipt',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 20),
                                           ),
-                                          ref.watch(premiumBillProvider).isEmpty
-                                              ? Container(
-                                                  width: 150,
-                                                  height: 150,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: ViwahaColor
-                                                              .primary),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  10))),
+                                          const Text(
+                                            '(Maximum image size 1 Mb)',
+                                            style: TextStyle(fontSize: 12),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  XFile image;
+                                                  picker
+                                                      .pickImage(
+                                                          source: ImageSource
+                                                              .gallery,
+                                                          imageQuality: 50,
+                                                          maxWidth: 800,
+                                                          maxHeight: 800)
+                                                      .then((value) => {
+                                                            if (value != null)
+                                                              {
+                                                                image = XFile(
+                                                                    value.path),
+                                                                stfSetState(
+                                                                  () {
+                                                                    imageUpload(
+                                                                        image,
+                                                                        value
+                                                                            .name,
+                                                                        "review");
+                                                                    ref
+                                                                        .read(premiumBillProvider
+                                                                            .notifier)
+                                                                        .state = value.path;
+                                                                  },
+                                                                )
+                                                              }
+                                                          });
+                                                },
+                                                child: Container(
+                                                  color:
+                                                      ViwahaColor.transparent,
+                                                  width: 50,
+                                                  height: 50,
                                                   child: Assets.lib.assets
-                                                      .images.colorLogo
+                                                      .images.photography
                                                       .image(),
-                                                )
-                                              : Container(
-                                                  width: 150,
-                                                  height: 150,
-                                                  decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          fit: BoxFit.fill,
-                                                          image: Image.file(File(
-                                                                  ref.watch(
-                                                                      premiumBillProvider)))
-                                                              .image),
-                                                      border: Border.all(
-                                                          color: ViwahaColor
-                                                              .primary),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .all(
-                                                              Radius.circular(
-                                                                  10))),
-                                                )
+                                                ),
+                                              ),
+                                              ref
+                                                      .watch(
+                                                          premiumBillProvider)
+                                                      .isEmpty
+                                                  ? Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: Assets.lib.assets
+                                                          .images.colorLogo
+                                                          .image(),
+                                                    )
+                                                  : Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: Image.file(File(
+                                                                      ref.watch(
+                                                                          premiumBillProvider)))
+                                                                  .image),
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10))),
+                                                    )
+                                            ],
+                                          ),
                                         ],
                                       ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blueGrey),
+                                        child: const Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('Upload'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          ref
+                                                  .read(
+                                                      myListingViewStateProvider
+                                                          .notifier)
+                                                  .state =
+                                              const AsyncValue.loading();
+                                          controller
+                                              .premiumMyListing(widget.id);
+                                        },
+                                      ),
                                     ],
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blueGrey),
-                                    child: const Text('Cancel'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  ElevatedButton(
-                                    child: const Text('Upload'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      ref
-                                          .read(myListingViewStateProvider
-                                              .notifier)
-                                          .state = const AsyncValue.loading();
-                                      controller.premiumMyListing(widget.id);
-                                    },
-                                  ),
-                                ],
-                              );
-                            });
-                          });
+                                  );
+                                });
+                              })
+                          : null;
                     },
                     icon: const Icon(
                       Icons.workspace_premium_outlined,
                       size: 22.0,
                     ),
-                    label: const Text('Premium'), // <-- Text
+                    label: widget.premium == "pending"
+                        ? const Text('Pending')
+                        : widget.premium == "1"
+                            ? const Text('Premium')
+                            : const Text('Premium'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
+                      backgroundColor: widget.premium == "0"
+                          ? Colors.amber
+                          : const Color.fromARGB(255, 255, 226, 137),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

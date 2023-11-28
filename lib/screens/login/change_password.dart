@@ -49,8 +49,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
     final user = ref.watch(userProvider).user;
     final controller = ref.watch(postControllerProvider);
     final state = ref.watch(changePasswordViewStateProvider);
-    final router = AppRouter();
-    ref.listen<AsyncValue>(addListingViewStateProvider, (_, state) {
+    ref.listen<AsyncValue>(changePasswordViewStateProvider, (_, state) {
       state.whenData((items) {
         bool isSuccessfull =
             items.toString().split(' ')[0] == "Successfully" ? true : false;
@@ -59,9 +58,7 @@ class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: isSuccessfull
-                ? 'Successfully changed!'
-                : 'Unsuccessfully!',
+            title: isSuccessfull ? 'Successfully changed!' : 'Unsuccessfully!',
             message: items,
             inMaterialBanner: true,
             contentType: ContentType.success,
