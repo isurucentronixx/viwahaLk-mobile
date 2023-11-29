@@ -1825,7 +1825,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
                             fontSize: 54,
                             fontWeight: FontWeight.bold)),
                     Text(
-                        '${double.parse(widget.averageRating.toString()) >= 4 ? 'Verry Good' : double.parse(widget.averageRating.toString()) >= 2 ? 'Good' : 'Good'}',
+                        '${double.parse(widget.averageRating.toString()) >= 4 ? 'Very Good' : double.parse(widget.averageRating.toString()) >= 2 ? 'Good' : 'Good'}',
                         style: const TextStyle(
                             color: ViwahaColor.primary, fontSize: 18)),
                     const SizedBox(
