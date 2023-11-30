@@ -1,15 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/screens/home/home_content.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
-import 'package:viwaha_lk/screens/bottom_navigation_bar/inherited_data_provider.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
-import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

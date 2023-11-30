@@ -190,8 +190,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color:
-                ViwahaColor.primary, // Set the background color for the title
+            color: ViwahaColor.primary,
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
@@ -239,7 +238,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           const SizedBox(height: 10),
           Row(
             children: [
-              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -293,7 +291,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(3.0),
+                          padding: EdgeInsets.all(5.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,7 +307,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 )
                               ])))
                   : const SizedBox(),
-              SizedBox(width: widget.item!.verified.toString() != "0" ? 8 : 0),
               widget.item!.verified.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
@@ -317,7 +314,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           border: Border.all(
                               color: Colors.lightBlueAccent, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(3.0),
+                          padding: EdgeInsets.all(5.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -328,7 +325,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   color: Colors.lightBlueAccent,
                                 ),
                                 Text(
-                                  'Verified  ',
+                                  'Verified',
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
                                 )
@@ -341,7 +338,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(3.0),
+                          padding: EdgeInsets.all(5.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -396,7 +393,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               Icons.remove_red_eye,
                               color: ViwahaColor.primary,
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             Text(
                               '${widget.views} Views',
                               style: const TextStyle(
@@ -420,7 +417,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       Icons.check_box_outlined,
                       color: ViwahaColor.primary,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 8),
                     Text(
                       "Ask Price",
                       style: TextStyle(
@@ -440,7 +437,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       Icons.check_box_outlined,
                       color: ViwahaColor.primary,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 8),
                     Text(
                       "Negotiable",
                       style: TextStyle(
@@ -464,7 +461,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       Icons.home,
                       color: ViwahaColor.primary,
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         widget.item.main_category == "Proposal"
@@ -489,7 +486,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               Icons.pin_drop,
                               color: ViwahaColor.primary,
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             TextButton(
                               onPressed: (() {
                                 ref.read(isSearchingProvider.notifier).state =
@@ -563,7 +560,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               Icons.date_range,
                               color: ViwahaColor.primary,
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             Text(
                               "${Jiffy.parse(deviceDateTime.toString().split('.')[0]).format(pattern: 'do MMMM  yyyy')}",
                               style: const TextStyle(
@@ -601,7 +598,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               Icons.watch_later_outlined,
                               color: ViwahaColor.primary,
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             Text(
                               "Boosted ${Jiffy.parse(widget.boosted).fromNow()}",
                               style: const TextStyle(
@@ -622,7 +619,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                     widget.item!.average_rating != null
                         ? const Icon(Icons.star, color: Colors.yellow)
                         : const Icon(Icons.star_border, color: Colors.yellow),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 8),
                     Text(
                       '${LocaleKeys.rating.tr()}: ${(double.parse(widget.item!.average_rating != null ? widget.item!.average_rating.toString() : '0')).roundToDouble()}',
                       style: const TextStyle(
@@ -638,6 +635,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           Center(
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
+                elevation: 1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
@@ -651,7 +649,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           widget.type != "myAd"
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -659,6 +657,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        elevation: 1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -675,6 +674,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        elevation: 1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
@@ -1150,7 +1150,7 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 ExpandText(
                   widget.mainCategory == "Proposal"
                       ? isMembership(widget.description)
@@ -1478,6 +1478,7 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
               const SizedBox(height: 8),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
+                  elevation: 0,
                   textStyle: const TextStyle(color: Colors.black),
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.black),
