@@ -87,7 +87,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
           ..hideCurrentSnackBar()
           ..showSnackBar(snackBar);
       });
-    });
+    }); 
     return LoadingOverlay(
       isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
       color: Colors.white,
@@ -360,7 +360,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                           reviews,
                           widget.item!.average_rating.toString(),
                           widget.item!.id.toString(),
-                          ref),
+                          ref,widget.item!),
                     const SingleItemLatest('topListing'),
                     const SingleItemOtherLatest('topListing')
                   ],

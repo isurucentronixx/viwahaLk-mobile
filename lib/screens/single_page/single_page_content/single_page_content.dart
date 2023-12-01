@@ -23,6 +23,7 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/reviews/reviews.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -684,7 +685,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           showReviewForm(context, ref, null,
                               listingId: widget.item!.id.toString(),
                               userId:
-                                  ref.read(userProvider).user!.id.toString());
+                                  ref.read(userProvider).user!.id.toString(), item: widget.item);
                         } else {
                           ref
                               .read(appRouterProvider)
@@ -1744,12 +1745,13 @@ class _SingleItemMapState extends State<SingleItemMap> {
 
 class SingleItemReviews extends ConsumerStatefulWidget {
   const SingleItemReviews(
-      this.reviews, this.averageRating, this.listingId, this.ref,
+      this.reviews, this.averageRating, this.listingId, this.ref, this.item,
       {super.key});
   final List<Reviews>? reviews;
   final String? averageRating;
   final String? listingId;
   final WidgetRef ref;
+  final dynamic item;
   @override
   _SingleItemReviewsState createState() => _SingleItemReviewsState();
 }
@@ -1762,7 +1764,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
     // TODO: implement initState
 
     widget.reviews!.forEach((element) {
-      if (element.reply_id != null) {
+      if (element.reply_id.toString() != 'null') {
         replyReviews.add(element);
       }
     });
@@ -1778,8 +1780,6 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
       }));
     });
 
-    print('object');
-    print(replyReviews.length);
     super.initState();
   }
 
@@ -1853,7 +1853,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) => reviewCard(
                       context, widget.ref,
-                      review: sortedReviews[index], replyReviews: replyReviews),
+                      review: sortedReviews[index], replyReviews: replyReviews, item: widget.item),
                 )),
                 const SizedBox(
                   height: 10,
@@ -1868,7 +1868,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
                     if (ref.watch(isloginProvider)) {
                       showReviewForm(context, ref, null,
                           listingId: widget.listingId.toString(),
-                          userId: ref.read(userProvider).user!.id.toString());
+                          userId: ref.read(userProvider).user!.id.toString(), item: widget.item);
                     } else {
                       ref.read(appRouterProvider).push(Login(onHome: false));
                     }
@@ -1885,8 +1885,8 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
 }
 
 Widget reviewCard(BuildContext context, WidgetRef ref,
-    {required Reviews review, required List<Reviews> replyReviews}) {
-  return review.reply_id == null
+    {required Reviews review, required List<Reviews> replyReviews, required dynamic item}) {
+  return review.reply_id.toString() == 'null'
       ? GestureDetector(
           onTap: () {},
           child: Padding(
@@ -2042,7 +2042,7 @@ Widget reviewCard(BuildContext context, WidgetRef ref,
                                                   .read(userProvider)
                                                   .user!
                                                   .id
-                                                  .toString())
+                                                  .toString(), item: item)
                                           : ref
                                               .read(appRouterProvider)
                                               .push(Login(onHome: false));

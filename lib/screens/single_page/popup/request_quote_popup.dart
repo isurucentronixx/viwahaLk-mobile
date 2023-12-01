@@ -330,7 +330,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                             .read(singleListingViewStateProvider.notifier)
                             .state = const AsyncValue.loading();
                         var formDetails = {
-                          "user_id": userId,
+                          "user_id": userId, 
                           "listing_id": listingId,
                           "name": ref.read(quoteNameProvider),
                           "email": ref.read(quoteEmailProvider),
@@ -341,24 +341,7 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                         };
                         Navigator.pop(context);
                         controller.requestQuote(formDetails);
-                        // .then((value) => {
-                        //       (ScaffoldMessenger.of(context))
-                        //         ..hideCurrentSnackBar()
-                        //         ..showSnackBar(SnackBar(
-                        //           elevation: 0,
-                        //           behavior: SnackBarBehavior.floating,
-                        //           backgroundColor: Colors.transparent,
-                        //           content: AwesomeSnackbarContent(
-                        //             title: 'Success!',
-                        //             message: value['responseMessage'],
-                        //             inMaterialBanner: true,
-
-                        //             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                        //             contentType: ContentType.success,
-                        //             color: ViwahaColor.primary,
-                        //           ),
-                        //         )),
-                        //     });
+                        
                       },
                       child: const Text('Submit'),
                     ),

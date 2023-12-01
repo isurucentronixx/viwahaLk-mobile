@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
@@ -14,7 +17,9 @@ final reviewMessageProvider = StateProvider<String>((ref) => '');
 final reviewRatingProvider = StateProvider<String>((ref) => '');
 
 showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
-    {required String userId, required String listingId}) {
+    {required String userId,
+    required String listingId,
+    required dynamic item}) {
   showModalBottomSheet<void>(
     isScrollControlled: true,
     context: context,
@@ -245,7 +250,7 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                   child: SizedBox(
                     width: double.infinity, // Full width
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         ref
                             .read(singleListingViewStateProvider.notifier)
                             .state = const AsyncValue.loading();
@@ -259,7 +264,10 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                           "rating": ref.read(reviewRatingProvider),
                         };
                         Navigator.pop(context);
-                        controller.reviewAdd(formDetails);
+                        controller.reviewAdd(formDetails).then((value) {
+                          AutoRouter.of(context)
+                              .push(SearchSingleView(item: item, type: "all"));
+                        });
                       },
                       child: const Text('Add Review'),
                     ),
