@@ -11,6 +11,7 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -112,8 +113,10 @@ class TopListing extends ConsumerWidget {
 
                   return GestureDetector(
                     onTap: () async {
+                      // AutoRouter.of(context)
+                      //     .push(SingleView(vendor: null, topListing: wedding));
                       AutoRouter.of(context)
-                          .push(SingleView(vendor: null, topListing: wedding));
+                          .push(SearchSingleView(item: wedding, type: 'top'));
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -346,6 +349,7 @@ class TopListing extends ConsumerWidget {
             ? GestureDetector(
                 onTap: () {
                   if (ref.watch(isloginProvider)) {
+                    ref.read(tempReviewsProvider).clear();
                     ref.refresh(allListingProvider);
                   }
                   ref.read(isSearchingProvider.notifier).state = true;

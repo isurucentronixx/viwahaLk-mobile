@@ -129,7 +129,9 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
             return GestureDetector(
               onTap: () {
                 AutoRouter.of(context)
-                    .push(SingleView(vendor: vendor, topListing: null));
+                              .push(SearchSingleView(item: vendor, type: "all"));
+                // AutoRouter.of(context)
+                //     .push(SingleView(vendor: vendor, topListing: null));
               },
               child: Card(
                 shape: RoundedRectangleBorder(

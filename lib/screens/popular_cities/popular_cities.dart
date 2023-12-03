@@ -15,6 +15,7 @@ import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/popular_cities/popular_cities/popular_city_model.dart';
 import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 class PopularCities extends ConsumerStatefulWidget {
@@ -128,6 +129,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
 
                 ref.read(selectedMainLocationProvider.notifier).state =
                     data.name!;
+                ref.read(tempReviewsProvider).clear();
                 ref.read(allListingProvider);
                 ref.read(isSearchingProvider.notifier).state = true;
                 AutoRouter.of(context).push(const SearchingResultsPage());
@@ -213,8 +215,8 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                           style: const TextStyle(color: Colors.grey),
                         ),
                         RatingBarIndicator(
-                          rating:
-                              double.parse(city.ratings.toString()).ceilToDouble(),
+                          rating: double.parse(city.ratings.toString())
+                              .ceilToDouble(),
                           itemBuilder: (context, index) => Icon(
                             city.ratings.toString() != "0"
                                 ? Icons.star

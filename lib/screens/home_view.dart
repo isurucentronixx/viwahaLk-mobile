@@ -16,6 +16,7 @@ import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/login/login.dart';
 import 'package:viwaha_lk/screens/profile/profile.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -171,6 +172,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       onPressed: () {
                         setState(() {
                           if (ref.watch(isloginProvider)) {
+                            ref.read(tempReviewsProvider).clear();
                             ref.refresh(topListingProvider);
                             ref.refresh(vendorsProvider);
                           }
@@ -203,6 +205,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       minWidth: 40,
                       onPressed: () {
                         if (ref.watch(isloginProvider)) {
+                          ref.read(tempReviewsProvider).clear();
                           ref.refresh(allListingProvider);
                         }
 
@@ -244,6 +247,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       minWidth: 40,
                       onPressed: () {
                         if (ref.watch(isloginProvider)) {
+                          ref.read(tempReviewsProvider).clear();
                           ref.refresh(myListingProvider);
                           ref.refresh(favListingProvider);
                         }
@@ -281,6 +285,7 @@ class _HomePageState extends ConsumerState<HomePage>
                         setState(() {
                           ref.read(isSearchingProvider.notifier).state = true;
                           if (ref.watch(isloginProvider)) {
+                            ref.read(tempReviewsProvider).clear();
                             ref.refresh(favListingProvider);
                           }
 

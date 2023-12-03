@@ -23,6 +23,7 @@ import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 // import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
@@ -70,6 +71,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.read(tempReviewsProvider).clear();
     searchingResult.addAll(ref.watch(searchResultProvider));
     return Scaffold(
         appBar: AppBar(

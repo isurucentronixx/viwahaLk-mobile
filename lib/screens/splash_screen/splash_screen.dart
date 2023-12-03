@@ -7,7 +7,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
@@ -58,7 +57,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               username: pref.getString("email").toString(),
               password: pref.getString("password").toString())
           .then((value) async {
-        ref.read(userProvider.notifier).state = value;
+        ref.read(userProvider.notifier).state = value;      
         ref.read(isloginProvider.notifier).state = true;
         final snackBar = SnackBar(
           elevation: 0,

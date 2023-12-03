@@ -24,6 +24,7 @@ final mainImageNameProvider = StateProvider<String>((ref) => '');
 final paginateIndexProvider = StateProvider<int>((ref) => 1);
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
+final isLoadingProvider = StateProvider<bool>((ref) => false);
 final myListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 final singleListingViewStateProvider =
@@ -73,11 +74,12 @@ class HomeController {
 
   HomeController(this.homeService);
 
-  Future<List<Vendor>> fetchVendorList(userId) async {
+  Future<List<SearchResultItem>> fetchVendorList(userId) async {
     try {
       final res = await homeService.fetchVendorListApiRequest(userId);
 
-      final vendor = (res as List).map((e) => Vendor.fromJson(e)).toList();
+      final vendor =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return vendor;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -86,12 +88,12 @@ class HomeController {
     }
   }
 
-  Future<List<TopListing>> fetchTopWeddingList(String userId) async {
+  Future<List<SearchResultItem>> fetchTopWeddingList(String userId) async {
     try {
       final res = await homeService.fetchTopWeddingListApiRequest(userId);
       final topListing =
-          (res as List).map((e) => TopListing.fromJson(e)).toList();
-      
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+
       return topListing;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -165,6 +167,19 @@ class HomeController {
           sort,
           rating,
           pageId);
+      final searchResult =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<SearchResultItem>> itemFindOnList() async {
+    try {
+      final res = await homeService.fetchAllItemListApiRequest();
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return searchResult;

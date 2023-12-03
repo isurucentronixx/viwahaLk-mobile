@@ -69,6 +69,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
   @override
   Widget build(BuildContext context) {
     // allListing = ref.watch(allListingProvider);
+    
     allListing.addAll(ref.watch(allListingProvider));
     return Scaffold(
         appBar: widget.isAppBar

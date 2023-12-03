@@ -43,12 +43,12 @@ final homeControllerProvider = Provider<HomeController>((ref) {
 });
 
 final vendorsProvider =
-    StateNotifierProvider<VendorNotifier, List<Vendor>>((ref) {
+    StateNotifierProvider<VendorNotifier, List<SearchResultItem>>((ref) {
   return VendorNotifier(ref: ref);
 });
 
 final topListingProvider =
-    StateNotifierProvider<TopListingNotifier, List<TopListing>>((ref) {
+    StateNotifierProvider<TopListingNotifier, List<SearchResultItem>>((ref) {
   return TopListingNotifier(ref: ref);
 });
 
@@ -70,6 +70,13 @@ final locationsProvider =
 final searchResultProvider =
     StateNotifierProvider<SearchResultNotifier, List<SearchResultItem>>((ref) {
   return SearchResultNotifier(
+    ref: ref,
+  );
+});
+
+final findItemProvider =
+    StateNotifierProvider<FindItemNotifier, List<SearchResultItem>>((ref) {
+  return FindItemNotifier(
     ref: ref,
   );
 });

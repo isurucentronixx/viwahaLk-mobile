@@ -5,12 +5,9 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-import 'package:viwaha_lk/screens/search/searching_page.dart';
 
-class VendorNotifier extends StateNotifier<List<Vendor>> {
+class VendorNotifier extends StateNotifier<List<SearchResultItem>> {
   final Ref ref;
 
   VendorNotifier({required this.ref}) : super([]) {
@@ -31,7 +28,7 @@ class VendorNotifier extends StateNotifier<List<Vendor>> {
   }
 }
 
-class TopListingNotifier extends StateNotifier<List<TopListing>> {
+class TopListingNotifier extends StateNotifier<List<SearchResultItem>> {
   final Ref ref;
 
   TopListingNotifier({required this.ref}) : super([]) {
@@ -161,6 +158,31 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+      }
+
+      // Setting isLoading to `false`.
+      ref.read(isLoadingHomeProvider.notifier).state = false;
+    });
+  }
+}
+
+class FindItemNotifier extends StateNotifier<List<SearchResultItem>> {
+  final Ref ref;
+
+  FindItemNotifier({
+    required this.ref,
+  }) : super([]) {
+    findItemFromList(ref: ref);
+  }
+
+  Future findItemFromList({required Ref ref}) async {
+    ref.read(isLoadingProvider.notifier).state = true;
+    await ref.read(homeControllerProvider).itemFindOnList().then((value) {
+      // Setting current `state` to the fetched list of products.
+      if (mounted) {
+        state = value;
+        ref.read(isSearchingProvider.notifier).state = false;
+        ref.read(isLoadingProvider.notifier).state = false;
       }
 
       // Setting isLoading to `false`.

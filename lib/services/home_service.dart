@@ -23,9 +23,7 @@ class HomeService {
     try {
       final res = await _dioClient
           .get(Endpoints.baseUrl + Endpoints.getTopListUrl + userId);
-      print(
-          "topListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListingtopListing");
-      print(res.data);
+
       return res.data;
     } catch (e) {
       rethrow;
@@ -96,11 +94,20 @@ class HomeService {
     }
   }
 
+  Future fetchAllItemListApiRequest() async {
+    try {
+      final res = await _dioClient
+          .get("${Endpoints.baseUrl}${Endpoints.getAllListing}");
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future fetchFavListingApiRequest({required Ref ref}) async {
     try {
       final res = await _dioClient.get(
-          '${Endpoints.baseUrl}${Endpoints.getFavListing}' +
-              ref.watch(userProvider).user!.id.toString());
+          '${Endpoints.baseUrl}${Endpoints.getFavListing}${ref.watch(userProvider).user!.id}');
       return res.data;
     } catch (e) {
       rethrow;

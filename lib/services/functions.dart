@@ -9,7 +9,9 @@ import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 
 final postControllerProvider =
     Provider((ref) => PostData(ref, ref.read(dioClientProvider)));
@@ -226,15 +228,34 @@ class PostData {
     }
   }
 
-  Future reviewAdd(review) async {
+  Future reviewAdd(review, listingId) async {
     try {
+      final router = ref.watch(appRouterProvider);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.loading();
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/listings/add_review',
           data: review);
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfully submetted your review.");
+
+      if (res.data['responseCode'] == "1") {
+        ref.read(singleListingViewStateProvider.notifier).state =
+            const AsyncValue.data("Successfully submitted your review.");
+
+        ref.read(tempReviewsProvider.notifier).state.add(Reviews(
+              id: null,
+              datetime: DateTime.now().toString(),
+              listing_id: listingId,
+              reply_id: review['reply_id'],
+              user_id: ref.read(userProvider).user!.id.toString(),
+              message: ref.read(reviewMessageProvider),
+              image: null,
+              rating: ref.read(reviewRatingProvider),
+              firstname: ref.read(userProvider).user!.firstname.toString(),
+              lastname: ref.read(userProvider).user!.lastname.toString(),
+              user_image: ref.read(userProvider).user!.image.toString(),
+            ));
+      }
+
       return res.data;
     } catch (e) {
       ref.read(singleListingViewStateProvider.notifier).state =
