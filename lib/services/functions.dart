@@ -230,7 +230,6 @@ class PostData {
 
   Future reviewAdd(review, listingId) async {
     try {
-      final router = ref.watch(appRouterProvider);
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.loading();
       final res = await _dioClient.post(
@@ -238,22 +237,9 @@ class PostData {
           data: review);
 
       if (res.data['responseCode'] == "1") {
+        ref.refresh(reviewsProvider);
         ref.read(singleListingViewStateProvider.notifier).state =
             const AsyncValue.data("Successfully submitted your review.");
-
-        ref.read(tempReviewsProvider.notifier).state.add(Reviews(
-              id: null,
-              datetime: DateTime.now().toString(),
-              listing_id: listingId,
-              reply_id: review['reply_id'],
-              user_id: ref.read(userProvider).user!.id.toString(),
-              message: ref.read(reviewMessageProvider),
-              image: null,
-              rating: ref.read(reviewRatingProvider),
-              firstname: ref.read(userProvider).user!.firstname.toString(),
-              lastname: ref.read(userProvider).user!.lastname.toString(),
-              user_image: ref.read(userProvider).user!.image.toString(),
-            ));
       }
 
       return res.data;

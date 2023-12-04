@@ -94,10 +94,10 @@ class HomeService {
     }
   }
 
-  Future fetchAllItemListApiRequest() async {
+  Future fetchReviewsApiRequest(String listingId) async {
     try {
       final res = await _dioClient
-          .get("${Endpoints.baseUrl}${Endpoints.getAllListing}");
+          .get("${Endpoints.baseUrl}${Endpoints.getReviews}$listingId");
       return res.data;
     } catch (e) {
       rethrow;

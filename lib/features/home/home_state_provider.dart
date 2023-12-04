@@ -5,6 +5,7 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 
 class VendorNotifier extends StateNotifier<List<SearchResultItem>> {
@@ -166,18 +167,23 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
   }
 }
 
-class FindItemNotifier extends StateNotifier<List<SearchResultItem>> {
+class ReviewListNotifier extends StateNotifier<List<Reviews>> {
   final Ref ref;
 
-  FindItemNotifier({
+  ReviewListNotifier({
     required this.ref,
   }) : super([]) {
-    findItemFromList(ref: ref);
+    reviewList(ref: ref);
   }
 
-  Future findItemFromList({required Ref ref}) async {
+  Future reviewList({required Ref ref}) async {
     ref.read(isLoadingProvider.notifier).state = true;
-    await ref.read(homeControllerProvider).itemFindOnList().then((value) {
+    print('ref.read(currentListingIdProvider)');
+    print(ref.read(currentListingIdProvider));
+    await ref
+        .read(homeControllerProvider)
+        .fetchReviews(ref.watch(currentListingIdProvider))
+        .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
         state = value;

@@ -1779,7 +1779,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(tempReviewsProvider).forEach((element) {
+    ref.watch(reviewsProvider).forEach((element) {
       if (element.reply_id.toString() == 'null' &&
           element.listing_id.toString() == widget.listingId.toString()) {
         setState(() {
@@ -1789,8 +1789,7 @@ class _SingleItemReviewsState extends ConsumerState<SingleItemReviews> {
         });
       }
     });
-    // sortedReviews.addAll(ref.watch(tempReviewsProvider));
-    ref.watch(tempReviewsProvider).forEach((element) {
+    ref.watch(reviewsProvider).forEach((element) {
       if (element.reply_id.toString() != 'null' &&
           element.listing_id.toString() == widget.listingId.toString()) {
         setState(() {

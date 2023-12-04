@@ -115,6 +115,8 @@ class TopListing extends ConsumerWidget {
                     onTap: () async {
                       // AutoRouter.of(context)
                       //     .push(SingleView(vendor: null, topListing: wedding));
+                      ref.read(currentListingIdProvider.notifier).state =
+                          wedding.id.toString();
                       AutoRouter.of(context)
                           .push(SearchSingleView(item: wedding, type: 'top'));
                     },

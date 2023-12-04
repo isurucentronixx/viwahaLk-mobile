@@ -3,13 +3,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
-import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_notifications.dart';
@@ -177,11 +175,11 @@ class HomeController {
     }
   }
 
-  Future<List<SearchResultItem>> itemFindOnList() async {
+  Future<List<Reviews>> fetchReviews(String listingId) async {
     try {
-      final res = await homeService.fetchAllItemListApiRequest();
+      final res = await homeService.fetchReviewsApiRequest(listingId);
       final searchResult =
-          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+          (res as List).map((e) => Reviews.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

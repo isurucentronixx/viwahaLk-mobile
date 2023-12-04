@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -47,7 +48,6 @@ class SearchingListItem extends ConsumerWidget {
   }
 
   String timeAgoSinceDate(String date) {
-
     DateTime originalDateTime = DateTime.now(); // Your original date and time
     String deviceTimeZone = tz.local.name; // Device's time zone
     tz.TZDateTime deviceDateTime =
@@ -82,6 +82,7 @@ class SearchingListItem extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
+        ref.read(currentListingIdProvider.notifier).state = item.id.toString();
         AutoRouter.of(context).push(SearchSingleView(
             item: item,
             type: type == "myAd"

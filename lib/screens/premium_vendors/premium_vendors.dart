@@ -91,7 +91,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
         ),
         GestureDetector(
           onTap: () {
-             AutoRouter.of(context).push(const ViewAllPremiumsPage());
+            AutoRouter.of(context).push(const ViewAllPremiumsPage());
           },
           child: Container(
             decoration: BoxDecoration(
@@ -128,8 +128,10 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                 : "https://viwaha.lk/${vendor.image.toString()}";
             return GestureDetector(
               onTap: () {
+                ref.read(currentListingIdProvider.notifier).state =
+                    vendor.id.toString();
                 AutoRouter.of(context)
-                              .push(SearchSingleView(item: vendor, type: "all"));
+                    .push(SearchSingleView(item: vendor, type: "all"));
                 // AutoRouter.of(context)
                 //     .push(SingleView(vendor: vendor, topListing: null));
               },

@@ -285,6 +285,7 @@ class CardItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
+        ref.read(currentListingIdProvider.notifier).state = id.toString();
         if (type == 'vendor') {
           AutoRouter.of(context).push(SearchSingleView(
               item: ref
