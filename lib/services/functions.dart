@@ -9,7 +9,9 @@ import 'package:viwaha_lk/core/network/dio_client.dart';
 import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 
 final postControllerProvider =
     Provider((ref) => PostData(ref, ref.read(dioClientProvider)));
@@ -198,7 +200,7 @@ class PostData {
       ref.refresh(premiumBillProvider);
 
       ref.read(myListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Requested premium your listing.");
+          const AsyncValue.data("Successfully premium your listing.");
       ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
@@ -216,29 +218,34 @@ class PostData {
           'https://viwahaapp.viwaha.lk/api/profile/post_message',
           data: quote);
       ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Your request has been sent.");
+          const AsyncValue.data("Successfully submitted your request.");
 
       return res.data;
     } catch (e) {
       ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Requesting failed.");
+          const AsyncValue.data("Requesting failed");
       rethrow;
     }
   }
 
-  Future reviewAdd(review) async {
+  Future reviewAdd(review, listingId) async {
     try {
       ref.read(singleListingViewStateProvider.notifier).state =
           const AsyncValue.loading();
       final res = await _dioClient.post(
           'https://viwahaapp.viwaha.lk/api/listings/add_review',
           data: review);
-      ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Your review has been published.");
+
+      if (res.data['responseCode'] == "1") {
+        ref.refresh(reviewsProvider);
+        ref.read(singleListingViewStateProvider.notifier).state =
+            const AsyncValue.data("Successfully submitted your review.");
+      }
+
       return res.data;
     } catch (e) {
       ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Requesting failed.");
+          const AsyncValue.data("Requesting failed");
       rethrow;
     }
   }
@@ -255,7 +262,7 @@ class PostData {
       return res.data;
     } catch (e) {
       ref.read(singleListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Requesting failed.");
+          const AsyncValue.data("Requesting failed");
       rethrow;
     }
   }

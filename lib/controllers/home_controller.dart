@@ -3,13 +3,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/core/network/dio_exceptions.dart';
-import 'package:viwaha_lk/core/shared_provider/shared_providers.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/image/image.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_dashboard.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_messages.dart';
 import 'package:viwaha_lk/models/user_dashboard/user_notifications.dart';
@@ -24,6 +22,7 @@ final mainImageNameProvider = StateProvider<String>((ref) => '');
 final paginateIndexProvider = StateProvider<int>((ref) => 1);
 final imageGalleryProvider = StateProvider<List<ImageObject>>((ref) => []);
 final imageNameGalleryProvider = StateProvider<List<String>>((ref) => []);
+final isLoadingProvider = StateProvider<bool>((ref) => false);
 final myListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));
 final singleListingViewStateProvider =
@@ -73,11 +72,12 @@ class HomeController {
 
   HomeController(this.homeService);
 
-  Future<List<Vendor>> fetchVendorList(userId) async {
+  Future<List<SearchResultItem>> fetchVendorList(userId) async {
     try {
       final res = await homeService.fetchVendorListApiRequest(userId);
 
-      final vendor = (res as List).map((e) => Vendor.fromJson(e)).toList();
+      final vendor =
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
       return vendor;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -86,12 +86,12 @@ class HomeController {
     }
   }
 
-  Future<List<TopListing>> fetchTopWeddingList(String userId) async {
+  Future<List<SearchResultItem>> fetchTopWeddingList(String userId) async {
     try {
       final res = await homeService.fetchTopWeddingListApiRequest(userId);
       final topListing =
-          (res as List).map((e) => TopListing.fromJson(e)).toList();
-      
+          (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+
       return topListing;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
@@ -167,6 +167,19 @@ class HomeController {
           pageId);
       final searchResult =
           (res as List).map((e) => SearchResultItem.fromJson(e)).toList();
+      return searchResult;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<List<Reviews>> fetchReviews(String listingId) async {
+    try {
+      final res = await homeService.fetchReviewsApiRequest(listingId);
+      final searchResult =
+          (res as List).map((e) => Reviews.fromJson(e)).toList();
       return searchResult;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

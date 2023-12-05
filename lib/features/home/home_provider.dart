@@ -9,9 +9,8 @@ import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/main_slider/main_slider_model.dart';
-import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
-import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:viwaha_lk/services/home_service.dart';
 
 final isSearchingProvider = StateProvider<bool>((ref) => false);
@@ -21,6 +20,7 @@ final selectedSubLocationProvider =
     StateProvider<SubLocation>((ref) => const SubLocation());
 final selectedMainCategoryProvider = StateProvider<String>((ref) => "");
 final selectedMainLocationProvider = StateProvider<String>((ref) => "");
+final currentListingIdProvider = StateProvider<String>((ref) => "");
 
 final isActivatedProvider = StateProvider<bool>((ref) => false);
 final isLocationActivatedProvider = StateProvider<bool>((ref) => false);
@@ -43,12 +43,12 @@ final homeControllerProvider = Provider<HomeController>((ref) {
 });
 
 final vendorsProvider =
-    StateNotifierProvider<VendorNotifier, List<Vendor>>((ref) {
+    StateNotifierProvider<VendorNotifier, List<SearchResultItem>>((ref) {
   return VendorNotifier(ref: ref);
 });
 
 final topListingProvider =
-    StateNotifierProvider<TopListingNotifier, List<TopListing>>((ref) {
+    StateNotifierProvider<TopListingNotifier, List<SearchResultItem>>((ref) {
   return TopListingNotifier(ref: ref);
 });
 
@@ -70,6 +70,13 @@ final locationsProvider =
 final searchResultProvider =
     StateNotifierProvider<SearchResultNotifier, List<SearchResultItem>>((ref) {
   return SearchResultNotifier(
+    ref: ref,
+  );
+});
+
+final reviewsProvider =
+    StateNotifierProvider<ReviewListNotifier, List<Reviews>>((ref) {
+  return ReviewListNotifier(
     ref: ref,
   );
 });

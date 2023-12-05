@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
@@ -75,6 +76,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          initialValue:
+                              '${ref.read(userProvider).user!.firstname}  ${ref.read(userProvider).user!.lastname ?? ''}',
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
@@ -123,6 +126,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          initialValue:
+                              ref.read(userProvider).user!.email ?? '',
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
@@ -171,6 +176,8 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          initialValue:
+                              ref.read(userProvider).user!.phone ?? '',
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
@@ -341,24 +348,6 @@ showRequestQuoteForm(BuildContext context, WidgetRef ref,
                         };
                         Navigator.pop(context);
                         controller.requestQuote(formDetails);
-                        // .then((value) => {
-                        //       (ScaffoldMessenger.of(context))
-                        //         ..hideCurrentSnackBar()
-                        //         ..showSnackBar(SnackBar(
-                        //           elevation: 0,
-                        //           behavior: SnackBarBehavior.floating,
-                        //           backgroundColor: Colors.transparent,
-                        //           content: AwesomeSnackbarContent(
-                        //             title: 'Success!',
-                        //             message: value['responseMessage'],
-                        //             inMaterialBanner: true,
-
-                        //             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                        //             contentType: ContentType.success,
-                        //             color: ViwahaColor.primary,
-                        //           ),
-                        //         )),
-                        //     });
                       },
                       child: const Text('Submit'),
                     ),

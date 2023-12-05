@@ -33,7 +33,7 @@ class ViewAllPremiumsPage extends ConsumerStatefulWidget {
 }
 
 class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
-  List<Vendor> searchingResult = [];
+  List<SearchResultItem> searchingResult = [];
 
   bool isAddLoading = false;
   final scrollController = ScrollController();

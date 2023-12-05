@@ -1,18 +1,29 @@
 import 'dart:ui';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
+import 'package:viwaha_lk/models/reviews/reviews.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/services/functions.dart';
 
 final reviewNameProvider = StateProvider<String>((ref) => '');
 final reviewEmailProvider = StateProvider<String>((ref) => '');
 final reviewMessageProvider = StateProvider<String>((ref) => '');
 final reviewRatingProvider = StateProvider<String>((ref) => '');
+final tempReviewsProvider = StateProvider<List<Reviews>>((ref) => []);
 
 showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
-    {required String userId, required String listingId}) {
+    {required String userId,
+    required String listingId,
+    required dynamic item}) {
   showModalBottomSheet<void>(
     isScrollControlled: true,
     context: context,
@@ -62,7 +73,6 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                         )),
                   ],
                 ),
-
                 Expanded(
                     child: SingleChildScrollView(
                   padding: const EdgeInsets.only(top: 16),
@@ -72,6 +82,9 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          readOnly: true,
+                          initialValue:
+                              '${ref.read(userProvider).user!.firstname}  ${ref.read(userProvider).user!.lastname ?? ''}',
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
@@ -120,6 +133,9 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          readOnly: true,
+                          initialValue:
+                              ref.read(userProvider).user!.email ?? '',
                           onTapOutside: (event) =>
                               FocusScope.of(context).unfocus(),
                           focusNode: FocusNode(canRequestFocus: false),
@@ -213,6 +229,9 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       Center(
                         child: RatingBar.builder(
                           initialRating: 0,
@@ -243,7 +262,7 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                   child: SizedBox(
                     width: double.infinity, // Full width
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         ref
                             .read(singleListingViewStateProvider.notifier)
                             .state = const AsyncValue.loading();
@@ -251,13 +270,30 @@ showReviewForm(BuildContext context, WidgetRef ref, String? replyId,
                           "id": userId,
                           "listing_id": listingId,
                           "reply_id": replyId,
-                          "name": ref.read(reviewNameProvider),
-                          "email": ref.read(reviewEmailProvider),
+                          "name":
+                              '${ref.read(userProvider).user!.firstname}  ${ref.read(userProvider).user!.lastname ?? ''}',
+                          "email": ref.read(userProvider).user!.email,
                           "message": ref.read(reviewMessageProvider),
                           "rating": ref.read(reviewRatingProvider),
                         };
                         Navigator.pop(context);
-                        controller.reviewAdd(formDetails);
+                        await controller.reviewAdd(formDetails, listingId);
+
+                        // if (ref.read(isLoadingProvider) == true) {
+                        // ref
+                        //     .read(singleListingViewStateProvider.notifier)
+                        //     .state =
+                        // const AsyncValue.data(
+                        //     "Successfully submitted your review.");
+                        // router.push(SearchSingleView(
+                        //     item: ref
+                        //         .watch(findItemProvider)
+                        //         .where((element) =>
+                        //             listingId.toString() ==
+                        //             element.id.toString())
+                        //         .first,
+                        //     type: "all"));
+                        // }
                       },
                       child: const Text('Add Review'),
                     ),

@@ -136,6 +136,8 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
 
     return GestureDetector(
       onTap: () {
+         ref.read(currentListingIdProvider.notifier).state =
+                          widget.id.toString();
         AutoRouter.of(context).push(SearchSingleView(
             item: ref
                 .watch(myListingProvider)

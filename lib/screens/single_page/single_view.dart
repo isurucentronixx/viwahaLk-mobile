@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
@@ -72,12 +73,6 @@ class _SingleViewState extends ConsumerState<SingleView> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
     setState(() {
@@ -89,6 +84,7 @@ class _SingleViewState extends ConsumerState<SingleView> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(singleListingViewStateProvider);
     ref.listen<AsyncValue>(singleListingViewStateProvider, (_, state) {
       state.whenData((items) {
         bool isSuccessfull =
@@ -110,110 +106,116 @@ class _SingleViewState extends ConsumerState<SingleView> {
           ..showSnackBar(snackBar);
       });
     });
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    AutoRouter.of(context).push(const HomePage());
-                  },
-                  child: SizedBox(
-                    width: 100,
-                    child: Assets.lib.assets.images.logo.image(),
+    return LoadingOverlay(
+      isLoading: state.maybeWhen(loading: () => true, orElse: () => false),
+      color: Colors.white,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).push(const HomePage());
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      child: Assets.lib.assets.images.logo.image(),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
-        title: Text(widget.vendor?.title ?? widget.topListing!.title!),
-      ),
-      // drawer: const DrawerMenu(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            SliderView(
-              widget.vendor?.images.toString() ??
-                  widget.topListing!.images.toString(),
-              widget.type.toString(),
-              widget.vendor?.main_category.toString() ??
-                  widget.topListing!.main_category.toString(),
+              ],
             ),
-            const SizedBox(height: 20),
-            SingleItemOverview(
-                widget.vendor?.datetime.toString() ??
-                    widget.topListing!.datetime.toString(),
-                widget.vendor?.location.toString() ??
-                    widget.topListing!.location.toString(),
-                widget.vendor?.title.toString() ??
-                    widget.topListing!.title.toString(),
-                widget.vendor?.views.toString() ??
-                    widget.topListing!.views!.toString(),
+          ],
+          title: Text(widget.vendor?.title ?? widget.topListing!.title!),
+        ),
+        // drawer: const DrawerMenu(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              SliderView(
+                widget.vendor?.images.toString() ??
+                    widget.topListing!.images.toString(),
                 widget.type.toString(),
-                widget.vendor?.id.toString() ??
-                    widget.topListing!.id!.toString(),
-                widget.vendor ?? widget.topListing,
-                widget.vendor?.boosted.toString() ??
-                    widget.topListing!.boosted.toString()),
-            (widget.vendor?.main_category.toString() ??
-                        widget.topListing!.main_category!.toString()) ==
-                    "Proposal"
-                ? SingleItemProposal(widget.vendor ?? widget.topListing)
-                : (widget.vendor?.amenities.toString() ??
-                            widget.topListing!.amenities!.toString()) !=
-                        ""
-                    ? SingleItemAmenities(widget.vendor?.amenities.toString() ??
-                        widget.topListing!.amenities.toString())
-                    : const SizedBox(),
-            SingleItemDescription(
-                widget.vendor?.description.toString() ??
-                    widget.topListing!.description.toString(),
                 widget.vendor?.main_category.toString() ??
                     widget.topListing!.main_category.toString(),
-                widget.vendor?.video.toString() ??
-                    widget.topListing!.video.toString()),
-            SingleItemContactInfo(
-              widget.vendor?.main_category.toString() ??
-                  widget.topListing!.main_category.toString(),
-              widget.vendor?.phone.toString() ??
-                  widget.topListing!.phone.toString(),
-              widget.vendor?.phone.toString() ??
-                  widget.topListing!.phone.toString(),
-              widget.vendor?.address.toString() ??
-                  widget.topListing!.address.toString(),
-              widget.vendor?.email.toString() ??
-                  widget.topListing!.email.toString(),
-              widget.vendor?.facebook.toString() ??
-                  widget.topListing!.facebook.toString(),
-              widget.vendor?.whatsapp.toString() ??
-                  widget.topListing!.whatsapp.toString(),
-              widget.vendor?.instagram.toString() ??
-                  widget.topListing!.instagram.toString(),
-              widget.vendor?.linkedin.toString() ??
-                  widget.topListing!.linkedin.toString(),
-              widget.vendor?.user_id.toString() ??
-                  widget.topListing!.user_id.toString(),
-            ),
-            SingleItemOpeningHours(widget.vendor ?? widget.topListing),
-            SingleItemMap(googlePlace),
-            if (reviews.isNotEmpty)
-              SingleItemReviews(
-                  reviews,
-                  widget.vendor?.average_rating.toString() ??
-                      widget.topListing!.average_rating.toString(),
+              ),
+              const SizedBox(height: 20),
+              SingleItemOverview(
+                  widget.vendor?.datetime.toString() ??
+                      widget.topListing!.datetime.toString(),
+                  widget.vendor?.location.toString() ??
+                      widget.topListing!.location.toString(),
+                  widget.vendor?.title.toString() ??
+                      widget.topListing!.title.toString(),
+                  widget.vendor?.views.toString() ??
+                      widget.topListing!.views!.toString(),
+                  widget.type.toString(),
                   widget.vendor?.id.toString() ??
-                      widget.topListing!.id.toString(),
-                  ref),
-            SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing'),
-            SingleItemOtherLatest(
-                widget.vendor != null ? 'vendor' : 'topListing')
-          ],
+                      widget.topListing!.id!.toString(),
+                  widget.vendor ?? widget.topListing,
+                  widget.vendor?.boosted.toString() ??
+                      widget.topListing!.boosted.toString()),
+              (widget.vendor?.main_category.toString() ??
+                          widget.topListing!.main_category!.toString()) ==
+                      "Proposal"
+                  ? SingleItemProposal(widget.vendor ?? widget.topListing)
+                  : (widget.vendor?.amenities.toString() ??
+                              widget.topListing!.amenities!.toString()) !=
+                          ""
+                      ? SingleItemAmenities(
+                          widget.vendor?.amenities.toString() ??
+                              widget.topListing!.amenities.toString())
+                      : const SizedBox(),
+              SingleItemDescription(
+                  widget.vendor?.description.toString() ??
+                      widget.topListing!.description.toString(),
+                  widget.vendor?.main_category.toString() ??
+                      widget.topListing!.main_category.toString(),
+                  widget.vendor?.video.toString() ??
+                      widget.topListing!.video.toString()),
+              SingleItemContactInfo(
+                widget.vendor?.main_category.toString() ??
+                    widget.topListing!.main_category.toString(),
+                widget.vendor?.phone.toString() ??
+                    widget.topListing!.phone.toString(),
+                widget.vendor?.phone.toString() ??
+                    widget.topListing!.phone.toString(),
+                widget.vendor?.address.toString() ??
+                    widget.topListing!.address.toString(),
+                widget.vendor?.email.toString() ??
+                    widget.topListing!.email.toString(),
+                widget.vendor?.facebook.toString() ??
+                    widget.topListing!.facebook.toString(),
+                widget.vendor?.whatsapp.toString() ??
+                    widget.topListing!.whatsapp.toString(),
+                widget.vendor?.instagram.toString() ??
+                    widget.topListing!.instagram.toString(),
+                widget.vendor?.linkedin.toString() ??
+                    widget.topListing!.linkedin.toString(),
+                widget.vendor?.user_id.toString() ??
+                    widget.topListing!.user_id.toString(),
+              ),
+              SingleItemOpeningHours(widget.vendor ?? widget.topListing),
+              SingleItemMap(googlePlace),
+              if (reviews.isNotEmpty)
+                SingleItemReviews(
+                    reviews,
+                    widget.vendor?.average_rating.toString() ??
+                        widget.topListing!.average_rating.toString(),
+                    widget.vendor?.id.toString() ??
+                        widget.topListing!.id.toString(),
+                    ref,
+                    widget.vendor ?? widget.topListing),
+              SingleItemLatest(widget.vendor != null ? 'vendor' : 'topListing'),
+              SingleItemOtherLatest(
+                  widget.vendor != null ? 'vendor' : 'topListing')
+            ],
+          ),
         ),
       ),
     );

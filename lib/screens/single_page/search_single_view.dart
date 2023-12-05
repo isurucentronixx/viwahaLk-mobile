@@ -9,6 +9,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/reviews/reviews.dart';
 import 'package:viwaha_lk/screens/latest_items/latest.dart';
@@ -16,6 +17,7 @@ import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/my_listings/my_listings.dart';
 import 'package:viwaha_lk/screens/other_latest_items/other_latest.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/screens/single_page/single_page_content/single_page_content.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
 
@@ -56,7 +58,6 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
       } else {
         googlePlace = widget.item!.googleplace!;
       }
-      reviews.addAll(widget.item!.reviews!);
     });
 
     super.initState();
@@ -64,6 +65,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
 
   @override
   Widget build(BuildContext context) {
+    reviews.addAll(ref.watch(reviewsProvider));
     final appRouter = ref.watch(appRouterProvider);
     final picker = ImagePicker();
     final state = ref.watch(singleListingViewStateProvider);
@@ -360,7 +362,8 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                           reviews,
                           widget.item!.average_rating.toString(),
                           widget.item!.id.toString(),
-                          ref),
+                          ref,
+                          widget.item!),
                     const SingleItemLatest('topListing'),
                     const SingleItemOtherLatest('topListing')
                   ],

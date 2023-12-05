@@ -9,8 +9,10 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
+import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
 import 'package:intl/intl.dart';
+import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 
 import 'package:timezone/timezone.dart' as tz;
@@ -26,8 +28,8 @@ class SingleItemOtherLatest extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Vendor> premiumVendorsList = [];
-    List<TopListing> topListingList = [];
+    List<SearchResultItem> premiumVendorsList = [];
+    List<SearchResultItem> topListingList = [];
     List<CardModel> cardList = [];
     final data = ref.watch(vendorsProvider);
     // final data = ref.watch(topListingProvider);
@@ -190,6 +192,7 @@ class SingleItemOtherLatest extends ConsumerWidget {
                           child: GestureDetector(
                             onTap: () {
                               if (ref.watch(isloginProvider)) {
+                                ref.read(tempReviewsProvider).clear();
                                 ref.refresh(allListingProvider);
                               }
                               ref.read(isSearchingProvider.notifier).state =
@@ -282,29 +285,21 @@ class CardItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        final data = type == 'vendor'
-            ? ref
-                .watch(vendorsProvider)
-                .where((element) => title == element.title)
-                .first
-            : ref
-                .watch(topListingProvider)
-                .where((element) => title == element.title);
+        ref.read(currentListingIdProvider.notifier).state = id.toString();
         if (type == 'vendor') {
-          AutoRouter.of(context).push(SingleView(
-              vendor: ref
+          AutoRouter.of(context).push(SearchSingleView(
+              item: ref
                   .watch(vendorsProvider)
-                  .where((element) => title == element.title)
+                  .where((element) => id == element.id)
                   .first,
-              topListing: null));
+              type: "vendor"));
         } else {
-          AutoRouter.of(context).push(SingleView(
-            vendor: null,
-            topListing: ref
-                .watch(topListingProvider)
-                .where((element) => title == element.title)
-                .first,
-          ));
+          AutoRouter.of(context).push(SearchSingleView(
+              item: ref
+                  .watch(topListingProvider)
+                  .where((element) => id == element.id)
+                  .first,
+              type: "top"));
         }
       },
       child: Container(
