@@ -12,7 +12,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const apiKey =
-        'AIzaSyD856KsYNpA6N-1dTKmwOl_TnnEk7NrTYc'; // Replace with your Google API key
+        'AIzaSyAYCVpfGfpnnSaKi8Qghj4XelVaf_IVqJQ'; // Replace with your Google API key
     final encodedAddress =
         Uri.encodeComponent("1313 high-level, road, Colombo, Sri Lanka");
 
