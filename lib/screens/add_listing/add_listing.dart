@@ -3069,19 +3069,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                                   image.path));
                                                     });
                                                   }),
-                                                  // print(value)
-                                                  // image = File(value.path),
-                                                  // imageUpload(image, value.name,
-                                                  //     "gallery"),
-                                                  // setState(() {
-                                                  //   ref
-                                                  //       .read(
-                                                  //           imageGalleryProvider)
-                                                  //       .add(ImageObject(
-                                                  //           path: value.path));
-                                                  // })
-                                                  print("images"),
-                                                  print(images),
                                                 }
                                             });
                                   },
@@ -3165,10 +3152,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                                     .removeAt(
                                                                         index);
                                                               });
-                                                              print(ref.read(
-                                                                  imageGalleryProvider));
-                                                              print(ref.read(
-                                                                  imageNameGalleryProvider));
                                                             },
                                                             child: const Icon(
                                                               Icons

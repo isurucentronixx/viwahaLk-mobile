@@ -295,7 +295,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           ref.read(imageNameGalleryProvider).clear();
                           ref.read(mainImageProvider.notifier).state = "";
                           ref.read(imageGalleryProvider).clear();
-                          print("ASDSADASDSADSD");
+
                           router.push(AddListingPage(isAppBar: true));
                         }),
                     const SizedBox(

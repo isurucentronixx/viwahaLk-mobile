@@ -105,8 +105,7 @@ class HomeController {
       final res = await homeService.fetchSliderImagesRequest();
       final sliderImages =
           (res as List).map((e) => MainSlider.fromJson(e)).toList();
-      // res as List<String>;
-      print(sliderImages);
+
       return sliderImages;
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);

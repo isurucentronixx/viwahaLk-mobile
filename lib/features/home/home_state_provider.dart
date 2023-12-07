@@ -178,8 +178,7 @@ class ReviewListNotifier extends StateNotifier<List<Reviews>> {
 
   Future reviewList({required Ref ref}) async {
     ref.read(isLoadingProvider.notifier).state = true;
-    print('ref.read(currentListingIdProvider)');
-    print(ref.read(currentListingIdProvider));
+
     await ref
         .read(homeControllerProvider)
         .fetchReviews(ref.watch(currentListingIdProvider))

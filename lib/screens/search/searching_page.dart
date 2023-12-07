@@ -748,7 +748,6 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                       _priceDropdownSearchKey.currentState
                                           ?.clear();
                                     });
-                                    print(_price);
                                   },
                                   modalType: S2ModalType.bottomSheet,
                                   tileBuilder: (context, state) {

@@ -1375,7 +1375,7 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
   @override
   Widget build(BuildContext context) {
     int whatsappIndexOf0 = widget.whatsapp.trim().indexOf("0");
-    print(whatsappIndexOf0);
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -1464,7 +1464,6 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                   ? Container()
                   : GestureDetector(
                       onTap: () {
-                        print(widget.email.replaceAll(' ', ''));
                         launchUrl(Uri.parse(
                             "mailto:${widget.email.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
                       },

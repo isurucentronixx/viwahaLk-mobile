@@ -621,8 +621,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
     imagePaths.forEach((element) async {
       ref.read(imageNameGalleryProvider).add(element.substring(18));
     });
-    print(ref.read(imageNameGalleryProvider));
-    print(ref.read(mainImageNameProvider));
 
     _cat = item!.main_category ?? 'Select one';
     _gender = widget.item!.gender ?? 'Select one';
@@ -716,7 +714,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
       }
 
       final res = await controller.imageUpload(image, name, type);
-      print(res);
+
       setState(() {
         if (res['responseCode'].toString() == "1") {
           if (type == "gallery") {
@@ -727,8 +725,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                 res['imageUrl'].toString();
             ref.read(isLoadingMainImageProvider.notifier).state = false;
           }
-          print(ref.read(imageNameGalleryProvider));
-          print(ref.read(mainImageNameProvider));
         }
       });
     }
@@ -3277,10 +3273,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                                                   .removeAt(
                                                                       index);
                                                             });
-                                                            print(ref.read(
-                                                                imageGalleryProvider));
-                                                            print(ref.read(
-                                                                imageNameGalleryProvider));
                                                           },
                                                           child: const Icon(
                                                             Icons.remove_circle,
@@ -5876,8 +5868,6 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
                                       newList, widget.item!.id);
                                 }
                               }
-                              print(ref.read(imageNameGalleryProvider));
-                              // print(ref.read(mainImageNameProvider));
 
                               // PostData.addNewListing(newList);
                             },

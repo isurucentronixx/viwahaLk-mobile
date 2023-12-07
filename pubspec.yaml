@@ -3,7 +3,10 @@ description: ViwahaLk.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
  
-version: 1.0.0+11
+#  ios version
+# version: 1.0.0+15
+# android version
+version: 7.0.0+01
 
 environment:
   sdk: '>=2.19.6 <3.0.0'

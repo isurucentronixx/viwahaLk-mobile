@@ -20,27 +20,6 @@ class _LoginOldState extends State<LoginOld> {
   bool _isLoggedIn = false;
   Map<String, dynamic> _userObj = {};
 
-  // Future<void> loginWithFacebook(BuildContext context) async {
-  //   final LoginResult result = await FacebookAuth.instance.login(
-  //     permissions: ["public_profile", "email"],
-  //   );
-
-  //   switch (result.status) {
-  //     case LoginStatus.success:
-  //       final AccessToken accessToken = result.accessToken!;
-  //       await authenticateWithViwaha(accessToken.token);
-  //       break;
-  //     case LoginStatus.cancelled:
-  //       print('Facebook login cancelled.');
-  //       break;
-  //     case LoginStatus.failed:
-  //       print('Facebook login failed: ${result.message}');
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
   Future<void> authenticateWithViwaha(String facebookAccessToken) async {
     final url =
         Uri.parse('https://viwahaapp.nikhilaholdings.lk/login/facebook');

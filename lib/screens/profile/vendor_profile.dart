@@ -263,8 +263,6 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                                       ? (vendor.email != "")
                                           ? GestureDetector(
                                               onTap: () {
-                                                print(vendor.email!
-                                                    .replaceAll(' ', ''));
                                                 launchUrl(Uri.parse(
                                                     "mailto:${vendor.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
                                               },
@@ -358,7 +356,6 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
                             inputList: [
                               GestureDetector(
                                 onTap: () {
-                                  print(vendor.email!.replaceAll(' ', ''));
                                   launchUrl(Uri.parse(
                                       "mailto:${vendor.email!.replaceAll(' ', '')}?subject=subject&body=body"));
                                 },

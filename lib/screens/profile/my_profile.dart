@@ -171,12 +171,11 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                   : const SizedBox(),
                               user.email != null
                                   ? GestureDetector(
-                                    onTap: () {
-                                        print(user.email!.replaceAll(' ', ''));
+                                      onTap: () {
                                         launchUrl(Uri.parse(
                                             "mailto:${user.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
                                       },
-                                    child: ListTile(
+                                      child: ListTile(
                                         title: Text(LocaleKeys.email.tr(),
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -188,7 +187,7 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                                 fontSize: 18),
                                             textAlign: TextAlign.start),
                                       ),
-                                  )
+                                    )
                                   : const SizedBox(),
                               user.address != null
                                   ? ListTile(
@@ -241,7 +240,6 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
                                 inputList: [
                                     GestureDetector(
                                       onTap: () {
-                                        print(user.email!.replaceAll(' ', ''));
                                         launchUrl(Uri.parse(
                                             "mailto:${user.email!.replaceAll(' ', '')}?subject=From ViwahaLK APP&body="));
                                       },

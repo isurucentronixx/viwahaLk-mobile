@@ -160,9 +160,7 @@ class _LoginState extends ConsumerState<Login> {
                         //     usernameController.text;
                         // ref.read(passwordProvider.notifier).state =
                         //     passwordController.text;
-                        print(ref.read(usernameProvider));
-                        print(usernameController.text);
-                        print("*********************************************");
+
                         ref.refresh(loginProvider);
                       }
                     },
