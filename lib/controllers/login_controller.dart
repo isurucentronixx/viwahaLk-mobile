@@ -85,7 +85,7 @@ class LoginController {
       rethrow;
     }
   }
-
+ 
   Future<UserModel> fetchAppleUser({
     required String authToken,
     required String? displayName,
