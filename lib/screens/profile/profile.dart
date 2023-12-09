@@ -30,8 +30,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final user = ref.watch(userProvider).user;
     final router = ref.watch(appRouterProvider);
     void _copyReferralLink(BuildContext context) {
-      String referralLink =
-          'https://viwaha.lk/register?ref=${user!.id}'; // Replace with your actual link
+      String referralLink = 'https://viwaha.lk/register?ref=${user!.id}';
       Clipboard.setData(ClipboardData(text: referralLink));
 
       SnackBar snackBar = SnackBar(

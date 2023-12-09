@@ -77,217 +77,223 @@ class _LoginState extends ConsumerState<Login> {
                 title: const Text('Login'),
               )
             : null,
-        body: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      width: 200.0,
-                      height: 100.0,
-                      child: Assets.lib.assets.images.colorLogo.image(),
-                    ),
-                    const SizedBox(height: 20.0),
-                  ],
-                ),
-                const SizedBox(
-                  child: Center(),
-                ),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    focusNode: FocusNode(canRequestFocus: false),
-                    // controller: usernameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                    ),
-                    onChanged: (value) {
-                      // usernameController.text = value;
-                      ref.read(usernameProvider.notifier).state = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your Username';
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: TextFormField(
-                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                    focusNode: FocusNode(canRequestFocus: false),
-                    // controller: passwordController,
-                    obscureText: obscureText,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          obscureText ? Icons.visibility : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                          });
-                        },
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 200.0,
+                        height: 100.0,
+                        child: Assets.lib.assets.images.colorLogo.image(),
                       ),
+                      const SizedBox(height: 20.0),
+                    ],
+                  ),
+                  const SizedBox(
+                    child: Center(),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: TextFormField(
+                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                      focusNode: FocusNode(canRequestFocus: false),
+                      // controller: usernameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Username',
+                      ),
+                      onChanged: (value) {
+                        // usernameController.text = value;
+                        ref.read(usernameProvider.notifier).state = value;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Username';
+                        }
+                      },
                     ),
-                    onChanged: (value) {
-                      // passwordController.text = value;
+                  ),
+                  const SizedBox(height: 20.0),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: TextFormField(
+                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                      focusNode: FocusNode(canRequestFocus: false),
+                      // controller: passwordController,
+                      obscureText: obscureText,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                        ),
+                      ),
+                      onChanged: (value) {
+                        // passwordController.text = value;
 
-                      ref.read(passwordProvider.notifier).state = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your Password';
-                      }
-                    },
+                        ref.read(passwordProvider.notifier).state = value;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Password';
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40.0),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        ref.read(loginViewStateProvider.notifier).state =
-                            const AsyncValue.loading();
-                        // ref.read(usernameProvider.notifier).state =
-                        //     usernameController.text;
-                        // ref.read(passwordProvider.notifier).state =
-                        //     passwordController.text;
+                  const SizedBox(height: 40.0),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          ref.read(loginViewStateProvider.notifier).state =
+                              const AsyncValue.loading();
+                          // ref.read(usernameProvider.notifier).state =
+                          //     usernameController.text;
+                          // ref.read(passwordProvider.notifier).state =
+                          //     passwordController.text;
 
-                        ref.refresh(loginProvider);
-                      }
-                    },
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      LocaleKeys.sign_in.tr(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ViwahaColor.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                          ref.refresh(loginProvider);
+                        }
+                      },
+                      icon: Icon(
+                        Icons.login,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        LocaleKeys.sign_in.tr(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ViwahaColor.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                FractionallySizedBox(
-                  widthFactor: 0.8,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      // Perform login logic here
-                      AutoRouter.of(context).push(const Register());
-                    },
-                    icon: const Icon(Icons.app_registration),
-                    label: Text(LocaleKeys.create_account.tr()),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                  SizedBox(height: 10),
+                  FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        // Perform login logic here
+                        AutoRouter.of(context).push(const Register());
+                      },
+                      icon: const Icon(Icons.app_registration),
+                      label: Text(LocaleKeys.create_account.tr()),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20.0),
-                const Text(
-                  "OR",
-                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.normal),
-                ),
-                const SizedBox(height: 20.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Perform Google sign-in logic here
-                          googleSignIn(context, ref);
-                        },
-                        icon: SizedBox(
-                            width: 20,
-                            child: Assets.lib.assets.images.googleLogo.image()),
-                        label: Text(LocaleKeys.sign_with_google.tr()),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 14.0),
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Perform Google sign-in logic here
-                          appleSignIn(context, ref);
-                        },
-                        icon: SizedBox(
-                            width: 20,
-                            child: Assets.lib.assets.images.appleLogo.image()),
-                        label: Text(
-                          LocaleKeys.sign_with_apple.tr(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.black,
+                  const SizedBox(height: 20.0),
+                  const Text(
+                    "OR",
+                    style: TextStyle(fontSize: 16, fontStyle: FontStyle.normal),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FractionallySizedBox(
+                        widthFactor: 0.8,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            // Perform Google sign-in logic here
+                            googleSignIn(context, ref);
+                          },
+                          icon: SizedBox(
+                              width: 20,
+                              child:
+                                  Assets.lib.assets.images.googleLogo.image()),
+                          label: Text(LocaleKeys.sign_with_google.tr()),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            side: const BorderSide(
+                              color: Colors.blue,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // FractionallySizedBox(
-                    //   widthFactor: 0.8,
-                    //   child: ElevatedButton.icon(
-                    //     onPressed: () {
-                    //       // AutoRouter.of(context).push(FacebookLogin());
-                    //       // loginWithFacebook(context);
-                    //     },
-                    //     icon: SizedBox(
-                    //         width: 20,
-                    //         child: Assets.lib.assets.images.facebook.image()),
-                    //     label: const Text('Sign in with Facebook'),
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: Colors.white,
-                    //       foregroundColor: Colors.black,
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(8.0),
-                    //       ),
-                    //       side: const BorderSide(
-                    //         color: Colors.blue,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 14.0),
+                      FractionallySizedBox(
+                        widthFactor: 0.8,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            // Perform Google sign-in logic here
+                            appleSignIn(context, ref);
+                          },
+                          icon: SizedBox(
+                              width: 20,
+                              child:
+                                  Assets.lib.assets.images.appleLogo.image()),
+                          label: Text(
+                            LocaleKeys.sign_with_apple.tr(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            side: const BorderSide(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // FractionallySizedBox(
+                      //   widthFactor: 0.8,
+                      //   child: ElevatedButton.icon(
+                      //     onPressed: () {
+                      //       // AutoRouter.of(context).push(FacebookLogin());
+                      //       // loginWithFacebook(context);
+                      //     },
+                      //     icon: SizedBox(
+                      //         width: 20,
+                      //         child: Assets.lib.assets.images.facebook.image()),
+                      //     label: const Text('Sign in with Facebook'),
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.white,
+                      //       foregroundColor: Colors.black,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(8.0),
+                      //       ),
+                      //       side: const BorderSide(
+                      //         color: Colors.blue,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -319,38 +325,44 @@ class GoogleSignInApi {
   static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 }
 
-Future appleSignIn(BuildContext context, WidgetRef ref) async {
-  final controller = ref.read(loginControllerProvider);
-  final appRouter = ref.watch(appRouterProvider);
+Future<void> appleSignIn(BuildContext context, WidgetRef ref) async {
+  try {
+    final controller = ref.read(loginControllerProvider);
 
-  // SignInWithAppleButton(
-  //   onPressed: () async {
-  //     final credential = await SignInWithApple.getAppleIDCredential(
-  //       scopes: [
-  //         AppleIDAuthorizationScopes.email,
-  //         AppleIDAuthorizationScopes.fullName,
-  //       ],
-  //     );
-
-  //     print(credential);
-  //   },
-  // );
-
-  final user = await await SignInWithApple.getAppleIDCredential(
-    scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName,
-    ],
-  );
-  if (user != null) {
-    final res = await controller.fetchAppleUser(
-      displayName: user.givenName,
-      email: user.email,
+    final user = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
     );
+    if (user != null) {
+      final res = await controller.fetchAppleUser(
+        authToken: user.userIdentifier!,
+        displayName: user.givenName,
+        email: user.email,
+      );
 
-    ref.read(userProvider.notifier).state = res;
-    ref.read(isloginProvider.notifier).state = true;
-    // ignore: use_build_context_synchronously
-    AutoRouter.of(context).push(const HomePage());
-  } else {}
+      ref.read(userProvider.notifier).state = res;
+
+      ref.read(isloginProvider.notifier).state = true;
+      AutoRouter.of(context).push(const HomePage());
+    } else {}
+  } catch (e) {
+    final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: "Apple Login Failed",
+          message:
+              "Something went wrong with your login details. Please check and log in again.",
+          inMaterialBanner: false,
+          contentType: ContentType.success,
+          color: Colors.red,
+        ));
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+    print("Error during Apple Sign In: $e");
+  }
 }

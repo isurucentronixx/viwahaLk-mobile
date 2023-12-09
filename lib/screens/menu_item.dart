@@ -179,7 +179,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                                         color: const Color(0xff21B6A8))),
                                 child: const Center(
                                   child: Padding(
-                                    padding: EdgeInsets.all(6.0),
+                                    padding: EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [

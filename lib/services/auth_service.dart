@@ -62,11 +62,13 @@ class LoginService {
   }
 
   Future fetchLoginAppleApiRequest({
+    required String authToken,
     required String? displayName,
     required String? email,
   }) async {
-    final Uri uri = Uri.parse("${Endpoints.baseUrl}auth/login_google");
+    final Uri uri = Uri.parse("${Endpoints.baseUrl}auth/login_apple");
     final Map<String, dynamic> queryParameters = {
+      'authToken': authToken,
       'displayName': displayName,
       'email': email,
     };

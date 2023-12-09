@@ -87,11 +87,13 @@ class LoginController {
   }
 
   Future<UserModel> fetchAppleUser({
+    required String authToken,
     required String? displayName,
     required String? email,
   }) async {
     try {
       final res = await loginService.fetchLoginAppleApiRequest(
+        authToken: authToken,
         displayName: displayName,
         email: email,
       );
