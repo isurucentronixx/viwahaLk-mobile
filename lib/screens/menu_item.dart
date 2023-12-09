@@ -294,13 +294,11 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
           ListTile(
             title: const Center(
               child: Text(
-                'Version 1.0.0 powered by Viwaha.lk',
+                'Version 7.0.0 powered by Viwaha.lk',
                 style: TextStyle(fontSize: 12),
               ),
             ),
-            onTap: () {
-              // Handle 'Powered by Thushan' action
-            },
+            onTap: () {},
           ),
         ],
       ),

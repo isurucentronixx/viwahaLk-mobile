@@ -166,9 +166,16 @@ class _LoginState extends ConsumerState<Login> {
                         ref.refresh(loginProvider);
                       }
                     },
-                    icon: const Icon(Icons.login),
-                    label: Text(LocaleKeys.sign_in.tr()),
+                    icon: Icon(
+                      Icons.login,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      LocaleKeys.sign_in.tr(),
+                      style: TextStyle(color: Colors.white),
+                    ),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: ViwahaColor.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),

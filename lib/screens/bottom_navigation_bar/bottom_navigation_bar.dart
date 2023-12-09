@@ -52,7 +52,6 @@ class _BottomBarState extends ConsumerState<BottomBar>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        backgroundColor: ViwahaColor.primary,
         color: ViwahaColor.primary,
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
