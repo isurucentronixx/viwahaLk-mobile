@@ -6,6 +6,7 @@ import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+
 class CardView extends ConsumerWidget {
   const CardView({super.key});
 
@@ -237,9 +238,8 @@ class CardView extends ConsumerWidget {
                     "Wedding Car";
                 List<String> tags = [];
 
-                var selectedTags = ref
-                    .read(categoriesProvider)
-                    .firstWhere((element) => element.category == "Wedding Cars");
+                var selectedTags = ref.read(categoriesProvider).firstWhere(
+                    (element) => element.category == "Wedding Cars");
 
                 selectedTags.sub_categories!.forEach((element) {
                   tags.add(element!.sub_category!);

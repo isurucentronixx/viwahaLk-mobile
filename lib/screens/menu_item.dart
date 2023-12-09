@@ -294,7 +294,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
           ListTile(
             title: const Center(
               child: Text(
-                'Version 7.0.0 powered by Viwaha.lk',
+                'Version 1.0.0 powered by Viwaha.lk',
                 style: TextStyle(fontSize: 12),
               ),
             ),

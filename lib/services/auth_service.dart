@@ -65,7 +65,6 @@ class LoginService {
     required String? displayName,
     required String? email,
   }) async {
-    //change endpoint
     final Uri uri = Uri.parse("${Endpoints.baseUrl}auth/login_google");
     final Map<String, dynamic> queryParameters = {
       'displayName': displayName,

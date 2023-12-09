@@ -5,6 +5,7 @@ import 'package:viwaha_lk/appColor.dart';
 
 class MyTheme {
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: false,
     primarySwatch: ViwahaColor.primary,
     fontFamily: 'Montserrat-Regular',
     textTheme: const TextTheme(

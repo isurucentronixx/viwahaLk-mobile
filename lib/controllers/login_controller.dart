@@ -96,7 +96,6 @@ class LoginController {
         email: email,
       );
 
-      // ignore: use_build_context_synchronously
       final user = UserModel.fromJson(res);
 
       return user;
