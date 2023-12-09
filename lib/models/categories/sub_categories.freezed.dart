@@ -98,11 +98,11 @@ class _$SubCategoriesCopyWithImpl<$Res, $Val extends SubCategories>
 }
 
 /// @nodoc
-abstract class _$$_SubCategoriesCopyWith<$Res>
+abstract class _$$SubCategoriesImplCopyWith<$Res>
     implements $SubCategoriesCopyWith<$Res> {
-  factory _$$_SubCategoriesCopyWith(
-          _$_SubCategories value, $Res Function(_$_SubCategories) then) =
-      __$$_SubCategoriesCopyWithImpl<$Res>;
+  factory _$$SubCategoriesImplCopyWith(
+          _$SubCategoriesImpl value, $Res Function(_$SubCategoriesImpl) then) =
+      __$$SubCategoriesImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_SubCategoriesCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SubCategoriesCopyWithImpl<$Res>
-    extends _$SubCategoriesCopyWithImpl<$Res, _$_SubCategories>
-    implements _$$_SubCategoriesCopyWith<$Res> {
-  __$$_SubCategoriesCopyWithImpl(
-      _$_SubCategories _value, $Res Function(_$_SubCategories) _then)
+class __$$SubCategoriesImplCopyWithImpl<$Res>
+    extends _$SubCategoriesCopyWithImpl<$Res, _$SubCategoriesImpl>
+    implements _$$SubCategoriesImplCopyWith<$Res> {
+  __$$SubCategoriesImplCopyWithImpl(
+      _$SubCategoriesImpl _value, $Res Function(_$SubCategoriesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_SubCategoriesCopyWithImpl<$Res>
     Object? updated_at = freezed,
     Object? web_category = freezed,
   }) {
-    return _then(_$_SubCategories(
+    return _then(_$SubCategoriesImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_SubCategoriesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SubCategories implements _SubCategories {
-  const _$_SubCategories(
+class _$SubCategoriesImpl implements _SubCategories {
+  const _$SubCategoriesImpl(
       {this.id,
       this.category_id,
       this.sub_category,
@@ -172,8 +172,8 @@ class _$_SubCategories implements _SubCategories {
       this.updated_at,
       this.web_category});
 
-  factory _$_SubCategories.fromJson(Map<String, dynamic> json) =>
-      _$$_SubCategoriesFromJson(json);
+  factory _$SubCategoriesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubCategoriesImplFromJson(json);
 
   @override
   final int? id;
@@ -197,7 +197,7 @@ class _$_SubCategories implements _SubCategories {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubCategories &&
+            other is _$SubCategoriesImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.category_id, category_id) ||
                 other.category_id == category_id) &&
@@ -219,12 +219,12 @@ class _$_SubCategories implements _SubCategories {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubCategoriesCopyWith<_$_SubCategories> get copyWith =>
-      __$$_SubCategoriesCopyWithImpl<_$_SubCategories>(this, _$identity);
+  _$$SubCategoriesImplCopyWith<_$SubCategoriesImpl> get copyWith =>
+      __$$SubCategoriesImplCopyWithImpl<_$SubCategoriesImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SubCategoriesToJson(
+    return _$$SubCategoriesImplToJson(
       this,
     );
   }
@@ -237,10 +237,10 @@ abstract class _SubCategories implements SubCategories {
       final String? sub_category,
       final String? created_at,
       final String? updated_at,
-      final String? web_category}) = _$_SubCategories;
+      final String? web_category}) = _$SubCategoriesImpl;
 
   factory _SubCategories.fromJson(Map<String, dynamic> json) =
-      _$_SubCategories.fromJson;
+      _$SubCategoriesImpl.fromJson;
 
   @override
   int? get id;
@@ -256,6 +256,6 @@ abstract class _SubCategories implements SubCategories {
   String? get web_category;
   @override
   @JsonKey(ignore: true)
-  _$$_SubCategoriesCopyWith<_$_SubCategories> get copyWith =>
+  _$$SubCategoriesImplCopyWith<_$SubCategoriesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,15 +6,15 @@ part of 'user_dashboard.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserDashboard _$$_UserDashboardFromJson(Map<String, dynamic> json) =>
-    _$_UserDashboard(
+_$UserDashboardImpl _$$UserDashboardImplFromJson(Map<String, dynamic> json) =>
+    _$UserDashboardImpl(
       listings: json['listings'] as int?,
       messages: json['messages'] as int?,
       reviews: json['reviews'] as int?,
       referals: json['referals'] as int?,
     );
 
-Map<String, dynamic> _$$_UserDashboardToJson(_$_UserDashboard instance) =>
+Map<String, dynamic> _$$UserDashboardImplToJson(_$UserDashboardImpl instance) =>
     <String, dynamic>{
       'listings': instance.listings,
       'messages': instance.messages,

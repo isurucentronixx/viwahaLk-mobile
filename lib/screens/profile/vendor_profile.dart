@@ -53,6 +53,7 @@ class _VendorProfilePageState extends ConsumerState<VendorProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

@@ -80,22 +80,22 @@ class _$MainSliderCopyWithImpl<$Res, $Val extends MainSlider>
 }
 
 /// @nodoc
-abstract class _$$_MainSliderCopyWith<$Res>
+abstract class _$$MainSliderImplCopyWith<$Res>
     implements $MainSliderCopyWith<$Res> {
-  factory _$$_MainSliderCopyWith(
-          _$_MainSlider value, $Res Function(_$_MainSlider) then) =
-      __$$_MainSliderCopyWithImpl<$Res>;
+  factory _$$MainSliderImplCopyWith(
+          _$MainSliderImpl value, $Res Function(_$MainSliderImpl) then) =
+      __$$MainSliderImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? id, String? url, String? order, String? status});
 }
 
 /// @nodoc
-class __$$_MainSliderCopyWithImpl<$Res>
-    extends _$MainSliderCopyWithImpl<$Res, _$_MainSlider>
-    implements _$$_MainSliderCopyWith<$Res> {
-  __$$_MainSliderCopyWithImpl(
-      _$_MainSlider _value, $Res Function(_$_MainSlider) _then)
+class __$$MainSliderImplCopyWithImpl<$Res>
+    extends _$MainSliderCopyWithImpl<$Res, _$MainSliderImpl>
+    implements _$$MainSliderImplCopyWith<$Res> {
+  __$$MainSliderImplCopyWithImpl(
+      _$MainSliderImpl _value, $Res Function(_$MainSliderImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +106,7 @@ class __$$_MainSliderCopyWithImpl<$Res>
     Object? order = freezed,
     Object? status = freezed,
   }) {
-    return _then(_$_MainSlider(
+    return _then(_$MainSliderImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -129,11 +129,11 @@ class __$$_MainSliderCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MainSlider implements _MainSlider {
-  const _$_MainSlider({this.id, this.url, this.order, this.status});
+class _$MainSliderImpl implements _MainSlider {
+  const _$MainSliderImpl({this.id, this.url, this.order, this.status});
 
-  factory _$_MainSlider.fromJson(Map<String, dynamic> json) =>
-      _$$_MainSliderFromJson(json);
+  factory _$MainSliderImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MainSliderImplFromJson(json);
 
   @override
   final String? id;
@@ -153,7 +153,7 @@ class _$_MainSlider implements _MainSlider {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MainSlider &&
+            other is _$MainSliderImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.order, order) || other.order == order) &&
@@ -167,12 +167,12 @@ class _$_MainSlider implements _MainSlider {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MainSliderCopyWith<_$_MainSlider> get copyWith =>
-      __$$_MainSliderCopyWithImpl<_$_MainSlider>(this, _$identity);
+  _$$MainSliderImplCopyWith<_$MainSliderImpl> get copyWith =>
+      __$$MainSliderImplCopyWithImpl<_$MainSliderImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MainSliderToJson(
+    return _$$MainSliderImplToJson(
       this,
     );
   }
@@ -183,10 +183,10 @@ abstract class _MainSlider implements MainSlider {
       {final String? id,
       final String? url,
       final String? order,
-      final String? status}) = _$_MainSlider;
+      final String? status}) = _$MainSliderImpl;
 
   factory _MainSlider.fromJson(Map<String, dynamic> json) =
-      _$_MainSlider.fromJson;
+      _$MainSliderImpl.fromJson;
 
   @override
   String? get id;
@@ -198,6 +198,6 @@ abstract class _MainSlider implements MainSlider {
   String? get status;
   @override
   @JsonKey(ignore: true)
-  _$$_MainSliderCopyWith<_$_MainSlider> get copyWith =>
+  _$$MainSliderImplCopyWith<_$MainSliderImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

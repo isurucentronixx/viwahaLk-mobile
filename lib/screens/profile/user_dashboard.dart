@@ -71,6 +71,7 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
     List<SearchResultItem> myListing = ref.watch(myListingProvider);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -347,7 +348,6 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                                 height: 150,
                                                 width: 150,
                                                 decoration: BoxDecoration(
-                                               
                                                   color: Colors.black,
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -368,7 +368,6 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                                 ),
                                               ),
                                             ),
-                                           
                                           ),
                                         ),
                                       ),
@@ -573,7 +572,6 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                               height: 150,
                                               width: 150,
                                               decoration: BoxDecoration(
-                                             
                                                 color: Colors.black,
                                                 image: DecorationImage(
                                                   image: imageProvider,
@@ -593,7 +591,6 @@ class _UserDashboardPageState extends ConsumerState<UserDashboardPage> {
                                               ),
                                             ),
                                           ),
-                                         
                                         ),
                                       ),
                                     ),
@@ -848,7 +845,6 @@ class MyCardItem extends ConsumerWidget {
                         ),
                       ),
                     ),
-                   
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(

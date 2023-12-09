@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -72,6 +73,7 @@ class _LoginState extends ConsumerState<Login> {
         resizeToAvoidBottomInset: false,
         appBar: !widget.onHome
             ? AppBar(
+                backgroundColor: ViwahaColor.primary,
                 title: const Text('Login'),
               )
             : null,
@@ -173,6 +175,7 @@ class _LoginState extends ConsumerState<Login> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 FractionallySizedBox(
                   widthFactor: 0.8,
                   child: ElevatedButton.icon(
@@ -212,6 +215,7 @@ class _LoginState extends ConsumerState<Login> {
                             child: Assets.lib.assets.images.googleLogo.image()),
                         label: Text(LocaleKeys.sign_with_google.tr()),
                         style: ElevatedButton.styleFrom(
+                          elevation: 0,
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
@@ -223,7 +227,34 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10.0),
+                    const SizedBox(width: 14.0),
+                    FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // Perform Google sign-in logic here
+                          appleSignIn(context, ref);
+                        },
+                        icon: SizedBox(
+                            width: 20,
+                            child: Assets.lib.assets.images.appleLogo.image()),
+                        label: Text(
+                          LocaleKeys.sign_with_apple.tr(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          side: const BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
                     // FractionallySizedBox(
                     //   widthFactor: 0.8,
                     //   child: ElevatedButton.icon(
@@ -279,4 +310,40 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
 class GoogleSignInApi {
   static final _googleSignIn = GoogleSignIn();
   static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
+}
+
+Future appleSignIn(BuildContext context, WidgetRef ref) async {
+  final controller = ref.read(loginControllerProvider);
+  final appRouter = ref.watch(appRouterProvider);
+
+  // SignInWithAppleButton(
+  //   onPressed: () async {
+  //     final credential = await SignInWithApple.getAppleIDCredential(
+  //       scopes: [
+  //         AppleIDAuthorizationScopes.email,
+  //         AppleIDAuthorizationScopes.fullName,
+  //       ],
+  //     );
+
+  //     print(credential);
+  //   },
+  // );
+
+  final user = await await SignInWithApple.getAppleIDCredential(
+    scopes: [
+      AppleIDAuthorizationScopes.email,
+      AppleIDAuthorizationScopes.fullName,
+    ],
+  );
+  if (user != null) {
+    final res = await controller.fetchAppleUser(
+      displayName: user.givenName,
+      email: user.email,
+    );
+
+    ref.read(userProvider.notifier).state = res;
+    ref.read(isloginProvider.notifier).state = true;
+    // ignore: use_build_context_synchronously
+    AutoRouter.of(context).push(const HomePage());
+  } else {}
 }

@@ -49,6 +49,62 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
+    Future<bool?> _showConfirmationDialog(BuildContext context) async {
+      return await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Confirmation"),
+            content:
+                const Text("Are you sure you want to delete your account?"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("Confirm"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    void _showSecondAlert(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Account Removal Request Sent"),
+            content: const Text(
+                "Your account removal request has been sent. Our support team will connect with you to proceed with the deletion process."),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+
+                  final appRouter = ref.watch(appRouterProvider);
+                  final _googleSignIn = GoogleSignIn();
+                  ref.read(isloginProvider.notifier).state = false;
+                  pref.remove("email");
+                  pref.remove("password");
+                  await _googleSignIn.signOut();
+                  appRouter.push(Login(onHome: false));
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: ref.watch(isloginProvider)
           ? SingleChildScrollView(
@@ -330,11 +386,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(Icons.logout_outlined,
-                              color: Colors
-                                  .white), // Replace Icons.copy with your desired icon.
-                          const SizedBox(
-                              width:
-                                  8), // Add some space between the icon and the text.
+                              color: Colors.white),
+                          const SizedBox(width: 8),
                           Text(
                             LocaleKeys.logout.tr(),
                             style: const TextStyle(
@@ -343,6 +396,47 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(0),
+                        minimumSize: MaterialStateProperty.all(
+                            Size(double.infinity, 48)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () async {
+                        bool? confirmed =
+                            await _showConfirmationDialog(context);
+
+                        // If the user confirms, show the second alert
+                        if (confirmed!) {
+                          _showSecondAlert(context);
+                        }
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.delete, color: Colors.red),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Delete Account",
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     const SizedBox(height: 50),
                   ],
                 ),

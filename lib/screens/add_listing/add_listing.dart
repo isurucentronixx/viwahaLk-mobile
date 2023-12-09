@@ -646,6 +646,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
       child: Scaffold(
           appBar: widget.isAppBar
               ? AppBar(
+                  backgroundColor: ViwahaColor.primary,
                   actions: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

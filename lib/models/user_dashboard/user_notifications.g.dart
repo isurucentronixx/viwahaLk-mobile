@@ -6,8 +6,9 @@ part of 'user_notifications.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserNotification _$$_UserNotificationFromJson(Map<String, dynamic> json) =>
-    _$_UserNotification(
+_$UserNotificationImpl _$$UserNotificationImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserNotificationImpl(
       id: json['id'] as String?,
       datetime: json['datetime'] as String?,
       user_type: json['user_type'] as String?,
@@ -19,7 +20,8 @@ _$_UserNotification _$$_UserNotificationFromJson(Map<String, dynamic> json) =>
       hide: json['hide'] as String?,
     );
 
-Map<String, dynamic> _$$_UserNotificationToJson(_$_UserNotification instance) =>
+Map<String, dynamic> _$$UserNotificationImplToJson(
+        _$UserNotificationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'datetime': instance.datetime,

@@ -126,11 +126,11 @@ class _$UserReviewsCopyWithImpl<$Res, $Val extends UserReviews>
 }
 
 /// @nodoc
-abstract class _$$_UserReviewsCopyWith<$Res>
+abstract class _$$UserReviewsImplCopyWith<$Res>
     implements $UserReviewsCopyWith<$Res> {
-  factory _$$_UserReviewsCopyWith(
-          _$_UserReviews value, $Res Function(_$_UserReviews) then) =
-      __$$_UserReviewsCopyWithImpl<$Res>;
+  factory _$$UserReviewsImplCopyWith(
+          _$UserReviewsImpl value, $Res Function(_$UserReviewsImpl) then) =
+      __$$UserReviewsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -147,11 +147,11 @@ abstract class _$$_UserReviewsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UserReviewsCopyWithImpl<$Res>
-    extends _$UserReviewsCopyWithImpl<$Res, _$_UserReviews>
-    implements _$$_UserReviewsCopyWith<$Res> {
-  __$$_UserReviewsCopyWithImpl(
-      _$_UserReviews _value, $Res Function(_$_UserReviews) _then)
+class __$$UserReviewsImplCopyWithImpl<$Res>
+    extends _$UserReviewsCopyWithImpl<$Res, _$UserReviewsImpl>
+    implements _$$UserReviewsImplCopyWith<$Res> {
+  __$$UserReviewsImplCopyWithImpl(
+      _$UserReviewsImpl _value, $Res Function(_$UserReviewsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -168,7 +168,7 @@ class __$$_UserReviewsCopyWithImpl<$Res>
     Object? firstname = freezed,
     Object? lastname = freezed,
   }) {
-    return _then(_$_UserReviews(
+    return _then(_$UserReviewsImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -215,8 +215,8 @@ class __$$_UserReviewsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserReviews implements _UserReviews {
-  const _$_UserReviews(
+class _$UserReviewsImpl implements _UserReviews {
+  const _$UserReviewsImpl(
       {this.id,
       this.datetime,
       this.listing_id,
@@ -228,8 +228,8 @@ class _$_UserReviews implements _UserReviews {
       this.firstname,
       this.lastname});
 
-  factory _$_UserReviews.fromJson(Map<String, dynamic> json) =>
-      _$$_UserReviewsFromJson(json);
+  factory _$UserReviewsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserReviewsImplFromJson(json);
 
   @override
   final String? id;
@@ -261,7 +261,7 @@ class _$_UserReviews implements _UserReviews {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserReviews &&
+            other is _$UserReviewsImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.datetime, datetime) ||
                 other.datetime == datetime) &&
@@ -287,12 +287,12 @@ class _$_UserReviews implements _UserReviews {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserReviewsCopyWith<_$_UserReviews> get copyWith =>
-      __$$_UserReviewsCopyWithImpl<_$_UserReviews>(this, _$identity);
+  _$$UserReviewsImplCopyWith<_$UserReviewsImpl> get copyWith =>
+      __$$UserReviewsImplCopyWithImpl<_$UserReviewsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserReviewsToJson(
+    return _$$UserReviewsImplToJson(
       this,
     );
   }
@@ -309,10 +309,10 @@ abstract class _UserReviews implements UserReviews {
       final String? image,
       final String? rating,
       final String? firstname,
-      final String? lastname}) = _$_UserReviews;
+      final String? lastname}) = _$UserReviewsImpl;
 
   factory _UserReviews.fromJson(Map<String, dynamic> json) =
-      _$_UserReviews.fromJson;
+      _$UserReviewsImpl.fromJson;
 
   @override
   String? get id;
@@ -336,6 +336,6 @@ abstract class _UserReviews implements UserReviews {
   String? get lastname;
   @override
   @JsonKey(ignore: true)
-  _$$_UserReviewsCopyWith<_$_UserReviews> get copyWith =>
+  _$$UserReviewsImplCopyWith<_$UserReviewsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

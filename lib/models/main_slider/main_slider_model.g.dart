@@ -6,15 +6,15 @@ part of 'main_slider_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_MainSlider _$$_MainSliderFromJson(Map<String, dynamic> json) =>
-    _$_MainSlider(
+_$MainSliderImpl _$$MainSliderImplFromJson(Map<String, dynamic> json) =>
+    _$MainSliderImpl(
       id: json['id'] as String?,
       url: json['url'] as String?,
       order: json['order'] as String?,
       status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$$_MainSliderToJson(_$_MainSlider instance) =>
+Map<String, dynamic> _$$MainSliderImplToJson(_$MainSliderImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'url': instance.url,

@@ -623,11 +623,11 @@ class _$TopListingCopyWithImpl<$Res, $Val extends TopListing>
 }
 
 /// @nodoc
-abstract class _$$_TopListingCopyWith<$Res>
+abstract class _$$TopListingImplCopyWith<$Res>
     implements $TopListingCopyWith<$Res> {
-  factory _$$_TopListingCopyWith(
-          _$_TopListing value, $Res Function(_$_TopListing) then) =
-      __$$_TopListingCopyWithImpl<$Res>;
+  factory _$$TopListingImplCopyWith(
+          _$TopListingImpl value, $Res Function(_$TopListingImpl) then) =
+      __$$TopListingImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -715,11 +715,11 @@ abstract class _$$_TopListingCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TopListingCopyWithImpl<$Res>
-    extends _$TopListingCopyWithImpl<$Res, _$_TopListing>
-    implements _$$_TopListingCopyWith<$Res> {
-  __$$_TopListingCopyWithImpl(
-      _$_TopListing _value, $Res Function(_$_TopListing) _then)
+class __$$TopListingImplCopyWithImpl<$Res>
+    extends _$TopListingCopyWithImpl<$Res, _$TopListingImpl>
+    implements _$$TopListingImplCopyWith<$Res> {
+  __$$TopListingImplCopyWithImpl(
+      _$TopListingImpl _value, $Res Function(_$TopListingImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -807,7 +807,7 @@ class __$$_TopListingCopyWithImpl<$Res>
     Object? member = freezed,
     Object? reviews = freezed,
   }) {
-    return _then(_$_TopListing(
+    return _then(_$TopListingImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1138,8 +1138,8 @@ class __$$_TopListingCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TopListing implements _TopListing {
-  const _$_TopListing(
+class _$TopListingImpl implements _TopListing {
+  const _$TopListingImpl(
       {this.id,
       this.datetime,
       this.user_id,
@@ -1223,8 +1223,8 @@ class _$_TopListing implements _TopListing {
       final List<Reviews>? reviews})
       : _reviews = reviews;
 
-  factory _$_TopListing.fromJson(Map<String, dynamic> json) =>
-      _$$_TopListingFromJson(json);
+  factory _$TopListingImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TopListingImplFromJson(json);
 
   @override
   final String? id;
@@ -1405,7 +1405,7 @@ class _$_TopListing implements _TopListing {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TopListing &&
+            other is _$TopListingImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.datetime, datetime) ||
                 other.datetime == datetime) &&
@@ -1622,12 +1622,12 @@ class _$_TopListing implements _TopListing {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TopListingCopyWith<_$_TopListing> get copyWith =>
-      __$$_TopListingCopyWithImpl<_$_TopListing>(this, _$identity);
+  _$$TopListingImplCopyWith<_$TopListingImpl> get copyWith =>
+      __$$TopListingImplCopyWithImpl<_$TopListingImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TopListingToJson(
+    return _$$TopListingImplToJson(
       this,
     );
   }
@@ -1715,10 +1715,10 @@ abstract class _TopListing implements TopListing {
       final String? is_favourite,
       final String? verified,
       final String? member,
-      final List<Reviews>? reviews}) = _$_TopListing;
+      final List<Reviews>? reviews}) = _$TopListingImpl;
 
   factory _TopListing.fromJson(Map<String, dynamic> json) =
-      _$_TopListing.fromJson;
+      _$TopListingImpl.fromJson;
 
   @override
   String? get id;
@@ -1884,6 +1884,6 @@ abstract class _TopListing implements TopListing {
   List<Reviews>? get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$_TopListingCopyWith<_$_TopListing> get copyWith =>
+  _$$TopListingImplCopyWith<_$TopListingImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -119,11 +119,11 @@ class _$UserNotificationCopyWithImpl<$Res, $Val extends UserNotification>
 }
 
 /// @nodoc
-abstract class _$$_UserNotificationCopyWith<$Res>
+abstract class _$$UserNotificationImplCopyWith<$Res>
     implements $UserNotificationCopyWith<$Res> {
-  factory _$$_UserNotificationCopyWith(
-          _$_UserNotification value, $Res Function(_$_UserNotification) then) =
-      __$$_UserNotificationCopyWithImpl<$Res>;
+  factory _$$UserNotificationImplCopyWith(_$UserNotificationImpl value,
+          $Res Function(_$UserNotificationImpl) then) =
+      __$$UserNotificationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -139,11 +139,11 @@ abstract class _$$_UserNotificationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UserNotificationCopyWithImpl<$Res>
-    extends _$UserNotificationCopyWithImpl<$Res, _$_UserNotification>
-    implements _$$_UserNotificationCopyWith<$Res> {
-  __$$_UserNotificationCopyWithImpl(
-      _$_UserNotification _value, $Res Function(_$_UserNotification) _then)
+class __$$UserNotificationImplCopyWithImpl<$Res>
+    extends _$UserNotificationCopyWithImpl<$Res, _$UserNotificationImpl>
+    implements _$$UserNotificationImplCopyWith<$Res> {
+  __$$UserNotificationImplCopyWithImpl(_$UserNotificationImpl _value,
+      $Res Function(_$UserNotificationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -159,7 +159,7 @@ class __$$_UserNotificationCopyWithImpl<$Res>
     Object? checked = freezed,
     Object? hide = freezed,
   }) {
-    return _then(_$_UserNotification(
+    return _then(_$UserNotificationImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -202,8 +202,8 @@ class __$$_UserNotificationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserNotification implements _UserNotification {
-  const _$_UserNotification(
+class _$UserNotificationImpl implements _UserNotification {
+  const _$UserNotificationImpl(
       {this.id,
       this.datetime,
       this.user_type,
@@ -214,8 +214,8 @@ class _$_UserNotification implements _UserNotification {
       this.checked,
       this.hide});
 
-  factory _$_UserNotification.fromJson(Map<String, dynamic> json) =>
-      _$$_UserNotificationFromJson(json);
+  factory _$UserNotificationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserNotificationImplFromJson(json);
 
   @override
   final String? id;
@@ -245,7 +245,7 @@ class _$_UserNotification implements _UserNotification {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserNotification &&
+            other is _$UserNotificationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.datetime, datetime) ||
                 other.datetime == datetime) &&
@@ -268,12 +268,13 @@ class _$_UserNotification implements _UserNotification {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserNotificationCopyWith<_$_UserNotification> get copyWith =>
-      __$$_UserNotificationCopyWithImpl<_$_UserNotification>(this, _$identity);
+  _$$UserNotificationImplCopyWith<_$UserNotificationImpl> get copyWith =>
+      __$$UserNotificationImplCopyWithImpl<_$UserNotificationImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserNotificationToJson(
+    return _$$UserNotificationImplToJson(
       this,
     );
   }
@@ -289,10 +290,10 @@ abstract class _UserNotification implements UserNotification {
       final String? type,
       final String? detail,
       final String? checked,
-      final String? hide}) = _$_UserNotification;
+      final String? hide}) = _$UserNotificationImpl;
 
   factory _UserNotification.fromJson(Map<String, dynamic> json) =
-      _$_UserNotification.fromJson;
+      _$UserNotificationImpl.fromJson;
 
   @override
   String? get id;
@@ -314,6 +315,6 @@ abstract class _UserNotification implements UserNotification {
   String? get hide;
   @override
   @JsonKey(ignore: true)
-  _$$_UserNotificationCopyWith<_$_UserNotification> get copyWith =>
+  _$$UserNotificationImplCopyWith<_$UserNotificationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

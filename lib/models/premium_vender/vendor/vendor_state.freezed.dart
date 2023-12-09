@@ -73,11 +73,11 @@ class _$VendorStateCopyWithImpl<$Res, $Val extends VendorState>
 }
 
 /// @nodoc
-abstract class _$$_VendorStateCopyWith<$Res>
+abstract class _$$VendorStateImplCopyWith<$Res>
     implements $VendorStateCopyWith<$Res> {
-  factory _$$_VendorStateCopyWith(
-          _$_VendorState value, $Res Function(_$_VendorState) then) =
-      __$$_VendorStateCopyWithImpl<$Res>;
+  factory _$$VendorStateImplCopyWith(
+          _$VendorStateImpl value, $Res Function(_$VendorStateImpl) then) =
+      __$$VendorStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Vendor vendor, bool isLoading});
@@ -87,11 +87,11 @@ abstract class _$$_VendorStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_VendorStateCopyWithImpl<$Res>
-    extends _$VendorStateCopyWithImpl<$Res, _$_VendorState>
-    implements _$$_VendorStateCopyWith<$Res> {
-  __$$_VendorStateCopyWithImpl(
-      _$_VendorState _value, $Res Function(_$_VendorState) _then)
+class __$$VendorStateImplCopyWithImpl<$Res>
+    extends _$VendorStateCopyWithImpl<$Res, _$VendorStateImpl>
+    implements _$$VendorStateImplCopyWith<$Res> {
+  __$$VendorStateImplCopyWithImpl(
+      _$VendorStateImpl _value, $Res Function(_$VendorStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$_VendorStateCopyWithImpl<$Res>
     Object? vendor = null,
     Object? isLoading = null,
   }) {
-    return _then(_$_VendorState(
+    return _then(_$VendorStateImpl(
       vendor: null == vendor
           ? _value.vendor
           : vendor // ignore: cast_nullable_to_non_nullable
@@ -115,8 +115,8 @@ class __$$_VendorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VendorState implements _VendorState {
-  _$_VendorState({this.vendor = const Vendor(), this.isLoading = true});
+class _$VendorStateImpl implements _VendorState {
+  _$VendorStateImpl({this.vendor = const Vendor(), this.isLoading = true});
 
   @override
   @JsonKey()
@@ -134,7 +134,7 @@ class _$_VendorState implements _VendorState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VendorState &&
+            other is _$VendorStateImpl &&
             (identical(other.vendor, vendor) || other.vendor == vendor) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
@@ -146,13 +146,13 @@ class _$_VendorState implements _VendorState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VendorStateCopyWith<_$_VendorState> get copyWith =>
-      __$$_VendorStateCopyWithImpl<_$_VendorState>(this, _$identity);
+  _$$VendorStateImplCopyWith<_$VendorStateImpl> get copyWith =>
+      __$$VendorStateImplCopyWithImpl<_$VendorStateImpl>(this, _$identity);
 }
 
 abstract class _VendorState implements VendorState {
   factory _VendorState({final Vendor vendor, final bool isLoading}) =
-      _$_VendorState;
+      _$VendorStateImpl;
 
   @override
   Vendor get vendor;
@@ -160,6 +160,6 @@ abstract class _VendorState implements VendorState {
   bool get isLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_VendorStateCopyWith<_$_VendorState> get copyWith =>
+  _$$VendorStateImplCopyWith<_$VendorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

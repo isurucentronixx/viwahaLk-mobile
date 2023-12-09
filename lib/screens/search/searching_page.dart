@@ -172,6 +172,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
     ];
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           title: const Text('Search'),
           centerTitle: true,
         ),

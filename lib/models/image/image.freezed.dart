@@ -74,22 +74,22 @@ class _$ImageObjectCopyWithImpl<$Res, $Val extends ImageObject>
 }
 
 /// @nodoc
-abstract class _$$_ImageObjectCopyWith<$Res>
+abstract class _$$ImageObjectImplCopyWith<$Res>
     implements $ImageObjectCopyWith<$Res> {
-  factory _$$_ImageObjectCopyWith(
-          _$_ImageObject value, $Res Function(_$_ImageObject) then) =
-      __$$_ImageObjectCopyWithImpl<$Res>;
+  factory _$$ImageObjectImplCopyWith(
+          _$ImageObjectImpl value, $Res Function(_$ImageObjectImpl) then) =
+      __$$ImageObjectImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? type, String? path, String? url});
 }
 
 /// @nodoc
-class __$$_ImageObjectCopyWithImpl<$Res>
-    extends _$ImageObjectCopyWithImpl<$Res, _$_ImageObject>
-    implements _$$_ImageObjectCopyWith<$Res> {
-  __$$_ImageObjectCopyWithImpl(
-      _$_ImageObject _value, $Res Function(_$_ImageObject) _then)
+class __$$ImageObjectImplCopyWithImpl<$Res>
+    extends _$ImageObjectCopyWithImpl<$Res, _$ImageObjectImpl>
+    implements _$$ImageObjectImplCopyWith<$Res> {
+  __$$ImageObjectImplCopyWithImpl(
+      _$ImageObjectImpl _value, $Res Function(_$ImageObjectImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_ImageObjectCopyWithImpl<$Res>
     Object? path = freezed,
     Object? url = freezed,
   }) {
-    return _then(_$_ImageObject(
+    return _then(_$ImageObjectImpl(
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -118,11 +118,11 @@ class __$$_ImageObjectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ImageObject implements _ImageObject {
-  const _$_ImageObject({this.type, this.path, this.url});
+class _$ImageObjectImpl implements _ImageObject {
+  const _$ImageObjectImpl({this.type, this.path, this.url});
 
-  factory _$_ImageObject.fromJson(Map<String, dynamic> json) =>
-      _$$_ImageObjectFromJson(json);
+  factory _$ImageObjectImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageObjectImplFromJson(json);
 
   @override
   final String? type;
@@ -140,7 +140,7 @@ class _$_ImageObject implements _ImageObject {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ImageObject &&
+            other is _$ImageObjectImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.url, url) || other.url == url));
@@ -153,12 +153,12 @@ class _$_ImageObject implements _ImageObject {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ImageObjectCopyWith<_$_ImageObject> get copyWith =>
-      __$$_ImageObjectCopyWithImpl<_$_ImageObject>(this, _$identity);
+  _$$ImageObjectImplCopyWith<_$ImageObjectImpl> get copyWith =>
+      __$$ImageObjectImplCopyWithImpl<_$ImageObjectImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ImageObjectToJson(
+    return _$$ImageObjectImplToJson(
       this,
     );
   }
@@ -168,10 +168,10 @@ abstract class _ImageObject implements ImageObject {
   const factory _ImageObject(
       {final String? type,
       final String? path,
-      final String? url}) = _$_ImageObject;
+      final String? url}) = _$ImageObjectImpl;
 
   factory _ImageObject.fromJson(Map<String, dynamic> json) =
-      _$_ImageObject.fromJson;
+      _$ImageObjectImpl.fromJson;
 
   @override
   String? get type;
@@ -181,6 +181,6 @@ abstract class _ImageObject implements ImageObject {
   String? get url;
   @override
   @JsonKey(ignore: true)
-  _$$_ImageObjectCopyWith<_$_ImageObject> get copyWith =>
+  _$$ImageObjectImplCopyWith<_$ImageObjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

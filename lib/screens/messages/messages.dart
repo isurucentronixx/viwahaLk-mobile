@@ -65,6 +65,7 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

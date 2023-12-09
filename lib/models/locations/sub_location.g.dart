@@ -6,8 +6,8 @@ part of 'sub_location.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SubLocation _$$_SubLocationFromJson(Map<String, dynamic> json) =>
-    _$_SubLocation(
+_$SubLocationImpl _$$SubLocationImplFromJson(Map<String, dynamic> json) =>
+    _$SubLocationImpl(
       id: json['id'] as int?,
       location_id: json['location_id'] as String?,
       sub_location_en: json['sub_location_en'] as String?,
@@ -15,7 +15,7 @@ _$_SubLocation _$$_SubLocationFromJson(Map<String, dynamic> json) =>
       sub_location_ta: json['sub_location_ta'] as String?,
     );
 
-Map<String, dynamic> _$$_SubLocationToJson(_$_SubLocation instance) =>
+Map<String, dynamic> _$$SubLocationImplToJson(_$SubLocationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'location_id': instance.location_id,

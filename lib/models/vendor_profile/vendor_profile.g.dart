@@ -6,8 +6,8 @@ part of 'vendor_profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_VendorProfile _$$_VendorProfileFromJson(Map<String, dynamic> json) =>
-    _$_VendorProfile(
+_$VendorProfileImpl _$$VendorProfileImplFromJson(Map<String, dynamic> json) =>
+    _$VendorProfileImpl(
       id: json['id'] as String?,
       date: json['date'] as String?,
       active_date: json['active_date'] as String?,
@@ -60,7 +60,7 @@ _$_VendorProfile _$$_VendorProfileFromJson(Map<String, dynamic> json) =>
       listings_count: json['listings_count'] as String?,
     );
 
-Map<String, dynamic> _$$_VendorProfileToJson(_$_VendorProfile instance) =>
+Map<String, dynamic> _$$VendorProfileImplToJson(_$VendorProfileImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'date': instance.date,

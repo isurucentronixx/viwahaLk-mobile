@@ -73,11 +73,11 @@ class _$TopListingStateCopyWithImpl<$Res, $Val extends TopListingState>
 }
 
 /// @nodoc
-abstract class _$$_TopListingStateCopyWith<$Res>
+abstract class _$$TopListingStateImplCopyWith<$Res>
     implements $TopListingStateCopyWith<$Res> {
-  factory _$$_TopListingStateCopyWith(
-          _$_TopListingState value, $Res Function(_$_TopListingState) then) =
-      __$$_TopListingStateCopyWithImpl<$Res>;
+  factory _$$TopListingStateImplCopyWith(_$TopListingStateImpl value,
+          $Res Function(_$TopListingStateImpl) then) =
+      __$$TopListingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TopListing topListing, bool isLoading});
@@ -87,11 +87,11 @@ abstract class _$$_TopListingStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TopListingStateCopyWithImpl<$Res>
-    extends _$TopListingStateCopyWithImpl<$Res, _$_TopListingState>
-    implements _$$_TopListingStateCopyWith<$Res> {
-  __$$_TopListingStateCopyWithImpl(
-      _$_TopListingState _value, $Res Function(_$_TopListingState) _then)
+class __$$TopListingStateImplCopyWithImpl<$Res>
+    extends _$TopListingStateCopyWithImpl<$Res, _$TopListingStateImpl>
+    implements _$$TopListingStateImplCopyWith<$Res> {
+  __$$TopListingStateImplCopyWithImpl(
+      _$TopListingStateImpl _value, $Res Function(_$TopListingStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$_TopListingStateCopyWithImpl<$Res>
     Object? topListing = null,
     Object? isLoading = null,
   }) {
-    return _then(_$_TopListingState(
+    return _then(_$TopListingStateImpl(
       topListing: null == topListing
           ? _value.topListing
           : topListing // ignore: cast_nullable_to_non_nullable
@@ -115,8 +115,8 @@ class __$$_TopListingStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TopListingState implements _TopListingState {
-  _$_TopListingState(
+class _$TopListingStateImpl implements _TopListingState {
+  _$TopListingStateImpl(
       {this.topListing = const TopListing(), this.isLoading = true});
 
   @override
@@ -135,7 +135,7 @@ class _$_TopListingState implements _TopListingState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TopListingState &&
+            other is _$TopListingStateImpl &&
             (identical(other.topListing, topListing) ||
                 other.topListing == topListing) &&
             (identical(other.isLoading, isLoading) ||
@@ -148,13 +148,15 @@ class _$_TopListingState implements _TopListingState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TopListingStateCopyWith<_$_TopListingState> get copyWith =>
-      __$$_TopListingStateCopyWithImpl<_$_TopListingState>(this, _$identity);
+  _$$TopListingStateImplCopyWith<_$TopListingStateImpl> get copyWith =>
+      __$$TopListingStateImplCopyWithImpl<_$TopListingStateImpl>(
+          this, _$identity);
 }
 
 abstract class _TopListingState implements TopListingState {
   factory _TopListingState(
-      {final TopListing topListing, final bool isLoading}) = _$_TopListingState;
+      {final TopListing topListing,
+      final bool isLoading}) = _$TopListingStateImpl;
 
   @override
   TopListing get topListing;
@@ -162,6 +164,6 @@ abstract class _TopListingState implements TopListingState {
   bool get isLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_TopListingStateCopyWith<_$_TopListingState> get copyWith =>
+  _$$TopListingStateImplCopyWith<_$TopListingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

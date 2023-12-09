@@ -621,9 +621,10 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
 }
 
 /// @nodoc
-abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
-  factory _$$_VendorCopyWith(_$_Vendor value, $Res Function(_$_Vendor) then) =
-      __$$_VendorCopyWithImpl<$Res>;
+abstract class _$$VendorImplCopyWith<$Res> implements $VendorCopyWith<$Res> {
+  factory _$$VendorImplCopyWith(
+          _$VendorImpl value, $Res Function(_$VendorImpl) then) =
+      __$$VendorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -711,10 +712,11 @@ abstract class _$$_VendorCopyWith<$Res> implements $VendorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_VendorCopyWithImpl<$Res>
-    extends _$VendorCopyWithImpl<$Res, _$_Vendor>
-    implements _$$_VendorCopyWith<$Res> {
-  __$$_VendorCopyWithImpl(_$_Vendor _value, $Res Function(_$_Vendor) _then)
+class __$$VendorImplCopyWithImpl<$Res>
+    extends _$VendorCopyWithImpl<$Res, _$VendorImpl>
+    implements _$$VendorImplCopyWith<$Res> {
+  __$$VendorImplCopyWithImpl(
+      _$VendorImpl _value, $Res Function(_$VendorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -802,7 +804,7 @@ class __$$_VendorCopyWithImpl<$Res>
     Object? member = freezed,
     Object? reviews = freezed,
   }) {
-    return _then(_$_Vendor(
+    return _then(_$VendorImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1133,8 +1135,8 @@ class __$$_VendorCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Vendor implements _Vendor {
-  const _$_Vendor(
+class _$VendorImpl implements _Vendor {
+  const _$VendorImpl(
       {this.id,
       this.datetime,
       this.user_id,
@@ -1218,8 +1220,8 @@ class _$_Vendor implements _Vendor {
       final List<Reviews>? reviews})
       : _reviews = reviews;
 
-  factory _$_Vendor.fromJson(Map<String, dynamic> json) =>
-      _$$_VendorFromJson(json);
+  factory _$VendorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VendorImplFromJson(json);
 
   @override
   final String? id;
@@ -1400,7 +1402,7 @@ class _$_Vendor implements _Vendor {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Vendor &&
+            other is _$VendorImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.datetime, datetime) ||
                 other.datetime == datetime) &&
@@ -1617,12 +1619,12 @@ class _$_Vendor implements _Vendor {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VendorCopyWith<_$_Vendor> get copyWith =>
-      __$$_VendorCopyWithImpl<_$_Vendor>(this, _$identity);
+  _$$VendorImplCopyWith<_$VendorImpl> get copyWith =>
+      __$$VendorImplCopyWithImpl<_$VendorImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VendorToJson(
+    return _$$VendorImplToJson(
       this,
     );
   }
@@ -1710,9 +1712,9 @@ abstract class _Vendor implements Vendor {
       final String? is_favourite,
       final String? verified,
       final String? member,
-      final List<Reviews>? reviews}) = _$_Vendor;
+      final List<Reviews>? reviews}) = _$VendorImpl;
 
-  factory _Vendor.fromJson(Map<String, dynamic> json) = _$_Vendor.fromJson;
+  factory _Vendor.fromJson(Map<String, dynamic> json) = _$VendorImpl.fromJson;
 
   @override
   String? get id;
@@ -1878,6 +1880,6 @@ abstract class _Vendor implements Vendor {
   List<Reviews>? get reviews;
   @override
   @JsonKey(ignore: true)
-  _$$_VendorCopyWith<_$_Vendor> get copyWith =>
+  _$$VendorImplCopyWith<_$VendorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,7 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
+_$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: json['id'] as int?,
       date: json['date'] as String?,
       active_date: json['active_date'] as String?,
@@ -56,7 +56,8 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       membership: json['membership'] as String?,
     );
 
-Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
+Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'date': instance.date,
       'active_date': instance.active_date,

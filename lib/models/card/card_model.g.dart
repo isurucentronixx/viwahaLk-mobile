@@ -6,7 +6,8 @@ part of 'card_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CardModel _$$_CardModelFromJson(Map<String, dynamic> json) => _$_CardModel(
+_$CardModelImpl _$$CardModelImplFromJson(Map<String, dynamic> json) =>
+    _$CardModelImpl(
       id: json['id'] as String?,
       imagePath: json['imagePath'] as String?,
       title: json['title'] as String?,
@@ -20,7 +21,7 @@ _$_CardModel _$$_CardModelFromJson(Map<String, dynamic> json) => _$_CardModel(
       boosted: json['boosted'] as String?,
     );
 
-Map<String, dynamic> _$$_CardModelToJson(_$_CardModel instance) =>
+Map<String, dynamic> _$$CardModelImplToJson(_$CardModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'imagePath': instance.imagePath,

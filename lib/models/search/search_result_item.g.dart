@@ -6,8 +6,9 @@ part of 'search_result_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SearchResultItem _$$_SearchResultItemFromJson(Map<String, dynamic> json) =>
-    _$_SearchResultItem(
+_$SearchResultItemImpl _$$SearchResultItemImplFromJson(
+        Map<String, dynamic> json) =>
+    _$SearchResultItemImpl(
       id: json['id'] as String?,
       datetime: json['datetime'] as String?,
       user_id: json['user_id'] as String?,
@@ -93,7 +94,8 @@ _$_SearchResultItem _$$_SearchResultItemFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_SearchResultItemToJson(_$_SearchResultItem instance) =>
+Map<String, dynamic> _$$SearchResultItemImplToJson(
+        _$SearchResultItemImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'datetime': instance.datetime,

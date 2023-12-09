@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const home_main_title = 'home_main_title';
   static const all_category = 'all_category';
   static const sub_category = 'sub_category';
@@ -23,13 +23,14 @@ abstract class  LocaleKeys {
   static const music = 'music';
   static const others = 'others';
   static const premium_vendors = 'premium_vendors';
-  static const discover_top_rated_premium_vendors = 'discover_top_rated_premium_vendors';
+  static const discover_top_rated_premium_vendors =
+      'discover_top_rated_premium_vendors';
   static const exploring_top_listings = 'exploring_top_listings';
   static const discover = 'discover';
-  static const top_rated_local_listing  = 'top_rated_local_listing ';
-  static const popular_cities  = 'popular_cities ';
-  static const browse_listings_in   = 'browse_listings_in  ';
-  static const popular_places  = 'popular_places ';
+  static const top_rated_local_listing = 'top_rated_local_listing ';
+  static const popular_cities = 'popular_cities ';
+  static const browse_listings_in = 'browse_listings_in  ';
+  static const popular_places = 'popular_places ';
   static const colombo = 'colombo';
   static const kandy = 'kandy';
   static const galle = 'galle';
@@ -41,6 +42,7 @@ abstract class  LocaleKeys {
   static const sign_in = 'sign_in';
   static const create_account = 'create_account';
   static const sign_with_google = 'sign_with_google';
+  static const sign_with_apple = 'sign_with_apple';
   static const sign_with_facebook = 'sign_with_facebook';
   static const signup_with_google = 'signup_with_google';
   static const signup_with_facebook = 'signup_with_facebook';
@@ -97,5 +99,4 @@ abstract class  LocaleKeys {
   static const notifications = 'notifications';
   static const referals = 'referals';
   static const video = 'video';
-
 }

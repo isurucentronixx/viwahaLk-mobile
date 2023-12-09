@@ -6,8 +6,8 @@ part of 'top_listing.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TopListing _$$_TopListingFromJson(Map<String, dynamic> json) =>
-    _$_TopListing(
+_$TopListingImpl _$$TopListingImplFromJson(Map<String, dynamic> json) =>
+    _$TopListingImpl(
       id: json['id'] as String?,
       datetime: json['datetime'] as String?,
       user_id: json['user_id'] as String?,
@@ -93,7 +93,7 @@ _$_TopListing _$$_TopListingFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_TopListingToJson(_$_TopListing instance) =>
+Map<String, dynamic> _$$TopListingImplToJson(_$TopListingImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'datetime': instance.datetime,

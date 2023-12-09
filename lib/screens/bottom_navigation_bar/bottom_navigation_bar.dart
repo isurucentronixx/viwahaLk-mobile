@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/screens/home/home_content.dart';
 import 'package:viwaha_lk/screens/add_listing/add_listing.dart';
@@ -39,6 +40,9 @@ class _BottomBarState extends ConsumerState<BottomBar>
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         child: const Icon(Icons.add),
         onPressed: () {
           setState(() {
@@ -48,6 +52,7 @@ class _BottomBarState extends ConsumerState<BottomBar>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
+        backgroundColor: ViwahaColor.primary,
         color: ViwahaColor.primary,
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,

@@ -47,6 +47,7 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
     return Scaffold(
         appBar: widget.isAppBar
             ? AppBar(
+                backgroundColor: ViwahaColor.primary,
                 actions: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

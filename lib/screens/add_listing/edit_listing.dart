@@ -759,6 +759,7 @@ class _EditListingPageState extends ConsumerState<EditListingPage> {
       child: SafeArea(
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: ViwahaColor.primary,
               actions: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

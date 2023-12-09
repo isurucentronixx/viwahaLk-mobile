@@ -83,7 +83,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
 
     ref.listen<AsyncValue>(profileViewStateProvider, (_, state) {
       state.whenData((items) {
-         bool isSuccessfull =
+        bool isSuccessfull =
             items.toString().split(' ')[0] == "Successfully" ? true : false;
         final snackBar = SnackBar(
           elevation: 0,
@@ -104,6 +104,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     });
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -271,7 +272,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                   contentType:
                                                                       ContentType
                                                                           .success,
-                                                                  color: const Color(0xff21B6A8),
+                                                                  color: const Color(
+                                                                      0xff21B6A8),
                                                                 ),
                                                               );
                                                               ScaffoldMessenger

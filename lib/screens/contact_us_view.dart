@@ -14,6 +14,7 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

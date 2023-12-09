@@ -60,4 +60,25 @@ class LoginService {
       rethrow;
     }
   }
+
+  Future fetchLoginAppleApiRequest({
+    required String? displayName,
+    required String? email,
+  }) async {
+    //change endpoint
+    final Uri uri = Uri.parse("${Endpoints.baseUrl}auth/login_google");
+    final Map<String, dynamic> queryParameters = {
+      'displayName': displayName,
+      'email': email,
+    };
+    final String queryString = Uri(queryParameters: queryParameters).query;
+    String url = "$uri?$queryString";
+    try {
+      final res = await _dioClient.post(url);
+
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

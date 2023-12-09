@@ -130,26 +130,28 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       )
                     : const SizedBox(),
                 ref.watch(isloginProvider)
-                    ? ListTile(
-                        leading: const Icon(Icons.logout),
-                        title: Text(LocaleKeys.logout.tr(),
-                            style: const TextStyle(color: Colors.grey)),
-                        onTap: () async {
-                          SharedPreferences pref =
-                              await SharedPreferences.getInstance();
+                    ? Column(
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.logout),
+                            title: Text(LocaleKeys.logout.tr(),
+                                style: const TextStyle(color: Colors.grey)),
+                            onTap: () async {
+                              SharedPreferences pref =
+                                  await SharedPreferences.getInstance();
 
-                          final appRouter = ref.watch(appRouterProvider);
-                          final _googleSignIn = GoogleSignIn();
-                          ref.read(isloginProvider.notifier).state = false;
-                          pref.remove("email");
-                          pref.remove("password");
-                          await _googleSignIn.signOut();
-                          appRouter.push(Login(onHome: false));
-                          // Update the state of the app
-                          // ...
-                          // Then close the drawer
-                          Navigator.pop(context);
-                        },
+                              final appRouter = ref.watch(appRouterProvider);
+                              final _googleSignIn = GoogleSignIn();
+                              ref.read(isloginProvider.notifier).state = false;
+                              pref.remove("email");
+                              pref.remove("password");
+                              await _googleSignIn.signOut();
+                              appRouter.push(Login(onHome: false));
+
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
                       )
                     : Container(),
                 const Divider(),

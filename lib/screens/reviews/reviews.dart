@@ -63,6 +63,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -70,7 +71,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap:() {
+                    onTap: () {
                       AutoRouter.of(context).push(const HomePage());
                     },
                     child: SizedBox(
@@ -165,8 +166,7 @@ class _ReviewsPageState extends ConsumerState<ReviewsPage> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(100),
-                                          child: 
-                                          CachedNetworkImage(
+                                          child: CachedNetworkImage(
                                             imageUrl: review.image.toString(),
                                             fit: BoxFit.cover,
                                             imageBuilder:

@@ -6,14 +6,14 @@ part of 'image.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ImageObject _$$_ImageObjectFromJson(Map<String, dynamic> json) =>
-    _$_ImageObject(
+_$ImageObjectImpl _$$ImageObjectImplFromJson(Map<String, dynamic> json) =>
+    _$ImageObjectImpl(
       type: json['type'] as String?,
       path: json['path'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$_ImageObjectToJson(_$_ImageObject instance) =>
+Map<String, dynamic> _$$ImageObjectImplToJson(_$ImageObjectImpl instance) =>
     <String, dynamic>{
       'type': instance.type,
       'path': instance.path,

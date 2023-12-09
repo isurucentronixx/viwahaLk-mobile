@@ -25,6 +25,7 @@ class AboutUsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -32,7 +33,7 @@ class AboutUsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap:() {
+                    onTap: () {
                       AutoRouter.of(context).push(const HomePage());
                     },
                     child: SizedBox(

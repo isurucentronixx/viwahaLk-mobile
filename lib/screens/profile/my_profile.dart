@@ -27,6 +27,7 @@ class _MyProfilePageState extends ConsumerState<MyProfilePage> {
     final user = ref.watch(userProvider).user;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

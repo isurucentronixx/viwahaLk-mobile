@@ -6,7 +6,8 @@ part of 'reviews.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Reviews _$$_ReviewsFromJson(Map<String, dynamic> json) => _$_Reviews(
+_$ReviewsImpl _$$ReviewsImplFromJson(Map<String, dynamic> json) =>
+    _$ReviewsImpl(
       id: json['id'] as String?,
       datetime: json['datetime'] as String?,
       listing_id: json['listing_id'] as String?,
@@ -20,7 +21,7 @@ _$_Reviews _$$_ReviewsFromJson(Map<String, dynamic> json) => _$_Reviews(
       user_image: json['user_image'] as String?,
     );
 
-Map<String, dynamic> _$$_ReviewsToJson(_$_Reviews instance) =>
+Map<String, dynamic> _$$ReviewsImplToJson(_$ReviewsImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'datetime': instance.datetime,

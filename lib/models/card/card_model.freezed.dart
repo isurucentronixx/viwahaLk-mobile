@@ -132,10 +132,11 @@ class _$CardModelCopyWithImpl<$Res, $Val extends CardModel>
 }
 
 /// @nodoc
-abstract class _$$_CardModelCopyWith<$Res> implements $CardModelCopyWith<$Res> {
-  factory _$$_CardModelCopyWith(
-          _$_CardModel value, $Res Function(_$_CardModel) then) =
-      __$$_CardModelCopyWithImpl<$Res>;
+abstract class _$$CardModelImplCopyWith<$Res>
+    implements $CardModelCopyWith<$Res> {
+  factory _$$CardModelImplCopyWith(
+          _$CardModelImpl value, $Res Function(_$CardModelImpl) then) =
+      __$$CardModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -153,11 +154,11 @@ abstract class _$$_CardModelCopyWith<$Res> implements $CardModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CardModelCopyWithImpl<$Res>
-    extends _$CardModelCopyWithImpl<$Res, _$_CardModel>
-    implements _$$_CardModelCopyWith<$Res> {
-  __$$_CardModelCopyWithImpl(
-      _$_CardModel _value, $Res Function(_$_CardModel) _then)
+class __$$CardModelImplCopyWithImpl<$Res>
+    extends _$CardModelCopyWithImpl<$Res, _$CardModelImpl>
+    implements _$$CardModelImplCopyWith<$Res> {
+  __$$CardModelImplCopyWithImpl(
+      _$CardModelImpl _value, $Res Function(_$CardModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -175,7 +176,7 @@ class __$$_CardModelCopyWithImpl<$Res>
     Object? isFav = freezed,
     Object? boosted = freezed,
   }) {
-    return _then(_$_CardModel(
+    return _then(_$CardModelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -226,8 +227,8 @@ class __$$_CardModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CardModel implements _CardModel {
-  const _$_CardModel(
+class _$CardModelImpl implements _CardModel {
+  const _$CardModelImpl(
       {this.id,
       this.imagePath,
       this.title,
@@ -240,8 +241,8 @@ class _$_CardModel implements _CardModel {
       this.isFav,
       this.boosted});
 
-  factory _$_CardModel.fromJson(Map<String, dynamic> json) =>
-      _$$_CardModelFromJson(json);
+  factory _$CardModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CardModelImplFromJson(json);
 
   @override
   final String? id;
@@ -275,7 +276,7 @@ class _$_CardModel implements _CardModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CardModel &&
+            other is _$CardModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
@@ -313,12 +314,12 @@ class _$_CardModel implements _CardModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CardModelCopyWith<_$_CardModel> get copyWith =>
-      __$$_CardModelCopyWithImpl<_$_CardModel>(this, _$identity);
+  _$$CardModelImplCopyWith<_$CardModelImpl> get copyWith =>
+      __$$CardModelImplCopyWithImpl<_$CardModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CardModelToJson(
+    return _$$CardModelImplToJson(
       this,
     );
   }
@@ -336,10 +337,10 @@ abstract class _CardModel implements CardModel {
       final String? date,
       final String? type,
       final String? isFav,
-      final String? boosted}) = _$_CardModel;
+      final String? boosted}) = _$CardModelImpl;
 
   factory _CardModel.fromJson(Map<String, dynamic> json) =
-      _$_CardModel.fromJson;
+      _$CardModelImpl.fromJson;
 
   @override
   String? get id;
@@ -365,6 +366,6 @@ abstract class _CardModel implements CardModel {
   String? get boosted;
   @override
   @JsonKey(ignore: true)
-  _$$_CardModelCopyWith<_$_CardModel> get copyWith =>
+  _$$CardModelImplCopyWith<_$CardModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

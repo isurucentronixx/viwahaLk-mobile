@@ -68,12 +68,13 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if ( searchingResult.length < ref.watch(vendorsProvider).length) {
+    if (searchingResult.length < ref.watch(vendorsProvider).length) {
       searchingResult.addAll(ref.watch(vendorsProvider));
     }
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -130,9 +131,7 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
                     selectedValue: _orderBy,
                     choiceItems: orderByData,
                     onChange: (selected) {
-                      setState(() {
-                       
-                      });
+                      setState(() {});
                     },
                     modalType: S2ModalType.bottomSheet,
                     tileBuilder: (context, state) {

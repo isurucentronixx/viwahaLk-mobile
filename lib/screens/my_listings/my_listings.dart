@@ -75,6 +75,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
       color: Colors.white,
       child: Scaffold(
           appBar: AppBar(
+            backgroundColor: ViwahaColor.primary,
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

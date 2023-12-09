@@ -80,22 +80,22 @@ class _$UserDashboardCopyWithImpl<$Res, $Val extends UserDashboard>
 }
 
 /// @nodoc
-abstract class _$$_UserDashboardCopyWith<$Res>
+abstract class _$$UserDashboardImplCopyWith<$Res>
     implements $UserDashboardCopyWith<$Res> {
-  factory _$$_UserDashboardCopyWith(
-          _$_UserDashboard value, $Res Function(_$_UserDashboard) then) =
-      __$$_UserDashboardCopyWithImpl<$Res>;
+  factory _$$UserDashboardImplCopyWith(
+          _$UserDashboardImpl value, $Res Function(_$UserDashboardImpl) then) =
+      __$$UserDashboardImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int? listings, int? messages, int? reviews, int? referals});
 }
 
 /// @nodoc
-class __$$_UserDashboardCopyWithImpl<$Res>
-    extends _$UserDashboardCopyWithImpl<$Res, _$_UserDashboard>
-    implements _$$_UserDashboardCopyWith<$Res> {
-  __$$_UserDashboardCopyWithImpl(
-      _$_UserDashboard _value, $Res Function(_$_UserDashboard) _then)
+class __$$UserDashboardImplCopyWithImpl<$Res>
+    extends _$UserDashboardCopyWithImpl<$Res, _$UserDashboardImpl>
+    implements _$$UserDashboardImplCopyWith<$Res> {
+  __$$UserDashboardImplCopyWithImpl(
+      _$UserDashboardImpl _value, $Res Function(_$UserDashboardImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +106,7 @@ class __$$_UserDashboardCopyWithImpl<$Res>
     Object? reviews = freezed,
     Object? referals = freezed,
   }) {
-    return _then(_$_UserDashboard(
+    return _then(_$UserDashboardImpl(
       listings: freezed == listings
           ? _value.listings
           : listings // ignore: cast_nullable_to_non_nullable
@@ -129,12 +129,12 @@ class __$$_UserDashboardCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserDashboard implements _UserDashboard {
-  const _$_UserDashboard(
+class _$UserDashboardImpl implements _UserDashboard {
+  const _$UserDashboardImpl(
       {this.listings, this.messages, this.reviews, this.referals});
 
-  factory _$_UserDashboard.fromJson(Map<String, dynamic> json) =>
-      _$$_UserDashboardFromJson(json);
+  factory _$UserDashboardImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserDashboardImplFromJson(json);
 
   @override
   final int? listings;
@@ -154,7 +154,7 @@ class _$_UserDashboard implements _UserDashboard {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserDashboard &&
+            other is _$UserDashboardImpl &&
             (identical(other.listings, listings) ||
                 other.listings == listings) &&
             (identical(other.messages, messages) ||
@@ -172,12 +172,12 @@ class _$_UserDashboard implements _UserDashboard {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserDashboardCopyWith<_$_UserDashboard> get copyWith =>
-      __$$_UserDashboardCopyWithImpl<_$_UserDashboard>(this, _$identity);
+  _$$UserDashboardImplCopyWith<_$UserDashboardImpl> get copyWith =>
+      __$$UserDashboardImplCopyWithImpl<_$UserDashboardImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserDashboardToJson(
+    return _$$UserDashboardImplToJson(
       this,
     );
   }
@@ -188,10 +188,10 @@ abstract class _UserDashboard implements UserDashboard {
       {final int? listings,
       final int? messages,
       final int? reviews,
-      final int? referals}) = _$_UserDashboard;
+      final int? referals}) = _$UserDashboardImpl;
 
   factory _UserDashboard.fromJson(Map<String, dynamic> json) =
-      _$_UserDashboard.fromJson;
+      _$UserDashboardImpl.fromJson;
 
   @override
   int? get listings;
@@ -203,6 +203,6 @@ abstract class _UserDashboard implements UserDashboard {
   int? get referals;
   @override
   @JsonKey(ignore: true)
-  _$$_UserDashboardCopyWith<_$_UserDashboard> get copyWith =>
+  _$$UserDashboardImplCopyWith<_$UserDashboardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

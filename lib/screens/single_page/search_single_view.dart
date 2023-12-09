@@ -95,6 +95,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
       color: Colors.white,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),

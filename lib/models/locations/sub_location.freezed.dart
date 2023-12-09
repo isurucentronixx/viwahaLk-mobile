@@ -91,11 +91,11 @@ class _$SubLocationCopyWithImpl<$Res, $Val extends SubLocation>
 }
 
 /// @nodoc
-abstract class _$$_SubLocationCopyWith<$Res>
+abstract class _$$SubLocationImplCopyWith<$Res>
     implements $SubLocationCopyWith<$Res> {
-  factory _$$_SubLocationCopyWith(
-          _$_SubLocation value, $Res Function(_$_SubLocation) then) =
-      __$$_SubLocationCopyWithImpl<$Res>;
+  factory _$$SubLocationImplCopyWith(
+          _$SubLocationImpl value, $Res Function(_$SubLocationImpl) then) =
+      __$$SubLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_SubLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SubLocationCopyWithImpl<$Res>
-    extends _$SubLocationCopyWithImpl<$Res, _$_SubLocation>
-    implements _$$_SubLocationCopyWith<$Res> {
-  __$$_SubLocationCopyWithImpl(
-      _$_SubLocation _value, $Res Function(_$_SubLocation) _then)
+class __$$SubLocationImplCopyWithImpl<$Res>
+    extends _$SubLocationCopyWithImpl<$Res, _$SubLocationImpl>
+    implements _$$SubLocationImplCopyWith<$Res> {
+  __$$SubLocationImplCopyWithImpl(
+      _$SubLocationImpl _value, $Res Function(_$SubLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_SubLocationCopyWithImpl<$Res>
     Object? sub_location_si = freezed,
     Object? sub_location_ta = freezed,
   }) {
-    return _then(_$_SubLocation(
+    return _then(_$SubLocationImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -150,16 +150,16 @@ class __$$_SubLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SubLocation implements _SubLocation {
-  const _$_SubLocation(
+class _$SubLocationImpl implements _SubLocation {
+  const _$SubLocationImpl(
       {this.id,
       this.location_id,
       this.sub_location_en,
       this.sub_location_si,
       this.sub_location_ta});
 
-  factory _$_SubLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_SubLocationFromJson(json);
+  factory _$SubLocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubLocationImplFromJson(json);
 
   @override
   final int? id;
@@ -181,7 +181,7 @@ class _$_SubLocation implements _SubLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubLocation &&
+            other is _$SubLocationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.location_id, location_id) ||
                 other.location_id == location_id) &&
@@ -201,12 +201,12 @@ class _$_SubLocation implements _SubLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubLocationCopyWith<_$_SubLocation> get copyWith =>
-      __$$_SubLocationCopyWithImpl<_$_SubLocation>(this, _$identity);
+  _$$SubLocationImplCopyWith<_$SubLocationImpl> get copyWith =>
+      __$$SubLocationImplCopyWithImpl<_$SubLocationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SubLocationToJson(
+    return _$$SubLocationImplToJson(
       this,
     );
   }
@@ -218,10 +218,10 @@ abstract class _SubLocation implements SubLocation {
       final String? location_id,
       final String? sub_location_en,
       final String? sub_location_si,
-      final String? sub_location_ta}) = _$_SubLocation;
+      final String? sub_location_ta}) = _$SubLocationImpl;
 
   factory _SubLocation.fromJson(Map<String, dynamic> json) =
-      _$_SubLocation.fromJson;
+      _$SubLocationImpl.fromJson;
 
   @override
   int? get id;
@@ -235,6 +235,6 @@ abstract class _SubLocation implements SubLocation {
   String? get sub_location_ta;
   @override
   @JsonKey(ignore: true)
-  _$$_SubLocationCopyWith<_$_SubLocation> get copyWith =>
+  _$$SubLocationImplCopyWith<_$SubLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

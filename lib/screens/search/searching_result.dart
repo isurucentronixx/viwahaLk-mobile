@@ -75,6 +75,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
     searchingResult.addAll(ref.watch(searchResultProvider));
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

@@ -97,6 +97,7 @@ class _HomePageState extends ConsumerState<HomePage>
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: <Widget>[
             Row(
               children: [
@@ -110,21 +111,24 @@ class _HomePageState extends ConsumerState<HomePage>
               ],
             )
           ],
-          title: Text(currentPage == 0
-              ? ""
-              : currentPage == 1
-                  ? "All Listings"
-                  : currentPage == 2
-                      ? ref.watch(isloginProvider)
-                          ? "Add New Listing"
-                          : "Login"
-                      : currentPage == 3
-                          ? ref.watch(isloginProvider)
-                              ? "Profile"
-                              : "Login"
-                          : ref.watch(isloginProvider)
-                              ? "Favourite"
-                              : "Login"),
+          title: Text(
+            currentPage == 0
+                ? ""
+                : currentPage == 1
+                    ? "All Listings"
+                    : currentPage == 2
+                        ? ref.watch(isloginProvider)
+                            ? "Add New Listing"
+                            : "Login"
+                        : currentPage == 3
+                            ? ref.watch(isloginProvider)
+                                ? "Profile"
+                                : "Login"
+                            : ref.watch(isloginProvider)
+                                ? "Favourite"
+                                : "Login",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         drawer: const DrawerMenu(),
         body: PageStorage(
@@ -134,6 +138,9 @@ class _HomePageState extends ConsumerState<HomePage>
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
           child: FloatingActionButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
             backgroundColor: ViwahaColor.primary,
             child: Icon(
               Icons.add,

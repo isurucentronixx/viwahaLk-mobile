@@ -6,7 +6,7 @@ part of 'vendor.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Vendor _$$_VendorFromJson(Map<String, dynamic> json) => _$_Vendor(
+_$VendorImpl _$$VendorImplFromJson(Map<String, dynamic> json) => _$VendorImpl(
       id: json['id'] as String?,
       datetime: json['datetime'] as String?,
       user_id: json['user_id'] as String?,
@@ -92,7 +92,8 @@ _$_Vendor _$$_VendorFromJson(Map<String, dynamic> json) => _$_Vendor(
           .toList(),
     );
 
-Map<String, dynamic> _$$_VendorToJson(_$_Vendor instance) => <String, dynamic>{
+Map<String, dynamic> _$$VendorImplToJson(_$VendorImpl instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'datetime': instance.datetime,
       'user_id': instance.user_id,

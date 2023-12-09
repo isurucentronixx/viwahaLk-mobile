@@ -36,6 +36,7 @@ class _RegisterState extends ConsumerState<Register> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: ViwahaColor.primary,
         title: const Text('Register'),
       ),
       body: SingleChildScrollView(

@@ -77,6 +77,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: ViwahaColor.primary,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

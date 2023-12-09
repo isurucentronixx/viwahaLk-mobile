@@ -406,11 +406,11 @@ class _$VendorProfileCopyWithImpl<$Res, $Val extends VendorProfile>
 }
 
 /// @nodoc
-abstract class _$$_VendorProfileCopyWith<$Res>
+abstract class _$$VendorProfileImplCopyWith<$Res>
     implements $VendorProfileCopyWith<$Res> {
-  factory _$$_VendorProfileCopyWith(
-          _$_VendorProfile value, $Res Function(_$_VendorProfile) then) =
-      __$$_VendorProfileCopyWithImpl<$Res>;
+  factory _$$VendorProfileImplCopyWith(
+          _$VendorProfileImpl value, $Res Function(_$VendorProfileImpl) then) =
+      __$$VendorProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -467,11 +467,11 @@ abstract class _$$_VendorProfileCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_VendorProfileCopyWithImpl<$Res>
-    extends _$VendorProfileCopyWithImpl<$Res, _$_VendorProfile>
-    implements _$$_VendorProfileCopyWith<$Res> {
-  __$$_VendorProfileCopyWithImpl(
-      _$_VendorProfile _value, $Res Function(_$_VendorProfile) _then)
+class __$$VendorProfileImplCopyWithImpl<$Res>
+    extends _$VendorProfileCopyWithImpl<$Res, _$VendorProfileImpl>
+    implements _$$VendorProfileImplCopyWith<$Res> {
+  __$$VendorProfileImplCopyWithImpl(
+      _$VendorProfileImpl _value, $Res Function(_$VendorProfileImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -528,7 +528,7 @@ class __$$_VendorProfileCopyWithImpl<$Res>
     Object? member = freezed,
     Object? listings_count = freezed,
   }) {
-    return _then(_$_VendorProfile(
+    return _then(_$VendorProfileImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -735,8 +735,8 @@ class __$$_VendorProfileCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_VendorProfile implements _VendorProfile {
-  const _$_VendorProfile(
+class _$VendorProfileImpl implements _VendorProfile {
+  const _$VendorProfileImpl(
       {this.id,
       this.date,
       this.active_date,
@@ -788,8 +788,8 @@ class _$_VendorProfile implements _VendorProfile {
       this.member,
       this.listings_count});
 
-  factory _$_VendorProfile.fromJson(Map<String, dynamic> json) =>
-      _$$_VendorProfileFromJson(json);
+  factory _$VendorProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VendorProfileImplFromJson(json);
 
   @override
   final String? id;
@@ -901,7 +901,7 @@ class _$_VendorProfile implements _VendorProfile {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VendorProfile &&
+            other is _$VendorProfileImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.active_date, active_date) ||
@@ -1044,12 +1044,12 @@ class _$_VendorProfile implements _VendorProfile {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VendorProfileCopyWith<_$_VendorProfile> get copyWith =>
-      __$$_VendorProfileCopyWithImpl<_$_VendorProfile>(this, _$identity);
+  _$$VendorProfileImplCopyWith<_$VendorProfileImpl> get copyWith =>
+      __$$VendorProfileImplCopyWithImpl<_$VendorProfileImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VendorProfileToJson(
+    return _$$VendorProfileImplToJson(
       this,
     );
   }
@@ -1106,10 +1106,10 @@ abstract class _VendorProfile implements VendorProfile {
       final String? membership,
       final String? membership_upload,
       final String? member,
-      final String? listings_count}) = _$_VendorProfile;
+      final String? listings_count}) = _$VendorProfileImpl;
 
   factory _VendorProfile.fromJson(Map<String, dynamic> json) =
-      _$_VendorProfile.fromJson;
+      _$VendorProfileImpl.fromJson;
 
   @override
   String? get id;
@@ -1213,6 +1213,6 @@ abstract class _VendorProfile implements VendorProfile {
   String? get listings_count;
   @override
   @JsonKey(ignore: true)
-  _$$_VendorProfileCopyWith<_$_VendorProfile> get copyWith =>
+  _$$VendorProfileImplCopyWith<_$VendorProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -39,11 +39,10 @@ class LoginController {
     } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e);
       log(errorMessage.toString());
-      ref.read(loginViewStateProvider.notifier).state = const AsyncValue
-              .data(
-              "Invalid credentials or Unable to login for some other reason. Please try again...");
-          ref.read(loginViewStateProvider.notifier).state =
-              const AsyncValue.data(null);
+      ref.read(loginViewStateProvider.notifier).state = const AsyncValue.data(
+          "Invalid credentials or Unable to login for some other reason. Please try again...");
+      ref.read(loginViewStateProvider.notifier).state =
+          const AsyncValue.data(null);
       rethrow;
     }
   }
@@ -75,6 +74,27 @@ class LoginController {
     try {
       final res = await loginService.fetchLoginGoogleApiRequest(
           displayName: displayName, email: email, photoUrl: photoUrl);
+
+      // ignore: use_build_context_synchronously
+      final user = UserModel.fromJson(res);
+
+      return user;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e);
+      log(errorMessage.toString());
+      rethrow;
+    }
+  }
+
+  Future<UserModel> fetchAppleUser({
+    required String? displayName,
+    required String? email,
+  }) async {
+    try {
+      final res = await loginService.fetchLoginAppleApiRequest(
+        displayName: displayName,
+        email: email,
+      );
 
       // ignore: use_build_context_synchronously
       final user = UserModel.fromJson(res);
