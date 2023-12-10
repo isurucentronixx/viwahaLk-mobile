@@ -130,7 +130,7 @@ class _HomePageState extends ConsumerState<HomePage>
             style: TextStyle(color: Colors.white),
           ),
         ),
-        drawer: const DrawerMenu(),
+        drawer: DrawerMenu(),
         body: PageStorage(
           child: currentScreen,
           bucket: bucket,

@@ -40,6 +40,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
     }
 
     final user = ref.watch(userProvider).user;
+    print({"object", user});
     return Drawer(
       child: Column(
         children: [
@@ -57,9 +58,11 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                         fit: BoxFit.contain,
                         alignment: Alignment.center),
                   ),
-                  accountName: Text(ref.watch(isloginProvider)
-                      ? '${user!.firstname.toString()[0].toUpperCase()}${user.firstname.toString().substring(1).toLowerCase()} ${user.lastname.toString()[0].toUpperCase()}${user.lastname.toString().substring(1).toLowerCase()}'
-                      : ''),
+                  accountName: Text(
+                    ref.watch(isloginProvider)
+                        ? '${user?.firstname.toString()[0].toUpperCase()}${user?.firstname.toString().substring(1).toLowerCase()} ${user?.lastname?.isNotEmpty == true ? '${user?.lastname.toString()[0].toUpperCase()}${user?.lastname.toString().substring(1).toLowerCase()}' : ''}'
+                        : '',
+                  ),
                   accountEmail: Text(
                       ref.watch(isloginProvider) ? user!.email.toString() : ''),
                 ),

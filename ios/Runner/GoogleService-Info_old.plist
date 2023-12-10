@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>279777936619-kht3c0700isrpkf1u0ku4b6kl466arde.apps.googleusercontent.com</string>
+	<string>330135912980-h5301ij42o9plufo22hnlu3494iffqj9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.279777936619-kht3c0700isrpkf1u0ku4b6kl466arde</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>279777936619-l6qcac64abf5ssgbijchov09s0rljnug.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.330135912980-h5301ij42o9plufo22hnlu3494iffqj9</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAYCVpfGfpnnSaKi8Qghj4XelVaf_IVqJQ</string>
+	<string>AIzaSyCMYhNEm9y71weH75QdMeXNHhUk_tJ3f6Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>279777936619</string>
+	<string>330135912980</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.viwahalk.app</string>
 	<key>PROJECT_ID</key>
-	<string>viwaha</string>
+	<string>viwaha-couple</string>
 	<key>STORAGE_BUCKET</key>
-	<string>viwaha.appspot.com</string>
+	<string>viwaha-couple.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:279777936619:ios:daf2eccf2cef3d538aaaae</string>
+	<string>1:330135912980:ios:21bb80ce3c8ae0388b5d01</string>
 </dict>
 </plist>
