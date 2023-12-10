@@ -12,12 +12,11 @@ import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/features/login/login_state_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
-import 'package:viwaha_lk/models/auth/user.dart';
-import 'package:viwaha_lk/models/auth/user_model.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
+import 'dart:io' show Platform;
 
 final usernameProvider = StateProvider<String>((ref) => "");
 final passwordProvider = StateProvider<String>((ref) => "");
@@ -239,34 +238,35 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                       const SizedBox(width: 14.0),
-                      FractionallySizedBox(
-                        widthFactor: 0.8,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            // Perform Google sign-in logic here
-                            appleSignIn(context, ref);
-                          },
-                          icon: SizedBox(
-                              width: 20,
-                              child:
-                                  Assets.lib.assets.images.appleLogo.image()),
-                          label: Text(
-                            LocaleKeys.sign_with_apple.tr(),
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: Colors.black,
-                            foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                      if (Platform.isIOS)
+                        FractionallySizedBox(
+                          widthFactor: 0.8,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              // Perform Google sign-in logic here
+                              appleSignIn(context, ref);
+                            },
+                            icon: SizedBox(
+                                width: 20,
+                                child:
+                                    Assets.lib.assets.images.appleLogo.image()),
+                            label: Text(
+                              LocaleKeys.sign_with_apple.tr(),
+                              style: const TextStyle(color: Colors.white),
                             ),
-                            side: const BorderSide(
-                              color: Colors.black,
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              side: const BorderSide(
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       // FractionallySizedBox(
                       //   widthFactor: 0.8,
                       //   child: ElevatedButton.icon(
