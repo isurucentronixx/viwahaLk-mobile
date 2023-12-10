@@ -232,44 +232,6 @@ class _RegisterState extends ConsumerState<Register> {
                   ),
                 ),
               ),
-              FractionallySizedBox(
-                widthFactor: 0.8,
-                child: ElevatedButton.icon(
-                  onPressed: () async {
-                    AutoRouter.of(context).push(Login(onHome: false));
-                  },
-                  icon: const Icon(Icons.login),
-                  label: Text(LocaleKeys.sign_in.tr()),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
-              ),
-              FractionallySizedBox(
-                widthFactor: 0.8,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    // Perform Google sign-in logic here
-                    googleSignIn(context, ref);
-                  },
-                  icon: SizedBox(
-                      width: 20,
-                      child: Assets.lib.assets.images.googleLogo.image()),
-                  label: Text(LocaleKeys.sign_with_google.tr()),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    side: const BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ),
               const SizedBox(height: 40.0),
             ],
           ),
@@ -277,26 +239,4 @@ class _RegisterState extends ConsumerState<Register> {
       ),
     );
   }
-}
-
-Future googleSignIn(BuildContext context, WidgetRef ref) async {
-  final controller = ref.read(loginControllerProvider);
-  final appRouter = ref.watch(appRouterProvider);
-  final user = await GoogleSignInApi.login();
-  if (user != null) {
-    final res = await controller.fetchGoogleUser(
-        displayName: user.displayName,
-        email: user.email,
-        photoUrl: user.photoUrl);
-
-    ref.read(userProvider.notifier).state = res;
-    ref.read(isloginProvider.notifier).state = true;
-    AutoRouter.of(context).push(const HomePage());
-    // appRouter.push(const HomePage());
-  } else {}
-}
-
-class GoogleSignInApi {
-  static final _googleSignIn = GoogleSignIn();
-  static Future<GoogleSignInAccount?> login() => _googleSignIn.signIn();
 }
