@@ -631,7 +631,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
             inMaterialBanner: true,
 
             /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-            contentType: ContentType.success, color: ViwahaColor.primary,
+            contentType: ContentType.success,
+            color: isSuccessfull ? const Color(0xff21B6A8) : Colors.red,
           ),
         );
         (items == null ? null : ScaffoldMessenger.of(context))!
@@ -685,290 +686,317 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         description: "General information about your self",
                         inputList: [
                           Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: _catColor),
-                              ),
-                              child: SmartSelect<String>.single(
-                                title: 'Category',
-                                selectedValue: _cat,
-                                choiceItems: mainCategoryData,
-                                onChange: (selected) {
-                                  setState(() {
-                                    _cat = selected.value;
-                                    subCategoryData = ref
-                                        .watch(categoriesProvider)
-                                        .where((element) =>
-                                            element.category == selected.value)
-                                        .first
-                                        .sub_categories!
-                                        .map((e) => S2Choice<String>(
-                                            value: e!.sub_category.toString(),
-                                            title: e.sub_category
-                                                .toString()
-                                                .toString()))
-                                        .toList();
-                                    _catColor = Colors.grey;
-                                  });
-                                },
-                                modalType: S2ModalType.bottomSheet,
-                                tileBuilder: (context, state) {
-                                  return ListTile(
-                                    title: Text(
-                                      state.title.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    subtitle: Text(_cat),
-                                    trailing:
-                                        const Icon(Icons.keyboard_arrow_down),
-                                    onTap: state.showModal,
-                                  );
-                                },
-                              ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: _catColor),
+                                  ),
+                                  child: SmartSelect<String>.single(
+                                    title: 'Category',
+                                    selectedValue: _cat,
+                                    choiceItems: mainCategoryData,
+                                    onChange: (selected) {
+                                      setState(() {
+                                        _cat = selected.value;
+                                        subCategoryData = ref
+                                            .watch(categoriesProvider)
+                                            .where((element) =>
+                                                element.category ==
+                                                selected.value)
+                                            .first
+                                            .sub_categories!
+                                            .map((e) => S2Choice<String>(
+                                                value:
+                                                    e!.sub_category.toString(),
+                                                title: e.sub_category
+                                                    .toString()
+                                                    .toString()))
+                                            .toList();
+                                        _catColor = Colors.grey;
+                                      });
+                                    },
+                                    modalType: S2ModalType.bottomSheet,
+                                    tileBuilder: (context, state) {
+                                      return ListTile(
+                                        title: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        subtitle: Text(_cat),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: state.showModal,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    '*required',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: _subCatColor),
-                              ),
-                              child: SmartSelect<String>.single(
-                                title: 'Sub Category',
-                                selectedValue: _subCat,
-                                choiceItems: subCategoryData,
-                                onChange: (selected) {
-                                  setState(() {
-                                    _subCat = selected.value;
-                                  });
-                                },
-                                modalType: S2ModalType.bottomSheet,
-                                tileBuilder: (context, state) {
-                                  return ListTile(
-                                    title: Text(
-                                      state.title.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    subtitle: Text(_subCat),
-                                    trailing:
-                                        const Icon(Icons.keyboard_arrow_down),
-                                    onTap: state.showModal,
-                                  );
-                                },
-                              ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: _subCatColor),
+                                  ),
+                                  child: SmartSelect<String>.single(
+                                    title: 'Sub Category',
+                                    selectedValue: _subCat,
+                                    choiceItems: subCategoryData,
+                                    onChange: (selected) {
+                                      setState(() {
+                                        _subCat = selected.value;
+                                      });
+                                    },
+                                    modalType: S2ModalType.bottomSheet,
+                                    tileBuilder: (context, state) {
+                                      return ListTile(
+                                        title: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        subtitle: Text(_subCat),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: state.showModal,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    '*required',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           _cat != 'Proposal'
                               ? Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) async {
-                                      await controller
-                                          .isDuplicate('title', value)
-                                          .then((value) {
-                                        if (value['responseCode'] == '1') {
-                                          final searchResult = (value[
-                                                  'listings'] as List)
-                                              .map((e) =>
-                                                  SearchResultItem.fromJson(e))
-                                              .toList();
-                                          return showDialog<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                insetPadding:
-                                                    EdgeInsets.all(10),
-                                                child: Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.5,
-                                                  child: Column(
-                                                    children: [
-                                                      const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          'Duplicate Listing',
-                                                          style: TextStyle(
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                searchResult
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return DuplicatedListItem(
-                                                                id: searchResult[
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                imagePath: (searchResult[index]
-                                                                            .image) !=
-                                                                        null
-                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
-                                                                    : ref
-                                                                        .read(
-                                                                            homeControllerProvider)
-                                                                        .getTumbImage(
-                                                                            searchResult[index].thumb_images)
-                                                                        .first,
-                                                                title: searchResult[
-                                                                        index]
-                                                                    .title
-                                                                    .toString(),
-                                                                description: searchResult[
-                                                                        index]
-                                                                    .description
-                                                                    .toString(),
-                                                                starRating: (searchResult[index]
-                                                                            .average_rating) !=
-                                                                        null
-                                                                    ? double.parse(searchResult[
-                                                                            index]
-                                                                        .average_rating
-                                                                        .toString())
-                                                                    : 0,
-                                                                location:
-                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
-                                                                date: searchResult[
-                                                                        index]
-                                                                    .datetime
-                                                                    .toString(),
-                                                                type: 'all',
-                                                                isFav: searchResult[
-                                                                        index]
-                                                                    .is_favourite
-                                                                    .toString(),
-                                                                isPremium: searchResult[index]
-                                                                            .premium
-                                                                            .toString() !=
-                                                                        "1"
-                                                                    ? false
-                                                                    : true,
-                                                                boostedDate:
-                                                                    searchResult[
-                                                                            index]
-                                                                        .boosted
-                                                                        .toString(),
-                                                                item:
-                                                                    searchResult[
-                                                                        index],
-                                                              );
-                                                            }),
-                                                      ),
-                                                      ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .all(ViwahaColor
-                                                                      .primary),
-                                                          shape: MaterialStateProperty
-                                                              .all<
-                                                                  RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) async {
+                                          await controller
+                                              .isDuplicate('title', value)
+                                              .then((value) {
+                                            if (value['responseCode'] == '1') {
+                                              final searchResult =
+                                                  (value['listings'] as List)
+                                                      .map((e) =>
+                                                          SearchResultItem
+                                                              .fromJson(e))
+                                                      .toList();
+                                              return showDialog<void>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.5,
+                                                      child: Column(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8.0),
+                                                            child: Text(
+                                                              'Duplicate Listing',
+                                                              style: TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              "Continue anyway",
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .white),
+                                                          Expanded(
+                                                            child: ListView
+                                                                .builder(
+                                                                    itemCount:
+                                                                        searchResult
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            index) {
+                                                                      return DuplicatedListItem(
+                                                                        id: searchResult[index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        imagePath: (searchResult[index].image) !=
+                                                                                null
+                                                                            ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                            : ref.read(homeControllerProvider).getTumbImage(searchResult[index].thumb_images).first,
+                                                                        title: searchResult[index]
+                                                                            .title
+                                                                            .toString(),
+                                                                        description: searchResult[index]
+                                                                            .description
+                                                                            .toString(),
+                                                                        starRating: (searchResult[index].average_rating) !=
+                                                                                null
+                                                                            ? double.parse(searchResult[index].average_rating.toString())
+                                                                            : 0,
+                                                                        location:
+                                                                            '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                        date: searchResult[index]
+                                                                            .datetime
+                                                                            .toString(),
+                                                                        type:
+                                                                            'all',
+                                                                        isFav: searchResult[index]
+                                                                            .is_favourite
+                                                                            .toString(),
+                                                                        isPremium: searchResult[index].premium.toString() !=
+                                                                                "1"
+                                                                            ? false
+                                                                            : true,
+                                                                        boostedDate: searchResult[index]
+                                                                            .boosted
+                                                                            .toString(),
+                                                                        item: searchResult[
+                                                                            index],
+                                                                      );
+                                                                    }),
+                                                          ),
+                                                          ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all(
+                                                                      ViwahaColor
+                                                                          .primary),
+                                                              shape: MaterialStateProperty
+                                                                  .all<
+                                                                      RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  "Continue anyway",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                    ),
+                                                  );
+                                                },
                                               );
-                                            },
-                                          );
-                                        }
-                                      });
-                                      setState(() {
-                                        ref
-                                            .read(adTitleProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                            }
+                                          });
+                                          setState(() {
+                                            ref
+                                                .read(adTitleProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText:
+                                              "This name will appear on your ad.",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'AD Title',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "AD Title can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText:
-                                          "This name will appear on your ad.",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'AD Title',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "AD Title can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               : const SizedBox(),
@@ -981,705 +1009,733 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Take the 1st step to your happy marriage",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) async {
-                                      await controller
-                                          .isDuplicate('title', value)
-                                          .then((value) {
-                                        if (value['responseCode'] == '1') {
-                                          final searchResult = (value[
-                                                  'listings'] as List)
-                                              .map((e) =>
-                                                  SearchResultItem.fromJson(e))
-                                              .toList();
-                                          return showDialog<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                insetPadding:
-                                                    EdgeInsets.all(10),
-                                                child: Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.5,
-                                                  child: Column(
-                                                    children: [
-                                                      const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          'Duplicate Listing',
-                                                          style: TextStyle(
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                searchResult
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return DuplicatedListItem(
-                                                                id: searchResult[
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                imagePath: (searchResult[index]
-                                                                            .image) !=
-                                                                        null
-                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
-                                                                    : ref
-                                                                        .read(
-                                                                            homeControllerProvider)
-                                                                        .getTumbImage(
-                                                                            searchResult[index].thumb_images)
-                                                                        .first,
-                                                                title: searchResult[
-                                                                        index]
-                                                                    .title
-                                                                    .toString(),
-                                                                description: searchResult[
-                                                                        index]
-                                                                    .description
-                                                                    .toString(),
-                                                                starRating: (searchResult[index]
-                                                                            .average_rating) !=
-                                                                        null
-                                                                    ? double.parse(searchResult[
-                                                                            index]
-                                                                        .average_rating
-                                                                        .toString())
-                                                                    : 0,
-                                                                location:
-                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
-                                                                date: searchResult[
-                                                                        index]
-                                                                    .datetime
-                                                                    .toString(),
-                                                                type: 'all',
-                                                                isFav: searchResult[
-                                                                        index]
-                                                                    .is_favourite
-                                                                    .toString(),
-                                                                isPremium: searchResult[index]
-                                                                            .premium
-                                                                            .toString() !=
-                                                                        "1"
-                                                                    ? false
-                                                                    : true,
-                                                                boostedDate:
-                                                                    searchResult[
-                                                                            index]
-                                                                        .boosted
-                                                                        .toString(),
-                                                                item:
-                                                                    searchResult[
-                                                                        index],
-                                                              );
-                                                            }),
-                                                      ),
-                                                      ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .all(ViwahaColor
-                                                                      .primary),
-                                                          shape: MaterialStateProperty
-                                                              .all<
-                                                                  RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) async {
+                                          await controller
+                                              .isDuplicate('title', value)
+                                              .then((value) {
+                                            if (value['responseCode'] == '1') {
+                                              final searchResult =
+                                                  (value['listings'] as List)
+                                                      .map((e) =>
+                                                          SearchResultItem
+                                                              .fromJson(e))
+                                                      .toList();
+                                              return showDialog<void>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        EdgeInsets.all(10),
+                                                    child: Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.5,
+                                                      child: Column(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8.0),
+                                                            child: Text(
+                                                              'Duplicate Listing',
+                                                              style: TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              "Continue anyway",
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .white),
+                                                          Expanded(
+                                                            child: ListView
+                                                                .builder(
+                                                                    itemCount:
+                                                                        searchResult
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            index) {
+                                                                      return DuplicatedListItem(
+                                                                        id: searchResult[index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        imagePath: (searchResult[index].image) !=
+                                                                                null
+                                                                            ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                            : ref.read(homeControllerProvider).getTumbImage(searchResult[index].thumb_images).first,
+                                                                        title: searchResult[index]
+                                                                            .title
+                                                                            .toString(),
+                                                                        description: searchResult[index]
+                                                                            .description
+                                                                            .toString(),
+                                                                        starRating: (searchResult[index].average_rating) !=
+                                                                                null
+                                                                            ? double.parse(searchResult[index].average_rating.toString())
+                                                                            : 0,
+                                                                        location:
+                                                                            '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                        date: searchResult[index]
+                                                                            .datetime
+                                                                            .toString(),
+                                                                        type:
+                                                                            'all',
+                                                                        isFav: searchResult[index]
+                                                                            .is_favourite
+                                                                            .toString(),
+                                                                        isPremium: searchResult[index].premium.toString() !=
+                                                                                "1"
+                                                                            ? false
+                                                                            : true,
+                                                                        boostedDate: searchResult[index]
+                                                                            .boosted
+                                                                            .toString(),
+                                                                        item: searchResult[
+                                                                            index],
+                                                                      );
+                                                                    }),
+                                                          ),
+                                                          ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all(
+                                                                      ViwahaColor
+                                                                          .primary),
+                                                              shape: MaterialStateProperty
+                                                                  .all<
+                                                                      RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  "Continue anyway",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                    ),
+                                                  );
+                                                },
                                               );
-                                            },
-                                          );
-                                        }
-                                      });
-                                      setState(() {
-                                        ref
-                                            .read(proposerNameProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText:
-                                          "This name will appear on your ad.",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Name',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Proposer name can't be empty";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: _genderColor),
-                                    ),
-                                    child: SmartSelect<String>.single(
-                                      title: 'I am a',
-                                      selectedValue: _gender,
-                                      choiceItems: genderData,
-                                      onChange: (selected) {
-                                        setState(() {
-                                          _gender = selected.value;
-                                        });
-                                      },
-                                      modalType: S2ModalType.bottomSheet,
-                                      tileBuilder: (context, state) {
-                                        return ListTile(
-                                          title: Text(
-                                            state.title.toString(),
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 18,
-                                              fontFamily: "Montserrat",
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                            }
+                                          });
+                                          setState(() {
+                                            ref
+                                                .read(proposerNameProvider
+                                                    .notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
                                           ),
-                                          subtitle: Text(_gender),
-                                          trailing: const Icon(
-                                              Icons.keyboard_arrow_down),
-                                          onTap: state.showModal,
-                                        );
-                                      },
-                                    ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText:
+                                              "This name will appear on your ad.",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Name',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Proposer name can't be empty";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    controller: _dobController,
-                                    onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(1900),
-                                              lastDate: DateTime(2101));
-                                      if (pickedDate != null) {
-                                        String formattedDate =
-                                            Jiffy.parse(pickedDate.toString())
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border:
+                                              Border.all(color: _genderColor),
+                                        ),
+                                        child: SmartSelect<String>.single(
+                                          title: 'I am a',
+                                          selectedValue: _gender,
+                                          choiceItems: genderData,
+                                          onChange: (selected) {
+                                            setState(() {
+                                              _gender = selected.value;
+                                            });
+                                          },
+                                          modalType: S2ModalType.bottomSheet,
+                                          tileBuilder: (context, state) {
+                                            return ListTile(
+                                              title: Text(
+                                                state.title.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18,
+                                                  fontFamily: "Montserrat",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              subtitle: Text(_gender),
+                                              trailing: const Icon(
+                                                  Icons.keyboard_arrow_down),
+                                              onTap: state.showModal,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        controller: _dobController,
+                                        onTap: () async {
+                                          DateTime? pickedDate =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(1900),
+                                                  lastDate: DateTime(2101));
+                                          if (pickedDate != null) {
+                                            String formattedDate = Jiffy.parse(
+                                                    pickedDate.toString())
                                                 .format(pattern: 'yyyy-MM-dd');
 
-                                        setState(() {
-                                          _dobController.text = formattedDate;
-                                          ref
-                                                  .read(proposerDobProvider
-                                                      .notifier)
-                                                  .state =
-                                              DateTime.parse(formattedDate);
-                                        });
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                            setState(() {
+                                              _dobController.text =
+                                                  formattedDate;
+                                              ref
+                                                      .read(proposerDobProvider
+                                                          .notifier)
+                                                      .state =
+                                                  DateTime.parse(formattedDate);
+                                            });
+                                          }
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText:
+                                              "This date will appear on your ad.",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Born on',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Proposer DOB can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText:
-                                          "This date will appear on your ad.",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Born on',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Proposer DOB can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) async {
-                                      await controller
-                                          .isDuplicate('email', value)
-                                          .then((value) {
-                                        if (value['responseCode'] == '1') {
-                                          final searchResult = (value[
-                                                  'listings'] as List)
-                                              .map((e) =>
-                                                  SearchResultItem.fromJson(e))
-                                              .toList();
-                                          return showDialog<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                insetPadding:
-                                                    EdgeInsets.all(10),
-                                                child: Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.5,
-                                                  child: Column(
-                                                    children: [
-                                                      const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          'Duplicate Listing',
-                                                          style: TextStyle(
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                searchResult
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return DuplicatedListItem(
-                                                                id: searchResult[
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                imagePath: (searchResult[index]
-                                                                            .image) !=
-                                                                        null
-                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
-                                                                    : ref
-                                                                        .read(
-                                                                            homeControllerProvider)
-                                                                        .getTumbImage(
-                                                                            searchResult[index].thumb_images)
-                                                                        .first,
-                                                                title: searchResult[
-                                                                        index]
-                                                                    .title
-                                                                    .toString(),
-                                                                description: searchResult[
-                                                                        index]
-                                                                    .description
-                                                                    .toString(),
-                                                                starRating: (searchResult[index]
-                                                                            .average_rating) !=
-                                                                        null
-                                                                    ? double.parse(searchResult[
-                                                                            index]
-                                                                        .average_rating
-                                                                        .toString())
-                                                                    : 0,
-                                                                location:
-                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
-                                                                date: searchResult[
-                                                                        index]
-                                                                    .datetime
-                                                                    .toString(),
-                                                                type: 'all',
-                                                                isFav: searchResult[
-                                                                        index]
-                                                                    .is_favourite
-                                                                    .toString(),
-                                                                isPremium: searchResult[index]
-                                                                            .premium
-                                                                            .toString() !=
-                                                                        "1"
-                                                                    ? false
-                                                                    : true,
-                                                                boostedDate:
-                                                                    searchResult[
-                                                                            index]
-                                                                        .boosted
-                                                                        .toString(),
-                                                                item:
-                                                                    searchResult[
-                                                                        index],
-                                                              );
-                                                            }),
-                                                      ),
-                                                      ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .all(ViwahaColor
-                                                                      .primary),
-                                                          shape: MaterialStateProperty
-                                                              .all<
-                                                                  RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) async {
+                                          await controller
+                                              .isDuplicate('email', value)
+                                              .then((value) {
+                                            if (value['responseCode'] == '1') {
+                                              final searchResult =
+                                                  (value['listings'] as List)
+                                                      .map((e) =>
+                                                          SearchResultItem
+                                                              .fromJson(e))
+                                                      .toList();
+                                              return showDialog<void>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        EdgeInsets.all(10),
+                                                    child: Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.5,
+                                                      child: Column(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8.0),
+                                                            child: Text(
+                                                              'Duplicate Listing',
+                                                              style: TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              "Continue anyway",
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .white),
+                                                          Expanded(
+                                                            child: ListView
+                                                                .builder(
+                                                                    itemCount:
+                                                                        searchResult
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            index) {
+                                                                      return DuplicatedListItem(
+                                                                        id: searchResult[index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        imagePath: (searchResult[index].image) !=
+                                                                                null
+                                                                            ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                            : ref.read(homeControllerProvider).getTumbImage(searchResult[index].thumb_images).first,
+                                                                        title: searchResult[index]
+                                                                            .title
+                                                                            .toString(),
+                                                                        description: searchResult[index]
+                                                                            .description
+                                                                            .toString(),
+                                                                        starRating: (searchResult[index].average_rating) !=
+                                                                                null
+                                                                            ? double.parse(searchResult[index].average_rating.toString())
+                                                                            : 0,
+                                                                        location:
+                                                                            '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                        date: searchResult[index]
+                                                                            .datetime
+                                                                            .toString(),
+                                                                        type:
+                                                                            'all',
+                                                                        isFav: searchResult[index]
+                                                                            .is_favourite
+                                                                            .toString(),
+                                                                        isPremium: searchResult[index].premium.toString() !=
+                                                                                "1"
+                                                                            ? false
+                                                                            : true,
+                                                                        boostedDate: searchResult[index]
+                                                                            .boosted
+                                                                            .toString(),
+                                                                        item: searchResult[
+                                                                            index],
+                                                                      );
+                                                                    }),
+                                                          ),
+                                                          ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all(
+                                                                      ViwahaColor
+                                                                          .primary),
+                                                              shape: MaterialStateProperty
+                                                                  .all<
+                                                                      RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        }
-                                      });
-                                      setState(() {
-                                        ref
-                                            .read(adEmailProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Email address",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Email',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Proposer email can't be empty";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) async {
-                                      await controller
-                                          .isDuplicate('phone', value)
-                                          .then((value) {
-                                        if (value['responseCode'] == '1') {
-                                          final searchResult = (value[
-                                                  'listings'] as List)
-                                              .map((e) =>
-                                                  SearchResultItem.fromJson(e))
-                                              .toList();
-                                          return showDialog<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                insetPadding:
-                                                    EdgeInsets.all(10),
-                                                child: Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.5,
-                                                  child: Column(
-                                                    children: [
-                                                      const Padding(
-                                                        padding:
-                                                            EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          'Duplicate Listing',
-                                                          style: TextStyle(
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                searchResult
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return DuplicatedListItem(
-                                                                id: searchResult[
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                                imagePath: (searchResult[index]
-                                                                            .image) !=
-                                                                        null
-                                                                    ? "https://viwaha.lk/${searchResult[index].image.toString()}"
-                                                                    : ref
-                                                                        .read(
-                                                                            homeControllerProvider)
-                                                                        .getTumbImage(
-                                                                            searchResult[index].thumb_images)
-                                                                        .first,
-                                                                title: searchResult[
-                                                                        index]
-                                                                    .title
-                                                                    .toString(),
-                                                                description: searchResult[
-                                                                        index]
-                                                                    .description
-                                                                    .toString(),
-                                                                starRating: (searchResult[index]
-                                                                            .average_rating) !=
-                                                                        null
-                                                                    ? double.parse(searchResult[
-                                                                            index]
-                                                                        .average_rating
-                                                                        .toString())
-                                                                    : 0,
-                                                                location:
-                                                                    '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
-                                                                date: searchResult[
-                                                                        index]
-                                                                    .datetime
-                                                                    .toString(),
-                                                                type: 'all',
-                                                                isFav: searchResult[
-                                                                        index]
-                                                                    .is_favourite
-                                                                    .toString(),
-                                                                isPremium: searchResult[index]
-                                                                            .premium
-                                                                            .toString() !=
-                                                                        "1"
-                                                                    ? false
-                                                                    : true,
-                                                                boostedDate:
-                                                                    searchResult[
-                                                                            index]
-                                                                        .boosted
-                                                                        .toString(),
-                                                                item:
-                                                                    searchResult[
-                                                                        index],
-                                                              );
-                                                            }),
-                                                      ),
-                                                      ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .all(ViwahaColor
-                                                                      .primary),
-                                                          shape: MaterialStateProperty
-                                                              .all<
-                                                                  RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  "Continue anyway",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              "Continue anyway",
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
+                                                    ),
+                                                  );
+                                                },
                                               );
-                                            },
-                                          );
-                                        }
-                                      });
-                                      setState(() {
-                                        ref
-                                            .read(adPhoneProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                            }
+                                          });
+                                          setState(() {
+                                            ref
+                                                .read(adEmailProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Email address",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Email',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Proposer email can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Phone number",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Phone',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Proposer phone number can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) async {
+                                          await controller
+                                              .isDuplicate('phone', value)
+                                              .then((value) {
+                                            if (value['responseCode'] == '1') {
+                                              final searchResult =
+                                                  (value['listings'] as List)
+                                                      .map((e) =>
+                                                          SearchResultItem
+                                                              .fromJson(e))
+                                                      .toList();
+                                              return showDialog<void>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        EdgeInsets.all(10),
+                                                    child: Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.5,
+                                                      child: Column(
+                                                        children: [
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    8.0),
+                                                            child: Text(
+                                                              'Duplicate Listing',
+                                                              style: TextStyle(
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView
+                                                                .builder(
+                                                                    itemCount:
+                                                                        searchResult
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            index) {
+                                                                      return DuplicatedListItem(
+                                                                        id: searchResult[index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        imagePath: (searchResult[index].image) !=
+                                                                                null
+                                                                            ? "https://viwaha.lk/${searchResult[index].image.toString()}"
+                                                                            : ref.read(homeControllerProvider).getTumbImage(searchResult[index].thumb_images).first,
+                                                                        title: searchResult[index]
+                                                                            .title
+                                                                            .toString(),
+                                                                        description: searchResult[index]
+                                                                            .description
+                                                                            .toString(),
+                                                                        starRating: (searchResult[index].average_rating) !=
+                                                                                null
+                                                                            ? double.parse(searchResult[index].average_rating.toString())
+                                                                            : 0,
+                                                                        location:
+                                                                            '${searchResult[index].location.toString()}, ${searchResult[index].main_location.toString()}',
+                                                                        date: searchResult[index]
+                                                                            .datetime
+                                                                            .toString(),
+                                                                        type:
+                                                                            'all',
+                                                                        isFav: searchResult[index]
+                                                                            .is_favourite
+                                                                            .toString(),
+                                                                        isPremium: searchResult[index].premium.toString() !=
+                                                                                "1"
+                                                                            ? false
+                                                                            : true,
+                                                                        boostedDate: searchResult[index]
+                                                                            .boosted
+                                                                            .toString(),
+                                                                        item: searchResult[
+                                                                            index],
+                                                                      );
+                                                                    }),
+                                                          ),
+                                                          ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all(
+                                                                      ViwahaColor
+                                                                          .primary),
+                                                              shape: MaterialStateProperty
+                                                                  .all<
+                                                                      RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  "Continue anyway",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          });
+                                          setState(() {
+                                            ref
+                                                .read(adPhoneProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Phone number",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Phone',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Proposer phone number can't be empty";
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -1736,147 +1792,185 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             "Address information about your listing location",
                         inputList: [
                           Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: _locationColor),
-                              ),
-                              child: SmartSelect<String>.single(
-                                title: 'Distric',
-                                selectedValue: _location,
-                                choiceItems: mainLocationData,
-                                onChange: (selected) {
-                                  setState(() {
-                                    _location = selected.value;
-                                    subLocationData = ref
-                                        .watch(locationsProvider)
-                                        .where((element) =>
-                                            element.location_en ==
-                                            selected.value)
-                                        .first
-                                        .sub_locations!
-                                        .map((e) => S2Choice<String>(
-                                            value:
-                                                e!.sub_location_en.toString(),
-                                            title: e.sub_location_en
-                                                .toString()
-                                                .toString()))
-                                        .toList();
-                                  });
-                                },
-                                modalType: S2ModalType.bottomSheet,
-                                tileBuilder: (context, state) {
-                                  return ListTile(
-                                    title: Text(
-                                      state.title.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    subtitle: Text(_location),
-                                    trailing:
-                                        const Icon(Icons.keyboard_arrow_down),
-                                    onTap: state.showModal,
-                                  );
-                                },
-                              ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: _locationColor),
+                                  ),
+                                  child: SmartSelect<String>.single(
+                                    title: 'Distric',
+                                    selectedValue: _location,
+                                    choiceItems: mainLocationData,
+                                    onChange: (selected) {
+                                      setState(() {
+                                        _location = selected.value;
+                                        subLocationData = ref
+                                            .watch(locationsProvider)
+                                            .where((element) =>
+                                                element.location_en ==
+                                                selected.value)
+                                            .first
+                                            .sub_locations!
+                                            .map((e) => S2Choice<String>(
+                                                value: e!.sub_location_en
+                                                    .toString(),
+                                                title: e.sub_location_en
+                                                    .toString()
+                                                    .toString()))
+                                            .toList();
+                                      });
+                                    },
+                                    modalType: S2ModalType.bottomSheet,
+                                    tileBuilder: (context, state) {
+                                      return ListTile(
+                                        title: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        subtitle: Text(_location),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: state.showModal,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    '*required',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: _subLocationColor),
-                              ),
-                              child: SmartSelect<String>.single(
-                                title: 'City',
-                                selectedValue: _subLocation,
-                                choiceItems: subLocationData,
-                                onChange: (selected) {
-                                  setState(() {
-                                    _subLocation = selected.value;
-                                  });
-                                },
-                                modalType: S2ModalType.bottomSheet,
-                                tileBuilder: (context, state) {
-                                  return ListTile(
-                                    title: Text(
-                                      state.title.toString(),
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    subtitle: Text(_subLocation),
-                                    trailing:
-                                        const Icon(Icons.keyboard_arrow_down),
-                                    onTap: state.showModal,
-                                  );
-                                },
-                              ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border:
+                                        Border.all(color: _subLocationColor),
+                                  ),
+                                  child: SmartSelect<String>.single(
+                                    title: 'City',
+                                    selectedValue: _subLocation,
+                                    choiceItems: subLocationData,
+                                    onChange: (selected) {
+                                      setState(() {
+                                        _subLocation = selected.value;
+                                      });
+                                    },
+                                    modalType: S2ModalType.bottomSheet,
+                                    tileBuilder: (context, state) {
+                                      return ListTile(
+                                        title: Text(
+                                          state.title.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        subtitle: Text(_subLocation),
+                                        trailing: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        onTap: state.showModal,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    '*required',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           _cat != 'Proposal'
                               ? Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        ref
-                                            .read(adAddressProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ref
+                                                .read(
+                                                    adAddressProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Your bussiness address",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Address',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: null,
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Your bussiness address",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Address',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: null,
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               : const SizedBox(),
                           _cat != 'Proposal'
                               ? Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -1935,7 +2029,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Write full details information about listing",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     keyboardType: TextInputType.number,
                                     onTapOutside: (event) =>
@@ -2021,169 +2115,206 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        ref
-                                            .read(adOwnerNameProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ref
+                                                .read(adOwnerNameProvider
+                                                    .notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Your name",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Owner Name',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Owner name can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Your name",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Owner Name',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Owner name can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        ref
-                                            .read(adEmailProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ref
+                                                .read(adEmailProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Email address",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Email',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Owner email can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Email address",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Email',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Owner email can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        ref
-                                            .read(adPhoneProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ref
+                                                .read(adPhoneProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText: "Phone number",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Phone',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Owner phone number can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText: "Phone number",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Phone',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Owner phone number can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          '*required',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2234,7 +2365,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2284,7 +2415,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2335,7 +2466,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2384,7 +2515,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2433,7 +2564,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2482,7 +2613,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2531,7 +2662,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -2580,60 +2711,71 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: TextFormField(
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 4,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        ref
-                                            .read(adDescProvider.notifier)
-                                            .state = value;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      focusColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      TextFormField(
+                                        onTapOutside: (event) =>
+                                            FocusScope.of(context).unfocus(),
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 4,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ref
+                                                .read(adDescProvider.notifier)
+                                                .state = value;
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                                color: ViwahaColor.primary,
+                                                width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          fillColor: Colors.grey,
+                                          hintText:
+                                              "Write something about your Ad informations",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelText: 'Description',
+                                          labelStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Description can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: ViwahaColor.primary,
-                                            width: 1.0),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      fillColor: Colors.grey,
-                                      hintText:
-                                          "Write something about your Ad informations",
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      labelText: 'Description',
-                                      labelStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Description can't be empty";
-                                      }
-                                      return null;
-                                    },
+                                      const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: Text(
+                                            '*required',
+                                            style: TextStyle(color: Colors.red),
+                                          ))
+                                    ],
                                   ),
                                 ),
                               ])
@@ -2914,7 +3056,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             "[Valid formats : jpg, jpeg, png][Max size : 5Mb] NOTE: If you upload image here, this will be thumbnail image",
                         inputList: [
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -3039,7 +3181,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             "NOTE: First uploaded image will be the thumbnail image ",
                         inputList: [
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -3178,7 +3320,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Write full detail information about you",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3215,7 +3357,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3252,7 +3394,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3289,7 +3431,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3326,7 +3468,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3363,7 +3505,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3400,7 +3542,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3437,7 +3579,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3474,7 +3616,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3511,7 +3653,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3548,7 +3690,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3585,7 +3727,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3622,7 +3764,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3659,7 +3801,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3696,7 +3838,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3733,7 +3875,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3770,7 +3912,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3807,7 +3949,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -3844,7 +3986,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -3907,7 +4049,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             description: "Links for you social media profiles",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -3956,7 +4098,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -4005,7 +4147,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -4054,7 +4196,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -4112,7 +4254,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Copy and paste the youtube or facebook video link",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: TextFormField(
                                     onTapOutside: (event) =>
                                         FocusScope.of(context).unfocus(),
@@ -4170,7 +4312,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Select full detail information about opening time",
                             inputList: [
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -4212,7 +4354,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -5429,7 +5571,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
                                   SnackBar snackBar = SnackBar(
                                     content: const Text(
-                                        'Please make sure to fill in all the required fields.',
+                                        '* Star marked fields must be filled.',
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.white)),
                                     shape: RoundedRectangleBorder(
@@ -5469,7 +5611,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     });
                                     SnackBar snackBar = SnackBar(
                                       content: const Text(
-                                          'Please make sure to fill in all the required fields.',
+                                          '* Star marked fields must be filled.',
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: Colors.white)),
@@ -5625,7 +5767,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
 
                                   SnackBar snackBar = SnackBar(
                                     content: const Text(
-                                        'Please make sure to fill in all the required fields.',
+                                        '* Star marked fields must be filled.',
                                         style: TextStyle(
                                             fontSize: 15, color: Colors.white)),
                                     shape: RoundedRectangleBorder(
