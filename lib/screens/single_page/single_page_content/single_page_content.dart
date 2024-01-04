@@ -289,10 +289,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.premium.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(2.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -301,6 +301,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.workspace_premium,
                                   color: Colors.amber,
+                                  size: 20,
                                 ),
                                 Text(
                                   'Premium  ',
@@ -311,11 +312,11 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.verified.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                               color: Colors.lightBlueAccent, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(2.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,6 +325,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.shield_outlined,
                                   color: Colors.lightBlueAccent,
+                                  size: 20,
                                 ),
                                 Text(
                                   'Verified',
@@ -336,10 +338,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.member.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(2.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,6 +350,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.stars_rounded,
                                   color: Colors.amber,
+                                  size: 20,
                                 ),
                                 Text(
                                   'Member  ',
@@ -408,8 +411,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
-          // const SizedBox(height: 8),
-          // const SizedBox(height: 10),
           SizedBox(height: widget.item.ask_price == "1" ? 8 : 0),
           widget.item.ask_price == "1"
               ? const Row(
@@ -418,7 +419,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       Icons.check_box_outlined,
                       color: ViwahaColor.primary,
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8),
                     Text(
                       "Ask Price",
                       style: TextStyle(

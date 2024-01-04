@@ -42,7 +42,7 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Viwaha App',
       theme: MyTheme.lightTheme,
-      routerDelegate: AutoRouterDelegate(
+      routerDelegate: AutoRouterDelegate( 
         router,
         navigatorObservers: () => [RouteObserver()],
       ),

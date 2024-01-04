@@ -1802,7 +1802,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     border: Border.all(color: _locationColor),
                                   ),
                                   child: SmartSelect<String>.single(
-                                    title: 'Distric',
+                                    title: 'District',
                                     selectedValue: _location,
                                     choiceItems: mainLocationData,
                                     onChange: (selected) {
@@ -2094,13 +2094,18 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Ask Price ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: negotiable,
                                       onChanged: (value) {
                                         setState(() {
@@ -2110,7 +2115,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Negotiable ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2785,11 +2793,13 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                             icon: Icons.card_giftcard_outlined,
                             title: LocaleKeys.aminities.tr(),
                             description:
-                                "Check full detail information aboutfacilities",
+                                "Check full detail information about facilities",
                             inputList: [
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am1,
                                       onChanged: (value) {
                                         setState(() {
@@ -2806,13 +2816,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Elevator in Building ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am2,
                                       onChanged: (value) {
                                         setState(() {
@@ -2828,13 +2841,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Friendly Workspace ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am3,
                                       onChanged: (value) {
                                         setState(() {
@@ -2849,13 +2865,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Instant Book ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am4,
                                       onChanged: (value) {
                                         setState(() {
@@ -2870,13 +2889,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Wifi ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am5,
                                       onChanged: (value) {
                                         setState(() {
@@ -2893,13 +2915,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Free Parking on Premises ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am6,
                                       onChanged: (value) {
                                         setState(() {
@@ -2916,13 +2941,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Free Parking on Street ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am7,
                                       onChanged: (value) {
                                         setState(() {
@@ -2937,13 +2965,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Smoking allowed ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am8,
                                       onChanged: (value) {
                                         setState(() {
@@ -2958,13 +2989,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Events ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am9,
                                       onChanged: (value) {
                                         setState(() {
@@ -2979,13 +3013,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Electricity ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am10,
                                       onChanged: (value) {
                                         setState(() {
@@ -3001,13 +3038,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Security Cameras ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am11,
                                       onChanged: (value) {
                                         setState(() {
@@ -3022,13 +3062,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Intercom ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Checkbox(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       value: am12,
                                       onChanged: (value) {
                                         setState(() {
@@ -3043,7 +3086,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     ),
                                     const Text(
                                       'Door Attendant ',
-                                      style: TextStyle(fontSize: 17.0),
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
@@ -3178,7 +3222,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                         icon: Icons.image_search,
                         title: LocaleKeys.img_gallery.tr(),
                         description:
-                            "NOTE: First uploaded image will be the thumbnail image ",
+                            "NOTE : If no thumbnail image is uploaded above, the first uploaded image will be the thumbnail image.",
                         inputList: [
                           Padding(
                             padding: const EdgeInsets.all(8),
