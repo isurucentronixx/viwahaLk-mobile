@@ -35,7 +35,7 @@ class AllListingPage extends ConsumerStatefulWidget {
 }
 
 class _AllListingPageState extends ConsumerState<AllListingPage> {
-  List<SearchResultItem> allListing = [];
+  List<SearchResultItem> allListing2 = [];
   bool isGridView = true;
   bool isAddLoading = false;
   final scrollController = ScrollController();
@@ -68,9 +68,10 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // allListing = ref.watch(allListingProvider);
 
-    allListing.addAll(ref.watch(allListingProvider));
+    allListing2.addAll(ref.watch(allListingProvider));
+     //remove duplicates
+    List<SearchResultItem> allListing = allListing2.toSet().toList();  
     return Scaffold(
         appBar: widget.isAppBar
             ? AppBar(

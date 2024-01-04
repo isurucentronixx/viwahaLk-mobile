@@ -218,7 +218,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                   location2 = [];
                   _textEditingController!.clear();
                 });
-              },
+              }, 
               label: const Text('Clear'),
               icon: const Icon(Icons.clear_rounded),
             ),

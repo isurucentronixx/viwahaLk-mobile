@@ -41,7 +41,6 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
   @override
   Widget build(BuildContext context) {
     List<SearchResultItem> favListing;
-    // final favListing = ref.watch(favListingProvider);
     favListing = ref.watch(favListingProvider);
 
     return Scaffold(

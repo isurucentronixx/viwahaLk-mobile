@@ -21,10 +21,8 @@ import 'package:viwaha_lk/models/locations/location.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/premium_vender/vendor/vendor.dart';
 import 'package:viwaha_lk/models/top_listing/top_listing/top_listing.dart';
-
 import 'package:viwaha_lk/screens/fav_listings/fav_listing.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
-// import 'package:viwaha_lk/screens/search/searching_page.dart';
 import 'package:viwaha_lk/screens/widgets/no_listings_widget.dart';
 
 @RoutePage()
@@ -35,7 +33,7 @@ class SearchingResultsPage extends ConsumerStatefulWidget {
 }
 
 class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
-  List<SearchResultItem> searchingResult = [];
+  List<SearchResultItem> searchingResult2 = [];
 
   bool isAddLoading = false;
   final scrollController = ScrollController();
@@ -49,7 +47,6 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ref.refresh(paginateIndexProvider);
     scrollController.addListener(_scrollListner);
@@ -72,7 +69,10 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
   @override
   Widget build(BuildContext context) {
     ref.read(tempReviewsProvider).clear();
-    searchingResult.addAll(ref.watch(searchResultProvider));
+    searchingResult2.addAll(ref.read(searchResultProvider));
+    //remove duplicates
+    List<SearchResultItem> searchingResult = searchingResult2.toSet().toList();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ViwahaColor.primary,

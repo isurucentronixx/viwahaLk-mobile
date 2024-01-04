@@ -37,7 +37,7 @@ class CategoryListingPage extends ConsumerStatefulWidget {
 }
 
 class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
-  List<SearchResultItem> allListing = [];
+  List<SearchResultItem> allListing2 = [];
 
   bool isAddLoading = false;
   final scrollController = ScrollController();
@@ -64,7 +64,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
       });
       ref.read(paginateIndexProvider.notifier).state =
           ref.watch(paginateIndexProvider) + 1;
-      allListing = allListing;
+      // allListing = allListing;
       setState(() {
         isAddLoading = true;
       });
@@ -73,8 +73,9 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    allListing.addAll(ref.watch(categoryListingProvider));
-
+    allListing2.addAll(ref.watch(categoryListingProvider));
+    //remove duplicates
+    List<SearchResultItem> allListing = allListing2.toSet().toList();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ViwahaColor.primary,
