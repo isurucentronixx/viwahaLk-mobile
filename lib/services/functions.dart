@@ -28,9 +28,8 @@ class PostData {
           data: newListing);
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data(
-              "Successfully published your listing.");
-      ref.watch(appRouterProvider).push(AddListingPage(isAppBar: true));
+          const AsyncValue.data("Successfully published your listing.");
+      ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
       ref.read(addListingViewStateProvider.notifier).state =

@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_select/awesome_select.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -68,10 +69,9 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
 
   @override
   Widget build(BuildContext context) {
-
     allListing2.addAll(ref.watch(allListingProvider));
-     //remove duplicates
-    List<SearchResultItem> allListing = allListing2.toSet().toList();  
+    //remove duplicates
+    List<SearchResultItem> allListing = allListing2.toSet().toList();
     return Scaffold(
         appBar: widget.isAppBar
             ? AppBar(
@@ -102,28 +102,38 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: ViwahaColor.primary),
-                ),
-                child: Column(
-                  children: [
-                    TextField(
-                      onTap: () =>
-                          AutoRouter.of(context).push(const SearchingPage()),
-                      decoration: const InputDecoration(
-                        labelText: 'Search',
-                        labelStyle: TextStyle(color: ViwahaColor.primary),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: ViwahaColor.primary,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).push(const SearchingPage());
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: ViwahaColor.primary),
                         ),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ],
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Icon(Icons.search,
+                                color: ViwahaColor.primary),
+                            const SizedBox(width: 5),
+                            Text(
+                              'search'.tr(),
+                              style: const TextStyle(
+                                  fontSize: 16, color: ViwahaColor.primary),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ),
@@ -258,7 +268,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                 );
                               }
                             })
-                        : ListView.builder( 
+                        : ListView.builder(
                             controller: scrollController,
                             itemCount: isAddLoading
                                 ? allListing.length + 1

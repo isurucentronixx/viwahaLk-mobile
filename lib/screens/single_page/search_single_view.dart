@@ -119,9 +119,10 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
               ],
             ),
           ],
-          title: Text(widget.item!.main_category == "Proposal"
-              ? widget.item!.name.toString()
-              : widget.item!.title.toString()),
+          title: Text(widget.item!.title.toString()),
+          // title: Text(widget.item!.main_category == "Proposal"
+          // ? widget.item!.name.toString()
+          // : widget.item!.title.toString())
         ),
         // drawer: const DrawerMenu(),
         body: ref.watch(isDeletingListProvider)
@@ -130,10 +131,11 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                 child: Column(
                   children: [
                     widget.item!.main_category.toString() == "Proposal"
-                        ? ref.read(userProvider).user!.membership.toString() !=
+                        ? ref.read(userProvider).user?.membership.toString() !=
                                 "1"
                             ? GestureDetector(
                                 onTap: () {
+                                  ref.refresh(membershipBillProvider);
                                   if (ref.read(isloginProvider)) {
                                     showDialog(
                                         context: context,
@@ -192,7 +194,9 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                                                                             {
                                                                               image = File(value.path),
                                                                               stfSetState(
-                                                                                () {},
+                                                                                () {
+                                                                                  ref.watch(membershipBillProvider.notifier).state = value.path;
+                                                                                },
                                                                               )
                                                                             }
                                                                         });
@@ -356,7 +360,8 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                       widget.item!.linkedin.toString(),
                       widget.item!.user_id.toString(),
                     ),
-                    SingleItemOpeningHours(widget.item!),
+                    if (widget.item!.main_category.toString() != "Proposal")
+                      SingleItemOpeningHours(widget.item!),
                     SingleItemMap(googlePlace),
                     if (reviews.isNotEmpty)
                       SingleItemReviews(

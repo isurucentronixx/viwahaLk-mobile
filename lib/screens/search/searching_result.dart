@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
+import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
@@ -50,6 +51,19 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
     super.initState();
     ref.refresh(paginateIndexProvider);
     scrollController.addListener(_scrollListner);
+  }
+
+  String isMembership(String text) {
+    int end = text.length > 2 ? 2 : 0;
+    String isMembership =
+        ref.read(userProvider).user?.membership.toString() ?? "0";
+    String visiblePart = text.substring(0, end);
+    String hiddenPart =
+        text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
+    String remainingPart = text.substring(text.length);
+    String modifiedText = visiblePart + hiddenPart + remainingPart;
+
+    return isMembership == "1" ? text : modifiedText;
   }
 
   void _scrollListner() {
@@ -165,99 +179,73 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                         ],
                       )
                     : const SizedBox(),
-                !ref.read(isSearchingProvider)
-                    ? GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            collaps = !collaps;
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(
-                            !collaps
-                                ? Icons.keyboard_arrow_down
-                                : Icons.keyboard_arrow_up,
-                            color: ViwahaColor.primary,
-                          ),
-                        ))
-                    : const SizedBox()
               ],
             ),
             const SizedBox(
               height: 8,
             ),
-            AnimatedContainer(
-              height: collaps ? 30 : 0,
-              duration: const Duration(milliseconds: 750),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    collaps
-                        ? ToggleButtons(
-                            borderColor: ViwahaColor.primary,
-                            selectedBorderColor: ViwahaColor.primary,
-                            borderRadius: BorderRadius.circular(5),
-                            constraints: const BoxConstraints(
-                                minWidth: 30, minHeight: 30),
-                            onPressed: (int index) {
-                              setState(() {
-                                isGridView = index == 0;
-                              });
-                            },
-                            isSelected: [isGridView, !isGridView],
-                            children: const [
-                              Icon(
-                                Icons.grid_on_outlined,
-                                color: ViwahaColor.primary,
-                              ),
-                              Icon(Icons.list, color: ViwahaColor.primary),
-                            ],
-                          )
-                        : const SizedBox(),
-                    SmartSelect<String>.single(
-                      modalFilterAuto: true,
-                      modalFilter: true,
-                      title: 'Order by',
-                      selectedValue: _orderBy,
-                      choiceItems: orderByData,
-                      onChange: (selected) {
-                        setState(() {
-                          searchingResult = [];
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ToggleButtons(
+                    borderColor: ViwahaColor.primary,
+                    selectedBorderColor: ViwahaColor.primary,
+                    borderRadius: BorderRadius.circular(5),
+                    constraints:
+                        const BoxConstraints(minWidth: 30, minHeight: 30),
+                    onPressed: (int index) {
+                      setState(() {
+                        isGridView = index == 0;
+                      });
+                    },
+                    isSelected: [isGridView, !isGridView],
+                    children: const [
+                      Icon(
+                        Icons.grid_on_outlined,
+                        color: ViwahaColor.primary,
+                      ),
+                      Icon(Icons.list, color: ViwahaColor.primary),
+                    ],
+                  ),
+                  SmartSelect<String>.single(
+                    modalFilterAuto: true,
+                    modalFilter: true,
+                    title: 'Order by',
+                    selectedValue: _orderBy,
+                    choiceItems: orderByData,
+                    onChange: (selected) {
+                      setState(() {
+                        searchingResult = [];
 
-                          ref.read(selectedOrderProvider.notifier).state =
-                              selected.value;
-                          ref.refresh(searchResultProvider);
-                        });
-                      },
-                      modalType: S2ModalType.bottomSheet,
-                      tileBuilder: (context, state) {
-                        return GestureDetector(
-                          onTap: () {
-                            state.showModal();
-                          },
-                          child: collaps
-                              ? Container(
-                                  width: 30,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    border:
-                                        Border.all(color: ViwahaColor.primary),
-                                  ),
-                                  child: const Icon(
-                                    Icons.sort,
-                                    size: 20,
-                                    color: ViwahaColor.primary,
-                                  ))
-                              : const SizedBox(),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                        ref.read(selectedOrderProvider.notifier).state =
+                            selected.value;
+                        ref.refresh(searchResultProvider);
+                      });
+                    },
+                    modalType: S2ModalType.bottomSheet,
+                    tileBuilder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          state.showModal();
+                        },
+                        child: Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(color: ViwahaColor.primary),
+                            ),
+                            child: const Icon(
+                              Icons.sort,
+                              size: 20,
+                              color: ViwahaColor.primary,
+                            )),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 15),
@@ -294,8 +282,13 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                                           .thumb_images)
                                                   .first, // Replace with your image paths
                                           title: searchingResult[index]
-                                              .title
-                                              .toString(),
+                                                      .main_category ==
+                                                  "Proposal"
+                                              ? isMembership(
+                                                  searchingResult[index].title!)
+                                              : searchingResult[index]
+                                                  .title
+                                                  .toString(),
                                           description: searchingResult[index]
                                               .description
                                               .toString(),

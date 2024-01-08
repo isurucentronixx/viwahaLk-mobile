@@ -218,7 +218,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                   location2 = [];
                   _textEditingController!.clear();
                 });
-              }, 
+              },
               label: const Text('Clear'),
               icon: const Icon(Icons.clear_rounded),
             ),
@@ -251,7 +251,8 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),

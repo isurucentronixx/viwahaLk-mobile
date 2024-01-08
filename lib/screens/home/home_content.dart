@@ -38,12 +38,6 @@ class _HomeContentState extends ConsumerState<HomeContent> {
 
   List<String> sliderImageUrls = [];
 
-  // @override
-  // void dispose() {
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-
   void _onSearchChanged() {
     String searchText = _searchController.text.toLowerCase();
     setState(() {

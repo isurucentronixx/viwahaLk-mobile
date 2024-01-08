@@ -282,11 +282,23 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4.0),
-                                child: Text(
-                                  "PREMIUM",
-                                  style: TextStyle(
+                                child: Wrap(
+                                  children: [
+                                    Icon(
+                                      Icons.workspace_premium,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                      size: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "PREMIUM",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

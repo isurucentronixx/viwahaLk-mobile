@@ -395,7 +395,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
