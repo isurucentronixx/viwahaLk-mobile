@@ -571,10 +571,40 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
   ];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final FocusNode adTitleFocus = FocusNode();
+  final FocusNode nameFocus = FocusNode();
+  final FocusNode dobFocus = FocusNode();
+  final FocusNode emailFocus = FocusNode();
+  final FocusNode phoneFocus = FocusNode();
+  final FocusNode addressFocus = FocusNode();
+  final FocusNode ownerNameFocus = FocusNode();
+  final FocusNode descriptionFocus = FocusNode();
+
+  String focusContainer = "";
+
+  var catKey = GlobalKey();
+  var subCatKey = GlobalKey();
+  var locationKey = GlobalKey();
+  var subLocationKey = GlobalKey();
+  var genderKey = GlobalKey();
+  var galleryKey = GlobalKey();
+  var openingHoursKey = GlobalKey();
+
+  String validatedField = "";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // adTitleFocus = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    // adTitleFocus.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -676,6 +706,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -691,11 +722,18 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
+                                  key: catKey,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: _catColor),
                                   ),
                                   child: SmartSelect<String>.single(
+                                    validation: (value) {
+                                      if (value.isEmpty) {
+                                        focusContainer = "cat";
+                                      }
+                                      return 'please be fill';
+                                    },
                                     title: 'Category',
                                     selectedValue: _cat,
                                     choiceItems: mainCategoryData,
@@ -755,11 +793,22 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
+                                  key: subCatKey,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: _subCatColor),
                                   ),
                                   child: SmartSelect<String>.single(
+                                    validation: (value) {
+                                      if (value.isEmpty) {
+                                        if (_cat == "Select one") {
+                                          focusContainer = "cat";
+                                        } else {
+                                          focusContainer = "subCat";
+                                        }
+                                      }
+                                      return 'please be fill';
+                                    },
                                     title: 'Sub Category',
                                     selectedValue: _subCat,
                                     choiceItems: subCategoryData,
@@ -807,6 +856,8 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       TextFormField(
                                         onTapOutside: (event) =>
                                             FocusScope.of(context).unfocus(),
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.black,
@@ -982,8 +1033,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: adTitleFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            adTitleFocus.requestFocus();
                                             return "AD Title can't be empty";
                                           }
                                           return null;
@@ -1191,8 +1244,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: nameFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            nameFocus.requestFocus();
                                             return "Proposer name can't be empty";
                                           }
                                           return null;
@@ -1214,6 +1269,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Container(
+                                        key: genderKey,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -1221,6 +1277,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                               Border.all(color: _genderColor),
                                         ),
                                         child: SmartSelect<String>.single(
+                                          validation: (value) {
+                                            if (value.isEmpty) {
+                                              focusContainer = "gender";
+                                            }
+                                            return 'please be fill';
+                                          },
                                           title: 'I am a',
                                           selectedValue: _gender,
                                           choiceItems: genderData,
@@ -1321,8 +1383,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: dobFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            dobFocus.requestFocus();
                                             return "Proposer DOB can't be empty";
                                           }
                                           return null;
@@ -1368,8 +1432,9 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                                     (BuildContext context) {
                                                   return Dialog(
                                                     insetPadding:
-                                                        EdgeInsets.all(10),
-                                                    child: Container(
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: SizedBox(
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
@@ -1519,8 +1584,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: emailFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            emailFocus.requestFocus();
                                             return "Proposer email can't be empty";
                                           }
                                           return null;
@@ -1717,8 +1784,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: phoneFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            phoneFocus.requestFocus();
                                             return "Proposer phone number can't be empty";
                                           }
                                           return null;
@@ -1797,11 +1866,18 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
+                                  key: locationKey,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: _locationColor),
                                   ),
                                   child: SmartSelect<String>.single(
+                                    validation: (value) {
+                                      if (value.isEmpty) {
+                                        focusContainer = "location";
+                                      }
+                                      return 'please be fill';
+                                    },
                                     title: 'District',
                                     selectedValue: _location,
                                     choiceItems: mainLocationData,
@@ -1860,12 +1936,24 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
+                                  key: subLocationKey,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border:
                                         Border.all(color: _subLocationColor),
                                   ),
                                   child: SmartSelect<String>.single(
+                                    validation: (value) {
+                                      if (value.isEmpty) {
+                                        print(_location);
+                                        if (_location == "Select one") {
+                                          focusContainer = "location";
+                                        } else {
+                                          focusContainer = "subLocation";
+                                        }
+                                      }
+                                      return 'please be fill';
+                                    },
                                     title: 'City',
                                     selectedValue: _subLocation,
                                     choiceItems: subLocationData,
@@ -1955,7 +2043,14 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                        validator: null,
+                                        focusNode: addressFocus,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            addressFocus.requestFocus();
+                                            return "Bussiness address can't be empty";
+                                          }
+                                          return null;
+                                        },
                                       ),
                                       const Padding(
                                         padding: EdgeInsets.only(right: 8.0),
@@ -2172,8 +2267,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: ownerNameFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            ownerNameFocus.requestFocus();
                                             return "Owner name can't be empty";
                                           }
                                           return null;
@@ -2238,8 +2335,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: emailFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            emailFocus.requestFocus();
                                             return "Owner email can't be empty";
                                           }
                                           return null;
@@ -2304,8 +2403,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: phoneFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            phoneFocus.requestFocus();
                                             return "Owner phone number can't be empty";
                                           }
                                           return null;
@@ -2770,8 +2871,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
+                                        focusNode: descriptionFocus,
                                         validator: (value) {
                                           if (value!.isEmpty) {
+                                            descriptionFocus.requestFocus();
                                             return "Description can't be empty";
                                           }
                                           return null;
@@ -3227,6 +3330,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                           Padding(
                             padding: const EdgeInsets.all(8),
                             child: Column(
+                              key: galleryKey,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 GestureDetector(
@@ -4076,8 +4180,10 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
+                                    focusNode: descriptionFocus,
                                     validator: (value) {
                                       if (value!.isEmpty) {
+                                        descriptionFocus.requestFocus();
                                         return "Description can't be empty";
                                       }
                                       return null;
@@ -4356,6 +4462,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                 "Select full detail information about opening time",
                             inputList: [
                                 Padding(
+                                  key: openingHoursKey,
                                   padding: const EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -5612,30 +5719,30 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     _galleryImgColor = Colors.red;
                                     _thumbImgColor = Colors.red;
                                   });
-
-                                  SnackBar snackBar = SnackBar(
-                                    content: const Text(
-                                        '* Star marked fields must be filled.',
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.white)),
-                                    shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    backgroundColor: ViwahaColor.primary,
-                                    dismissDirection: DismissDirection.up,
-                                    behavior: SnackBarBehavior.floating,
-                                    margin: EdgeInsets.only(
-                                        bottom:
-                                            MediaQuery.of(context).size.height -
-                                                250,
-                                        left: 50,
-                                        right: 50),
-                                  );
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  if (_cat == "Select one" ||
+                                      _subCat == "Select one" ||
+                                      _location == "Select one" ||
+                                      _subLocation == "Select one") {
+                                    if (focusContainer == "cat") {
+                                      Scrollable.ensureVisible(
+                                          catKey.currentContext!);
+                                    } else if (focusContainer == "subCat") {
+                                      Scrollable.ensureVisible(
+                                          subCatKey.currentContext!);
+                                    } else if (focusContainer == "location") {
+                                      Scrollable.ensureVisible(
+                                          locationKey.currentContext!);
+                                    } else if (focusContainer ==
+                                        "subLocation") {
+                                      Scrollable.ensureVisible(
+                                          subLocationKey.currentContext!);
+                                    }
+                                  } else if (ref
+                                      .read(imageGalleryProvider)
+                                      .isEmpty) {
+                                    Scrollable.ensureVisible(
+                                        galleryKey.currentContext!);
+                                  }
                                 } else if (_alwaysOpen != 'Yes') {
                                   if (_mondayOpen == 'Select one' ||
                                       _tuesdayOpen == 'Select one' ||
@@ -5652,32 +5759,35 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       _fridayOpenColor = Colors.red;
                                       _saturedayOpenColor = Colors.red;
                                       _sundayOpenColor = Colors.red;
-                                    });
-                                    SnackBar snackBar = SnackBar(
-                                      content: const Text(
-                                          '* Star marked fields must be filled.',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.white)),
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            color: Colors.red, width: 1),
-                                        borderRadius: BorderRadius.circular(24),
-                                      ),
-                                      backgroundColor: ViwahaColor.primary,
-                                      dismissDirection: DismissDirection.up,
-                                      behavior: SnackBarBehavior.floating,
-                                      margin: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height -
-                                              250,
-                                          left: 50,
-                                          right: 50),
-                                    );
+                                      Scrollable.ensureVisible(
+                                          openingHoursKey.currentContext!);
+                                      SnackBar snackBar = SnackBar(
+                                        content: const Text(
+                                            '* Please be fill opening hours.',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white)),
+                                        shape: RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              color: Colors.red, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                        ),
+                                        backgroundColor: ViwahaColor.primary,
+                                        dismissDirection: DismissDirection.up,
+                                        behavior: SnackBarBehavior.floating,
+                                        margin: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height -
+                                                250,
+                                            left: 50,
+                                            right: 50),
+                                      );
 
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    });
                                   }
                                 } else {
                                   _formKey.currentState!.save();
@@ -5809,29 +5919,22 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     _thumbImgColor = Colors.red;
                                   });
 
-                                  SnackBar snackBar = SnackBar(
-                                    content: const Text(
-                                        '* Star marked fields must be filled.',
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.white)),
-                                    shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    backgroundColor: ViwahaColor.primary,
-                                    dismissDirection: DismissDirection.up,
-                                    behavior: SnackBarBehavior.floating,
-                                    margin: EdgeInsets.only(
-                                        bottom:
-                                            MediaQuery.of(context).size.height -
-                                                250,
-                                        left: 50,
-                                        right: 50),
-                                  );
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                  if (focusContainer == "cat") {
+                                    Scrollable.ensureVisible(
+                                        catKey.currentContext!);
+                                  } else if (focusContainer == "subCat") {
+                                    Scrollable.ensureVisible(
+                                        subCatKey.currentContext!);
+                                  } else if (focusContainer == "location") {
+                                    Scrollable.ensureVisible(
+                                        locationKey.currentContext!);
+                                  } else if (focusContainer == "subLocation") {
+                                    Scrollable.ensureVisible(
+                                        subLocationKey.currentContext!);
+                                  } else if (focusContainer == "gender") {
+                                    Scrollable.ensureVisible(
+                                        genderKey.currentContext!);
+                                  }
                                 } else {
                                   _formKey.currentState!.save();
                                   Map<String, Object?> newList;
