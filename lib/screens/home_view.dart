@@ -87,11 +87,11 @@ class _HomePageState extends ConsumerState<HomePage>
               behavior: SnackBarBehavior.floating);
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
           return Future.value(false);
         } else {
           SystemNavigator.pop();
-          exit(0);
+          // exit(0);
+          return true;
         }
       },
       child: Scaffold(
@@ -127,13 +127,13 @@ class _HomePageState extends ConsumerState<HomePage>
                             : ref.watch(isloginProvider)
                                 ? "Favourite"
                                 : "Login",
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         drawer: const DrawerMenu(),
         body: PageStorage(
-          child: currentScreen,
           bucket: bucket,
+          child: currentScreen,
         ),
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
@@ -142,9 +142,10 @@ class _HomePageState extends ConsumerState<HomePage>
               borderRadius: BorderRadius.circular(30.0),
             ),
             backgroundColor: ViwahaColor.primary,
-            child: Icon(
+            child: const Icon(
               Icons.add,
-              color: currentTab == 4 ? Colors.black54 : Colors.white,
+              color: Colors.white,
+              // color: currentTab == 4 ? Colors.black54 : Colors.white,
             ),
             onPressed: () {
               setState(() {
@@ -152,11 +153,25 @@ class _HomePageState extends ConsumerState<HomePage>
                 ref.read(imageNameGalleryProvider).clear();
                 ref.read(mainImageProvider.notifier).state = "";
                 ref.read(imageGalleryProvider).clear();
-                currentScreen = ref.watch(isloginProvider)
-                    ? const AddListingPage(false)
-                    : const Login(true);
-                currentTab = 4;
-                currentPage = 2;
+                // currentScreen = ref.watch(isloginProvider)
+                //     ? const AddListingPage(false)
+                //     : const Login(true);
+                // currentScreen = currentScreen;
+                // currentPage = currentPage;
+
+                ref.watch(isloginProvider)
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddListingPage(true)),
+                      )
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Login(false)),
+                      );
+                currentTab = currentTab;
+                currentPage = currentPage;
               });
             },
           ),

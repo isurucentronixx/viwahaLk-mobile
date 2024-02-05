@@ -340,7 +340,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.boosted.toString()),
                     widget.item!.main_category == "Proposal"
                         ? SingleItemProposal(widget.item)
-                        : widget.item!.amenities.toString() != ""
+                        : widget.item!.amenities.toString() != "[]"
                             ? SingleItemAmenities(
                                 widget.item!.amenities.toString())
                             : const SizedBox(),

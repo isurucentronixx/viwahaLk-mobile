@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
@@ -190,7 +191,7 @@ class _RegisterState extends ConsumerState<Register> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     // Perform register logic here
                     if (_formKey.currentState!.validate()) {
                       var userDetails = {
@@ -217,7 +218,9 @@ class _RegisterState extends ConsumerState<Register> {
                               },
                             )
                           : Container();
-
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      pref.setString("loginType", "login");
                       controller.userRegister(userDetails);
                     }
                   },

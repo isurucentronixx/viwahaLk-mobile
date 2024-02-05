@@ -80,10 +80,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
               Icons.favorite,
               color: ViwahaColor.primary,
             )
-          : const Icon(
-              Icons.favorite_border_sharp,
-              color: Colors.white,
-            ),
+          : const Icon(Icons.favorite_border, color: Colors.white, weight: 400),
     );
   }
 }

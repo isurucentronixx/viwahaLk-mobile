@@ -155,29 +155,6 @@ class SearchingListItem extends ConsumerWidget {
                           ),
                         )
                       : const SizedBox(),
-                  dt1.compareTo(dt2) > 0
-                      ? Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: ViwahaColor.primary.withOpacity(0.8),
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0),
-                              child: Text(
-                                "TOP",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.75,
@@ -193,6 +170,29 @@ class SearchingListItem extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  // dt1.compareTo(dt2) > 0
+                  //     ?
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ViwahaColor.primary.withOpacity(0.8),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Text(
+                          "TOP",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // : const SizedBox(),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(

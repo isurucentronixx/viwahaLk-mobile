@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
@@ -168,13 +169,13 @@ class _LoginState extends ConsumerState<Login> {
                           ref.refresh(loginProvider);
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.login,
                         color: Colors.white,
                       ),
                       label: Text(
                         LocaleKeys.sign_in.tr(),
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ViwahaColor.primary,
@@ -184,7 +185,7 @@ class _LoginState extends ConsumerState<Login> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   FractionallySizedBox(
                     widthFactor: 0.8,
                     child: ElevatedButton.icon(
@@ -267,29 +268,6 @@ class _LoginState extends ConsumerState<Login> {
                             ),
                           ),
                         ),
-                      // FractionallySizedBox(
-                      //   widthFactor: 0.8,
-                      //   child: ElevatedButton.icon(
-                      //     onPressed: () {
-                      //       // AutoRouter.of(context).push(FacebookLogin());
-                      //       // loginWithFacebook(context);
-                      //     },
-                      //     icon: SizedBox(
-                      //         width: 20,
-                      //         child: Assets.lib.assets.images.facebook.image()),
-                      //     label: const Text('Sign in with Facebook'),
-                      //     style: ElevatedButton.styleFrom(
-                      //       backgroundColor: Colors.white,
-                      //       foregroundColor: Colors.black,
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(8.0),
-                      //       ),
-                      //       side: const BorderSide(
-                      //         color: Colors.blue,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ],

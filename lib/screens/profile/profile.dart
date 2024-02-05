@@ -379,7 +379,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         pref.remove("email");
                         pref.remove("password");
                         await _googleSignIn.signOut();
-                        appRouter.push(Login(onHome: false));
+                        appRouter.push(Login(onHome: false)); 
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -422,14 +422,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           _showSecondAlert(context);
                         }
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.delete, color: Colors.red),
-                          const SizedBox(width: 8),
+                           Icon(Icons.delete, color: Colors.red),
+                           SizedBox(width: 8),
                           Text(
                             "Delete Account",
-                            style: const TextStyle(
+                            style:  TextStyle(
                                 fontSize: 14, color: Colors.red),
                           ),
                         ],
