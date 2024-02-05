@@ -1,23 +1,17 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/cards/searching_list_card.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
-
-import 'listingData.dart';
 
 class TopListing extends ConsumerWidget {
   const TopListing({super.key});
@@ -97,287 +91,35 @@ class TopListing extends ConsumerWidget {
           height: 20,
         ),
         data.isNotEmpty
-            ? Container(
-                constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * 0.6,
-                    minHeight: 200),
-                child: Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return SearchingListItem(
-                          id: data[index].id.toString(),
-                          imagePath: (data[index].image) != null
-                              ? "https://viwaha.lk/${data[index].image.toString()}"
-                              : ref
-                                  .read(homeControllerProvider)
-                                  .getTumbImage(data[index].thumb_images)
-                                  .first,
-                          title: data[index].title.toString(),
-                          description: data[index].description.toString(),
-                          starRating: (data[index].average_rating) != null
-                              ? double.parse(
-                                  data[index].average_rating.toString())
-                              : 0,
-                          location:
-                              '${data[index].location.toString()}, ${data[index].main_location.toString()}',
-                          date: data[index].datetime.toString(),
-                          type: 'all',
-                          isFav: data[index].is_favourite.toString(),
-                          isPremium: data[index].premium.toString() != "1"
-                              ? false
-                              : true,
-                          boostedDate: data[index].boosted.toString(),
-                          item: data[index],
-                        );
-                      }),
-                ),
-              )
-            // GridView.count(
-            //     physics: const ScrollPhysics(),
-            //     childAspectRatio: 0.87,
-            //     shrinkWrap: true,
-            //     crossAxisCount: 2, // Number of columns
-            //     children: List.generate(data.length, // Total number of cards
-            //         (index) {
-            //       final wedding = data[index];
-            //       String thumbImg = wedding.image != null
-            //           ? "https://viwaha.lk/${wedding.image.toString()}"
-            //           : ref
-            //               .read(homeControllerProvider)
-            //               .getTumbImage(wedding.thumb_images)
-            //               .first;
-
-            //       return GestureDetector(
-            //         onTap: () async {
-            //           // AutoRouter.of(context)
-            //           //     .push(SingleView(vendor: null, topListing: wedding));
-            //           ref.read(currentListingIdProvider.notifier).state =
-            //               wedding.id.toString();
-            //           AutoRouter.of(context)
-            //               .push(SearchSingleView(item: wedding, type: 'top'));
-            //         },
-            //         child: Card(
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(10.0),
-            //             side: BorderSide(
-            //                 color: ViwahaColor.primary.withOpacity(0.3)),
-            //           ),
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.stretch,
-            //             children: [
-            //               SizedBox(
-            //                 width: 200,
-            //                 height: 130,
-            //                 child: Stack(
-            //                   children: [
-            //                     CachedNetworkImage(
-            //                       imageUrl: thumbImg,
-            //                       fit: BoxFit.cover,
-            //                       imageBuilder: (context, imageProvider) =>
-            //                           Container(
-            //                         height: 200,
-            //                         width: 200,
-            //                         decoration: BoxDecoration(
-            //                           borderRadius: const BorderRadius.only(
-            //                               topLeft: Radius.circular(10),
-            //                               topRight: Radius.circular(10)),
-            //                           color: Colors.black,
-            //                           image: DecorationImage(
-            //                             image: imageProvider,
-            //                             fit: BoxFit.cover,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                       placeholder: (context, url) => const Center(
-            //                           child: CircularProgressIndicator()),
-            //                       errorWidget: (context, url, error) => Center(
-            //                         child: Image.network(
-            //                           'https://viwaha.lk/assets/img/logo/no_image.jpg',
-            //                           fit: BoxFit.cover,
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     Container(
-            //                       width: MediaQuery.of(context).size.width,
-            //                       height:
-            //                           MediaQuery.of(context).size.height * 0.75,
-            //                       decoration: BoxDecoration(
-            //                         gradient: LinearGradient(
-            //                           begin: Alignment.bottomCenter,
-            //                           end: Alignment.topCenter,
-            //                           colors: [
-            //                             Colors.black.withOpacity(0.3),
-            //                             Colors.transparent
-            //                           ],
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     Align(
-            //                       alignment: Alignment.topLeft,
-            //                       child: Padding(
-            //                         padding: const EdgeInsets.all(8.0),
-            //                         child: FavoriteIcon(
-            //                             wedding.id!,
-            //                             wedding.is_favourite != "0"
-            //                                 ? true
-            //                                 : false),
-            //                       ),
-            //                     ),
-            //                     Align(
-            //                       alignment: Alignment.topRight,
-            //                       child: Padding(
-            //                         padding: const EdgeInsets.all(8.0),
-            //                         child: Container(
-            //                           decoration: BoxDecoration(
-            //                             color: Colors.white.withOpacity(0.4),
-            //                             borderRadius:
-            //                                 BorderRadius.circular(10.0),
-            //                           ),
-            //                           child: Padding(
-            //                             padding: const EdgeInsets.symmetric(
-            //                                 horizontal: 8.0, vertical: 4.0),
-            //                             child: wedding.boosted != null
-            //                                 ? Text(
-            //                                     "Boosted ${timeAgoSinceDate(wedding.boosted!)}",
-            //                                     style: const TextStyle(
-            //                                         color: Colors.white),
-            //                                   )
-            //                                 : Text(
-            //                                     timeAgoSinceDate(
-            //                                         wedding.datetime!),
-            //                                     style: const TextStyle(
-            //                                         color: Colors.white)),
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     Padding(
-            //                       padding: const EdgeInsets.all(8.0),
-            //                       child: Column(
-            //                         crossAxisAlignment:
-            //                             CrossAxisAlignment.start,
-            //                         mainAxisAlignment: MainAxisAlignment.end,
-            //                         children: [
-            //                           Align(
-            //                             alignment: Alignment.bottomLeft,
-            //                             child: Container(
-            //                               decoration: BoxDecoration(
-            //                                 color:
-            //                                     Colors.white.withOpacity(0.4),
-            //                                 borderRadius:
-            //                                     BorderRadius.circular(10.0),
-            //                               ),
-            //                               child: Padding(
-            //                                 padding: const EdgeInsets.symmetric(
-            //                                     horizontal: 8.0, vertical: 4.0),
-            //                                 child: Text(
-            //                                   wedding.category!,
-            //                                   style: const TextStyle(
-            //                                       color: Colors.white),
-            //                                 ),
-            //                               ),
-            //                             ),
-            //                           ),
-            //                           const SizedBox(height: 8),
-            //                         ],
-            //                       ),
-            //                     ),
-            //                     Align(
-            //                       alignment: Alignment.bottomRight,
-            //                       child: Container(
-            //                         decoration: BoxDecoration(
-            //                           color:
-            //                               ViwahaColor.primary.withOpacity(0.7),
-            //                           borderRadius: const BorderRadius.only(
-            //                               topLeft: Radius.circular(10)),
-            //                         ),
-            //                         child: const Padding(
-            //                           padding: EdgeInsets.symmetric(
-            //                               horizontal: 8.0, vertical: 4.0),
-            //                           child: Text(
-            //                             "TOP",
-            //                             style: TextStyle(color: Colors.white),
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ),
-            //               const SizedBox(
-            //                 height: 10,
-            //               ),
-            //               Row(
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: [
-            //                   Padding(
-            //                     padding: const EdgeInsets.all(2.0),
-            //                     child: SizedBox(
-            //                       width: 120,
-            //                       child: Center(
-            //                         child: Text(
-            //                           wedding.title!,
-            //                           overflow: TextOverflow.ellipsis,
-            //                           style: TextStyle(
-            //                             color: Colors.black.withOpacity(0.5),
-            //                             fontSize: 16.0,
-            //                             fontWeight: FontWeight.bold,
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //               Row(
-            //                   mainAxisAlignment: MainAxisAlignment.center,
-            //                   children: [
-            //                     const Icon(
-            //                       Icons.location_pin,
-            //                       size: 16,
-            //                       color: ViwahaColor.primary,
-            //                     ),
-            //                     Text(
-            //                       wedding.location.toString(),
-            //                       style: const TextStyle(
-            //                           color: Colors.grey,
-            //                           fontSize: 14.0,
-            //                           fontWeight: FontWeight.bold),
-            //                     ),
-            //                   ]),
-            //               // const SizedBox(height: 4),
-            //               Row(
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: [
-            //                   Text(
-            //                     "rating".tr(),
-            //                     style: const TextStyle(color: Colors.grey),
-            //                   ),
-            //                   RatingBarIndicator(
-            //                     rating: double.parse(
-            //                         wedding.average_rating != null
-            //                             ? wedding.average_rating.toString()
-            //                             : '0'),
-            //                     itemBuilder: (context, index) => Icon(
-            //                       wedding.average_rating != null
-            //                           ? Icons.star
-            //                           : Icons.star,
-            //                       color: Colors.amber,
-            //                     ),
-            //                     itemCount: 5,
-            //                     itemSize: 20.0,
-            //                     unratedColor: Colors.grey.withAlpha(50),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       );
-            //     }),
-            //   )
+            ? ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return SearchingListItem(
+                    id: data[index].id.toString(),
+                    imagePath: (data[index].image) != null
+                        ? "https://viwaha.lk/${data[index].image.toString()}"
+                        : ref
+                            .read(homeControllerProvider)
+                            .getTumbImage(data[index].thumb_images)
+                            .first,
+                    title: data[index].title.toString(),
+                    description: data[index].description.toString(),
+                    starRating: (data[index].average_rating) != null
+                        ? double.parse(data[index].average_rating.toString())
+                        : 0,
+                    location:
+                        '${data[index].location.toString()}, ${data[index].main_location.toString()}',
+                    date: data[index].datetime.toString(),
+                    type: 'all',
+                    isFav: data[index].is_favourite.toString(),
+                    isPremium:
+                        data[index].premium.toString() != "1" ? false : true,
+                    boostedDate: data[index].boosted.toString(),
+                    item: data[index],
+                  );
+                })
             : const Center(
                 child: Center(
                 child: CircularProgressIndicator(),

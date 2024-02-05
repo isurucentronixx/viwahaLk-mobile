@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jiffy/jiffy.dart';
@@ -88,36 +87,35 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
         title: const Text("Messages"),
       ),
       body: isLoading
-          ? messages.isNotEmpty
-              ? SingleChildScrollView(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        messages.isNotEmpty
-                            ? ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: messages.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return messageCard(
-                                      message: messages[index], index: index);
-                                })
-                            : const Center(
-                                child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(
-                                  'It appears that there are no messages to show here right now!',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ))
-                      ],
-                    ),
-                  ),
-                )
-              : const NoListingPage()
+          ? SingleChildScrollView(
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    messages.isNotEmpty
+                        ? ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: messages.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return messageCard(
+                                  message: messages[index], index: index);
+                            })
+                        : const Center(
+                            child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              'It appears that there are no messages to show here right now!',
+                              style: TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
+                          ))
+                  ],
+                ),
+              ),
+            )
           : const Center(
               child: CircularProgressIndicator(),
             ),
@@ -209,33 +207,6 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
                                                 ),
                                               ),
                                             ),
-                                            // Image.network(
-                                            //   messages[index].image != null
-                                            //       ? 'https://viwaha.lk/${messages[index].image.toString()}'
-                                            //       : 'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                            //   fit: BoxFit.fill,
-                                            //   loadingBuilder:
-                                            //       (context, child, progress) {
-                                            //     if (progress == null) {
-                                            //       return SizedBox(
-                                            //         width: 150,
-                                            //         height: 150,
-                                            //         child: child,
-                                            //       );
-                                            //     }
-                                            //     return const Center(
-                                            //       child:
-                                            //           CircularProgressIndicator(),
-                                            //     );
-                                            //   },
-                                            //   errorBuilder:
-                                            //       (context, error, stackTrace) {
-                                            //     return Image.network(
-                                            //       'https://viwaha.lk/assets/img/logo/no_image.jpg',
-                                            //       fit: BoxFit.cover,
-                                            //     );
-                                            //   },
-                                            // ),
                                           ),
                                         ),
                                       ),
@@ -312,7 +283,7 @@ class _MessagesPageState extends ConsumerState<MessagesPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             )
                           ],
