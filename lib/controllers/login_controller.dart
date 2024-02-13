@@ -32,7 +32,6 @@ class LoginController {
     try {
       final res = await loginService.fetchLoginApiRequest(
           username: username, password: password);
-
       // ignore: use_build_context_synchronously
       final user = UserModel.fromJson(res);
       return user;

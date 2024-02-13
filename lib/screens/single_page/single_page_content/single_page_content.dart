@@ -26,7 +26,6 @@ import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/reviews/reviews.dart';
-import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -35,7 +34,6 @@ import 'package:viwaha_lk/screens/single_page/single_page_content/inner_fav.dart
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});

@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -35,6 +36,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   void initState() {
     super.initState();
+
     isLogged();
   }
 
@@ -59,6 +61,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
           .then((value) async {
         ref.read(userProvider.notifier).state = value;
         ref.read(isloginProvider.notifier).state = true;
+       
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,

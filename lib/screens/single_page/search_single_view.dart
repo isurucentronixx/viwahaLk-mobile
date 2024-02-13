@@ -59,7 +59,6 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
         googlePlace = widget.item!.googleplace!;
       }
     });
-
     super.initState();
   }
 
@@ -120,11 +119,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
             ),
           ],
           title: Text(widget.item!.title.toString()),
-          // title: Text(widget.item!.main_category == "Proposal"
-          // ? widget.item!.name.toString()
-          // : widget.item!.title.toString())
         ),
-        // drawer: const DrawerMenu(),
         body: ref.watch(isDeletingListProvider)
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
@@ -336,7 +331,7 @@ class _searchSingleViewState extends ConsumerState<SearchSingleView> {
                         widget.item!.boosted.toString()),
                     widget.item!.main_category == "Proposal"
                         ? SingleItemProposal(widget.item)
-                        : widget.item!.amenities.toString() != "[]"
+                        : widget.item!.amenities.toString() != ""
                             ? SingleItemAmenities(
                                 widget.item!.amenities.toString())
                             : const SizedBox(),

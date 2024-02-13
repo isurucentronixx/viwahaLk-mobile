@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -197,7 +198,24 @@ class SearchingListItem extends ConsumerWidget {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: FavoriteIcon(id, isFav != "0" ? true : false),
+                      child:
+                          // Consumer(
+                          //   builder: (_, WidgetRef ref, __) {
+                          //     // 3. use ref.watch() to get the value of the provider
+                          //     final helloWorld = ref.watch(tempFavProvider);
+                          //     return Text(helloWorld.toString());
+                          //   },
+                          // ),
+                          // ref.watch(tempFavProvider).contains(id.toString())
+                          //     ? const Icon(
+                          //         Icons.favorite,
+                          //         color: ViwahaColor.primary,
+                          //       )
+                          //     : const Icon(
+                          //         Icons.favorite_border,
+                          //         color: ViwahaColor.primary,
+                          //       )
+                          FavoriteIcon(id, isFav != "0" ? true : false),
                     ),
                   ),
                 ],
