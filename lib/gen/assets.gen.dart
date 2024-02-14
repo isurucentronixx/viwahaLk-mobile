@@ -78,6 +78,10 @@ class $LibAssetsImagesGen {
   AssetGenImage get photography =>
       const AssetGenImage('lib/assets/images/Photography.png');
 
+  /// File path: lib/assets/images/Proposal.png
+  AssetGenImage get proposal =>
+      const AssetGenImage('lib/assets/images/Proposal.png');
+
   /// File path: lib/assets/images/WeddingCars.png
   AssetGenImage get weddingCars =>
       const AssetGenImage('lib/assets/images/WeddingCars.png');
@@ -135,6 +139,7 @@ class $LibAssetsImagesGen {
         music,
         others,
         photography,
+        proposal,
         weddingCars,
         weddingVenues,
         appleLogo,

@@ -113,29 +113,7 @@ class _InnerFavoriteIconState extends ConsumerState<InnerFavoriteIcon> {
                       ],
                     )
 
-          // ref.watch(tempFavProvider).contains(widget.listingId)
-          //     ? const Icon(
-          //         Icons.favorite,
-          //         color: ViwahaColor.primary,
-          //         size: 20,
-          //       )
-          //     : isFavorite
-          //         ? ref.watch(tempFavRemoveProvider).contains(widget.listingId)
-          //             ? const Icon(
-          //                 Icons.favorite_border,
-          //                 color: ViwahaColor.primary,
-          //                 size: 20,
-          //               )
-          //             : const Icon(
-          //                 Icons.favorite,
-          //                 color: ViwahaColor.primary,
-          //                 size: 20,
-          //               )
-          //         : const Icon(
-          //             Icons.favorite_border,
-          //             color: ViwahaColor.primary,
-          //             size: 20,
-          //           ),
+          
           ),
     );
   }

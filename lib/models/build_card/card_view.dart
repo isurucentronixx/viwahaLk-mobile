@@ -74,6 +74,26 @@ class CardView extends ConsumerWidget {
               },
             ),
             _buildCard(
+              'proposal'.tr(),
+              Assets.lib.assets.images.proposal.image(),
+              () {
+                ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(selectedMainCategoryProvider.notifier).state =
+                    "Proposal";
+                List<String> tags = [];
+
+                var selectedTags = ref
+                    .read(categoriesProvider)
+                    .firstWhere((element) => element.category == "Proposal");
+
+                selectedTags.sub_categories!.forEach((element) {
+                  tags.add(element!.sub_category!);
+                });
+                AutoRouter.of(context).push(
+                    CategoryListingPage(category: 'Proposal', tags: tags));
+              },
+            ),
+            _buildCard(
                 'dressing'.tr(), Assets.lib.assets.images.dressing.image(), () {
               ref.read(isSearchingProvider.notifier).state = true;
               ref.read(selectedMainCategoryProvider.notifier).state =
@@ -267,27 +287,7 @@ class CardView extends ConsumerWidget {
                     .push(CategoryListingPage(category: 'Music', tags: tags));
               },
             ),
-            // _buildCard(
-            //   'proposal'.tr(),
-            //   Assets.lib.assets.images.others.image(),
-            //   () {
-            //     ref.read(isSearchingProvider.notifier).state = true;
-            //     ref.read(selectedMainCategoryProvider.notifier).state =
-            //         "Proposal";
-            //     List<String> tags = [];
-
-            //     var selectedTags = ref
-            //         .read(categoriesProvider)
-            //         .firstWhere((element) => element.category == "Proposal");
-
-            //     selectedTags.sub_categories!.forEach((element) {
-            //       tags.add(element!.sub_category!);
-            //     });
-            //     AutoRouter.of(context).push(
-            //         CategoryListingPage(category: 'Proposal', tags: tags));
-            //   },
-            // ),
-            // const SizedBox(),
+            const SizedBox(),
             _buildCard(
               'others'.tr(),
               Assets.lib.assets.images.others.image(),
@@ -308,7 +308,7 @@ class CardView extends ConsumerWidget {
                     .push(CategoryListingPage(category: 'Others', tags: tags));
               },
             ),
-            // const SizedBox(),
+            const SizedBox(),
             // Add more cards as needed
           ],
         ),

@@ -50,8 +50,6 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
                 ref.read(tempFavProvider).remove(widget.listingId.toString());
               }
 
-              print('ref.read(tempFavProvider)');
-              print(ref.read(tempFavProvider));
               controller.addFavorite(widget.listingId).then((value) => {
                     ref.refresh(favListingProvider),
                     (ScaffoldMessenger.of(context))
@@ -112,77 +110,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
                       color: Colors.white, blurRadius: 2.0, offset: Offset.zero)
                 ],
               )
-        // Text(ref.watch(testtempFavRemoveProvider).toString()),
-        // isFavorite
-        // ref.watch(tempFavProvider).contains(widget.listingId.toString())
-        //     ? const Icon(
-        //         Icons.favorite,
-        //         color: ViwahaColor.primary,
-        //       )
-        //     : const Icon(
-        //         Icons.favorite_border,
-        //         color: ViwahaColor.primary,
-        //       )
-
-        // ref.watch(tempFavProvider).contains(widget.listingId.toString())
-        //     ? const Icon(
-        //         Icons.favorite,
-        //         color: ViwahaColor.primary,
-        //       )
-        //     : isFavorite
-        //         ? ref
-        //                 .watch(tempFavRemoveProvider)
-        //                 .contains(widget.listingId.toString())
-        //             ? const Icon(
-        //                 Icons.favorite_border,
-        //                 color: Colors.white,
-        //                 weight: 400,
-        //                 shadows: <Shadow>[
-        //                   Shadow(
-        //                       color: Colors.white,
-        //                       blurRadius: 2.0,
-        //                       offset: Offset.zero),
-        //                   Shadow(
-        //                       color: Colors.white,
-        //                       blurRadius: 2.0,
-        //                       offset: Offset.zero),
-        //                   Shadow(
-        //                       color: Colors.white,
-        //                       blurRadius: 2.0,
-        //                       offset: Offset.zero),
-        //                   Shadow(
-        //                       color: Colors.white,
-        //                       blurRadius: 2.0,
-        //                       offset: Offset.zero)
-        //                 ],
-        //               )
-        //             : const Icon(
-        //                 Icons.favorite,
-        //                 color: ViwahaColor.primary,
-        //               )
-        //         : const Icon(
-        //             Icons.favorite_border,
-        //             color: Colors.white,
-        //             weight: 400,
-        //             shadows: <Shadow>[
-        //               Shadow(
-        //                   color: Colors.white,
-        //                   blurRadius: 2.0,
-        //                   offset: Offset.zero),
-        //               Shadow(
-        //                   color: Colors.white,
-        //                   blurRadius: 2.0,
-        //                   offset: Offset.zero),
-        //               Shadow(
-        //                   color: Colors.white,
-        //                   blurRadius: 2.0,
-        //                   offset: Offset.zero),
-        //               Shadow(
-        //                   color: Colors.white,
-        //                   blurRadius: 2.0,
-        //                   offset: Offset.zero)
-        //             ],
-        //           ),
+      
         );
   }
 }
