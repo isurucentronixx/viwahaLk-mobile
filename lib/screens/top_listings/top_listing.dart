@@ -118,6 +118,7 @@ class TopListing extends ConsumerWidget {
                         data[index].premium.toString() != "1" ? false : true,
                     boostedDate: data[index].boosted.toString(),
                     item: data[index],
+                    isTop: true,
                   );
                 })
             : const Center(
@@ -135,6 +136,8 @@ class TopListing extends ConsumerWidget {
                     ref.refresh(allListingProvider);
                   }
                   ref.read(isSearchingProvider.notifier).state = true;
+                  ref.read(isEmptySearchingProvider.notifier).state = false;
+
                   AutoRouter.of(context).push(AllListingPage(isAppBar: true));
                 },
                 child: Container(

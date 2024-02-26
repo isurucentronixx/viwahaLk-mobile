@@ -112,7 +112,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
         CarouselSlider(
           options: CarouselOptions(
             height: 280, // Set the desired height of the slider
-            autoPlay: true, // Enable auto-playing of images
+            // autoPlay: true, // Enable auto-playing of images
             // enlargeCenterPage: true, // Increase the size of the center image
             viewportFraction:
                 0.6, // Fraction of the viewport width occupied by each image
@@ -143,7 +143,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                 child: Column(
                   children: [
                     SizedBox(
-                      width: 280,
+                      width: MediaQuery.of(context).size.width,
                       height: 225,
                       child: Stack(
                         children: [
@@ -152,7 +152,7 @@ class _PremiumVendorsState extends ConsumerState<PremiumVendors> {
                             fit: BoxFit.cover,
                             imageBuilder: (context, imageProvider) => Container(
                               height: 225,
-                              width: 280,
+                              width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),

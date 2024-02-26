@@ -196,6 +196,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                   ref.refresh(selectedAmenitiesProvider);
                   ref.refresh(searchingKeywords);
                   ref.refresh(selectedPriceRangeProvider);
+                  ref.read(isEmptySearchingProvider.notifier).state = false;
                   _price = 'Select One';
                   _orderBy = 'Select One';
                   _sortBy = 'Select One';
@@ -230,6 +231,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
               onPressed: () {
                 setState(() {
                   ref.read(isSearchingProvider.notifier).state = true;
+                  ref.read(isEmptySearchingProvider.notifier).state = false;
                 });
                 AutoRouter.of(context).push(const SearchingResultsPage());
               },

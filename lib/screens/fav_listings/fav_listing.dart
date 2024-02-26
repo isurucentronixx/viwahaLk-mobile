@@ -10,6 +10,7 @@ import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
+import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -101,18 +102,18 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                     ),
                   ],
                 ),
-              ),
+              ), 
               ref.watch(isSearchingProvider)
                   ? const Center(child: CircularProgressIndicator())
-                  : favListing.isEmpty
-                      ? const Center(child: NoListingPage())
-                      : Expanded(
+                  :               !ref.watch(isSearchingProvider)
+
+                      ? Expanded(
                           child: isGridView
                               ? GridView.builder(
                                   itemCount: favListing.length,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: calculateCrossAxisCount(context),
                                   ),
                                   itemBuilder: (context, index) {
                                     return SearchingCardItem(
@@ -198,9 +199,11 @@ class _FavListingPageState extends ConsumerState<FavListingPage> {
                                       boostedDate:
                                           favListing[index].boosted.toString(),
                                       item: favListing[index],
+                                      isTop: false,
                                     );
                                   }),
-                        )
+                        ):const Center(child: NoListingPage())
+                      
             ],
           ),
         ));

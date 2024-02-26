@@ -233,6 +233,9 @@ class _HomePageState extends ConsumerState<HomePage>
 
                         setState(() {
                           ref.read(isSearchingProvider.notifier).state = true;
+                          ref.read(isEmptySearchingProvider.notifier).state =
+                              false;
+
                           currentScreen = const AllListingPage(false);
                           currentTab = 1;
                           currentPage = 1;
@@ -306,6 +309,9 @@ class _HomePageState extends ConsumerState<HomePage>
                       onPressed: () {
                         setState(() {
                           ref.read(isSearchingProvider.notifier).state = true;
+                          ref.read(isEmptySearchingProvider.notifier).state =
+                              false;
+
                           if (ref.watch(isloginProvider)) {
                             ref.read(tempReviewsProvider).clear();
                             ref.refresh(favListingProvider);

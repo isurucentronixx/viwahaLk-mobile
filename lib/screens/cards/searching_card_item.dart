@@ -82,8 +82,7 @@ class SearchingCardItem extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        ref.read(currentListingIdProvider.notifier).state =
-                          item.id.toString();
+        ref.read(currentListingIdProvider.notifier).state = item.id.toString();
         AutoRouter.of(context).push(SearchSingleView(
             item: item,
             type: type == "myAd"
@@ -104,7 +103,7 @@ class SearchingCardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              width: 200,
+              width: MediaQuery.of(context).size.width,
               height: type == 'fav' ? 85 : 100,
               child: Stack(
                 children: [
@@ -113,7 +112,7 @@ class SearchingCardItem extends ConsumerWidget {
                     fit: BoxFit.cover,
                     imageBuilder: (context, imageProvider) => Container(
                       height: 100,
-                      width: 200,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),

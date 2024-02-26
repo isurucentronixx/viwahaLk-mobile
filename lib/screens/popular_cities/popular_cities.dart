@@ -132,6 +132,8 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
                 ref.read(tempReviewsProvider).clear();
                 ref.read(allListingProvider);
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 AutoRouter.of(context).push(const SearchingResultsPage());
               },
               child: Card(

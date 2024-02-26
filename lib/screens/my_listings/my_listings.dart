@@ -103,9 +103,8 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
               const SizedBox(height: 15),
               ref.watch(isSearchingProvider)
                   ? const Center(child: CircularProgressIndicator())
-                  : myListing.isEmpty
-                      ? const Center(child: NoListingPage())
-                      : Expanded(
+                  : !ref.watch(isEmptySearchingProvider)
+                      ? Expanded(
                           child: GridView.count(
                           crossAxisCount: 1,
                           scrollDirection: Axis.vertical,
@@ -151,6 +150,7 @@ class _MyListingPageState extends ConsumerState<MyListingPage> {
                                     ),
                                   )),
                         ))
+                      : const Center(child: NoListingPage())
             ],
           )),
     );

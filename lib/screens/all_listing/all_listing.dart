@@ -210,8 +210,8 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                 ? allListing.length + 2
                                 : allListing.length,
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: calculateCrossAxisCount(context),
                             ),
                             itemBuilder: (context, index) {
                               if (index < allListing.length) {
@@ -307,6 +307,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                   boostedDate:
                                       allListing[index].boosted.toString(),
                                   item: allListing[index],
+                                  isTop: false,
                                 );
                               } else {
                                 return Shimmer.fromColors(
@@ -328,4 +329,24 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
           ],
         ));
   }
+}
+
+int calculateCrossAxisCount(BuildContext context) {
+  // Adjust the width of the item and screen size breakpoints as needed
+  double screenWidth = MediaQuery.of(context).size.width;
+  int crossAxisCount;
+
+  if (screenWidth > 1200) {
+    crossAxisCount = 5;
+  } else if (screenWidth > 800) {
+    crossAxisCount = 4;
+  } else if (screenWidth > 600) {
+    crossAxisCount = 3;
+  } else if (screenWidth > 200) {
+    crossAxisCount = 2;
+  } else {
+    crossAxisCount = 1;
+  }
+
+  return crossAxisCount;
 }

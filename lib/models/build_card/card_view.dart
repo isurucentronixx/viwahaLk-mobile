@@ -59,6 +59,9 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.weddingVenues.image(),
               () async {
                 ref.read(isSearchingProvider.notifier).state = true;
+
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Venues";
                 List<String> tags = [];
@@ -78,6 +81,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.proposal.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Proposal";
                 List<String> tags = [];
@@ -96,6 +101,8 @@ class CardView extends ConsumerWidget {
             _buildCard(
                 'dressing'.tr(), Assets.lib.assets.images.dressing.image(), () {
               ref.read(isSearchingProvider.notifier).state = true;
+              ref.read(isEmptySearchingProvider.notifier).state = false;
+
               ref.read(selectedMainCategoryProvider.notifier).state =
                   "Dressing";
 
@@ -117,6 +124,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.jewelry.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Jewelry";
                 List<String> tags = [];
@@ -137,6 +146,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.decorations.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Decorations";
                 List<String> tags = [];
@@ -157,6 +168,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.photography.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Photography";
                 List<String> tags = [];
@@ -177,6 +190,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.entertainment.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Entertainment";
                 List<String> tags = [];
@@ -196,6 +211,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.makeup.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
                 List<String> tags = [];
 
@@ -215,6 +232,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.food.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state = "Food";
                 List<String> tags = [];
 
@@ -234,6 +253,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.honeymoon.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Honeymoon";
                 List<String> tags = [];
@@ -254,6 +275,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.weddingCars.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Wedding Car";
                 List<String> tags = [];
@@ -273,6 +296,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.music.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state = "Music";
                 List<String> tags = [];
 
@@ -293,6 +318,8 @@ class CardView extends ConsumerWidget {
               Assets.lib.assets.images.others.image(),
               () {
                 ref.read(isSearchingProvider.notifier).state = true;
+                ref.read(isEmptySearchingProvider.notifier).state = false;
+
                 ref.read(selectedMainCategoryProvider.notifier).state =
                     "Others";
                 List<String> tags = [];

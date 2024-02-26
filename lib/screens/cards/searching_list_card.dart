@@ -26,6 +26,7 @@ class SearchingListItem extends ConsumerWidget {
   final bool isPremium;
   final String boostedDate;
   final dynamic item;
+  final bool isTop;
 
   const SearchingListItem({
     required this.id,
@@ -40,6 +41,7 @@ class SearchingListItem extends ConsumerWidget {
     required this.isPremium,
     required this.boostedDate,
     required this.item,
+    required this.isTop,
   });
 
   tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
@@ -173,27 +175,29 @@ class SearchingListItem extends ConsumerWidget {
                   ),
                   // dt1.compareTo(dt2) > 0
                   //     ?
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: ViwahaColor.primary.withOpacity(0.8),
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          "TOP",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // : const SizedBox(),
+                  isTop
+                      ? Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: ViwahaColor.primary.withOpacity(0.8),
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 4.0),
+                              child: Text(
+                                "TOP",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(

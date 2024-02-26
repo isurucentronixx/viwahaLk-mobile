@@ -197,6 +197,10 @@ class SingleItemOtherLatest extends ConsumerWidget {
                               }
                               ref.read(isSearchingProvider.notifier).state =
                                   true;
+                              ref
+                                  .read(isEmptySearchingProvider.notifier)
+                                  .state = false;
+
                               AutoRouter.of(context)
                                   .push(AllListingPage(isAppBar: true));
                             },

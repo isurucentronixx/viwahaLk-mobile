@@ -246,6 +246,8 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 onTap: () {
                   setState(() {
                     ref.read(isSearchingProvider.notifier).state = true;
+                    ref.read(isEmptySearchingProvider.notifier).state = false;
+
                     ref.refresh(selectedMainLocationProvider);
                     ref.refresh(selectedSubLocationProvider);
                     ref.read(selectedSubCategoryProvider.notifier).state =
@@ -496,6 +498,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               onPressed: (() {
                                 ref.read(isSearchingProvider.notifier).state =
                                     true;
+                                ref
+                                    .read(isEmptySearchingProvider.notifier)
+                                    .state = false;
+
                                 ref.refresh(selectedMainLocationProvider);
                                 ref.refresh(selectedMainCategoryProvider);
                                 ref.refresh(selectedSubCategoryProvider);
@@ -526,6 +532,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               onPressed: (() {
                                 ref.read(isSearchingProvider.notifier).state =
                                     true;
+                                ref
+                                    .read(isEmptySearchingProvider.notifier)
+                                    .state = false;
+
                                 ref
                                     .read(selectedMainLocationProvider.notifier)
                                     .state = widget.item.main_location;

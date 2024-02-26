@@ -14,6 +14,7 @@ import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/card/card_model.dart';
 import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
+import 'package:viwaha_lk/screens/all_listing/all_listing.dart';
 import 'package:viwaha_lk/screens/cards/searching_card_item.dart';
 import 'package:viwaha_lk/models/categories/categories.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
@@ -153,6 +154,11 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                             setState(() {
                               ref.read(isSearchingProvider.notifier).state =
                                   true;
+                                  
+                              ref
+                                  .read(isEmptySearchingProvider.notifier)
+                                  .state = false;
+
                               ref
                                       .read(selectedSubCategoryProvider.notifier)
                                       .state =
@@ -258,8 +264,8 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                       ? allListing.length + 2
                                       : allListing.length,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
+                                       SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: calculateCrossAxisCount(context),
                                   ),
                                   itemBuilder: (context, index) {
                                     if (index < allListing.length) {
@@ -380,6 +386,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                             .boosted
                                             .toString(),
                                         item: allListing[index],
+                                        isTop: false,
                                       );
                                     } else {
                                       return Shimmer.fromColors(
