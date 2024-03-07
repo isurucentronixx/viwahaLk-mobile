@@ -257,7 +257,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                         border:
                             Border.all(color: ViwahaColor.primary, width: 1)),
                     child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -311,11 +311,12 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.verified.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                               color: Colors.lightBlueAccent, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -349,6 +350,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   Icons.stars_rounded,
                                   color: Colors.amber,
                                 ),
+                                SizedBox(width: 4),
                                 Text(
                                   'Member  ',
                                   style: TextStyle(color: Colors.amber),

@@ -49,7 +49,6 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ref.refresh(paginateIndexProvider);
     scrollController.addListener(_scrollListner);

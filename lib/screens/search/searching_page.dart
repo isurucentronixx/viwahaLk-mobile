@@ -262,6 +262,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                             child: Column(
                               children: [
                                 TextFormField(
+                                  scrollPadding: EdgeInsets.zero,
                                   onTapOutside: (event) =>
                                       FocusScope.of(context).unfocus(),
                                   controller: _textEditingController,
