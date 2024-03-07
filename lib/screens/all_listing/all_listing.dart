@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_select/awesome_select.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
@@ -35,7 +36,7 @@ class AllListingPage extends ConsumerStatefulWidget {
 }
 
 class _AllListingPageState extends ConsumerState<AllListingPage> {
-  List<SearchResultItem> allListing = [];
+  List<SearchResultItem> allListing2 = [];
   bool isGridView = true;
   bool isAddLoading = false;
   final scrollController = ScrollController();
@@ -68,9 +69,9 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // allListing = ref.watch(allListingProvider);
-
-    allListing.addAll(ref.watch(allListingProvider));
+    allListing2.addAll(ref.watch(allListingProvider));
+    //remove duplicates
+    List<SearchResultItem> allListing = allListing2.toSet().toList();
     return Scaffold(
         appBar: widget.isAppBar
             ? AppBar(
@@ -101,28 +102,38 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: ViwahaColor.primary),
-                ),
-                child: Column(
-                  children: [
-                    TextField(
-                      onTap: () =>
-                          AutoRouter.of(context).push(const SearchingPage()),
-                      decoration: const InputDecoration(
-                        labelText: 'Search',
-                        labelStyle: TextStyle(color: ViwahaColor.primary),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: ViwahaColor.primary,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).push(const SearchingPage());
+                    },
+                    child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: ViwahaColor.primary),
                         ),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ],
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Icon(Icons.search,
+                                color: ViwahaColor.primary),
+                            const SizedBox(width: 5),
+                            Text(
+                              'search'.tr(),
+                              style: const TextStyle(
+                                  fontSize: 16, color: ViwahaColor.primary),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ),
@@ -199,8 +210,8 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                 ? allListing.length + 2
                                 : allListing.length,
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: calculateCrossAxisCount(context),
                             ),
                             itemBuilder: (context, index) {
                               if (index < allListing.length) {
@@ -296,6 +307,7 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                                   boostedDate:
                                       allListing[index].boosted.toString(),
                                   item: allListing[index],
+                                  isTop: false,
                                 );
                               } else {
                                 return Shimmer.fromColors(
@@ -317,4 +329,24 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
           ],
         ));
   }
+}
+
+int calculateCrossAxisCount(BuildContext context) {
+  // Adjust the width of the item and screen size breakpoints as needed
+  double screenWidth = MediaQuery.of(context).size.width;
+  int crossAxisCount;
+
+  if (screenWidth > 1200) {
+    crossAxisCount = 5;
+  } else if (screenWidth > 800) {
+    crossAxisCount = 4;
+  } else if (screenWidth > 600) {
+    crossAxisCount = 3;
+  } else if (screenWidth > 200) {
+    crossAxisCount = 2;
+  } else {
+    crossAxisCount = 1;
+  }
+
+  return crossAxisCount;
 }

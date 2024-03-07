@@ -197,6 +197,10 @@ class SingleItemOtherLatest extends ConsumerWidget {
                               }
                               ref.read(isSearchingProvider.notifier).state =
                                   true;
+                              ref
+                                  .read(isEmptySearchingProvider.notifier)
+                                  .state = false;
+
                               AutoRouter.of(context)
                                   .push(AllListingPage(isAppBar: true));
                             },
@@ -363,14 +367,12 @@ class CardItem extends ConsumerWidget {
                                   ? Text(
                                       "Boosted ${timeAgoSinceDate(boosted)}",
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                          color: Colors.white),
                                     )
                                   : Text(
                                       timeAgoSinceDate(date),
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                          color: Colors.white),
                                     ),
                             ),
                           ),

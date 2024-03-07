@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viwaha_lk/appColor.dart';
+import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/models/favorite.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -25,6 +26,7 @@ class SearchingListItem extends ConsumerWidget {
   final bool isPremium;
   final String boostedDate;
   final dynamic item;
+  final bool isTop;
 
   const SearchingListItem({
     required this.id,
@@ -39,6 +41,7 @@ class SearchingListItem extends ConsumerWidget {
     required this.isPremium,
     required this.boostedDate,
     required this.item,
+    required this.isTop,
   });
 
   tz.TZDateTime convertToTimeZone(DateTime dateTime, String timeZoneName) {
@@ -145,17 +148,46 @@ class SearchingListItem extends ConsumerWidget {
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 4.0),
-                              child: Text(
-                                "PREMIUM",
-                                style: TextStyle(
+                              child: Wrap(
+                                children: [
+                                  Icon(
+                                    Icons.workspace_premium,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "PREMIUM",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         )
                       : const SizedBox(),
-                  dt1.compareTo(dt2) > 0
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.3),
+                          Colors.transparent
+                        ],
+                      ),
+                    ),
+                  ),
+                  // dt1.compareTo(dt2) > 0
+                  //     ?
+                  isTop
                       ? Align(
                           alignment: Alignment.bottomRight,
                           child: Container(
@@ -178,26 +210,28 @@ class SearchingListItem extends ConsumerWidget {
                           ),
                         )
                       : const SizedBox(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.transparent
-                        ],
-                      ),
-                    ),
-                  ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: FavoriteIcon(id, isFav != "0" ? true : false),
+                      child:
+                          // Consumer(
+                          //   builder: (_, WidgetRef ref, __) {
+                          //     // 3. use ref.watch() to get the value of the provider
+                          //     final helloWorld = ref.watch(tempFavProvider);
+                          //     return Text(helloWorld.toString());
+                          //   },
+                          // ),
+                          // ref.watch(tempFavProvider).contains(id.toString())
+                          //     ? const Icon(
+                          //         Icons.favorite,
+                          //         color: ViwahaColor.primary,
+                          //       )
+                          //     : const Icon(
+                          //         Icons.favorite_border,
+                          //         color: ViwahaColor.primary,
+                          //       )
+                          FavoriteIcon(id, isFav != "0" ? true : false),
                     ),
                   ),
                 ],

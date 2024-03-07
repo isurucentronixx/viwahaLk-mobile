@@ -82,8 +82,7 @@ class SearchingCardItem extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        ref.read(currentListingIdProvider.notifier).state =
-                          item.id.toString();
+        ref.read(currentListingIdProvider.notifier).state = item.id.toString();
         AutoRouter.of(context).push(SearchSingleView(
             item: item,
             type: type == "myAd"
@@ -104,7 +103,7 @@ class SearchingCardItem extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              width: 200,
+              width: MediaQuery.of(context).size.width,
               height: type == 'fav' ? 85 : 100,
               child: Stack(
                 children: [
@@ -113,7 +112,7 @@ class SearchingCardItem extends ConsumerWidget {
                     fit: BoxFit.cover,
                     imageBuilder: (context, imageProvider) => Container(
                       height: 100,
-                      width: 200,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
@@ -146,11 +145,23 @@ class SearchingCardItem extends ConsumerWidget {
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 4.0),
-                              child: Text(
-                                "PREMIUM",
-                                style: TextStyle(
+                              child: Wrap(
+                                children: [
+                                  Icon(
+                                    Icons.workspace_premium,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "PREMIUM",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -219,16 +230,13 @@ class SearchingCardItem extends ConsumerWidget {
                                             ? Text(
                                                 "Boosted ${timeAgoSinceDate(boostedDate)}",
                                                 style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  color: Colors.white,
+                                                ),
                                               )
                                             : Text(
                                                 timeAgoSinceDate(date),
                                                 style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    color: Colors.white),
                                               ),
                                       ),
                                     ),

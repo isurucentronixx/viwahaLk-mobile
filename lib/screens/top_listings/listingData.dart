@@ -80,7 +80,7 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
               weight: 10,
             )
           : const Icon(Icons.favorite_border_outlined,
-              color: Colors.white, weight: 10),
+              color: Colors.white),
     );
   }
 }

@@ -218,14 +218,12 @@ class _MyCardItemState extends ConsumerState<MyCardItem> {
                                 ? Text(
                                     "Boosted ${timeAgoSinceDate(widget.boosted!)}",
                                     style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                        color: Colors.white),
                                   )
                                 : Text(
                                     timeAgoSinceDate(widget.date!),
                                     style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                        color: Colors.white),
                                   ),
                           ),
                         ),

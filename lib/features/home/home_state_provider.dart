@@ -159,6 +159,9 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
       }
 
       // Setting isLoading to `false`.
@@ -187,6 +190,9 @@ class ReviewListNotifier extends StateNotifier<List<Reviews>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
         ref.read(isLoadingProvider.notifier).state = false;
       }
 
@@ -217,7 +223,10 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
-      }
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
+      } 
 
       // Setting isLoading to `false`.
       ref.read(isLoadingHomeProvider.notifier).state = false;
@@ -242,6 +251,9 @@ class FavListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
       }
 
       // Setting isLoading to `false`.
@@ -266,6 +278,9 @@ class MyListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
       }
 
       // Setting isLoading to `false`.
@@ -301,6 +316,9 @@ class CategoryListingProviderNotifier
       if (mounted) {
         state = value;
         ref.read(isSearchingProvider.notifier).state = false;
+        if (value.length.toInt() == 0) {
+          ref.read(isEmptySearchingProvider.notifier).state = true;
+        }
       }
 
       // Setting isLoading to `false`.

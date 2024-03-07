@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 import 'dart:async';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -20,10 +22,10 @@ import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
 import 'package:viwaha_lk/features/home/home_provider.dart';
+import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/models/categories/sub_categories.dart';
 import 'package:viwaha_lk/models/locations/sub_location.dart';
 import 'package:viwaha_lk/models/reviews/reviews.dart';
-import 'package:viwaha_lk/models/search/search_result_item.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
 import 'package:viwaha_lk/screens/single_page/popup/report_popup.dart';
 import 'package:viwaha_lk/screens/single_page/popup/review_popup.dart';
@@ -32,7 +34,6 @@ import 'package:viwaha_lk/screens/single_page/single_page_content/inner_fav.dart
 import 'package:viwaha_lk/translations/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class SliderView extends ConsumerStatefulWidget {
   const SliderView(this.images, this.type, this.mainCategory, {super.key});
@@ -49,7 +50,8 @@ class _SliderState extends ConsumerState<SliderView> {
     List<String> imagePaths =
         ref.read(homeControllerProvider).getTumbImage(widget.images);
     if (widget.mainCategory == "Proposal") {
-      String isMembership = ref.read(userProvider).user!.membership.toString();
+      String isMembership =
+          ref.read(userProvider).user?.membership.toString() ?? "0";
       if (isMembership != "1") {
         imagePaths.length = 1;
       }
@@ -165,7 +167,8 @@ class SingleItemOverview extends ConsumerStatefulWidget {
 class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
   String isMembership(String text) {
     int end = text.length > 2 ? 2 : 0;
-    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String isMembership =
+        ref.read(userProvider).user?.membership.toString() ?? "0";
     String visiblePart = text.substring(0, end);
     String hiddenPart =
         text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
@@ -229,7 +232,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
           const SizedBox(height: 10),
           Text(
             widget.item!.main_category == "Proposal"
-                ? isMembership(widget.item!.name!)
+                ? isMembership(widget.title)
                 : '${widget.title}',
             style: const TextStyle(
               fontSize: 20,
@@ -243,6 +246,8 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 onTap: () {
                   setState(() {
                     ref.read(isSearchingProvider.notifier).state = true;
+                    ref.read(isEmptySearchingProvider.notifier).state = false;
+
                     ref.refresh(selectedMainLocationProvider);
                     ref.refresh(selectedSubLocationProvider);
                     ref.read(selectedSubCategoryProvider.notifier).state =
@@ -276,7 +281,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   shape: BoxShape.circle,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: InnerFavoriteIcon(widget.id,
                       widget.item!.is_favourite != "0" ? true : false),
                 ),
@@ -289,10 +294,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
               widget.item!.premium.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: EdgeInsets.all(2.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -301,6 +306,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.workspace_premium,
                                   color: Colors.amber,
+                                  size: 20,
                                 ),
                                 Text(
                                   'Premium  ',
@@ -325,22 +331,27 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.shield_outlined,
                                   color: Colors.lightBlueAccent,
+                                  size: 20,
                                 ),
                                 Text(
                                   'Verified',
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
+                                ),
+                                SizedBox(
+                                  width: 3,
                                 )
                               ])))
                   : const SizedBox(),
-              SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
+              // SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
               widget.item!.member.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -349,6 +360,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 Icon(
                                   Icons.stars_rounded,
                                   color: Colors.amber,
+                                  size: 20,
                                 ),
                                 SizedBox(width: 4),
                                 Text(
@@ -410,8 +422,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       : const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
-          // const SizedBox(height: 8),
-          // const SizedBox(height: 10),
           SizedBox(height: widget.item.ask_price == "1" ? 8 : 0),
           widget.item.ask_price == "1"
               ? const Row(
@@ -420,7 +430,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                       Icons.check_box_outlined,
                       color: ViwahaColor.primary,
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8),
                     Text(
                       "Ask Price",
                       style: TextStyle(
@@ -453,8 +463,8 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                 )
               : const SizedBox(),
           const SizedBox(height: 8),
-          widget.item.address.isEmpty ||
-                  widget.item.address == 'null' ||
+
+          widget.item.address == 'null' ||
                   widget.item.address == 'Null' ||
                   widget.item.address == ""
               ? Container()
@@ -468,7 +478,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                     Expanded(
                       child: Text(
                         widget.item.main_category == "Proposal"
-                            ? isMembership(widget.item.address)
+                            ? isMembership(widget.item.location)
                             : widget.item.address,
                         style: const TextStyle(
                           fontSize: 16,
@@ -494,6 +504,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               onPressed: (() {
                                 ref.read(isSearchingProvider.notifier).state =
                                     true;
+                                ref
+                                    .read(isEmptySearchingProvider.notifier)
+                                    .state = false;
+
                                 ref.refresh(selectedMainLocationProvider);
                                 ref.refresh(selectedMainCategoryProvider);
                                 ref.refresh(selectedSubCategoryProvider);
@@ -524,6 +538,10 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                               onPressed: (() {
                                 ref.read(isSearchingProvider.notifier).state =
                                     true;
+                                ref
+                                    .read(isEmptySearchingProvider.notifier)
+                                    .state = false;
+
                                 ref
                                     .read(selectedMainLocationProvider.notifier)
                                     .state = widget.item.main_location;
@@ -829,15 +847,15 @@ class _SingleItemAmenitiesState extends State<SingleItemAmenities> {
   }
 }
 
-class SingleItemProposal extends StatefulWidget {
+class SingleItemProposal extends ConsumerStatefulWidget {
   final dynamic item;
   const SingleItemProposal(this.item, {super.key});
 
   @override
-  State<SingleItemProposal> createState() => _SingleItemProposalState();
+  _SingleItemProposalState createState() => _SingleItemProposalState();
 }
 
-class _SingleItemProposalState extends State<SingleItemProposal> {
+class _SingleItemProposalState extends ConsumerState<SingleItemProposal> {
   List<String> amenities = [];
 
   @override
@@ -875,10 +893,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Gender',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.gender.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.gender.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.birthyear.toString() != ""
@@ -886,11 +907,18 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Birth Day',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(
-                      '${widget.item.birthyear.toString()}-${widget.item.birthmonth.toString()}-${widget.item.birthday.toString()}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle: ref
+                              .read(userProvider)
+                              .user
+                              ?.membership
+                              .toString() ==
+                          "1"
+                      ? Text(
+                          '${widget.item.birthyear.toString()}-${widget.item.birthmonth.toString()}-${widget.item.birthday.toString()}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16),
+                          textAlign: TextAlign.start)
+                      : null,
                 )
               : const SizedBox(),
           widget.item.height.toString() != "Select one"
@@ -898,10 +926,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Height ',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.height.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.height.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.weight.toString() != "Select one"
@@ -909,10 +940,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Weight',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.weight.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.weight.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.body.toString() != "Select one"
@@ -920,10 +954,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Body',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.body.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.body.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.appearance.toString() != "Select one"
@@ -931,10 +968,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Appearance',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.appearance.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.appearance.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.complexion.toString() != "Select one"
@@ -942,10 +982,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Complexion',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.complexion.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.complexion.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.maritial.toString() != "Select one"
@@ -953,10 +996,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Maritial',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.maritial.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.maritial.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.education.toString() != "Select one"
@@ -964,10 +1010,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Education',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.education.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.education.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.career.toString() != "Select one"
@@ -975,10 +1024,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Career',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.career.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.career.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.religion.toString() != "Select one"
@@ -986,10 +1038,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Religion',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.religion.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.religion.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.ethnicity.toString() != "Select one"
@@ -997,10 +1052,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Ethnicity',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.ethnicity.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.ethnicity.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.social_class.toString() != "Select one"
@@ -1008,10 +1066,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Social Class',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.social_class.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.social_class.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.residency.toString() != "Select one"
@@ -1019,10 +1080,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Residency',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.residency.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.residency.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.family_values.toString() != "Select one"
@@ -1030,10 +1094,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Family Values',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.family_values.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.family_values.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.smoking.toString() != "Select one"
@@ -1041,10 +1108,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Smoking',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.smoking.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.smoking.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.drinking.toString() != "Select one"
@@ -1052,10 +1122,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Drinking',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.drinking.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.drinking.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.diet.toString() != "Select one"
@@ -1063,10 +1136,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Diet',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.diet.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.diet.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.personality.toString() != "Select one"
@@ -1074,10 +1150,13 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Personality',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.personality.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.personality.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
               : const SizedBox(),
           widget.item.next_step.toString() != "Select one"
@@ -1085,11 +1164,190 @@ class _SingleItemProposalState extends State<SingleItemProposal> {
                   title: const Text('Next Step',
                       style: TextStyle(fontSize: 18),
                       textAlign: TextAlign.start),
-                  subtitle: Text(widget.item.next_step.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 16),
-                      textAlign: TextAlign.start),
+                  subtitle:
+                      ref.read(userProvider).user?.membership.toString() == "1"
+                          ? Text(widget.item.next_step.toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal, fontSize: 16),
+                              textAlign: TextAlign.start)
+                          : null,
                 )
+              : const SizedBox(),
+          widget.item!.main_category.toString() == "Proposal"
+              ? ref.read(userProvider).user?.membership.toString() != "1"
+                  ? GestureDetector(
+                      onTap: () {
+                        ref.refresh(membershipBillProvider);
+                        if (ref.read(isloginProvider)) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (stfContext, stfSetState) {
+                                  return AlertDialog(
+                                    content: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Bank Receipt',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          const Text(
+                                            '(Maximum image size 1 Mb)',
+                                            style: TextStyle(fontSize: 12),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  File image;
+                                                  final picker = ImagePicker();
+                                                  picker
+                                                      .pickImage(
+                                                          source: ImageSource
+                                                              .gallery,
+                                                          imageQuality: 50,
+                                                          maxWidth: 800,
+                                                          maxHeight: 800)
+                                                      .then((value) => {
+                                                            if (value != null)
+                                                              {
+                                                                image = File(
+                                                                    value.path),
+                                                                stfSetState(
+                                                                  () {
+                                                                    ref
+                                                                        .watch(membershipBillProvider
+                                                                            .notifier)
+                                                                        .state = value.path;
+                                                                  },
+                                                                )
+                                                              }
+                                                          });
+                                                },
+                                                child: Container(
+                                                  color:
+                                                      ViwahaColor.transparent,
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: Assets.lib.assets
+                                                      .images.photography
+                                                      .image(),
+                                                ),
+                                              ),
+                                              ref
+                                                      .watch(
+                                                          membershipBillProvider)
+                                                      .isEmpty
+                                                  ? Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: Assets.lib.assets
+                                                          .images.colorLogo
+                                                          .image(),
+                                                    )
+                                                  : Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: Image.file(File(
+                                                                      ref.watch(
+                                                                          membershipBillProvider)))
+                                                                  .image),
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10))),
+                                                    )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blueGrey),
+                                        child: const Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('Upload'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                              });
+                        } else {
+                          final appRouter = ref.watch(appRouterProvider);
+                          appRouter.push(Login(onHome: false));
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: ViwahaColor.primary),
+                          child: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 15, left: 20),
+                                child: Icon(
+                                  Icons.lock_person_outlined,
+                                  size: 32,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Get the membership to see proposal details',
+                                    textAlign: TextAlign.center,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
               : const SizedBox(),
         ],
       ),
@@ -1111,7 +1369,8 @@ class SingleItemDescription extends ConsumerStatefulWidget {
 class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
   String isMembership(String text) {
     int end = text.length > 2 ? 2 : 0;
-    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String isMembership =
+        ref.read(userProvider).user?.membership.toString() ?? "0";
     String visiblePart = text.substring(0, end);
     String hiddenPart =
         text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
@@ -1171,6 +1430,194 @@ class _SingleItemDescriptionState extends ConsumerState<SingleItemDescription> {
                               },
                               icon: const Icon(Icons.play_circle),
                               label: const Text('Watch clip'),
+                            ),
+                          )
+                        : const SizedBox()
+                    : const SizedBox(),
+                widget.mainCategory.toString() == "Proposal"
+                    ? ref.read(userProvider).user?.membership.toString() != "1"
+                        ? GestureDetector(
+                            onTap: () {
+                              ref.refresh(membershipBillProvider);
+                              if (ref.read(isloginProvider)) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return StatefulBuilder(
+                                          builder: (stfContext, stfSetState) {
+                                        return AlertDialog(
+                                          content: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Text(
+                                                  'Bank Receipt',
+                                                  textAlign: TextAlign.center,
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                const Text(
+                                                  '(Maximum image size 1 Mb)',
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        File image;
+                                                        final picker =
+                                                            ImagePicker();
+                                                        picker
+                                                            .pickImage(
+                                                                source:
+                                                                    ImageSource
+                                                                        .gallery,
+                                                                imageQuality:
+                                                                    50,
+                                                                maxWidth: 800,
+                                                                maxHeight: 800)
+                                                            .then((value) => {
+                                                                  if (value !=
+                                                                      null)
+                                                                    {
+                                                                      image = File(
+                                                                          value
+                                                                              .path),
+                                                                      stfSetState(
+                                                                        () {
+                                                                          ref.watch(membershipBillProvider.notifier).state =
+                                                                              value.path;
+                                                                        },
+                                                                      )
+                                                                    }
+                                                                });
+                                                      },
+                                                      child: Container(
+                                                        color: ViwahaColor
+                                                            .transparent,
+                                                        width: 50,
+                                                        height: 50,
+                                                        child: Assets.lib.assets
+                                                            .images.photography
+                                                            .image(),
+                                                      ),
+                                                    ),
+                                                    ref
+                                                            .watch(
+                                                                membershipBillProvider)
+                                                            .isEmpty
+                                                        ? Container(
+                                                            width: 150,
+                                                            height: 150,
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: ViwahaColor
+                                                                        .primary),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            10))),
+                                                            child: Assets
+                                                                .lib
+                                                                .assets
+                                                                .images
+                                                                .colorLogo
+                                                                .image(),
+                                                          )
+                                                        : Container(
+                                                            width: 150,
+                                                            height: 150,
+                                                            decoration: BoxDecoration(
+                                                                image: DecorationImage(
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                    image: Image.file(File(ref.watch(membershipBillProvider)))
+                                                                        .image),
+                                                                border: Border.all(
+                                                                    color: ViwahaColor
+                                                                        .primary),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            10))),
+                                                          )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.blueGrey),
+                                              child: const Text('Cancel'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            ElevatedButton(
+                                              child: const Text('Upload'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                    });
+                              } else {
+                                final appRouter = ref.watch(appRouterProvider);
+                                appRouter.push(Login(onHome: false));
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: ViwahaColor.primary),
+                                child: const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 15, left: 20),
+                                      child: Icon(
+                                        Icons.lock_person_outlined,
+                                        size: 32,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Get the membership to see full description',
+                                          textAlign: TextAlign.center,
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           )
                         : const SizedBox()
@@ -1364,7 +1811,8 @@ class SingleItemContactInfo extends ConsumerStatefulWidget {
 class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
   String isMembership(String text) {
     int end = text.length > 2 ? 2 : 0;
-    String isMembership = ref.read(userProvider).user!.membership.toString();
+    String isMembership =
+        ref.read(userProvider).user?.membership.toString() ?? "0";
     String visiblePart = text.substring(0, end);
     String hiddenPart =
         text.substring(end, text.length).replaceAll(RegExp(r'.'), 'X');
@@ -1639,7 +2087,183 @@ class _SingleItemContactInfoState extends ConsumerState<SingleItemContactInfo> {
                 ),
               )
             ],
-          )
+          ),
+          widget.mainCategory.toString() == "Proposal"
+              ? ref.read(userProvider).user?.membership.toString() != "1"
+                  ? GestureDetector(
+                      onTap: () {
+                        ref.refresh(membershipBillProvider);
+                        if (ref.read(isloginProvider)) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (stfContext, stfSetState) {
+                                  return AlertDialog(
+                                    content: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Bank Receipt',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          const Text(
+                                            '(Maximum image size 1 Mb)',
+                                            style: TextStyle(fontSize: 12),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  File image;
+                                                  final picker = ImagePicker();
+                                                  picker
+                                                      .pickImage(
+                                                          source: ImageSource
+                                                              .gallery,
+                                                          imageQuality: 50,
+                                                          maxWidth: 800,
+                                                          maxHeight: 800)
+                                                      .then((value) => {
+                                                            if (value != null)
+                                                              {
+                                                                image = File(
+                                                                    value.path),
+                                                                stfSetState(
+                                                                  () {
+                                                                    ref
+                                                                        .watch(membershipBillProvider
+                                                                            .notifier)
+                                                                        .state = value.path;
+                                                                  },
+                                                                )
+                                                              }
+                                                          });
+                                                },
+                                                child: Container(
+                                                  color:
+                                                      ViwahaColor.transparent,
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: Assets.lib.assets
+                                                      .images.photography
+                                                      .image(),
+                                                ),
+                                              ),
+                                              ref
+                                                      .watch(
+                                                          membershipBillProvider)
+                                                      .isEmpty
+                                                  ? Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: Assets.lib.assets
+                                                          .images.colorLogo
+                                                          .image(),
+                                                    )
+                                                  : Container(
+                                                      width: 150,
+                                                      height: 150,
+                                                      decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: Image.file(File(
+                                                                      ref.watch(
+                                                                          membershipBillProvider)))
+                                                                  .image),
+                                                          border: Border.all(
+                                                              color: ViwahaColor
+                                                                  .primary),
+                                                          borderRadius:
+                                                              const BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10))),
+                                                    )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blueGrey),
+                                        child: const Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('Upload'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                              });
+                        } else {
+                          final appRouter = ref.watch(appRouterProvider);
+                          appRouter.push(Login(onHome: false));
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: ViwahaColor.primary),
+                          child: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 15, left: 20),
+                                child: Icon(
+                                  Icons.lock_person_outlined,
+                                  size: 32,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Get the membership to see contact details',
+                                    textAlign: TextAlign.center,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
+              : const SizedBox(),
         ],
       ),
     );

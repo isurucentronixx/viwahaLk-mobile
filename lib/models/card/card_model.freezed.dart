@@ -273,7 +273,7 @@ class _$CardModelImpl implements _CardModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CardModelImpl &&

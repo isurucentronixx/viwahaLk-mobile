@@ -329,6 +329,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         onPress: () {
                           setState(() {
                             ref.read(isSearchingProvider.notifier).state = true;
+                            ref.read(isEmptySearchingProvider.notifier).state =
+                                false;
                           });
 
                           ref.refresh(favListingProvider);
@@ -395,7 +397,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -422,15 +424,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           _showSecondAlert(context);
                         }
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.delete, color: Colors.red),
-                          const SizedBox(width: 8),
+                          Icon(Icons.delete, color: Colors.red),
+                          SizedBox(width: 8),
                           Text(
                             "Delete Account",
-                            style: const TextStyle(
-                                fontSize: 14, color: Colors.red),
+                            style: TextStyle(fontSize: 14, color: Colors.red),
                           ),
                         ],
                       ),

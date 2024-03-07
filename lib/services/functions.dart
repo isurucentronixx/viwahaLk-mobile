@@ -28,9 +28,8 @@ class PostData {
           data: newListing);
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data(
-              "Your listing has been successfully published.");
-      ref.watch(appRouterProvider).push(AddListingPage(isAppBar: true));
+          const AsyncValue.data("Successfully published your listing.");
+      ref.watch(appRouterProvider).push(const MyListingPage());
       return res.data;
     } catch (e) {
       ref.read(addListingViewStateProvider.notifier).state =
@@ -50,7 +49,7 @@ class PostData {
           data: newListing);
       ref.refresh(myListingProvider);
       ref.read(addListingViewStateProvider.notifier).state =
-          const AsyncValue.data("Successfuly updated your listing.");
+          const AsyncValue.data("Successfully updated your listing.");
 
       ref.refresh(myListingProvider);
       ref.watch(appRouterProvider).push(const MyListingPage());
@@ -276,6 +275,35 @@ class PostData {
             "id": ref.read(userProvider).user!.id.toString(),
           });
       if (res.statusCode == 200) {
+        print('res.data');
+        print(res.data['responseMsg']);
+        if (res.data['responseMsg'] == "Vendor added to Favourites") {
+
+          if (!ref.read(tempFavProvider).contains(id.toString())) {
+            ref.read(tempFavProvider).add(id.toString());
+          }
+
+          if (ref.read(tempFavRemoveProvider).contains(id.toString())) {
+            ref.read(tempFavRemoveProvider).remove(id.toString());
+          }
+
+          print('tempFavProvider');
+          print(ref.watch(tempFavProvider));
+        } else if (res.data['responseMsg'] ==
+            "Vendor removed from Favourites") {
+
+          if (ref.read(tempFavProvider).contains(id.toString())) {
+            ref.read(tempFavProvider).remove(id.toString());
+          }
+          
+          if (!ref.read(tempFavRemoveProvider).contains(id.toString())) {
+            ref.read(tempFavRemoveProvider).add(id.toString());
+          }
+
+          print('tempFavRemoveProvider');
+          print(ref.watch(tempFavRemoveProvider));
+        }
+
         return res.data;
       }
     } catch (e) {

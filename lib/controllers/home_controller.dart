@@ -51,6 +51,8 @@ final adYoutubeProvider = StateProvider<String>((ref) => '');
 final adLinkedinProvider = StateProvider<String>((ref) => '');
 final adDescProvider = StateProvider<String>((ref) => '');
 final adVideoLinkProvider = StateProvider<String>((ref) => '');
+final tempFavProvider = StateProvider<List<String>>((ref) => []);
+final tempFavRemoveProvider = StateProvider<List<String>>((ref) => []);
 
 final addListingViewStateProvider =
     StateProvider.autoDispose<AsyncValue>((ref) => const AsyncValue.data(null));

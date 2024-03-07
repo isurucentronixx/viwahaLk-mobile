@@ -89,20 +89,23 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       )
                     : const SizedBox(),
                 ref.read(isloginProvider) ? const Divider() : const SizedBox(),
-                ref.read(isloginProvider)
-                    ? ListTile(
-                        leading: Container(
-                          child: Assets.lib.assets.images.couple
-                              .image(color: const Color(0xff21B6A8), width: 27),
-                        ),
-                        title: const Text("Couple Dashboard",
-                            style: TextStyle(color: Color(0xff21B6A8))),
-                        onTap: () {
-                          launch(
-                              "http://coupledashboard.viwaha.lk/login-sso?email=${user!.email}");
-                        },
-                      )
-                    : const SizedBox(),
+                ListTile(
+                  leading: Container(
+                    child: Assets.lib.assets.images.couple
+                        .image(color: const Color(0xff21B6A8), width: 27),
+                  ),
+                  title: const Text("Couple Dashboard",
+                      style: TextStyle(color: Color(0xff21B6A8))),
+                  onTap: () {
+                    if (ref.watch(isloginProvider)) {
+                      launch(
+                          "http://coupledashboard.viwaha.lk/login-sso?email=${user!.email}");
+                    } else {
+                      final appRouter = ref.watch(appRouterProvider);
+                      appRouter.push(Login(onHome: false));
+                    }
+                  },
+                ),
                 const Divider(),
                 ListTile(
                   leading: const Icon(Icons.person_outline),
@@ -158,55 +161,56 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
                       )
                     : Container(),
                 const Divider(),
-                ref.watch(isloginProvider)
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                ref.read(mainImageNameProvider.notifier).state =
-                                    "";
-                                ref.read(imageNameGalleryProvider).clear();
-                                ref.read(mainImageProvider.notifier).state = "";
-                                ref.read(imageGalleryProvider).clear();
-                                AutoRouter.of(context)
-                                    .push(AddListingPage(isAppBar: true));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff21B6A8),
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                        color: const Color(0xff21B6A8))),
-                                child: const Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(Icons.add, color: Colors.white),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          "POST YOUR LISTING",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (ref.watch(isloginProvider)) {
+                            ref.read(mainImageNameProvider.notifier).state = "";
+                            ref.read(imageNameGalleryProvider).clear();
+                            ref.read(mainImageProvider.notifier).state = "";
+                            ref.read(imageGalleryProvider).clear();
+                            AutoRouter.of(context)
+                                .push(AddListingPage(isAppBar: true));
+                          } else {
+                            final appRouter = ref.watch(appRouterProvider);
+                            appRouter.push(Login(onHome: false));
+                          }
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color(0xff21B6A8),
+                              borderRadius: BorderRadius.circular(8),
+                              border:
+                                  Border.all(color: const Color(0xff21B6A8))),
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.add, color: Colors.white),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "POST YOUR LISTING",
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.white),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                          ],
+                          ),
                         ),
-                      )
-                    : const SizedBox(),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

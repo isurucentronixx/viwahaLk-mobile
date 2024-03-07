@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:viwaha_lk/controllers/home_controller.dart';
 import 'package:viwaha_lk/controllers/login_controller.dart';
+import 'package:viwaha_lk/features/home/home_provider.dart';
 import 'package:viwaha_lk/features/login/login_provider.dart';
 import 'package:viwaha_lk/gen/assets.gen.dart';
 import 'package:viwaha_lk/routes/router.gr.dart';
@@ -35,6 +36,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   void initState() {
     super.initState();
+
     isLogged();
   }
 
@@ -50,53 +52,54 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     var currentPhone =
         pref.containsKey("email") ? pref.getString("email").toString() : null;
 
-    // if (currentPhone != null) {
-    //   await ref
-    //       .read(loginControllerProvider)
-    //       .fetchUser(
-    //           username: pref.getString("email").toString(),
-    //           password: pref.getString("password").toString())
-    //       .then((value) async {
-    //     ref.read(userProvider.notifier).state = value;
-    //     ref.read(isloginProvider.notifier).state = true;
-    //     final snackBar = SnackBar(
-    //       elevation: 0,
-    //       behavior: SnackBarBehavior.floating,
-    //       backgroundColor: Colors.transparent,
-    //       content: AwesomeSnackbarContent(
-    //         title: 'Welcome back!',
-    //         message:
-    //             "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
-    //         inMaterialBanner: true,
-    //         contentType: ContentType.success,
-    //         color: const Color(0xff21B6A8),
-    //       ),
-    //     );
-    //     ScaffoldMessenger.of(context)
-    //       ..hideCurrentSnackBar()
-    //       ..showSnackBar(snackBar);
+    if (currentPhone != null) {
+      await ref
+          .read(loginControllerProvider)
+          .fetchUser(
+              username: pref.getString("email").toString(),
+              password: pref.getString("password").toString())
+          .then((value) async {
+        ref.read(userProvider.notifier).state = value;
+        ref.read(isloginProvider.notifier).state = true;
+       
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Welcome back!',
+            message:
+                "Hi ${value.user!.firstname.toString()}, Welcome back to the Viwaha mobile app. let's make your celebrations great.",
+            inMaterialBanner: true,
+            contentType: ContentType.success,
+            color: const Color(0xff21B6A8),
+          ),
+        );
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
 
-    //     appRouter.push(const HomePage());
-    //   });
-    // } else {
-    final snackBar = SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
-          title: 'Welcome!',
-          message:
-              "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
-          inMaterialBanner: false,
-          contentType: ContentType.success,
-          color: const Color(0xff21B6A8),
-        ));
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
-    appRouter.push(const HomePage());
+        appRouter.push(const HomePage());
+      });
+    } else {
+      final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Welcome!',
+            message:
+                "Hi, Welcome to the Viwaha mobile app. let's make your celebrations great.",
+            inMaterialBanner: false,
+            contentType: ContentType.success,
+            color: const Color(0xff21B6A8),
+          ));
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
+      appRouter.push(const HomePage());
+    }
   }
-  // }
 
   @override
   Widget build(BuildContext context) {
