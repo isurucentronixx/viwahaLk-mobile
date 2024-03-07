@@ -53,7 +53,8 @@ class _SliderState extends ConsumerState<SliderView> {
       String isMembership =
           ref.read(userProvider).user?.membership.toString() ?? "0";
       if (isMembership != "1") {
-        imagePaths.length = 1;
+        imagePaths.length = 1;        
+        imagePaths.add("https://viwahaapp.viwaha.lk/assets/placeholders/prop.png");
       }
     }
     return CarouselSlider(
