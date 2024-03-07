@@ -92,29 +92,26 @@ class _InnerFavoriteIconState extends ConsumerState<InnerFavoriteIcon> {
                   : const Icon(
                       Icons.favorite_border,
                       color: ViwahaColor.primary,
-                      weight: 400,
-                      shadows: <Shadow>[
-                        Shadow(
-                            color: ViwahaColor.primary,
-                            blurRadius: 1.0,
-                            offset: Offset.zero),
-                        Shadow(
-                            color: ViwahaColor.primary,
-                            blurRadius: 1.0,
-                            offset: Offset.zero),
-                        Shadow(
-                            color: ViwahaColor.primary,
-                            blurRadius: 1.0,
-                            offset: Offset.zero),
-                        Shadow(
-                            color: ViwahaColor.primary,
-                            blurRadius: 1.0,
-                            offset: Offset.zero)
-                      ],
-                    )
-
-          
-          ),
+                      // weight: 400,
+                      // shadows: <Shadow>[
+                      //   Shadow(
+                      //       color: ViwahaColor.primary,
+                      //       blurRadius: 1.0,
+                      //       offset: Offset.zero),
+                      //   Shadow(
+                      //       color: ViwahaColor.primary,
+                      //       blurRadius: 1.0,
+                      //       offset: Offset.zero),
+                      //   Shadow(
+                      //       color: ViwahaColor.primary,
+                      //       blurRadius: 1.0,
+                      //       offset: Offset.zero),
+                      //   Shadow(
+                      //       color: ViwahaColor.primary,
+                      //       blurRadius: 1.0,
+                      //       offset: Offset.zero)
+                      // ],
+                    )),
     );
   }
 }

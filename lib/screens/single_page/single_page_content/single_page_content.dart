@@ -336,6 +336,9 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                   'Verified',
                                   style:
                                       TextStyle(color: Colors.lightBlueAccent),
+                                ),
+                                SizedBox(
+                                  width: 3,
                                 )
                               ])))
                   : const SizedBox(),

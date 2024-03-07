@@ -92,25 +92,23 @@ class _FavoriteIconState extends ConsumerState<FavoriteIcon> {
             : const Icon(
                 Icons.favorite_border,
                 color: Colors.white,
-                weight: 400,
-                shadows: <Shadow>[
-                  Shadow(
-                      color: Colors.white,
-                      blurRadius: 2.0,
-                      offset: Offset.zero),
-                  Shadow(
-                      color: Colors.white,
-                      blurRadius: 2.0,
-                      offset: Offset.zero),
-                  Shadow(
-                      color: Colors.white,
-                      blurRadius: 2.0,
-                      offset: Offset.zero),
-                  Shadow(
-                      color: Colors.white, blurRadius: 2.0, offset: Offset.zero)
-                ],
-              )
-      
-        );
+                // weight: 400,
+                // shadows: <Shadow>[
+                //   Shadow(
+                //       color: Colors.white,
+                //       blurRadius: 2.0,
+                //       offset: Offset.zero),
+                //   Shadow(
+                //       color: Colors.white,
+                //       blurRadius: 2.0,
+                //       offset: Offset.zero),
+                //   Shadow(
+                //       color: Colors.white,
+                //       blurRadius: 2.0,
+                //       offset: Offset.zero),
+                //   Shadow(
+                //       color: Colors.white, blurRadius: 2.0, offset: Offset.zero)
+                // ],
+              ));
   }
 }
