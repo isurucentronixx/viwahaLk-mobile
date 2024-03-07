@@ -285,7 +285,6 @@ Future googleSignIn(BuildContext context, WidgetRef ref) async {
   final appRouter = ref.watch(appRouterProvider);
   final user = await GoogleSignInApi.login();
 
-  print({"Thusah isuru", user});
   if (user != null) {
     final res = await controller.fetchGoogleUser(
         displayName: user.displayName,
@@ -343,6 +342,5 @@ Future<void> appleSignIn(BuildContext context, WidgetRef ref) async {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
-    print("Error during Apple Sign In: $e");
   }
 }

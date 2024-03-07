@@ -154,7 +154,7 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                             setState(() {
                               ref.read(isSearchingProvider.notifier).state =
                                   true;
-                                  
+
                               ref
                                   .read(isEmptySearchingProvider.notifier)
                                   .state = false;
@@ -176,7 +176,8 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                     border: Border.all(
                                         color: ViwahaColor.primary, width: 1)),
                                 child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
                                     child: Text(
                                       widget.tags[index],
                                       style: const TextStyle(
@@ -264,8 +265,9 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                       ? allListing.length + 2
                                       : allListing.length,
                                   gridDelegate:
-                                       SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: calculateCrossAxisCount(context),
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        calculateCrossAxisCount(context),
                                   ),
                                   itemBuilder: (context, index) {
                                     if (index < allListing.length) {

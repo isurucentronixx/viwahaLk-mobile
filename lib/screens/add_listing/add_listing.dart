@@ -603,7 +603,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
   void dispose() {
     // Clean up the focus node when the Form is disposed.
     // adTitleFocus.dispose();
-    
 
     super.dispose();
   }
@@ -1946,7 +1945,6 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                   child: SmartSelect<String>.single(
                                     validation: (value) {
                                       if (value.isEmpty) {
-                                        print(_location);
                                         if (_location == "Select one") {
                                           focusContainer = "location";
                                         } else {

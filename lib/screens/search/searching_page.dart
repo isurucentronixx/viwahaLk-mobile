@@ -275,7 +275,7 @@ class _SearchingPageState extends ConsumerState<SearchingPage> {
                                         value.toString();
                                   },
                                   decoration: const InputDecoration(
-                                    labelText: 'Type here to search',
+                                    labelText: 'Search',
                                     labelStyle:
                                         TextStyle(color: ViwahaColor.primary),
                                     prefixIcon: Icon(

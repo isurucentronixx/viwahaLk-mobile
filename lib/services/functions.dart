@@ -275,10 +275,7 @@ class PostData {
             "id": ref.read(userProvider).user!.id.toString(),
           });
       if (res.statusCode == 200) {
-        print('res.data');
-        print(res.data['responseMsg']);
         if (res.data['responseMsg'] == "Vendor added to Favourites") {
-
           if (!ref.read(tempFavProvider).contains(id.toString())) {
             ref.read(tempFavProvider).add(id.toString());
           }
@@ -286,22 +283,15 @@ class PostData {
           if (ref.read(tempFavRemoveProvider).contains(id.toString())) {
             ref.read(tempFavRemoveProvider).remove(id.toString());
           }
-
-          print('tempFavProvider');
-          print(ref.watch(tempFavProvider));
         } else if (res.data['responseMsg'] ==
             "Vendor removed from Favourites") {
-
           if (ref.read(tempFavProvider).contains(id.toString())) {
             ref.read(tempFavProvider).remove(id.toString());
           }
-          
+
           if (!ref.read(tempFavRemoveProvider).contains(id.toString())) {
             ref.read(tempFavRemoveProvider).add(id.toString());
           }
-
-          print('tempFavRemoveProvider');
-          print(ref.watch(tempFavRemoveProvider));
         }
 
         return res.data;

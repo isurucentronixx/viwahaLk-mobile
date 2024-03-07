@@ -161,7 +161,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                           "${ref.watch(selectedSubLocationProvider).sub_location_en ?? ref.watch(selectedMainLocationProvider)}" !=
                                   ""
                               ? Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
                                   child: Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
@@ -198,7 +199,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                               color: ViwahaColor.primary,
                                               width: 1)),
                                       child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 5),
                                           child: Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -299,7 +301,8 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                     : searchingResult.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: calculateCrossAxisCount(context),
+                                  crossAxisCount:
+                                      calculateCrossAxisCount(context),
                                 ),
                                 itemBuilder: (context, index) {
                                   if (index < searchingResult.length) {

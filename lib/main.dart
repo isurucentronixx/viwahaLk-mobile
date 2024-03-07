@@ -29,7 +29,7 @@ Future<void> main() async {
       assetLoader: const CodegenLoader(),
       child: ProviderScope(child: App())));
 }
- 
+
 // assuing this is the root widget of your App
 class App extends ConsumerWidget {
   @override
@@ -42,7 +42,7 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Viwaha App',
       theme: MyTheme.lightTheme,
-      routerDelegate: AutoRouterDelegate( 
+      routerDelegate: AutoRouterDelegate(
         router,
         navigatorObservers: () => [RouteObserver()],
       ),

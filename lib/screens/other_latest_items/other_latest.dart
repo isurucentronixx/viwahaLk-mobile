@@ -204,15 +204,18 @@ class SingleItemOtherLatest extends ConsumerWidget {
                               AutoRouter.of(context)
                                   .push(AllListingPage(isAppBar: true));
                             },
-                            child: const Center(
-                                child: Text(
-                              "Click here to see more listings >>",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  color: ViwahaColor.primary,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: Text(
+                                "Click here to see more listings",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: ViwahaColor.primary,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                            ),
                           ),
                         ),
                 ),
@@ -366,13 +369,13 @@ class CardItem extends ConsumerWidget {
                               child: boosted != "null"
                                   ? Text(
                                       "Boosted ${timeAgoSinceDate(boosted)}",
-                                      style: const TextStyle(
-                                          color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     )
                                   : Text(
                                       timeAgoSinceDate(date),
-                                      style: const TextStyle(
-                                          color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                             ),
                           ),

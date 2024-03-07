@@ -40,7 +40,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
     }
 
     final user = ref.watch(userProvider).user;
-    print({"object", user});
+
     return Drawer(
       child: Column(
         children: [

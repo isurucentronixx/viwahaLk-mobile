@@ -58,12 +58,11 @@ class _SliderState extends ConsumerState<SliderView> {
     }
     return CarouselSlider(
       options: CarouselOptions(
-        height: 400, // Set the desired height of the slider
-        autoPlay: true, // Enable auto-playing of images
-        enlargeCenterPage: true, // Increase the size of the center image
-        viewportFraction:
-            0.8, // Fraction of the viewport width occupied by each image
-        aspectRatio: 16 / 9, // Aspect ratio of the images
+        height: 400,
+        autoPlay: true,
+        enlargeCenterPage: true,
+        viewportFraction: 0.8,
+        aspectRatio: 16 / 9,
       ),
       items: imagePaths.map((imagePath) {
         return GestureDetector(
@@ -316,6 +315,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   : const SizedBox(),
               widget.item!.verified.toString() != "0"
                   ? Container(
+                      margin: EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
@@ -343,7 +343,6 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                                 )
                               ])))
                   : const SizedBox(),
-              // SizedBox(width: widget.item!.member.toString() != "0" ? 8 : 0),
               widget.item!.member.toString() != "0"
                   ? Container(
                       decoration: BoxDecoration(

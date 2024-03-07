@@ -219,7 +219,9 @@ class SearchingCardItem extends ConsumerWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.4),
+                                        color:
+                                            Color.fromARGB(255, 209, 209, 209)
+                                                .withOpacity(0.5),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
@@ -230,12 +232,14 @@ class SearchingCardItem extends ConsumerWidget {
                                             ? Text(
                                                 "Boosted ${timeAgoSinceDate(boostedDate)}",
                                                 style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
                                                   color: Colors.white,
                                                 ),
                                               )
                                             : Text(
                                                 timeAgoSinceDate(date),
                                                 style: const TextStyle(
+                                                    fontWeight: FontWeight.w400,
                                                     color: Colors.white),
                                               ),
                                       ),
