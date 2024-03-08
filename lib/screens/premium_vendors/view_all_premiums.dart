@@ -40,7 +40,7 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
   bool isAddLoading = false;
   final scrollController = ScrollController();
   String _orderBy = 'Select One';
-  bool isGridView = true;
+  bool isGridView = false;
   List<S2Choice<String>>? orderByData = [
     S2Choice<String>(value: 'asc', title: 'Accending'),
     S2Choice<String>(value: 'desc', title: 'Decending'),

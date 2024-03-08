@@ -213,7 +213,7 @@ class CardView extends ConsumerWidget {
                 ref.read(isSearchingProvider.notifier).state = true;
                 ref.read(isEmptySearchingProvider.notifier).state = false;
 
-                ref.read(selectedMainCategoryProvider.notifier).state = "Salon";
+                ref.read(selectedMainCategoryProvider.notifier).state = "Salons";
                 List<String> tags = [];
 
                 var selectedTags = ref

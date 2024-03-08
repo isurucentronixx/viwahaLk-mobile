@@ -189,20 +189,20 @@ class SearchingCardItem extends ConsumerWidget {
                           ),
                         )
                       : const SizedBox(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.transparent
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width,
+                  //   height: MediaQuery.of(context).size.height * 0.75,
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.bottomCenter,
+                  //       end: Alignment.topCenter,
+                  //       colors: [
+                  //         Colors.black.withOpacity(0.3),
+                  //         Colors.transparent
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(

@@ -37,7 +37,7 @@ class AllListingPage extends ConsumerStatefulWidget {
 
 class _AllListingPageState extends ConsumerState<AllListingPage> {
   List<SearchResultItem> allListing2 = [];
-  bool isGridView = true;
+  bool isGridView = false;
   bool isAddLoading = false;
   final scrollController = ScrollController();
   String _orderBy = 'Select One';

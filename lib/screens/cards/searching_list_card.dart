@@ -95,7 +95,7 @@ class SearchingListItem extends ConsumerWidget {
                     : type == "cat"
                         ? 'cat'
                         : type == "all"
-                            ? 'all'
+                            ? 'all' 
                             : ''));
       },
       child: Card(
@@ -170,21 +170,21 @@ class SearchingListItem extends ConsumerWidget {
                           ),
                         )
                       : const SizedBox(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.transparent
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width,
+                  //   height: MediaQuery.of(context).size.height * 0.75,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.bottomCenter,
+                  //       end: Alignment.topCenter,
+                  //       colors: [
+                  //         Colors.black.withOpacity(0.3),
+                  //         Colors.transparent
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   // dt1.compareTo(dt2) > 0
                   //     ?
                   isTop

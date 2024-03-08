@@ -33,7 +33,7 @@ class FavListingPage extends ConsumerStatefulWidget {
 }
 
 class _FavListingPageState extends ConsumerState<FavListingPage> {
-  bool isGridView = true;
+  bool isGridView = false;
   @override
   initState() {
     super.initState();

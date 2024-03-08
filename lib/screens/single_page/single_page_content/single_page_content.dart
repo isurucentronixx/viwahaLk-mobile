@@ -53,8 +53,9 @@ class _SliderState extends ConsumerState<SliderView> {
       String isMembership =
           ref.read(userProvider).user?.membership.toString() ?? "0";
       if (isMembership != "1") {
-        imagePaths.length = 1;        
-        imagePaths.add("https://viwahaapp.viwaha.lk/assets/placeholders/prop.png");
+        imagePaths.length = 1;
+        imagePaths
+            .add("https://viwahaapp.viwaha.lk/assets/placeholders/prop.png");
       }
     }
     return CarouselSlider(
@@ -293,11 +294,13 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
             children: [
               widget.item!.premium.toString() != "0"
                   ? Container(
+                      margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
-                          padding: EdgeInsets.all(2.0),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -316,14 +319,14 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                   : const SizedBox(),
               widget.item!.verified.toString() != "0"
                   ? Container(
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                               color: Colors.lightBlueAccent, width: 1)),
                       child: const Padding(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -351,7 +354,7 @@ class _SingleItemOverviewState extends ConsumerState<SingleItemOverview> {
                           border: Border.all(color: Colors.amber, width: 1)),
                       child: const Padding(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,

@@ -728,15 +728,17 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     border: Border.all(color: _catColor),
                                   ),
                                   child: SmartSelect<String>.single(
-                                    validation: (value) {
-                                      if (value.isEmpty) {
-                                        focusContainer = "cat";
-                                      }
-                                      return 'please be fill';
-                                    },
+                                    // validation: (value) {
+                                    //   if (value.isEmpty) {
+                                    //     focusContainer = "cat";
+                                    //   }
+                                    //   return 'please be fill';
+                                    // },
                                     title: 'Category',
                                     selectedValue: _cat,
                                     choiceItems: mainCategoryData,
+                                    // onChange: (selected) => setState(() => _cat = selected.value),
+                                    // modalConfirm: true,
                                     onChange: (selected) {
                                       setState(() {
                                         _cat = selected.value;
@@ -758,6 +760,7 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                       });
                                     },
                                     modalType: S2ModalType.bottomSheet,
+
                                     tileBuilder: (context, state) {
                                       return ListTile(
                                         title: Text(
@@ -799,16 +802,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     border: Border.all(color: _subCatColor),
                                   ),
                                   child: SmartSelect<String>.single(
-                                    validation: (value) {
-                                      if (value.isEmpty) {
-                                        if (_cat == "Select one") {
-                                          focusContainer = "cat";
-                                        } else {
-                                          focusContainer = "subCat";
-                                        }
-                                      }
-                                      return 'please be fill';
-                                    },
+                                    // validation: (value) {
+                                    //   if (value.isEmpty) {
+                                    //     if (_cat == "Select one") {
+                                    //       focusContainer = "cat";
+                                    //     } else {
+                                    //       focusContainer = "subCat";
+                                    //     }
+                                    //   }
+                                    //   return 'please be fill';
+                                    // },
                                     title: 'Sub Category',
                                     selectedValue: _subCat,
                                     choiceItems: subCategoryData,
@@ -1277,12 +1280,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                               Border.all(color: _genderColor),
                                         ),
                                         child: SmartSelect<String>.single(
-                                          validation: (value) {
-                                            if (value.isEmpty) {
-                                              focusContainer = "gender";
-                                            }
-                                            return 'please be fill';
-                                          },
+                                          // validation: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     focusContainer = "gender";
+                                          //   }
+                                          //   return 'please be fill';
+                                          // },
                                           title: 'I am a',
                                           selectedValue: _gender,
                                           choiceItems: genderData,
@@ -1872,12 +1875,12 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                     border: Border.all(color: _locationColor),
                                   ),
                                   child: SmartSelect<String>.single(
-                                    validation: (value) {
-                                      if (value.isEmpty) {
-                                        focusContainer = "location";
-                                      }
-                                      return 'please be fill';
-                                    },
+                                    // validation: (value) {
+                                    //   if (value.isEmpty) {
+                                    //     focusContainer = "location";
+                                    //   }
+                                    //   return 'please be fill';
+                                    // },
                                     title: 'District',
                                     selectedValue: _location,
                                     choiceItems: mainLocationData,
@@ -1943,16 +1946,16 @@ class _AddListingPageState extends ConsumerState<AddListingPage> {
                                         Border.all(color: _subLocationColor),
                                   ),
                                   child: SmartSelect<String>.single(
-                                    validation: (value) {
-                                      if (value.isEmpty) {
-                                        if (_location == "Select one") {
-                                          focusContainer = "location";
-                                        } else {
-                                          focusContainer = "subLocation";
-                                        }
-                                      }
-                                      return 'please be fill';
-                                    },
+                                    // validation: (value) {
+                                    //   if (value.isEmpty) {
+                                    //     if (_location == "Select one") {
+                                    //       focusContainer = "location";
+                                    //     } else {
+                                    //       focusContainer = "subLocation";
+                                    //     }
+                                    //   }
+                                    //   return 'please be fill';
+                                    // },
                                     title: 'City',
                                     selectedValue: _subLocation,
                                     choiceItems: subLocationData,
