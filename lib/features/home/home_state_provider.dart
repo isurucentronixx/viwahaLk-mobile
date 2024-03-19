@@ -136,7 +136,7 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
                     : rating != ""
                         ? "1"
                         : "";
-    int pageId = ref.watch(paginateIndexProvider);
+    // int pageId = ref.watch(paginateIndexProvider);
 
     await ref
         .read(homeControllerProvider)
@@ -150,10 +150,10 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
             filter,
             price,
             amenities,
-            order,
+            ref.watch(selectedOrderProvider),
             sort,
             rating,
-            pageId)
+            ref.watch(paginateIndexProvider))
         .then((value) {
       // Setting current `state` to the fetched list of products.
       if (mounted) {
@@ -162,6 +162,8 @@ class SearchResultNotifier extends StateNotifier<List<SearchResultItem>> {
         if (value.length.toInt() == 0) {
           ref.read(isEmptySearchingProvider.notifier).state = true;
         }
+        print('+++++++++++++++++++++++++++++++++++++');
+        print(value.length.toInt());
       }
 
       // Setting isLoading to `false`.
@@ -226,7 +228,7 @@ class AllListingProviderNotifier extends StateNotifier<List<SearchResultItem>> {
         if (value.length.toInt() == 0) {
           ref.read(isEmptySearchingProvider.notifier).state = true;
         }
-      } 
+      }
 
       // Setting isLoading to `false`.
       ref.read(isLoadingHomeProvider.notifier).state = false;

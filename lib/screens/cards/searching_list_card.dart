@@ -95,7 +95,7 @@ class SearchingListItem extends ConsumerWidget {
                     : type == "cat"
                         ? 'cat'
                         : type == "all"
-                            ? 'all' 
+                            ? 'all'
                             : ''));
       },
       child: Card(

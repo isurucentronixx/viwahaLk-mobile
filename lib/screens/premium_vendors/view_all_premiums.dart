@@ -35,7 +35,8 @@ class ViewAllPremiumsPage extends ConsumerStatefulWidget {
 }
 
 class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
-  List<SearchResultItem> searchingResult = [];
+  List<SearchResultItem> searchingResult2 = [];
+
 
   bool isAddLoading = false;
   final scrollController = ScrollController();
@@ -70,9 +71,12 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (searchingResult.length < ref.watch(vendorsProvider).length) {
-      searchingResult.addAll(ref.watch(vendorsProvider));
-    }
+    searchingResult2.addAll(ref.watch(vendorsProvider));
+    List<SearchResultItem> searchingResult = searchingResult2.toSet().toList();
+
+    // if (searchingResult.length < ref.watch(vendorsProvider).length) {
+    //   searchingResult.addAll(ref.watch(vendorsProvider));
+    // }
 
     return Scaffold(
         appBar: AppBar(
@@ -198,8 +202,31 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
             const SizedBox(height: 15),
             ref.watch(isSearchingProvider)
                 ? const Center(child: CircularProgressIndicator())
-                : !ref.watch(isEmptySearchingProvider)
-                    ? Expanded(
+                : ref.watch(isEmptySearchingProvider) && searchingResult.isEmpty
+                    ? const Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Opacity(
+                              opacity: 0.5,
+                              child: Icon(Icons.comments_disabled_outlined,
+                                  size: 50, color: Colors.grey)),
+                          Text(
+                            "No listings were found",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                        ],
+                      ))
+                    : Expanded(
                         child: isGridView
                             ? GridView.builder(
                                 controller: scrollController,
@@ -208,7 +235,8 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
                                     : searchingResult.length,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: calculateCrossAxisCount(context),
+                                  crossAxisCount:
+                                      calculateCrossAxisCount(context),
                                 ),
                                 itemBuilder: (context, index) {
                                   if (index < searchingResult.length) {
@@ -260,26 +288,57 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
                                       // Replace with the appropriate star rating value
                                     );
                                   } else {
-                                    return Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Shimmer.fromColors(
-                                        baseColor: Colors.grey.shade100,
-                                        highlightColor: Colors.grey.shade300,
-                                        child: Card(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(10),
-                                                      topRight:
-                                                          Radius.circular(10)),
-                                              color: Colors.grey.shade200,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    return !ref.watch(isEmptySearchingProvider)
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Shimmer.fromColors(
+                                              baseColor: Colors.grey.shade100,
+                                              highlightColor:
+                                                  Colors.grey.shade300,
+                                              child: Card(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    10),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    10)),
+                                                    color: Colors.grey.shade200,
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                        : const Center(
+                                            child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Opacity(
+                                                  opacity: 0.5,
+                                                  child: Icon(
+                                                      Icons
+                                                          .comments_disabled_outlined,
+                                                      size: 50,
+                                                      color: Colors.grey)),
+                                              Text(
+                                                "Not found",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.grey,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              SizedBox(
+                                                height: 50,
+                                              ),
+                                            ],
+                                          ));
                                   }
                                 })
                             : ListView.builder(
@@ -336,20 +395,49 @@ class _ViewAllPremiumsPageState extends ConsumerState<ViewAllPremiumsPage> {
                                       isTop: false,
                                     );
                                   } else {
-                                    return Shimmer.fromColors(
-                                      baseColor: Colors.grey.shade100,
-                                      highlightColor: Colors.grey.shade300,
-                                      child: const Card(
-                                        child: SizedBox(
-                                          height: 150,
-                                          width: 150,
-                                        ),
-                                      ),
-                                    );
+                                    return !ref.watch(isEmptySearchingProvider)
+                                        ? Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade100,
+                                            highlightColor:
+                                                Colors.grey.shade300,
+                                            child: const Card(
+                                              child: SizedBox(
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            ),
+                                          )
+                                        : const Center(
+                                            child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Opacity(
+                                                  opacity: 0.5,
+                                                  child: Icon(
+                                                      Icons
+                                                          .comments_disabled_outlined,
+                                                      size: 50,
+                                                      color: Colors.grey)),
+                                              Text(
+                                                "No listings were found",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.grey,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              SizedBox(
+                                                height: 50,
+                                              ),
+                                            ],
+                                          ));
                                   }
                                 }),
-                      )
-                    : const NoListingPage(),
+                      ),
           ],
         ));
   }

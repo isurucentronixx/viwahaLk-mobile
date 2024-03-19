@@ -26,7 +26,7 @@ class DioExceptions implements Exception {
       case DioErrorType.other:
         if (dioError.message.contains("SocketException")) {
           message = 'No Internet';
-          
+
           break;
         } else if (dioError.message.contains('HandshakeException')) {
           message = 'Response data not found';

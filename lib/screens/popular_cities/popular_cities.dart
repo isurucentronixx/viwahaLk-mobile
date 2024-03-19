@@ -71,7 +71,7 @@ class _PopularCitiesState extends ConsumerState<PopularCities> {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 20, 
         ),
         Padding(
           padding: EdgeInsets.all(8.0),

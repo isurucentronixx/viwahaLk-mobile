@@ -255,8 +255,30 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
               const SizedBox(height: 15),
               ref.watch(isSearchingProvider)
                   ? const Center(child: CircularProgressIndicator())
-                  : allListing.isEmpty
-                      ? const Center(child: NoListingPage())
+                  : ref.watch(isEmptySearchingProvider) && allListing.isEmpty
+                      ? const Center(
+                          child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Opacity(
+                                opacity: 0.5,
+                                child: Icon(Icons.comments_disabled_outlined,
+                                    size: 50, color: Colors.grey)),
+                            Text(
+                              "No listings were found",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                          ],
+                        ))
                       : Expanded(
                           child: isGridView
                               ? GridView.builder(
@@ -317,27 +339,60 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                         // Replace with the appropriate star rating value
                                       );
                                     } else {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Shimmer.fromColors(
-                                          baseColor: Colors.grey.shade100,
-                                          highlightColor: Colors.grey.shade300,
-                                          child: Card(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(10),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                10)),
-                                                color: Colors.grey.shade200,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      return !ref
+                                              .watch(isEmptySearchingProvider)
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Shimmer.fromColors(
+                                                baseColor: Colors.grey.shade100,
+                                                highlightColor:
+                                                    Colors.grey.shade300,
+                                                child: Card(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      10)),
+                                                      color:
+                                                          Colors.grey.shade200,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ))
+                                          : const Center(
+                                              child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Opacity(
+                                                    opacity: 0.5,
+                                                    child: Icon(
+                                                        Icons
+                                                            .comments_disabled_outlined,
+                                                        size: 50,
+                                                        color: Colors.grey)),
+                                                Text(
+                                                  "Not found",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                                SizedBox(
+                                                  height: 50,
+                                                ),
+                                              ],
+                                            ));
                                     }
                                   })
                               : ListView.builder(
@@ -391,16 +446,47 @@ class _CategoryListingPageState extends ConsumerState<CategoryListingPage> {
                                         isTop: false,
                                       );
                                     } else {
-                                      return Shimmer.fromColors(
-                                        baseColor: Colors.grey.shade100,
-                                        highlightColor: Colors.grey.shade300,
-                                        child: const Card(
-                                          child: SizedBox(
-                                            height: 150,
-                                            width: 150,
-                                          ),
-                                        ),
-                                      );
+                                      return !ref
+                                              .watch(isEmptySearchingProvider)
+                                          ? Shimmer.fromColors(
+                                              baseColor: Colors.grey.shade100,
+                                              highlightColor:
+                                                  Colors.grey.shade300,
+                                              child: const Card(
+                                                child: SizedBox(
+                                                  height: 150,
+                                                  width: 150,
+                                                ),
+                                              ),
+                                            )
+                                          : const Center(
+                                              child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Opacity(
+                                                    opacity: 0.5,
+                                                    child: Icon(
+                                                        Icons
+                                                            .comments_disabled_outlined,
+                                                        size: 50,
+                                                        color: Colors.grey)),
+                                                Text(
+                                                  "No listings were found",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                                SizedBox(
+                                                  height: 50,
+                                                ),
+                                              ],
+                                            ));
                                     }
                                   }),
                         )

@@ -85,7 +85,7 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
   @override
   Widget build(BuildContext context) {
     ref.read(tempReviewsProvider).clear();
-    searchingResult2.addAll(ref.read(searchResultProvider));
+    searchingResult2.addAll(ref.watch(searchResultProvider));
     //remove duplicates
     List<SearchResultItem> searchingResult = searchingResult2.toSet().toList();
 
@@ -291,8 +291,31 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
             const SizedBox(height: 15),
             ref.watch(isSearchingProvider)
                 ? const Center(child: CircularProgressIndicator())
-                : !ref.watch(isEmptySearchingProvider)
-                    ? Expanded(
+                : ref.watch(isEmptySearchingProvider) && searchingResult.isEmpty
+                    ? const Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Opacity(
+                              opacity: 0.5,
+                              child: Icon(Icons.comments_disabled_outlined,
+                                  size: 50, color: Colors.grey)),
+                          Text(
+                            "No listings were found",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                        ],
+                      ))
+                    : Expanded(
                         child: isGridView
                             ? GridView.builder(
                                 controller: scrollController,
@@ -359,26 +382,57 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                       // Replace with the appropriate star rating value
                                     );
                                   } else {
-                                    return Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Shimmer.fromColors(
-                                        baseColor: Colors.grey.shade100,
-                                        highlightColor: Colors.grey.shade300,
-                                        child: Card(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(10),
-                                                      topRight:
-                                                          Radius.circular(10)),
-                                              color: Colors.grey.shade200,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    return !ref.watch(isEmptySearchingProvider)
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Shimmer.fromColors(
+                                              baseColor: Colors.grey.shade100,
+                                              highlightColor:
+                                                  Colors.grey.shade300,
+                                              child: Card(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    10),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    10)),
+                                                    color: Colors.grey.shade200,
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                        : const Center(
+                                            child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Opacity(
+                                                  opacity: 0.5,
+                                                  child: Icon(
+                                                      Icons
+                                                          .comments_disabled_outlined,
+                                                      size: 50,
+                                                      color: Colors.grey)),
+                                              Text(
+                                                "Not found",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.grey,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              SizedBox(
+                                                height: 50,
+                                              ),
+                                            ],
+                                          ));
                                   }
                                 })
                             : ListView.builder(
@@ -435,181 +489,49 @@ class _SearchingResultsPageState extends ConsumerState<SearchingResultsPage> {
                                       isTop: false,
                                     );
                                   } else {
-                                    return Shimmer.fromColors(
-                                      baseColor: Colors.grey.shade100,
-                                      highlightColor: Colors.grey.shade300,
-                                      child: const Card(
-                                        child: SizedBox(
-                                          height: 150,
-                                          width: 150,
-                                        ),
-                                      ),
-                                    );
+                                    return !ref.watch(isEmptySearchingProvider)
+                                        ? Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade100,
+                                            highlightColor:
+                                                Colors.grey.shade300,
+                                            child: const Card(
+                                              child: SizedBox(
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            ),
+                                          )
+                                        : const Center(
+                                            child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Opacity(
+                                                  opacity: 0.5,
+                                                  child: Icon(
+                                                      Icons
+                                                          .comments_disabled_outlined,
+                                                      size: 50,
+                                                      color: Colors.grey)),
+                                              Text(
+                                                "No listings were found",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.grey,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              SizedBox(
+                                                height: 50,
+                                              ),
+                                            ],
+                                          ));
                                   }
                                 }),
                       )
-                    : const NoListingPage(),
-            // ref.watch(isSearchingProvider)
-            //     ? const Center(child: CircularProgressIndicator())
-            //     : searchingResult.isEmpty
-            //         ? const Center(child: NoListingPage())
-            //     : searchingResult.isNotEmpty
-            //         ? Expanded(
-            //             child: isGridView
-            //                 ? GridView.builder(
-            //                     controller: scrollController,
-            //                     itemCount: isAddLoading
-            //                         ? searchingResult.length + 2
-            //                         : searchingResult.length,
-            //                     gridDelegate:
-            //                         const SliverGridDelegateWithFixedCrossAxisCount(
-            //                       crossAxisCount: 2,
-            //                     ),
-            //                     itemBuilder: (context, index) {
-            //                       if (index < searchingResult.length) {
-            //                         return SearchingCardItem(
-            //                           id: searchingResult[index].id.toString(),
-            //                           imagePath: (searchingResult[index]
-            //                                       .image) !=
-            //                                   null
-            //                               ? "https://viwaha.lk/${searchingResult[index].image.toString()}"
-            //                               : ref
-            //                                   .read(homeControllerProvider)
-            //                                   .getTumbImage(
-            //                                       searchingResult[index]
-            //                                           .thumb_images)
-            //                                   .first, // Replace with your image paths
-            //                           title: searchingResult[index]
-            //                                       .main_category ==
-            //                                   "Proposal"
-            //                               ? isMembership(
-            //                                   searchingResult[index].title!)
-            //                               : searchingResult[index]
-            //                                   .title
-            //                                   .toString(),
-            //                           description: searchingResult[index]
-            //                               .description
-            //                               .toString(),
-            //                           starRating: (searchingResult[index]
-            //                                       .average_rating) !=
-            //                                   null
-            //                               ? double.parse(searchingResult[index]
-            //                                   .average_rating
-            //                                   .toString())
-            //                               : 0,
-            //                           location:
-            //                               '${searchingResult[index].location.toString()}, ${searchingResult[index].main_location.toString()}',
-            //                           date: searchingResult[index]
-            //                               .datetime
-            //                               .toString(),
-            //                           type: '',
-            //                           isFav: searchingResult[index]
-            //                               .is_favourite
-            //                               .toString(),
-            //                           isPremium: searchingResult[index]
-            //                                       .premium
-            //                                       .toString() !=
-            //                                   "1"
-            //                               ? false
-            //                               : true,
-            //                           boostedDate: searchingResult[index]
-            //                               .boosted
-            //                               .toString(),
-            //                           item: searchingResult[index],
-
-            //                           // Replace with the appropriate star rating value
-            //                         );
-            //                       } else {
-            //                         return Padding(
-            //                           padding: EdgeInsets.all(8.0),
-            //                           child: Shimmer.fromColors(
-            //                             baseColor: Colors.grey.shade100,
-            //                             highlightColor: Colors.grey.shade300,
-            //                             child: Card(
-            //                               child: Container(
-            //                                 decoration: BoxDecoration(
-            //                                   borderRadius:
-            //                                       const BorderRadius.only(
-            //                                           topLeft:
-            //                                               Radius.circular(10),
-            //                                           topRight:
-            //                                               Radius.circular(10)),
-            //                                   color: Colors.grey.shade200,
-            //                                 ),
-            //                               ),
-            //                             ),
-            //                           ),
-            //                         );
-            //                       }
-            //                     })
-            //                 : ListView.builder(
-            //                     controller: scrollController,
-            //                     itemCount: isAddLoading
-            //                         ? searchingResult.length + 1
-            //                         : searchingResult.length,
-            //                     itemBuilder: (context, index) {
-            //                       if (index < searchingResult.length) {
-            //                         return SearchingListItem(
-            //                           id: searchingResult[index].id.toString(),
-            //                           imagePath: (searchingResult[index]
-            //                                       .image) !=
-            //                                   null
-            //                               ? "https://viwaha.lk/${searchingResult[index].image.toString()}"
-            //                               : ref
-            //                                   .read(homeControllerProvider)
-            //                                   .getTumbImage(
-            //                                       searchingResult[index]
-            //                                           .thumb_images)
-            //                                   .first,
-            //                           title: searchingResult[index]
-            //                               .title
-            //                               .toString(),
-            //                           description: searchingResult[index]
-            //                               .description
-            //                               .toString(),
-            //                           starRating: (searchingResult[index]
-            //                                       .average_rating) !=
-            //                                   null
-            //                               ? double.parse(searchingResult[index]
-            //                                   .average_rating
-            //                                   .toString())
-            //                               : 0,
-            //                           location:
-            //                               '${searchingResult[index].location.toString()}, ${searchingResult[index].main_location.toString()}',
-            //                           date: searchingResult[index]
-            //                               .datetime
-            //                               .toString(),
-            //                           type: 'all',
-            //                           isFav: searchingResult[index]
-            //                               .is_favourite
-            //                               .toString(),
-            //                           isPremium: searchingResult[index]
-            //                                       .premium
-            //                                       .toString() !=
-            //                                   "1"
-            //                               ? false
-            //                               : true,
-            //                           boostedDate: searchingResult[index]
-            //                               .boosted
-            //                               .toString(),
-            //                           item: searchingResult[index],
-            //                           isTop: false,
-            //                         );
-            //                       } else {
-            //                         return Shimmer.fromColors(
-            //                           baseColor: Colors.grey.shade100,
-            //                           highlightColor: Colors.grey.shade300,
-            //                           child: const Card(
-            //                             child: SizedBox(
-            //                               height: 150,
-            //                               width: 150,
-            //                             ),
-            //                           ),
-            //                         );
-            //                       }
-            //                     }),
-            //           )
-            //         : const NoListingPage(),
           ],
         ));
   }

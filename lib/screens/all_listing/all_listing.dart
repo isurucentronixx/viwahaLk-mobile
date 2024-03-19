@@ -201,131 +201,161 @@ class _AllListingPageState extends ConsumerState<AllListingPage> {
                 ],
               ),
             ),
-            allListing.isNotEmpty
-                ? Expanded(
-                    child: isGridView
-                        ? GridView.builder(
-                            controller: scrollController,
-                            itemCount: isAddLoading
-                                ? allListing.length + 2
-                                : allListing.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: calculateCrossAxisCount(context),
-                            ),
-                            itemBuilder: (context, index) {
-                              if (index < allListing.length) {
-                                return SearchingCardItem(
-                                  id: allListing[index].id.toString(),
-                                  imagePath: (allListing[index].image) != null
-                                      ? "https://viwaha.lk/${allListing[index].image.toString()}"
-                                      : ref
-                                          .read(homeControllerProvider)
-                                          .getTumbImage(
-                                              allListing[index].thumb_images)
-                                          .first,
-                                  title: allListing[index].title.toString(),
-                                  description:
-                                      allListing[index].description.toString(),
-                                  starRating:
-                                      (allListing[index].average_rating) != null
-                                          ? double.parse(allListing[index]
-                                              .average_rating
-                                              .toString())
-                                          : 0,
-                                  location:
-                                      '${allListing[index].location.toString()}, ${allListing[index].main_location.toString()}',
-                                  date: allListing[index].datetime.toString(),
-                                  type: 'all',
-                                  isFav:
-                                      allListing[index].is_favourite.toString(),
-                                  isPremium:
-                                      allListing[index].premium.toString() !=
+            ref.watch(isSearchingProvider)
+                ? const Center(child: CircularProgressIndicator())
+                : ref.watch(isEmptySearchingProvider) && allListing.isEmpty
+                    ? const Center(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Opacity(
+                              opacity: 0.5,
+                              child: Icon(Icons.comments_disabled_outlined,
+                                  size: 50, color: Colors.grey)),
+                          Text(
+                            "No listings were found",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                        ],
+                      ))
+                    : Expanded(
+                        child: isGridView
+                            ? GridView.builder(
+                                controller: scrollController,
+                                itemCount: isAddLoading
+                                    ? allListing.length + 2
+                                    : allListing.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      calculateCrossAxisCount(context),
+                                ),
+                                itemBuilder: (context, index) {
+                                  if (index < allListing.length) {
+                                    return SearchingCardItem(
+                                      id: allListing[index].id.toString(),
+                                      imagePath: (allListing[index].image) !=
+                                              null
+                                          ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                          : ref
+                                              .read(homeControllerProvider)
+                                              .getTumbImage(allListing[index]
+                                                  .thumb_images)
+                                              .first,
+                                      title: allListing[index].title.toString(),
+                                      description: allListing[index]
+                                          .description
+                                          .toString(),
+                                      starRating:
+                                          (allListing[index].average_rating) !=
+                                                  null
+                                              ? double.parse(allListing[index]
+                                                  .average_rating
+                                                  .toString())
+                                              : 0,
+                                      location:
+                                          '${allListing[index].location.toString()}, ${allListing[index].main_location.toString()}',
+                                      date:
+                                          allListing[index].datetime.toString(),
+                                      type: 'all',
+                                      isFav: allListing[index]
+                                          .is_favourite
+                                          .toString(),
+                                      isPremium: allListing[index]
+                                                  .premium
+                                                  .toString() !=
                                               "1"
                                           ? false
                                           : true,
-                                  boostedDate:
-                                      allListing[index].boosted.toString(),
-                                  item: allListing[index],
-                                );
-                              } else {
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Shimmer.fromColors(
-                                    baseColor: Colors.grey.shade100,
-                                    highlightColor: Colors.grey.shade300,
-                                    child: Card(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10)),
-                                          color: Colors.grey.shade200,
+                                      boostedDate:
+                                          allListing[index].boosted.toString(),
+                                      item: allListing[index],
+                                    );
+                                  } else {
+                                    return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Shimmer.fromColors(
+                                          baseColor: Colors.grey.shade100,
+                                          highlightColor: Colors.grey.shade300,
+                                          child: const Card(
+                                            child: SizedBox(
+                                              height: 150,
+                                              width: 150,
+                                            ),
+                                          ),
+                                        ));
+                                  }
+                                })
+                            : ListView.builder(
+                                controller: scrollController,
+                                itemCount: isAddLoading
+                                    ? allListing.length + 1
+                                    : allListing.length,
+                                itemBuilder: (context, index) {
+                                  if (index < allListing.length) {
+                                    return SearchingListItem(
+                                      id: allListing[index].id.toString(),
+                                      imagePath: (allListing[index].image) !=
+                                              null
+                                          ? "https://viwaha.lk/${allListing[index].image.toString()}"
+                                          : ref
+                                              .read(homeControllerProvider)
+                                              .getTumbImage(allListing[index]
+                                                  .thumb_images)
+                                              .first,
+                                      title: allListing[index].title.toString(),
+                                      description: allListing[index]
+                                          .description
+                                          .toString(),
+                                      starRating:
+                                          (allListing[index].average_rating) !=
+                                                  null
+                                              ? double.parse(allListing[index]
+                                                  .average_rating
+                                                  .toString())
+                                              : 0,
+                                      location:
+                                          '${allListing[index].location.toString()}, ${allListing[index].main_location.toString()}',
+                                      date:
+                                          allListing[index].datetime.toString(),
+                                      type: 'all',
+                                      isFav: allListing[index]
+                                          .is_favourite
+                                          .toString(),
+                                      isPremium: allListing[index]
+                                                  .premium
+                                                  .toString() !=
+                                              "1"
+                                          ? false
+                                          : true,
+                                      boostedDate:
+                                          allListing[index].boosted.toString(),
+                                      item: allListing[index],
+                                      isTop: false,
+                                    );
+                                  } else {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade100,
+                                      highlightColor: Colors.grey.shade300,
+                                      child: const Card(
+                                        child: SizedBox(
+                                          height: 150,
+                                          width: 150,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            })
-                        : ListView.builder(
-                            controller: scrollController,
-                            itemCount: isAddLoading
-                                ? allListing.length + 1
-                                : allListing.length,
-                            itemBuilder: (context, index) {
-                              if (index < allListing.length) {
-                                return SearchingListItem(
-                                  id: allListing[index].id.toString(),
-                                  imagePath: (allListing[index].image) != null
-                                      ? "https://viwaha.lk/${allListing[index].image.toString()}"
-                                      : ref
-                                          .read(homeControllerProvider)
-                                          .getTumbImage(
-                                              allListing[index].thumb_images)
-                                          .first,
-                                  title: allListing[index].title.toString(),
-                                  description:
-                                      allListing[index].description.toString(),
-                                  starRating:
-                                      (allListing[index].average_rating) != null
-                                          ? double.parse(allListing[index]
-                                              .average_rating
-                                              .toString())
-                                          : 0,
-                                  location:
-                                      '${allListing[index].location.toString()}, ${allListing[index].main_location.toString()}',
-                                  date: allListing[index].datetime.toString(),
-                                  type: 'all',
-                                  isFav:
-                                      allListing[index].is_favourite.toString(),
-                                  isPremium:
-                                      allListing[index].premium.toString() !=
-                                              "1"
-                                          ? false
-                                          : true,
-                                  boostedDate:
-                                      allListing[index].boosted.toString(),
-                                  item: allListing[index],
-                                  isTop: false,
-                                );
-                              } else {
-                                return Shimmer.fromColors(
-                                  baseColor: Colors.grey.shade100,
-                                  highlightColor: Colors.grey.shade300,
-                                  child: const Card(
-                                    child: SizedBox(
-                                      height: 150,
-                                      width: 150,
-                                    ),
-                                  ),
-                                );
-                              }
-                            }),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                                    );
+                                  }
+                                }),
+                      )
           ],
         ));
   }

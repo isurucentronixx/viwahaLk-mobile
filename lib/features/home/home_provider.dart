@@ -15,6 +15,7 @@ import 'package:viwaha_lk/services/home_service.dart';
 
 final isSearchingProvider = StateProvider<bool>((ref) => false);
 final isEmptySearchingProvider = StateProvider<bool>((ref) => false);
+final hasMoreListingsProvider = StateProvider<bool>((ref) => true);
 final selectedSubCategoryProvider =
     StateProvider<SubCategories>((ref) => const SubCategories());
 final selectedSubLocationProvider =
